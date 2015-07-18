@@ -5,7 +5,7 @@
 , supportedSystems ? [ "x86_64-linux" ]
 }:
 
-with import ./release-lib.nix { inherit supportedSystems; };
+with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
 
 (mapTestOn (rec {
 
