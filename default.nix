@@ -95,7 +95,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   mcron = linux;
   mdadm = linux;
   mesa = mesaPlatforms;
-  midori = linux;
   mingetty = linux;
   mk = linux;
   mktemp = all;
