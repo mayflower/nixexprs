@@ -86,6 +86,8 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   lsof = linux;
   ltrace = linux;
   lvm2 = linux;
+  lxc = linux;
+  lxd = linux;
   lynx = linux;
   lzma = linux;
   man = linux;
