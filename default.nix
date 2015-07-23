@@ -117,6 +117,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   ntp = linux;
   openssh = linux;
   openssl = all;
+  packer = all;
   pan = gtkSupported;
   par2cmdline = all;
   pciutils = linux;
