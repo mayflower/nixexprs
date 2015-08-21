@@ -133,7 +133,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   policykit = linux;
   portmap = linux;
   procps = linux;
-  pulseaudio = all;
+  pulseaudioLight = all;
   python = allBut cygwin;
   pythonFull = linux;
   readline = all;
