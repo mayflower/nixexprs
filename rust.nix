@@ -13,4 +13,5 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   rustPlatform.rustRegistry = all;
   rustUnstable.rustc = all;
   rustUnstable.rustRegistry = all;
+  rustfmt = all;
 } ))
