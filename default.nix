@@ -6,7 +6,16 @@
 }:
 
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
-
+with import <nixpkgs/lib>;
+let
+  forAllSystems = genAttrs supportedSystems;
+in
+{
+  containerTarball = forAllSystems (system: makeSystemTarball {
+    module = <nixpkgs/nixos/modules/virtualisation/lxc-container.nix>;
+    inherit system;
+  });
+} //
 (mapTestOn (rec {
 
   aspell = all;
@@ -65,6 +74,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   host = linux;
   i3 = all;
   i3lock = all;
+  i3status = all;
   iana_etc = linux;
   icewm = linux;
   idutils = all;
@@ -77,6 +87,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   kbd = linux;
   keen4 = ["i686-linux"];
   kvm = linux;
+  libvirt = all;
   qemu = linux;
   qemu_kvm = linux;
   less = all;
@@ -187,6 +198,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wpa_supplicant = linux;
   xfsprogs = linux;
   xkeyboard_config = linux;
+  xkill = all;
   zathura = all;
   zile = linux;
   zip = all;
