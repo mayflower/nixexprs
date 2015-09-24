@@ -6,16 +6,6 @@
 }:
 
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
-with import <nixpkgs/lib>;
-let
-  forAllSystems = genAttrs supportedSystems;
-in
-{
-  containerTarball = forAllSystems (system: makeSystemTarball {
-    module = <nixpkgs/nixos/modules/virtualisation/lxc-container.nix>;
-    inherit system;
-  });
-} //
 (mapTestOn (rec {
 
   aspell = all;
