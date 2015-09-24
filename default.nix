@@ -106,7 +106,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   mk = linux;
   mktemp = all;
   module_init_tools = linux;
-  mono = linux;
   monotone = linux;
   mpg321 = linux;
   mplayer = all;
