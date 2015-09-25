@@ -23,7 +23,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   bsdiff = all;
   bzip2 = all;
   chrony = all;
-  classpath = linux;
   cmake = all;
   coreutils = all;
   cpio = all;
