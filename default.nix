@@ -10,7 +10,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
   aspell = all;
   at = linux;
-  atlas = linux;
   aterm25 = all;
   autoconf = all;
   automake = all;
