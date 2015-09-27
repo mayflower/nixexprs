@@ -114,6 +114,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   nfs-utils = linux;
   nix = all;
   nixUnstable = all;
+  nodejs = all;
   nss_ldap = linux;
   nssmdns = linux;
   ntfs3g = linux;
