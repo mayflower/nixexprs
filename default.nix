@@ -174,7 +174,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   weechat = all;
   wget = all;
   which = all;
-  wireshark = linux;
+  wireshark-dev = linux;
   wirelesstools = linux;
   wpa_supplicant = linux;
   xfsprogs = linux;
