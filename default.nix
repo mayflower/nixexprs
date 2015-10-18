@@ -75,6 +75,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   keen4 = ["i686-linux"];
   kvm = linux;
   libvirt = all;
+  mercurial = all;
   qemu = linux;
   qemu_kvm = linux;
   less = all;
