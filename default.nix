@@ -79,7 +79,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   qemu_kvm = linux;
   less = all;
   lftp = all;
-  liblapack = linux;
   libtool = all;
   libtool_2 = all;
   libxml2 = all;
