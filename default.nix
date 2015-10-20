@@ -179,7 +179,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wpa_supplicant = linux;
   xfsprogs = linux;
   xkeyboard_config = linux;
-  xkill = all;
   zathura = all;
   zile = linux;
   zip = all;
@@ -188,6 +187,10 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     libs = linux;
     daemon = linux;
     tools = linux;
+  };
+
+  xorg = {
+    xkill = all;
   };
 
 } ))
