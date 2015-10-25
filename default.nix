@@ -167,6 +167,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   terminator = all;
   time = linux;
   tinycc = linux;
+  tmux = all;
   udev = linux;
   unrar = linux;
   unzip = all;
