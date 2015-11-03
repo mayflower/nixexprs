@@ -41,7 +41,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   findutils = all;
   flex = all;
   gcc = all;
-  gcj = linux;
   gitAndTools.tig = all;
   glibc = linux;
   glibcLocales = linux;
