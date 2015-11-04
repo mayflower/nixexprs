@@ -39,6 +39,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   #fail2ban = all;
   file = all;
   findutils = all;
+  firefox = all;
   flex = all;
   gcc = all;
   gitAndTools.tig = all;
