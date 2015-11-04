@@ -22,7 +22,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   bsdiff = all;
   byobu = all;
   bzip2 = all;
-  #chromium = all;
+  chromium = all;
   chrony = all;
   clawsMail = all;
   cmake = all;
