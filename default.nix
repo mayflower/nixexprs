@@ -57,7 +57,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gnutar = all;
   gnutls = linux;
   gogoclient = linux;
-  grub = linux;
   grub2 = linux;
   gsl = linux;
   guile = linux;  # tests fail on Cygwin
