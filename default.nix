@@ -70,6 +70,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   i3lock = all;
   i3status = all;
   iana_etc = linux;
+  icecast = all;
   icewm = linux;
   idutils = all;
   ifplugd = linux;
