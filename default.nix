@@ -143,6 +143,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   poezio = all;
   policykit = linux;
   portmap = linux;
+  postgresql = all;
   powertop = all;
   procps = linux;
   pulseaudioFull = all;
