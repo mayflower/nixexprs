@@ -239,6 +239,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   w3m = all;
   wavemon = all;
   webkit = all;
+  webkitgtk2 = all;
   weechat = all;
   wget = all;
   which = all;
