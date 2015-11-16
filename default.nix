@@ -281,4 +281,26 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     xbacklight = all;
   };
 
+  # Fonts
+  clearlyU = all;
+  cm_unicode = all;
+  dejavu_fonts = all;
+  eb-garamond = all;
+  font-awesome-ttf = all;
+  freefont_ttf = all;
+  gentium = all;
+  hack-font = all;
+  inconsolata = all;
+  proggyfonts = all;
+  source-code-pro = all;
+  source-sans-pro = all;
+  source-serif-pro = all;
+  terminus_font = all;
+  tewi-font = all;
+  ttf_bitstream_vera = all;
+  ubuntu_font_family = all;
+  unifont = all;
+  vistafonts = all;
+  wqy_microhei = all;
+
 } ))
