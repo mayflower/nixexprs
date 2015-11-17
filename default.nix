@@ -164,7 +164,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   pavucontrol = all;
   pass = all;
   pciutils = all;
-  pdf2xml = all;
   perf-tools = all;
   perl = all;
   physlock = all;
