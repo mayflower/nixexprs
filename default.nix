@@ -36,7 +36,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   cmake = all;
   coreutils = all;
   cpio = all;
-  cpupower = all;
   cron = all;
   cryptsetup = all;
   cups = all;
