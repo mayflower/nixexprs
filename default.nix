@@ -254,7 +254,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   which = all;
   whois = all;
   wirelesstools = all;
-  wireshark-dev = all;
+  wireshark = all;
   wpa_supplicant = all;
   xfsprogs = all;
   xkeyboard_config = all;
