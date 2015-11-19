@@ -256,7 +256,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wirelesstools = all;
   wireshark-dev = all;
   wpa_supplicant = all;
-  xorg.xrandr = all;
   xfsprogs = all;
   xkeyboard_config = all;
   xmonad-with-packages = all;
@@ -289,6 +288,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     xkill = all;
     xmessage = all;
     xbacklight = all;
+    xrandr = all;
   };
 
   # Fonts
