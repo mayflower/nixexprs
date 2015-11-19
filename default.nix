@@ -278,6 +278,11 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     kernelHeaders = all;
     perf = all;
   };
+  linuxPackages_4_2 = {
+    kernel = all;
+    kernelHeaders = all;
+    perf = all;
+  };
 
   nodePackages = {
     bower = all;
