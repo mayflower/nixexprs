@@ -258,6 +258,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wpa_supplicant = all;
   xfsprogs = all;
   xkeyboard_config = all;
+  xmonad-with-packages = all;
   youtubeDL = all;
   zathura = all;
   zile = all;
