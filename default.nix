@@ -9,6 +9,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 (mapTestOn (rec {
 
   ack = all;
+  acpitool = all;
   alsaPlugins = all;
   alsaUtils = all;
   aspell = all;
