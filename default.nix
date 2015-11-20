@@ -203,6 +203,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   rxvt_unicode-with-plugins = all;
   screen = all;
   scrot = all;
+  sddm = all;
   sdparm = all;
   sharutils = all;
   sipcalc = all;
