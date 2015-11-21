@@ -222,6 +222,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   sysklogd = all;
   syslinux = ["i686-linux"];
   sysstat = all;
+  systemd = all;
   sysvinit = all;
   sysvtools = all;
   tcl = all;
