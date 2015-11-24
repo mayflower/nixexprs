@@ -9,6 +9,8 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 (mapTestOn (rec {
 
   ack = all;
+  acpi = all;
+  acpid = all;
   acpitool = all;
   alsaPlugins = all;
   alsaUtils = all;
@@ -209,6 +211,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   qutebrowser = all;
   readline = all;
   redshift = all;
+  rkt = all;
   rlwrap = all;
   rpm = all;
   rrdtool = all;
@@ -269,16 +272,18 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wget = all;
   which = all;
   whois = all;
-  wirelesstools = all;
+  wirelesstools = linux;
   wireshark = all;
-  wpa_supplicant = all;
-  xfsprogs = all;
-  xkeyboard_config = all;
+  wpa_supplicant = linux;
+  xfsprogs = linux;
+  xkeyboard_config = linux;
   xmonad-with-packages = all;
+  xz = all;
   youtubeDL = all;
   zathura = all;
   zile = all;
   zip = all;
+  zlib = all;
   zsh = all;
 
   dbus = {
