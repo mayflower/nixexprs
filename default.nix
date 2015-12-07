@@ -175,6 +175,10 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   pciutils = all;
   perf-tools = all;
   perl = all;
+  perlPackages = {
+    FCGI;
+    LWP;
+  };
   physlock = all;
   pkgconfig = all;
   pmccabe = all;
