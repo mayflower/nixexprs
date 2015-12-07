@@ -176,8 +176,13 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   perf-tools = all;
   perl = all;
   perlPackages = {
+    CGI = all;
+    CGIfast = all;
     FCGI = all;
     LWP = all;
+    NetDNS = all;
+    NetLDAP = all;
+    NetSNMP = all;
   };
   physlock = all;
   pkgconfig = all;
