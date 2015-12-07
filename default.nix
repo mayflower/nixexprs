@@ -211,6 +211,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   redshift = all;
   rlwrap = all;
   rpm = all;
+  rrdtool = all;
   rsync = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
