@@ -176,8 +176,8 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   perf-tools = all;
   perl = all;
   perlPackages = {
-    FCGI;
-    LWP;
+    FCGI = all;
+    LWP = all;
   };
   physlock = all;
   pkgconfig = all;
