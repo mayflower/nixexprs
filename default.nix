@@ -155,6 +155,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   nixUnstable = all;
   nixops = all;
   nixopsUnstable = all;
+  nix-generate-from-cpan = all;
   nmap = all;
   nodejs = all;
   nss_ldap = all;
