@@ -177,7 +177,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   perl = all;
   perlPackages = {
     CGI = all;
-    CGIfast = all;
+    CGIFast = all;
     FCGI = all;
     LWP = all;
     NetDNS = all;
