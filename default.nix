@@ -202,7 +202,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   postfix30 = all;
   postgresql = all;
   powertop = all;
-  primus = all;
   procps = all;
   prosody = all;
   pulseaudioFull = all;
