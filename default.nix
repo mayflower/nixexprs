@@ -225,6 +225,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   scrot = all;
   sdparm = all;
   sharutils = all;
+  silver-searcher = all;
   simp_le = all;
   sipcalc = all;
   sl = all;
