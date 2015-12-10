@@ -282,6 +282,8 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   xfsprogs = linux;
   xkeyboard_config = linux;
   xmonad-with-packages = all;
+  haskellPackages.xmonad-contrib = all;
+  haskellPackages.xmonad-extras = all;
   xz = all;
   youtubeDL = all;
   zathura = all;
