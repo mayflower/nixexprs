@@ -284,6 +284,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   xmonad-with-packages = all;
   haskellPackages.xmonad-contrib = all;
   haskellPackages.xmonad-extras = all;
+  haskellPackages.xmobar = all;
   xz = all;
   youtubeDL = all;
   zathura = all;
