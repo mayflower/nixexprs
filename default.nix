@@ -283,6 +283,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   xfsprogs = linux;
   xkeyboard_config = linux;
   xmonad-with-packages = all;
+  x11vnc = all;
   haskellPackages.xmonad-contrib = all;
   haskellPackages.xmonad-extras = all;
   haskellPackages.xmobar = all;
