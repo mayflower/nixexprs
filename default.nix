@@ -281,6 +281,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wirelesstools = linux;
   wireshark = all;
   wpa_supplicant = linux;
+  xcalib = all;
   xfsprogs = linux;
   xkeyboard_config = linux;
   xmonad-with-packages = all;
