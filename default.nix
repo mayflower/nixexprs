@@ -82,6 +82,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gnutar = all;
   gnutls = all;
   gogoclient = all;
+  gperftools = all;
   grub2 = all;
   gsl = all;
   guile = all;
