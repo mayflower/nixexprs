@@ -156,6 +156,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   mpv = all;
   mtr = all;
   mupdf = all;
+  multimidicast = all;
   mutt = all;
   mysql = all;
   ncat = all;
