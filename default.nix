@@ -72,6 +72,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gmp = all;
   gnat = all;
   gnome.gconfmm = all;
+  gnome.libglademm = all;
   gnugrep = all;
   gnum4 = all;
   gnumake = all;
