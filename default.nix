@@ -125,6 +125,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   libxml2 = all;
   libxslt = all;
   libyaml = all;
+  libyamlcpp = all;
   lolcat = all;
   lout = all;
   lsh = all;
