@@ -71,6 +71,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   glibcLocales = all;
   gmp = all;
   gnat = all;
+  gnome.gconfmm = all;
   gnugrep = all;
   gnum4 = all;
   gnumake = all;
