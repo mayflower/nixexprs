@@ -183,6 +183,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   pandoc = all;
   par2cmdline = all;
   parted = all;
+  paprefs = all;
   pavucontrol = all;
   pass = all;
   pciutils = all;
