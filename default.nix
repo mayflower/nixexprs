@@ -50,6 +50,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   dovecot = all;
   dpkg = all;
   debootstrap = all;
+  ethtool = all;
   e2fsprogs = all;
   emacs24 = gtkSupported;
   enscript = all;
