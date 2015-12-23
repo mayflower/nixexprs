@@ -153,6 +153,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   module_init_tools = all;
   mongodb = all;
   monotone = all;
+  mosh = all;
   mpg321 = all;
   mplayer = all;
   mpv = all;
