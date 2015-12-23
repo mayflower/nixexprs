@@ -64,6 +64,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gcc = all;
   gettext = all;
   gimp = all;
+  gist = all;
   git = all;
   gitAndTools.gitFull = all;
   gitAndTools.tig = all;
