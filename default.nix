@@ -37,6 +37,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   chrony = all;
   clawsMail = all;
   cmake = all;
+  compass = all;
   coreutils = all;
   cpio = all;
   cron = all;
