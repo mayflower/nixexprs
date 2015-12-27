@@ -72,6 +72,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gitAndTools.hub = all;
   glibc = all;
   glibcLocales = all;
+  global = all;
   gmp = all;
   gnat = all;
   gnome.gconfmm = all;
