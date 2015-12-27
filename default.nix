@@ -207,6 +207,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   };
   physlock = all;
   pkgconfig = all;
+  pinta = all;
   pmccabe = all;
   poezio = all;
   policykit = all;
