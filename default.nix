@@ -106,6 +106,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   icewm = all;
   idutils = all;
   ifplugd = all;
+  iftop = all;
   inetutils = all;
   inkscape = all;
   iotop = all;
