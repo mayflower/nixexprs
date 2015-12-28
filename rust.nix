@@ -13,6 +13,9 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   rustPlatform.rustRegistry = all;
   rustUnstable.rustc = all;
   rustUnstable.rustRegistry = all;
+  rustMusl.rustc = all;
+  rustMusl.rustRegistry = all;
+  rustMusl.cargo = all;
 
   heatseeker = all;
   mates = all;
