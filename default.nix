@@ -177,6 +177,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   nix-generate-from-cpan = all;
   nmap = all;
   nodejs = all;
+  nox = all;
   nss_ldap = all;
   nssmdns = all;
   ntfs3g = all;
