@@ -273,7 +273,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   toilet = all;
   udev = all;
   units = all;
-  unrar = all;
   unzip = all;
   upstart = all;
   usbutils = all;
