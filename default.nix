@@ -212,7 +212,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   pinta = all;
   pmccabe = all;
   poezio = all;
-  policykit = all;
   portmap = all;
   postfix = all;
   postfix30 = all;
