@@ -271,7 +271,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   tinycc = all;
   tlp = all;
   tmux = all;
-  toilet = allw
+  toilet = all;
   udev = all;
   units = all;
   unzip = all;
