@@ -271,7 +271,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   tinycc = all;
   tlp = all;
   tmux = all;
-  toilet = all;
+  toilet = allw
   udev = all;
   units = all;
   unzip = all;
@@ -296,6 +296,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   wirelesstools = linux;
   wireshark = all;
   wpa_supplicant = linux;
+  wpa_supplicant_gui = linux;
   xcalib = all;
   xfsprogs = linux;
   xkeyboard_config = linux;
