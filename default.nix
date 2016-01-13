@@ -269,6 +269,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   time = all;
   tinc_pre = all;
   tinycc = all;
+  tlp = all;
   tmux = all;
   toilet = all;
   udev = all;
