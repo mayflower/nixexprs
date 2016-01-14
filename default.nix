@@ -322,12 +322,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
   linux = all;
   linuxHeaders = all;
-  linuxPackages_4_3 = {
-    kernel = all;
-    kernelHeaders = all;
-    perf = all;
-  };
-  linuxPackages_4_2 = {
+  linuxPackages_4_4 = {
     kernel = all;
     kernelHeaders = all;
     perf = all;
