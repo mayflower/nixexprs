@@ -18,7 +18,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   rustMusl.cargo = all;
 
   heatseeker = all;
-  mates = all;
   racerRust = all;
   rustfmt = all;
 } ))
