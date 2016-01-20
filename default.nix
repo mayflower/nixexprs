@@ -52,6 +52,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   dpkg = all;
   debootstrap = all;
   ethtool = all;
+  evince = all;
   e2fsprogs = all;
   emacs24 = gtkSupported;
   enscript = all;
