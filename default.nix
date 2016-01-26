@@ -16,7 +16,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   alsaUtils = all;
   aspell = all;
   at = all;
-  aterm25 = all;
   atom = all;
   atop = all;
   autoconf = all;
