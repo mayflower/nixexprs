@@ -136,7 +136,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   libyamlcpp = all;
   lolcat = all;
   lout = all;
-  lsh = all;
   lsof = all;
   ltrace = all;
   lvm2 = all;
