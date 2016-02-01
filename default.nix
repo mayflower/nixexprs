@@ -70,6 +70,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gitAndTools.gitFull = all;
   gitAndTools.tig = all;
   gitAndTools.hub = all;
+  gitlab = all;
   glibc = all;
   glibcLocales = all;
   global = all;
