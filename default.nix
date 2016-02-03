@@ -100,6 +100,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   hello = all;
   horst = all;
   host = all;
+  hostapd = all;
   htop = all;
   i3 = all;
   i3lock = all;
