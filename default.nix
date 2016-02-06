@@ -45,6 +45,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   dhcp = all;
   di = all;
   diffutils = all;
+  disnix = all;
   dnsmasq = all;
   docker = all;
   dovecot = all;
