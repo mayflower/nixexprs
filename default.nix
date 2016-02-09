@@ -18,6 +18,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   at = all;
   atom = all;
   atop = all;
+  audacity = all;
   autoconf = all;
   automake = all;
   autossh = all;
