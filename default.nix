@@ -332,7 +332,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     kernel = all;
     kernelHeaders = all;
     perf = all;
-    virtualbox = all;
+    virtualboxHardened = all;
   };
 
   nodePackages = {
