@@ -30,6 +30,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   binutils = all;
   binwalk = all;
   bsdiff = all;
+  bundix = all;
   bundler_HEAD = all;
   busybox = all;
   byobu = all;
