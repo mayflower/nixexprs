@@ -293,7 +293,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   unzip = all;
   usbutils = all;
   utillinux = all;
-  utillinuxCurses = all;
   vaapiIntel = all;
   vagrant = all;
   vim = all;
