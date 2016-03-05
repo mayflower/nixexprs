@@ -369,7 +369,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
   xorg = {
     sessreg = all;
-    xbacklight = all;
     xkill = all;
     xmessage = all;
     xbacklight = all;
