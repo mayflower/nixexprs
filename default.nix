@@ -115,7 +115,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   icedtea_web = all;
   icewm = all;
   idutils = all;
-  ifplugd = all;
   iftop = all;
   inetutils = all;
   inkscape = all;
