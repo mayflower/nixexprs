@@ -100,6 +100,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gsl = all;
   guile = all;
   gzip = all;
+  haskellPackages.epanet-haskell = all;
   hddtemp = all;
   hdparm = all;
   hello = all;
