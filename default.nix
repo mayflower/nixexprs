@@ -228,7 +228,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   ponysay = all;
   portmap = all;
   postfix = all;
-  postfix30 = all;
   postgresql = all;
   powertop = all;
   procps = all;
