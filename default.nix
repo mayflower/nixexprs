@@ -333,13 +333,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     tools = all;
   };
 
-  linuxPackages_3_18 = {
-    kernel = all;
-    kernelHeaders = all;
-    perf = all;
-    virtualboxHardened = all;
-  };
-
   linuxPackages_4_1 = {
     kernel = all;
     kernelHeaders = all;
