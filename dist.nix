@@ -1,4 +1,4 @@
-{ nixpkgs ? { outPath = <nixpkgs>; revCount = 56789; shortRev = "gfedcba"; }
+{ nixpkgs ? { outPath = <nixpkgs>; revCount = 420; shortRev = "deadbeef"; }
 , supportedSystems ? [ "x86_64-linux" ]
 , stableBranch ? false
 }:
@@ -6,8 +6,7 @@
 with import <nixpkgs/lib>;
 
 let
-  pkgs = import nixpkgs { };
-
+  pkgs = import <nixpkgs> { };
 
   version = builtins.readFile "${toString nixpkgs.outPath}/.version";
   versionSuffix =
@@ -20,9 +19,9 @@ let
   specialSauceModule =
     { nix.binaryCachePublicKeys = [ "hydra.mayflower.de:9knPU2SJ2xyI0KTJjtUKOGUVdR2/3cOB4VNDQThcfaY=" ];
       nix.binaryCaches = [ "https://hydra.mayflower.de" ];
-      system.defaultChannel = "https://nixos.mayflower.de/channels/master";
+      system.defaultChannel = "https://filedump.mayflower.de/nixos/channels/master";
 
-      users.extraUsers.root.initialHashedPassword = "";
+      users.extraUsers.root.initialHashedPassword = mkForce "";
 
       time.timeZone = "UTC";
 
@@ -38,8 +37,6 @@ let
   makeIso =
     { module, type, maintainers ? ["fpletz"], system }:
 
-    with import nixpkgs { inherit system; };
-
     (import <nixpkgs/nixos/lib/eval-config.nix> {
       inherit system;
       modules = [ module versionModule specialSauceModule { isoImage.isoBaseName = "nixos-${type}"; } ];
@@ -48,8 +45,6 @@ let
   makeVMDiskImage =
     { module, maintainers ? ["fpletz"], system }:
 
-    with import nixpkgs { inherit system; };
-
     (import <nixpkgs/nixos/lib/eval-config.nix> {
       inherit system;
       modules = [ module versionModule specialSauceModule vmModule ];
@@ -57,8 +52,6 @@ let
 
   makeSystemTarball =
     { module, maintainers ? ["fpletz"], system }:
-
-    with import <nixpkgs> { inherit system; };
 
     let
 
@@ -71,7 +64,7 @@ let
 
     in
       tarball //
-        { meta = {
+        { meta = with import <nixpkgs> { inherit system; }; {
             description = "NixOS system tarball for ${system} - ${stdenv.platform.name}";
             maintainers = map (x: lib.maintainers.${x}) maintainers;
           };
@@ -85,7 +78,7 @@ in
     inherit pkgs nixpkgs version versionSuffix;
   };
 
-  lxcTarball = genAttrs supportedSystems (system: makeSystemTarball {
+  containerTarball = genAttrs supportedSystems (system: makeSystemTarball {
     module = <nixpkgs/nixos/modules/virtualisation/lxc-container.nix>;
     inherit system;
   });
