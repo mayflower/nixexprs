@@ -96,6 +96,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gnutls = all;
   gogoclient = all;
   gperftools = all;
+  gqrx = all;
   grub2 = all;
   gsl = all;
   guile = all;
