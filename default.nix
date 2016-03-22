@@ -60,7 +60,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   e2fsprogs = all;
   emacs24 = gtkSupported;
   enscript = all;
-  #fail2ban = all;
+  fail2ban = all;
   feh = all;
   file = all;
   findutils = all;
