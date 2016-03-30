@@ -176,7 +176,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   mupdf = all;
   mutt = all;
   mysql = all;
-  ncat = all;
   ncdu = all;
   ncmpcpp = all;
   netcat = all;
