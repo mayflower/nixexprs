@@ -153,7 +153,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   lxd = all;
   lynx = all;
   lzma = all;
-  mailutils = all;
   man = all;
   manpages = all;
   mc = all;
