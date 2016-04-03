@@ -14,6 +14,9 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   acpitool = all;
   alsaPlugins = all;
   alsaUtils = all;
+  androidenv = {
+    platformTools = all;
+  };
   aspell = all;
   at = all;
   atom = all;
