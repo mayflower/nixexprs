@@ -291,7 +291,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   toilet = all;
   tor = all;
   torbrowser = all;
-  udev = all;
   unbound = all;
   units = all;
   unzip = all;
@@ -329,12 +328,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   zip = all;
   zlib = all;
   zsh = all;
-
-  dbus = {
-    libs = all;
-    daemon = all;
-    tools = all;
-  };
 
   linuxPackages_4_4 = {
     kernel = all;
