@@ -49,6 +49,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   cron = all;
   cryptsetup = all;
   cups = all;
+  ddrescue = all;
   dhcp = all;
   di = all;
   diffutils = all;
