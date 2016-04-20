@@ -71,6 +71,24 @@ let
           inherit config;
         };
 
+  makeNetboot =
+    { system }:
+
+    let build = (import <nixpkgs/nixos/lib/eval-config.nix> {
+        inherit system;
+        modules = [
+          <nixpkgs/nixos/modules/installer/netboot/netboot-minimal.nix>
+          versionModule
+          specialSauceModule
+        ];
+      }).config.system.build;
+    in
+      pkgs.symlinkJoin "netboot" [
+        build.netbootRamdisk
+        build.kernel
+        build.netbootIpxeScript
+      ];
+
 in
 
 {
@@ -93,5 +111,7 @@ in
     module = <nixpkgs/nixos/modules/virtualisation/nova-image.nix>;
     inherit system;
   });
+
+  netboot = genAttrs supportedSystems (system: makeNetboot { inherit system; });
 }
 
