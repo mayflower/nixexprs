@@ -331,14 +331,12 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
   linuxPackages_4_4 = {
     kernel = all;
-    kernelHeaders = all;
     perf = all;
     virtualboxHardened = all;
   };
 
   linuxPackages_4_5 = {
     kernel = all;
-    kernelHeaders = all;
     perf = all;
     virtualboxHardened = all;
   };
