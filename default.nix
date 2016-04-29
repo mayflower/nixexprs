@@ -278,6 +278,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   systemd = all;
   sysvinit = all;
   sysvtools = all;
+  taskwarrior = all;
   tcl = all;
   tcpdump = all;
   terminator = all;
