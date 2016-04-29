@@ -100,6 +100,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gogoclient = all;
   gperftools = all;
   gqrx = all;
+  graylog = all;
   grub2 = all;
   gsl = all;
   guile = all;
