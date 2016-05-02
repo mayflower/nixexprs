@@ -241,6 +241,10 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   pwgen = all;
   python = allBut cygwin;
   pythonFull = all;
+  python3Packages = {
+    numpy = all;
+    scipy = all;
+  };
   pv = all;
   qemu = all;
   qemu_kvm = all;
