@@ -63,6 +63,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   evince = all;
   e2fsprogs = all;
   emacs24 = gtkSupported;
+  emby = all;
   enscript = all;
   fail2ban = all;
   feh = all;
