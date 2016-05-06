@@ -24,8 +24,6 @@ let
       users.extraUsers.root.initialHashedPassword = mkForce "";
 
       time.timeZone = "UTC";
-
-      environment.noXlibs = true;
     };
 
   vmModule =
