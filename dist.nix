@@ -83,11 +83,14 @@ let
         ];
       }).config.system.build;
     in
-      pkgs.symlinkJoin "netboot" [
-        build.netbootRamdisk
-        build.kernel
-        build.netbootIpxeScript
-      ];
+      pkgs.symlinkJoin {
+        name = "netboot";
+        paths = [
+          build.netbootRamdisk
+          build.kernel
+          build.netbootIpxeScript
+        ];
+      };
 
 in
 
