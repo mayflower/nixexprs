@@ -6,7 +6,11 @@
 with import <nixpkgs/lib>;
 
 let
-  pkgs = import <nixpkgs> { };
+  pkgs = import nixpkgs { };
+
+  nixos = import <nixpkgs/nixos/release.nix> {
+    inherit stableBranch supportedSystems nixpkgs;
+  };
 
   version = builtins.readFile "${toString nixpkgs.outPath}/.version";
   versionSuffix =
@@ -93,9 +97,7 @@ let
 in
 
 {
-  channel = import <nixpkgs/nixos/lib/make-channel.nix> {
-    inherit pkgs nixpkgs version versionSuffix;
-  };
+  channel = nixos.channel;
 
   containerTarball = genAttrs supportedSystems (system: makeSystemTarball {
     module = <nixpkgs/nixos/modules/virtualisation/lxc-container.nix>;
