@@ -23,7 +23,7 @@ let
   specialSauceModule =
     { nix.binaryCachePublicKeys = [ "hydra.mayflower.de:9knPU2SJ2xyI0KTJjtUKOGUVdR2/3cOB4VNDQThcfaY=" ];
       nix.binaryCaches = [ "https://hydra.mayflower.de" ];
-      system.defaultChannel = "https://filedump.mayflower.de/nixos/channels/master";
+      system.defaultChannel = "https://nixos.mayflower.de/channels/branches/production";
 
       users.extraUsers.root.initialHashedPassword = mkForce "";
 
