@@ -190,6 +190,8 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   nixopsUnstable = all;
   nix-generate-from-cpan = all;
   nix-repl = all;
+  nginx = all;
+  nginxUnstable = all;
   nmap = all;
   nodejs = all;
   nox = all;
