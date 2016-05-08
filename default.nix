@@ -284,6 +284,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   strace = all;
   su = all;
   sudo = all;
+  synergy = all;
   sysklogd = all;
   syslinux = ["i686-linux"];
   sysstat = all;
