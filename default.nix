@@ -293,6 +293,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   tcl = all;
   tcpdump = all;
   terminator = all;
+  thermald = all;
   thunderbird = all;
   tightvnc = all;
   time = all;
