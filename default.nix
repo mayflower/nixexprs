@@ -73,6 +73,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   flex = all;
   gajim = all;
   gcc = all;
+  gedit = all;
   gettext = all;
   gimp = all;
   gist = all;
