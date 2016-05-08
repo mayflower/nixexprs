@@ -314,7 +314,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   vim = all;
   vimHugeX = all;
   virtmanager = all;
-  virtualbox = all;
   vlc = all;
   w3m = all;
   wavemon = all;
