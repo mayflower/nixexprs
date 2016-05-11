@@ -142,6 +142,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   less = all;
   letsencrypt = all;
   lftp = all;
+  libcap = linux;
   libressl = all;
   libreoffice = all;
   libtool = all;
