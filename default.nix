@@ -203,6 +203,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   ntfs3g = all;
   ntp = all;
   openjdk = all;
+  openra = all;
   openssh = all;
   openssl = all;
   openttd = all;
