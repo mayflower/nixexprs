@@ -336,6 +336,8 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   haskellPackages.xmonad-contrib = all;
   haskellPackages.xmonad-extras = all;
   haskellPackages.xmobar = all;
+  xss-lock = all;
+  xtrlock-pam = all;
   xz = all;
   youtubeDL = all;
   zathura = all;
