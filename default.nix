@@ -247,7 +247,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   python = allBut cygwin;
   pythonFull = all;
   python3Packages = {
-    nltk = all;
     nltkMin = all;
     numpy = all;
     scipy = all;
