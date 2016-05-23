@@ -152,9 +152,9 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   icecast = all;
   icedtea_web = all;
   icewm = all;
-  idea.idea-community
-  idea.pycharm-community
-  idea.android-studio
+  idea.idea-community = all;
+  idea.pycharm-community = all;
+  idea.android-studio = all;
   idutils = all;
   iftop = all;
   inetutils = all;
