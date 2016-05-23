@@ -135,7 +135,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   gti = all;
   guile = all;
   gzip = all;
-  havegd = all;
+  haveged = all;
   hddtemp = all;
   hdparm = all;
   hello = all;
