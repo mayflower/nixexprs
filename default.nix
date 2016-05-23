@@ -313,7 +313,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   qemu_kvm = all;
   qutebrowser = all;
   radvd = all;
-  rarcrack = all;
   readline = all;
   redir = all;
   redshift = all;
