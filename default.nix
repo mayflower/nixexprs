@@ -78,7 +78,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   dosbox = all;
   dovecot = all;
   dpkg = all;
-  debootstrap = all;
   eduke32 = all;
   ethtool = all;
   evince = all;
