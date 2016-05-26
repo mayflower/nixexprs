@@ -234,6 +234,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   ncftp = all;
   ncmpcpp = all;
   netcat = all;
+  networkmanager = all;
   nfs-utils = all;
   nix = all;
   nixUnstable = all;
