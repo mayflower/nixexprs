@@ -287,6 +287,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   php70Packages.composer = all;
   physlock = all;
   pkgconfig = all;
+  platinum-searcher = all;
   pinta = all;
   pipework = all;
   poezio = all;
