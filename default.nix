@@ -363,6 +363,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   tcl = all;
   tcpdump = all;
   terminator = all;
+  texlive.combined.scheme-small = all;
   thermald = all;
   thunderbird = all;
   tightvnc = all;
