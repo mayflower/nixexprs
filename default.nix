@@ -305,6 +305,9 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   pwnat = all;
   python = allBut cygwin;
   pythonFull = all;
+  pythonPackages = {
+    searx = all;
+  };
   python3Packages = {
     nltkMin = all;
     numpy = all;
@@ -332,7 +335,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   scrot = all;
   sdparm = all;
   selenium-server-standalone = all;
-  searx = all;
   sharutils = all;
   silver-searcher = all;
   simp_le = all;
