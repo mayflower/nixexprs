@@ -438,6 +438,12 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     virtualboxHardened = all;
   };
 
+  linuxPackages_latest = {
+    kernel = all;
+    perf = all;
+    virtualboxHardened = all;
+  };
+
   nodePackages = {
     bower = all;
     grunt-cli = all;
