@@ -5,8 +5,20 @@
 , supportedSystems ? [ "x86_64-linux" ]
 }:
 
+let
+
+  linuxPackages = {
+    kernel = all;
+    perf = all;
+    spl = all;
+    virtualboxHardened = all;
+    zfs = all;
+  };
+
+in
+
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
-(mapTestOn (rec {
+(mapTestOn {
 
   ack = all;
   acpi = all;
@@ -431,23 +443,12 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   zlib = all;
   zsh = all;
 
-  linuxPackages_4_4 = {
-    kernel = all;
-    perf = all;
-    virtualboxHardened = all;
-  };
-
-  linuxPackages_4_5 = {
-    kernel = all;
-    perf = all;
-    virtualboxHardened = all;
-  };
-
-  linuxPackages_latest = {
-    kernel = all;
-    perf = all;
-    virtualboxHardened = all;
-  };
+  linuxPackages = linuxPackages;
+  linuxPackages_4_4 = linuxPackages;
+  linuxPackages_4_5 = linuxPackages;
+  linuxPackages_4_6 = linuxPackages;
+  linuxPackages_latest = linuxPackages;
+  linuxPackages_testing = linuxPackages;
 
   nodePackages = {
     bower = all;
@@ -484,4 +485,4 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   vistafonts = all;
   wqy_microhei = all;
 
-} ))
+})
