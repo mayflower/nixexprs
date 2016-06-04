@@ -5,6 +5,8 @@
 , supportedSystems ? [ "x86_64-linux" ]
 }:
 
+with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
+
 let
 
   linuxPackages = {
@@ -17,7 +19,6 @@ let
 
 in
 
-with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
 (mapTestOn {
 
   ack = all;
