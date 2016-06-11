@@ -59,6 +59,7 @@ in
   busybox = all;
   byobu = all;
   bzip2 = all;
+  cargo = all;
   casperjs = all;
   cgmanager = all;
   checkstyle = all;
@@ -348,6 +349,7 @@ in
   rsyslog = all;
   ruby = all;
   ruby_2_2_3 = all;
+  rustPlatform.rustc = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
   scrot = all;
