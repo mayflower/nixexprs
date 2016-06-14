@@ -399,6 +399,7 @@ in
   tor = all;
   torbrowser = all;
   traceroute = all;
+  tuxguitar = all;
   tzdata = all;
   ufoai = all;
   unbound = all;
