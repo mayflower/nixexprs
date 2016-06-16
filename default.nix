@@ -144,6 +144,7 @@ in
   go_1_5 = all;
   go_1_6 = all;
   gogoclient = all;
+  go2nix = all;
   gox = all;
   gperftools = all;
   gqrx = all;
