@@ -380,6 +380,7 @@ in
   syslinux = ["i686-linux"];
   sysstat = all;
   systemd = all;
+  systemd-journal2gelf = all;
   sysvinit = all;
   sysvtools = all;
   taskwarrior = all;
