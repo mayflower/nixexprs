@@ -350,7 +350,6 @@ in
   rsyslog = all;
   ruby = all;
   ruby_2_2_3 = all;
-  rustPlatform.rustc = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
   scrot = all;
