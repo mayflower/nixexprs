@@ -54,6 +54,7 @@ in
   bridge-utils = all;
   bruteforce-luks = all;
   bsdiff = all;
+  bsdgames = all;
   bundix = all;
   bundler_HEAD = all;
   busybox = all;
@@ -148,6 +149,7 @@ in
   gox = all;
   gperftools = all;
   gqrx = all;
+  graphicsmagick = all;
   graphviz = all;
   graylog = all;
   grub2 = all;
@@ -176,6 +178,7 @@ in
   idea.android-studio = all;
   idutils = all;
   iftop = all;
+  imagemagick = all;
   inetutils = all;
   inkscape = all;
   inotify-tools = all;
@@ -218,6 +221,7 @@ in
   lsof = all;
   ltrace = all;
   lvm2 = all;
+  lxappearance = all;
   lxc = all;
   lxd = all;
   lynx = all;
@@ -400,6 +404,8 @@ in
   tor = all;
   torbrowser = all;
   traceroute = all;
+  transmission_gtk = all;
+  transmission_remote_gtk = all;
   tuxguitar = all;
   tzdata = all;
   ufoai = all;
