@@ -100,6 +100,7 @@ in
   emacs24 = gtkSupported;
   emby = all;
   enscript = all;
+  errbot = all;
   fail2ban = all;
   feh = all;
   file = all;
