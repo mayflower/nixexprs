@@ -94,6 +94,7 @@ in
   dovecot = all;
   dpkg = all;
   eduke32 = all;
+  eiskaltdcpp = all;
   ethtool = all;
   evince = all;
   e2fsprogs = all;
@@ -314,6 +315,10 @@ in
   physlock = all;
   pkgconfig = all;
   platinum-searcher = all;
+  pidgin = all;
+  pidginotr = all;
+  pidginsipe = all;
+  pidgin-skypeweb = all;
   pinta = all;
   pipework = all;
   poezio = all;
@@ -347,6 +352,7 @@ in
   redir = all;
   redshift = all;
   retroshare06 = all;
+  retroshare = all;
   rkt = all;
   rlwrap = all;
   rpm = all;
