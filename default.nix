@@ -60,6 +60,7 @@ in
   busybox = all;
   byobu = all;
   bzip2 = all;
+  calibre = all;
   cargo = all;
   casperjs = all;
   cgmanager = all;
