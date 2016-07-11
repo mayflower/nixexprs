@@ -14,6 +14,7 @@ let
     perf = all;
     spl = all;
     virtualboxHardened = all;
+    virtualboxGuestAdditions = all;
     zfs = all;
   };
 
