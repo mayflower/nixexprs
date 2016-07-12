@@ -469,6 +469,7 @@ in
   linuxPackages_4_6 = linuxPackages;
   linuxPackages_latest = linuxPackages;
   linuxPackages_testing = linuxPackages;
+  linuxPackages_grsec_nixos = linuxPackages;
 
   nodePackages = {
     bower = all;
