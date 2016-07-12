@@ -49,7 +49,6 @@ in
   bc = all;
   bind = all;
   binutils = all;
-  binwalk = all;
   blender = all;
   brackets = all;
   bridge-utils = all;
@@ -339,11 +338,15 @@ in
   pythonFull = all;
   pythonPackages = {
     searx = all;
+    binwalk = all;
+    django = all;
   };
   python3Packages = {
     nltkMin = all;
     numpy = all;
     scipy = all;
+    binwalk = all;
+    django = all;
   };
   pv = all;
   qemu = all;
