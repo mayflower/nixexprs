@@ -9,13 +9,18 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
 let
 
-  linuxPackages = {
+  recursiveUpdate = nixpkgs.lib.recursiveUpdate;
+
+  kernelPackages = {
     kernel = all;
     perf = all;
     spl = all;
+    zfs = all;
+  };
+
+  kernelPackages_virtualbox = {
     virtualboxHardened = all;
     virtualboxGuestAdditions = all;
-    zfs = all;
   };
 
 in
@@ -466,13 +471,13 @@ in
   zlib = all;
   zsh = all;
 
-  linuxPackages = linuxPackages;
-  linuxPackages_4_4 = linuxPackages;
-  linuxPackages_4_5 = linuxPackages;
-  linuxPackages_4_6 = linuxPackages;
-  linuxPackages_latest = linuxPackages;
-  linuxPackages_testing = linuxPackages;
-  linuxPackages_grsec_nixos = linuxPackages;
+  linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_4_4 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_4_5 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_4_6 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_testing = kernelPackages;
+  linuxPackages_grsec_nixos = kernelPackages;
 
   nodePackages = {
     bower = all;
