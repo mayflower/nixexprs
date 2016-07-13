@@ -15,6 +15,7 @@ let
     kernel = all;
     perf = all;
     spl = all;
+    wireguard = all;
     zfs = all;
   };
 
@@ -448,6 +449,7 @@ in
   widelands = all;
   wine = all;
   winetricks = all;
+  wireguard = linux;
   wirelesstools = linux;
   wireshark = all;
   wpa_supplicant = linux;
