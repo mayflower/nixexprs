@@ -175,6 +175,7 @@ in
   host = all;
   hostapd = all;
   htop = all;
+  hydra = all;
   i3 = all;
   i3lock = all;
   i3status = all;
