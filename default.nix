@@ -287,13 +287,16 @@ in
   ntp = all;
   openal = all;
   openarena = all;
+  opendungeons = all;
   openjdk = all;
   openra = all;
+  openrct2 = all;
   openscad = all;
   openssh = all;
   openssl = all;
   openttd = all;
   openvpn = all;
+  openxcom = all;
   packer = all;
   pam = all;
   pan = gtkSupported;
