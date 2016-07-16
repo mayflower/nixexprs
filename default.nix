@@ -66,6 +66,7 @@ in
   busybox = all;
   byobu = all;
   bzip2 = all;
+  cabal2nix = all;
   calibre = all;
   cargo = all;
   casperjs = all;
