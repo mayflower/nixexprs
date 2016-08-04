@@ -159,6 +159,7 @@ in
   gox = all;
   gperftools = all;
   gqrx = all;
+  grafana = all;
   graphicsmagick = all;
   graphviz = all;
   graylog = all;
