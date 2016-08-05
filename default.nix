@@ -171,6 +171,7 @@ in
   haveged = all;
   hddtemp = all;
   hdparm = all;
+  hedgewars = all;
   hello = all;
   hexedit = all;
   horst = all;
@@ -215,6 +216,7 @@ in
   lftp = all;
   libcap = linux;
   libcgroup = all;
+  libinput = all;
   libnotify = all;
   libotr = all;
   libressl = all;
