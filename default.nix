@@ -266,7 +266,7 @@ in
   mtr = all;
   mupdf = all;
   mutt = all;
-  mysql = all;
+  mysql.server = all;
   nano = all;
   ncdu = all;
   ncftp = all;
