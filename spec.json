@@ -1,0 +1,16 @@
+{
+    "enabled": 1,
+    "hidden": false,
+    "description": "Jobsets",
+    "nixexprinput": "src",
+    "nixexprpath": "jobsets.nix",
+    "checkinterval": 60,
+    "schedulingshares": 420,
+    "enableemail": true,
+    "emailoverride": "devnull+hydra@mayflower.de",
+    "keepnr": 3,
+    "inputs": {
+        "src": { "type": "git", "value": "git://github.com/mayflower/hydra-jobs", "emailresponsible": false },
+        "nixpkgs": { "type": "git", "value": "git://github.com/mayflower/nixpkgs.git", "emailresponsible": false }
+    }
+}
