@@ -57,9 +57,7 @@ let
       path = "jobs.nix";
     };
   });
-in
-with pkgs.lib; {
-  fileContents = ''
+  fileContents = with pkgs.lib; ''
     cat <<EOF
     ${builtins.toXML declInput}
     EOF
@@ -87,5 +85,6 @@ with pkgs.lib; {
     }
     EOF
   '';
+in {
   jobsets = pkgs.runCommand "spec.json" {} fileContents;
 }
