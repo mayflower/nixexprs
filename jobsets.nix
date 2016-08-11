@@ -18,7 +18,7 @@ let
       };
       nixpkgs = {
         type = "git";
-        value = "git://github.com/mayflower/nixkpgs";
+        value = "git://github.com/mayflower/nixpkgs";
       };
       supportedSystems = {
         type = "nix";
