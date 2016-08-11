@@ -77,7 +77,7 @@ let
             "keepnr": ${toString settings.keep},
             "inputs": {
               ${concatStringsSep "," (mapAttrsToList (inputName: inputSettings: ''
-                "${inputName}": { "type": "${inputSettings.type}", "value": "${inputSettings.value}", "emailresponsible": false },
+                "${inputName}": { "type": "${inputSettings.type}", "value": "${inputSettings.value}", "emailresponsible": false }
               '') settings.inputs)}
             }
         }
