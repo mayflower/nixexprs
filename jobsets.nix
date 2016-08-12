@@ -54,7 +54,7 @@ let
       keep = 2;
     };
     php = {
-      path = "jobs.nix";
+      path = "php.nix";
     };
   });
   fileContents = with pkgs.lib; ''
