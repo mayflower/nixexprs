@@ -45,6 +45,13 @@ let
         };
       };
     };
+    hydra-jobs-glibc-update = hydra-jobs // {
+      inputs = defaultSettings.inputs // {
+        nixpkgs = defaultSettings.inputs.nixpkgs // {
+          value = "${defaultSettings.inputs.nixpkgs.value} glibc-update";
+        };
+      };
+    };
     mayflower-master = {
       path = "dist.nix";
     };
