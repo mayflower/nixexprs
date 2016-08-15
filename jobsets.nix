@@ -63,6 +63,10 @@ let
     php = {
       path = "php.nix";
     };
+    nixpkgs-manual = {
+      input = "nixpkgs";
+      path = "doc/default.nix";
+    };
   });
   fileContents = with pkgs.lib; ''
     cat <<EOF
