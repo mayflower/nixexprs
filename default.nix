@@ -361,6 +361,7 @@ in
     scipy = all;
     binwalk = all;
     django = all;
+    mathics = all;
   };
   pv = all;
   qemu = all;
