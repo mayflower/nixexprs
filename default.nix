@@ -258,6 +258,7 @@ in
   mongodb = all;
   monodevelop = all;
   monotone = all;
+  moonlight-embedded = all;
   mosh = all;
   mpg321 = all;
   mplayer = all;
