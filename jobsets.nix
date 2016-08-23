@@ -45,10 +45,10 @@ let
         };
       };
     };
-    hydra-jobs-glibc-update = hydra-jobs // {
+    hydra-jobs-hardened-stdenv = hydra-jobs // {
       inputs = defaultSettings.inputs // {
         nixpkgs = defaultSettings.inputs.nixpkgs // {
-          value = "${defaultSettings.inputs.nixpkgs.value} glibc-update";
+          value = "git://github.com/nixos/nixpkgs hardened-stdenv";
         };
       };
     };
