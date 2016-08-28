@@ -45,13 +45,6 @@ let
         };
       };
     };
-    hydra-jobs-hardened-stdenv = hydra-jobs // {
-      inputs = defaultSettings.inputs // {
-        nixpkgs = defaultSettings.inputs.nixpkgs // {
-          value = "git://github.com/nixos/nixpkgs hardened-stdenv";
-        };
-      };
-    };
     mayflower-master = {
       path = "dist.nix";
     };
