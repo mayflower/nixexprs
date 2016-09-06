@@ -345,6 +345,11 @@ in
   powertop = all;
   procps = all;
   prosody = all;
+  prometheus = all;
+  prometheus-cli = all;
+  prometheus-alertmanager = all;
+  prometheus-nginx-exporter = all;
+  prometheus-node-exporter = all;
   pulseaudioFull = all;
   pulseaudioLight = all;
   pwgen = all;
