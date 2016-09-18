@@ -103,6 +103,7 @@ in
   dpkg = all;
   eduke32 = all;
   eiskaltdcpp = all;
+  etcd = all;
   ethtool = all;
   evince = all;
   e2fsprogs = all;
