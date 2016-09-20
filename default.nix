@@ -242,6 +242,7 @@ in
   lxd = all;
   lynx = all;
   lzma = all;
+  mailutils = all;
   man = all;
   manpages = all;
   mc = all;
