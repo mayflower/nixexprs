@@ -395,6 +395,7 @@ in
   sdparm = all;
   selenium-server-standalone = all;
   sharutils = all;
+  shishi = all;
   silver-searcher = all;
   simp_le = all;
   sipcalc = all;
