@@ -165,6 +165,7 @@ in
   graphviz = all;
   graylog = all;
   grub2 = all;
+  gsasl = all;
   gsl = all;
   gti = all;
   guile = all;
