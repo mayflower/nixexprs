@@ -120,6 +120,7 @@ in
   flac = all;
   flex = all;
   fortune = all;
+  foomatic-filters = all;
   freeciv = all;
   gajim = all;
   gcc = all;
@@ -169,6 +170,7 @@ in
   gsl = all;
   gti = all;
   guile = all;
+  gutenprint = all;
   gzip = all;
   haveged = all;
   hddtemp = all;
@@ -213,6 +215,7 @@ in
   kismet = all;
   kvm = all;
   lame = all;
+  latencytop = all;
   less = all;
   letsencrypt = all;
   lftp = all;
@@ -344,6 +347,8 @@ in
   ponysay = all;
   portmap = all;
   postfix = all;
+  postgresql94 = all;
+  postgresql95 = all;
   postgresql = all;
   powertop = all;
   procps = all;
@@ -377,6 +382,7 @@ in
   qemu_kvm = all;
   qutebrowser = all;
   radvd = all;
+  rdesktop = all;
   readline = all;
   redir = all;
   redshift = all;
@@ -392,6 +398,7 @@ in
   ruby_2_2_3 = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
+  screen-message = all;
   scrot = all;
   sdparm = all;
   selenium-server-standalone = all;
@@ -405,6 +412,7 @@ in
   sloccount = allBut cygwin;
   smartmontools = all;
   socat = all;
+  speedtest-cli = all;
   sqlite = allBut cygwin;
   squid = all;
   sshfsFuse = all;
@@ -473,6 +481,7 @@ in
   wireshark = all;
   wpa_supplicant = linux;
   wpa_supplicant_gui = linux;
+  xautolock = all;
   xcalib = all;
   xfsprogs = linux;
   xkeyboard_config = linux;
@@ -494,8 +503,6 @@ in
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_4 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_4_5 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_4_6 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_testing = kernelPackages;
   linuxPackages_grsec_nixos = kernelPackages;
@@ -511,6 +518,8 @@ in
     xmessage = all;
     xbacklight = all;
     xrandr = all;
+    xev = all;
+    xmodmap = all;
   };
 
   # Fonts
