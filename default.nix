@@ -265,6 +265,11 @@ in
   monodevelop = all;
   monotone = all;
   moonlight-embedded = all;
+  mopidy = all;
+  mopidy-moped = all;
+  mopidy-musicbox-webclient = all;
+  mopidy-soundcloud = all;
+  mopidy-spotify = all;
   mosh = all;
   mpg321 = all;
   mplayer = all;
