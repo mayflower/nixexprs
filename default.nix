@@ -88,6 +88,7 @@ in
   cron = all;
   cryptsetup = all;
   cups = all;
+  darkice = all;
   dbus = all;
   ddrescue = all;
   debootstrap = all;
