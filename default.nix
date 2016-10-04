@@ -539,6 +539,7 @@ in
   hack-font = all;
   inconsolata = all;
   proggyfonts = all;
+  smbclient = all;
   source-code-pro = all;
   source-sans-pro = all;
   source-serif-pro = all;
