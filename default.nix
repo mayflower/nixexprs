@@ -291,6 +291,7 @@ in
   nixUnstable = all;
   nixops = all;
   nixopsUnstable = all;
+  nixbot = all;
   nix-generate-from-cpan = all;
   nix-repl = all;
   nginx = all;
