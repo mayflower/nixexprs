@@ -104,6 +104,7 @@ in
   dpkg = all;
   eduke32 = all;
   eiskaltdcpp = all;
+  elasticsearch2 = all;
   etcd = all;
   ethtool = all;
   evince = all;
