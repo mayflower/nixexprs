@@ -60,13 +60,6 @@ let
       input = "nixpkgs";
       path = "doc/default.nix";
     };
-    pr-19324 = {
-      inputs = defaultSettings.inputs // {
-        nixpkgs = defaultSettings.inputs.nixpkgs // {
-          value = "https://github.com/Profpatsch/nixpkgs.git fix-stripHash";
-        };
-      };
-    };
   });
   fileContents = with pkgs.lib; ''
     cat <<EOF
