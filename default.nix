@@ -12,6 +12,8 @@ let
   recursiveUpdate = (import <nixpkgs> {}).lib.recursiveUpdate;
 
   kernelPackages = {
+    bcc = all;
+    jool = all;
     kernel = all;
     perf = all;
     spl = all;
@@ -208,9 +210,10 @@ in
   iproute = all;
   iputils = all;
   jnettop = all;
-  irqbalance = all;
+  jool-cli = all;
   jq = all;
   jre = all;
+  irqbalance = all;
   jwhois = all;
   kbd = all;
   keen4 = ["i686-linux"];
@@ -512,7 +515,6 @@ in
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_4 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_testing = kernelPackages;
   linuxPackages_grsec_nixos = kernelPackages;
 
   nodePackages = {
