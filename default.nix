@@ -207,6 +207,7 @@ in
   iotop = all;
   iperf2 = all;
   iperf3 = all;
+  ipfs = all;
   iproute = all;
   iputils = all;
   jnettop = all;
@@ -431,6 +432,7 @@ in
   ssmtp = all;
   stdenv = all;
   strace = all;
+  stunnel = all;
   su = all;
   sudo = all;
   syncthing = all;
