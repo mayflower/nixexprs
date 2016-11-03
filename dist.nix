@@ -48,7 +48,7 @@ let
       services.openssh.enable = true;
 
       system.activationScripts.sshd = ''
-        systemctl enable sshd
+        ${pkgs.systemd}/bin/systemctl enable sshd
       '';
     };
 
