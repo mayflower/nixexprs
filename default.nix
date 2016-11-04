@@ -55,6 +55,7 @@ in
   bash = all;
   bashInteractive = all;
   bc = all;
+  beets = all;
   bind = all;
   binutils = all;
   blender = all;
@@ -277,6 +278,7 @@ in
   mopidy-soundcloud = all;
   mopidy-spotify = all;
   mosh = all;
+  mpd = all;
   mpg321 = all;
   mplayer = all;
   mpv = all;
