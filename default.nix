@@ -434,6 +434,7 @@ in
   ssmtp = all;
   stdenv = all;
   strace = all;
+  strongswan = all;
   stunnel = all;
   su = all;
   sudo = all;
