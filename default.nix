@@ -78,6 +78,7 @@ in
   chromium = all;
   chrony = all;
   cipherscan = all;
+  clamav = all;
   clawsMail = all;
   cmake = all;
   collectd = all;
@@ -404,8 +405,10 @@ in
   retroshare = all;
   rkt = all;
   rlwrap = all;
+  rmilter = all;
   rpm = all;
   rrdtool = all;
+  rspamd = all;
   rsync = all;
   rsyslog = all;
   ruby = all;
