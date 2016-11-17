@@ -52,12 +52,15 @@ in
   autossh = all;
   avahi = allBut cygwin;  # Cygwin builds fail
   awesome = all;
+  babeld = all;
   bash = all;
   bashInteractive = all;
   bc = all;
   beets = all;
   bind = all;
   binutils = all;
+  bird = all;
+  bird6 = all;
   blender = all;
   brackets = all;
   bridge-utils = all;
@@ -134,6 +137,7 @@ in
   gimp = all;
   gist = all;
   git = all;
+  gitAndTools.diff-so-fancy = all;
   gitAndTools.gitFull = all;
   gitAndTools.tig = all;
   gitAndTools.hub = all;
@@ -175,6 +179,7 @@ in
   gsasl = all;
   gsl = all;
   gti = all;
+  gtk-engine-murrine = all;
   guile = all;
   gutenprint = all;
   gzip = all;
@@ -219,6 +224,7 @@ in
   irqbalance = all;
   jwhois = all;
   kbd = all;
+  kea = all;
   keen4 = ["i686-linux"];
   kismet = all;
   kvm = all;
@@ -311,10 +317,12 @@ in
   nssmdns = all;
   ntfs3g = all;
   ntp = all;
+  obexftp = all;
   openal = all;
   openarena = all;
   opendungeons = all;
   openjdk = all;
+  openobex = all;
   openra = all;
   openrct2 = all;
   openscad = all;
@@ -395,6 +403,8 @@ in
   pv = all;
   qemu = all;
   qemu_kvm = all;
+  qiv = all;
+  quicktun = all;
   qutebrowser = all;
   radvd = all;
   rdesktop = all;
@@ -537,6 +547,7 @@ in
     xbacklight = all;
     xrandr = all;
     xev = all;
+    xf86inputlibinput = all;
     xmodmap = all;
   };
 
