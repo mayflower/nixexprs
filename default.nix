@@ -484,6 +484,7 @@ in
   tzdata = all;
   ufoai = all;
   unbound = all;
+  unetbootin = all;
   units = all;
   unzip = all;
   urlview = all;
