@@ -142,6 +142,7 @@ in
   gitAndTools.tig = all;
   gitAndTools.hub = all;
   gitlab = all;
+  gitMinimal = all;
   glibc = all;
   glibcLocales = all;
   global = all;
