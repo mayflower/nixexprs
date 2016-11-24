@@ -41,6 +41,8 @@ in
     platformTools = all;
   };
   androidsdk = all;
+  arandr = all;
+  arduino = all;
   arp-scan = all;
   aspell = all;
   at = all;
@@ -51,6 +53,7 @@ in
   automake = all;
   autossh = all;
   avahi = allBut cygwin;  # Cygwin builds fail
+  avrdude = all;
   awesome = all;
   babeld = all;
   bash = all;
@@ -170,6 +173,7 @@ in
   gogoclient = all;
   go2nix = all;
   gox = all;
+  gparted = all;
   gperftools = all;
   gqrx = all;
   grafana = all;
@@ -196,6 +200,7 @@ in
   htop = all;
   hydra = all;
   i3 = all;
+  i3-gaps = all;
   i3lock = all;
   i3status = all;
   iana_etc = all;
@@ -452,6 +457,7 @@ in
   stunnel = all;
   su = all;
   sudo = all;
+  supercollider = all;
   syncthing = all;
   synergy = all;
   sysklogd = all;
