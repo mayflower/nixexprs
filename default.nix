@@ -399,12 +399,16 @@ in
     django = all;
   };
   python3Packages = {
-    nltkMin = all;
-    numpy = all;
-    scipy = all;
     binwalk = all;
     django = all;
+    irc = linux;
     mathics = all;
+    nltkMin = all;
+    numpy = all;
+    pyramid = linux;
+    scipy = all;
+    slackclient = linux;
+    tempora = linux;
     zope_schema = linux;
   };
   pv = all;
