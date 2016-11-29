@@ -115,6 +115,7 @@ in
   e2fsprogs = all;
   eduke32 = all;
   eiskaltdcpp = all;
+  elasticsearch = all;
   elasticsearch2 = all;
   emacs24 = gtkSupported;
   emby = all;
@@ -188,6 +189,7 @@ in
   guile = all;
   gutenprint = all;
   gzip = all;
+  harfbuzz = all;
   haveged = all;
   hddtemp = all;
   hdparm = all;
@@ -341,6 +343,7 @@ in
   pam = all;
   pan = gtkSupported;
   pandoc = all;
+  pango = linux;
   paprefs = all;
   par2cmdline = all;
   parallel = all;
