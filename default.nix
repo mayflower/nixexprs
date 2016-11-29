@@ -405,6 +405,7 @@ in
     binwalk = all;
     django = all;
     mathics = all;
+    zope_schema = all;
   };
   pv = all;
   qemu = all;
