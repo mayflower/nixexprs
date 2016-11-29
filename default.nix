@@ -22,8 +22,8 @@ let
   };
 
   kernelPackages_virtualbox = {
-    virtualboxHardened = all;
     virtualboxGuestAdditions = all;
+    virtualboxHardened = all;
   };
 
 in
@@ -68,8 +68,8 @@ in
   brackets = all;
   bridge-utils = all;
   bruteforce-luks = all;
-  bsdiff = all;
   bsdgames = all;
+  bsdiff = all;
   bundix = all;
   bundler_HEAD = all;
   busybox = all;
@@ -112,17 +112,17 @@ in
   dosbox = all;
   dovecot = all;
   dpkg = all;
+  e2fsprogs = all;
   eduke32 = all;
   eiskaltdcpp = all;
   elasticsearch2 = all;
-  etcd = all;
-  ethtool = all;
-  evince = all;
-  e2fsprogs = all;
   emacs24 = gtkSupported;
   emby = all;
   enscript = all;
   errbot = all;
+  etcd = all;
+  ethtool = all;
+  evince = all;
   fail2ban = all;
   feh = all;
   file = all;
@@ -131,8 +131,8 @@ in
   firefox = all;
   flac = all;
   flex = all;
-  fortune = all;
   foomatic-filters = all;
+  fortune = all;
   freeciv = all;
   gajim = all;
   gcc = all;
@@ -142,10 +142,10 @@ in
   git = all;
   gitAndTools.diff-so-fancy = all;
   gitAndTools.gitFull = all;
-  gitAndTools.tig = all;
   gitAndTools.hub = all;
-  gitlab = all;
+  gitAndTools.tig = all;
   gitMinimal = all;
+  gitlab = all;
   glibc = all;
   glibcLocales = all;
   global = all;
@@ -167,11 +167,11 @@ in
   gnutar = all;
   gnutls = all;
   go = all;
+  go2nix = all;
   go_1_4 = all;
   go_1_5 = all;
   go_1_6 = all;
   gogoclient = all;
-  go2nix = all;
   gox = all;
   gparted = all;
   gperftools = all;
@@ -207,9 +207,9 @@ in
   icecast = all;
   icedtea_web = all;
   icewm = all;
+  idea.android-studio = all;
   idea.idea-community = all;
   idea.pycharm-community = all;
-  idea.android-studio = all;
   idutils = all;
   iftop = all;
   imagemagick = all;
@@ -223,11 +223,11 @@ in
   ipfs = all;
   iproute = all;
   iputils = all;
+  irqbalance = all;
   jnettop = all;
   jool-cli = all;
   jq = all;
   jre = all;
-  irqbalance = all;
   jwhois = all;
   kbd = all;
   kea = all;
@@ -244,8 +244,8 @@ in
   libinput = all;
   libnotify = all;
   libotr = all;
-  libressl = all;
   libreoffice = all;
+  libressl = all;
   libseccomp = all;
   libtool = all;
   libtool_2 = all;
@@ -307,15 +307,15 @@ in
   netcat = all;
   networkmanager = all;
   nfs-utils = all;
-  nix = all;
-  nixUnstable = all;
-  nixops = all;
-  nixopsUnstable = all;
-  nixbot = all;
-  nix-generate-from-cpan = all;
-  nix-repl = all;
   nginx = all;
   nginxUnstable = all;
+  nix = all;
+  nix-generate-from-cpan = all;
+  nix-repl = all;
+  nixUnstable = all;
+  nixbot = all;
+  nixops = all;
+  nixopsUnstable = all;
   nmap = all;
   nodejs = all;
   nox = all;
@@ -341,12 +341,12 @@ in
   pam = all;
   pan = gtkSupported;
   pandoc = all;
+  paprefs = all;
   par2cmdline = all;
   parallel = all;
   parted = all;
-  paprefs = all;
-  pavucontrol = all;
   pass = all;
+  pavucontrol = all;
   pciutils = all;
   perf-tools = all;
   perl = all;
@@ -364,29 +364,29 @@ in
   php70 = all;
   php70Packages.composer = all;
   physlock = all;
-  pkgconfig = all;
-  platinum-searcher = all;
   pidgin = all;
+  pidgin-skypeweb = all;
   pidginotr = all;
   pidginsipe = all;
-  pidgin-skypeweb = all;
   pinta = all;
   pipework = all;
+  pkgconfig = all;
+  platinum-searcher = all;
   poezio = all;
   ponysay = all;
   portmap = all;
   postfix = all;
+  postgresql = all;
   postgresql94 = all;
   postgresql95 = all;
-  postgresql = all;
   powertop = all;
   procps = all;
-  prosody = all;
   prometheus = all;
-  prometheus-cli = all;
   prometheus-alertmanager = all;
+  prometheus-cli = all;
   prometheus-nginx-exporter = all;
   prometheus-node-exporter = all;
+  prosody = all;
   pulseaudioFull = all;
   pulseaudioLight = all;
   pwgen = all;
@@ -394,9 +394,9 @@ in
   python = allBut cygwin;
   pythonFull = all;
   pythonPackages = {
-    searx = all;
     binwalk = all;
     django = all;
+    searx = all;
   };
   python3Packages = {
     binwalk = all;
@@ -411,6 +411,9 @@ in
     tempora = linux;
     zope_schema = linux;
   };
+  haskellPackages.xmobar = all;
+  haskellPackages.xmonad-contrib = all;
+  haskellPackages.xmonad-extras = all;
   pv = all;
   qemu = all;
   qemu_kvm = all;
@@ -422,8 +425,8 @@ in
   readline = all;
   redir = all;
   redshift = all;
-  retroshare06 = all;
   retroshare = all;
+  retroshare06 = all;
   rkt = all;
   rlwrap = all;
   rmilter = all;
@@ -473,9 +476,9 @@ in
   sysvinit = all;
   sysvtools = all;
   taskwarrior = all;
-  teeworlds = all;
   tcl = all;
   tcpdump = all;
+  teeworlds = all;
   terminator = all;
   texlive.combined.scheme-small = all;
   thermald = all;
@@ -525,13 +528,10 @@ in
   wpa_supplicant_gui = linux;
   xautolock = all;
   xcalib = all;
+  xcompmgr = all;
   xfsprogs = linux;
   xkeyboard_config = linux;
   xmonad-with-packages = all;
-  haskellPackages.xmonad-contrib = all;
-  haskellPackages.xmonad-extras = all;
-  haskellPackages.xmobar = all;
-  xcompmgr = all;
   xscreensaver = all;
   xss-lock = all;
   xtrlock-pam = all;
@@ -555,13 +555,13 @@ in
 
   xorg = {
     sessreg = all;
-    xkill = all;
-    xmessage = all;
     xbacklight = all;
-    xrandr = all;
     xev = all;
     xf86inputlibinput = all;
+    xkill = all;
+    xmessage = all;
     xmodmap = all;
+    xrandr = all;
   };
 
   # Fonts
