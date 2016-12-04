@@ -332,7 +332,6 @@ in
   openjdk = all;
   openobex = all;
   openra = all;
-  openrct2 = all;
   openscad = all;
   openssh = all;
   openssl = all;
@@ -496,6 +495,7 @@ in
   tor = all;
   torbrowser = all;
   traceroute = all;
+  transmission = all;
   transmission_gtk = all;
   transmission_remote_gtk = all;
   tuxguitar = all;
@@ -522,8 +522,8 @@ in
   which = all;
   whois = all;
   widelands = all;
-  wine = all;
-  winetricks = all;
+  wine = [ "x86_64-linux" ];
+  winetricks = [ "x86_64-linux" ];
   wireguard = linux;
   wirelesstools = linux;
   wireshark = all;
