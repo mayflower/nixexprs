@@ -63,6 +63,9 @@ let
     hydra-jobs-arm = {
       path = "arm.nix";
       inputs = defaultSettings.inputs // {
+        nixpkgs = defaultSettings.inputs.nixpkgs // {
+          value = "${defaultSettings.inputs.nixpkgs.value} hydra-arm";
+        };
         supportedSystems = defaultSettings.inputs.supportedSystems // {
           value = ''[ \"armv7l-linux\" ]'';
         };
