@@ -60,6 +60,14 @@ let
       input = "nixpkgs";
       path = "doc/default.nix";
     };
+    hydra-jobs-arm = {
+      path = "arm.nix";
+      inputs = defaultSettings.inputs // {
+        supportedSystems = defaultSettings.inputs.supportedSystems // {
+          value = ''[ \"armv7l-linux\" ]'';
+        };
+      };
+    };
   });
   fileContents = with pkgs.lib; ''
     cat <<EOF
