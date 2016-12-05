@@ -60,6 +60,15 @@ let
       input = "nixpkgs";
       path = "doc/default.nix";
     };
+
+    hydra-jobs-gcc-6 = {
+      inputs = defaultSettings.inputs // {
+        nixpkgs = defaultSettings.inputs.nixpkgs // {
+          value = "${defaultSettings.inputs.nixpkgs.value} gcc-6";
+        };
+      };
+    };
+
     hydra-jobs-arm = {
       path = "arm.nix";
       inputs = defaultSettings.inputs // {
