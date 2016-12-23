@@ -65,6 +65,7 @@ in
   bird = all;
   bird6 = all;
   blender = all;
+  borgbackup = all;
   brackets = all;
   bridge-utils = all;
   bruteforce-luks = all;
