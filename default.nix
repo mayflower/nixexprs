@@ -308,6 +308,7 @@ in
   ncftp = all;
   ncmpcpp = all;
   netcat = all;
+  netpbm = all;
   networkmanager = all;
   nfs-utils = all;
   nginx = all;
