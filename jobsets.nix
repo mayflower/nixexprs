@@ -22,7 +22,7 @@ let
       };
       supportedSystems = {
         type = "nix";
-        value = ''[ \"x86_64-linux\" \"x86_64-darwin\" ]'';
+        value = ''[ \"x86_64-linux\" ]'';
       };
     };
     mail = true;
@@ -39,19 +39,26 @@ let
       shares = 420;
     };
     hydra-jobs-production = hydra-jobs // {
+      shares = 420;
       inputs = defaultSettings.inputs // {
         nixpkgs = defaultSettings.inputs.nixpkgs // {
           value = "${defaultSettings.inputs.nixpkgs.value} production";
         };
       };
     };
-    mayflower-master = {
+    hydra-jobs-darwin = {
+      inputs = defaultSettings.inputs // {
+        supportedSystems = defaultSettings.inputs.supportedSystems // {
+          value =  ''[ \"x86_64-darwin\" ]'';
+        };
+      };
+     };
+     mayflower-master = {
       path = "dist.nix";
     };
     mayflower-production = {
       path = "dist.nix";
       inputs = hydra-jobs-production.inputs;
-      keep = 2;
     };
     php = {
       path = "php.nix";
