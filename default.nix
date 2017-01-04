@@ -456,6 +456,7 @@ in
   slimerjs = all;
   sloccount = allBut cygwin;
   smartmontools = all;
+  smokeping = all;
   socat = all;
   speedtest-cli = all;
   sqlite = allBut cygwin;
