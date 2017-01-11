@@ -35,8 +35,12 @@ in
   acpid = all;
   acpitool = all;
   aircrack-ng = all;
+  alsaLib = all;
   alsaPlugins = all;
+  alsaPluginWrapper = all;
+  alsaTools = all;
   alsaUtils = all;
+  alsa-firmware = all;
   androidenv = {
     platformTools = all;
   };
@@ -88,11 +92,13 @@ in
   checkstyle = all;
   chromium = all;
   chrony = all;
+  cifs_utils = all;
   cipherscan = all;
   clamav = all;
   claws-mail = all;
   cmake = all;
   collectd = all;
+  colordiff = all;
   compass = all;
   compton-git = all;
   coreutils = all;
@@ -133,7 +139,9 @@ in
   etcd = all;
   ethtool = all;
   evince = all;
+  exfat = all;
   fail2ban = all;
+  fastd = all;
   feh = all;
   file = all;
   filezilla = all;
@@ -146,6 +154,7 @@ in
   fortune = all;
   freeciv = all;
   gajim = all;
+  gawk = all;
   gcc = all;
   gettext = all;
   gimp = all;
@@ -237,6 +246,7 @@ in
   inotify-tools = all;
   intel-gpu-tools = all;
   iotop = all;
+  iperf = all;
   iperf2 = all;
   iperf3 = all;
   ipfs = all;
@@ -260,6 +270,7 @@ in
   lftp = all;
   libcap = linux;
   libcgroup = all;
+  libdbiDrivers = all;
   libinput = all;
   libnotify = all;
   libotr = all;
@@ -296,14 +307,16 @@ in
   mcron = all;
   mdadm = all;
   menu-cache = all;
-  memtest86plus= all;
+  memtest86plus = all;
   mercurial = all;
   mesa = mesaPlatforms;
+  mesa_drivers = all;
   minetest = all;
   mingetty = all;
   mirage = all;
   mk = all;
-  mktemp = all;
+  mkpasswd = all;
+  mktemp = all;  
   moc = all;
   module_init_tools = all;
   mongodb = all;
@@ -380,6 +393,7 @@ in
   pass = all;
   pavucontrol = all;
   pciutils = all;
+  pcmciaUtils = all;
   perf-tools = all;
   perl = all;
   perlPackages = {
@@ -401,6 +415,7 @@ in
   pidgin-skypeweb = all;
   pidginotr = all;
   pidginsipe = all;
+  pinentry = all;
   pinta = all;
   pipework = all;
   pkgconfig = all;
@@ -425,6 +440,7 @@ in
   pwgen = all;
   pwnat = all;
   python = allBut cygwin;
+  python3 = allBut cygwin;
   pythonFull = all;
   pythonPackages = {
     binwalk = all;
@@ -461,6 +477,7 @@ in
   redshift = all;
   retroshare = all;
   retroshare06 = all;
+  rfkill = all;
   rkt = all;
   rlwrap = all;
   rmilter = all;
@@ -545,6 +562,7 @@ in
   thunderbird = all;
   tightvnc = all;
   time = all;
+  tinc = all;
   tinc_pre = all;
   tinycc = all;
   tlp = all;
@@ -556,12 +574,14 @@ in
   transmission = all;
   transmission_gtk = all;
   transmission_remote_gtk = all;
+  tree = all;
   tuxguitar = all;
   tzdata = all;
   ufoai = all;
   unbound = all;
   unetbootin = all;
   units = all;
+  unrar = all;
   unzip = all;
   urlview = all;
   urlwatch = all;
