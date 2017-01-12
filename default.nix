@@ -25,7 +25,7 @@ let
 
   kernelPackages_virtualbox = {
     virtualboxGuestAdditions = all;
-    virtualboxHardened = all;
+    virtualbox = all;
   };
 
 in
@@ -112,7 +112,6 @@ in
   cryptsetup = all;
   cups = all;
   curl = all;
-  darkice = all;
   dbus = all;
   ddrescue = all;
   debootstrap = all;
@@ -131,13 +130,12 @@ in
   dovecot_pigeonhole = all;
   dovecot_antispam = all;
   dpkg = all;
-  dwarf-fortress = all;
   e2fsprogs = all;
   eduke32 = all;
   eiskaltdcpp = all;
   elasticsearch = all;
   elasticsearch2 = all;
-  emacs24 = gtkSupported;
+  emacs25 = gtkSupported;
   emby = all;
   enscript = all;
   errbot = all;
@@ -177,8 +175,8 @@ in
   global = all;
   gmp = all;
   gmpc = all;
-  gnome.gconfmm = all;
-  gnome.libglademm = all;
+  gnome2.gconfmm = all;
+  gnome2.libglademm = all;
   gnome3.dconf = all;
   gnome3.gedit = all;
   gnufdisk = all;
@@ -193,13 +191,11 @@ in
   gnused = all;
   gnutar = all;
   gnutls = all;
-  go = all;
   gocode = all;
-  golang = all;
-  go2nix = all;
-  go_1_4 = all;
-  go_1_5 = all;
+  go = all;
   go_1_6 = all;
+  go_1_7 = all;
+  go2nix = all;
   gogoclient = all;
   gox = all;
   gparted = all;
@@ -239,9 +235,7 @@ in
   icecast = all;
   icedtea_web = all;
   icewm = all;
-  idea.android-studio = all;
   idea.idea-community = all;
-  idea.phpstorm = all;
   idea.pycharm-community = all;
   idutils = all;
   iftop = all;
@@ -332,7 +326,6 @@ in
   mopidy-moped = all;
   mopidy-musicbox-webclient = all;
   mopidy-soundcloud = all;
-  mopidy-spotify = all;
   mosh = all;
   mpd = all;
   mpg321 = all;
@@ -493,7 +486,6 @@ in
   rsync = all;
   rsyslog = all;
   ruby = all;
-  ruby_2_2_3 = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
   screen-message = all;
@@ -587,7 +579,6 @@ in
   unbound = all;
   unetbootin = all;
   units = all;
-  unrar = all;
   unzip = all;
   urlview = all;
   urlwatch = all;
@@ -600,10 +591,8 @@ in
   virtmanager = all;
   virtualbox = all;
   vlc = all;
-  vscode = all;
   w3m = all;
   warmux = all;
-  warsow = all;
   warzone2100 = all;
   wavemon = all;
   weechat = all;
