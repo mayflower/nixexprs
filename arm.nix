@@ -6,8 +6,11 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
 (mapTestOn {
   bash = all;
-  binutils = all;
   bc = all;
+  bind = all;
+  binutils = all;
+  btrfs-progs = all;
+  busybox = all;
   bzip2 = all;
   chrony = all;
   ntp = all;
