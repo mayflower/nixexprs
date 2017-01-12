@@ -9,15 +9,15 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 
 (mapTestOn (rec {
   cargo = all;
-  rustPlatform.rustc = all;
-  rustPlatform.rustRegistry = all;
-  rustUnstable.rustc = all;
-  rustUnstable.rustRegistry = all;
-  rustMusl.rustc = all;
-  rustMusl.rustRegistry = all;
-  rustMusl.cargo = all;
+  rustc = all;
+  rust.rustRegistry = all;
+  rustNightly.rustc = all;
+  rustNightly.cargo = all;
+  rustNightly.rustRegistry = all;
 
   heatseeker = all;
   racerRust = all;
   rustfmt = all;
+  ripgrep = all;
+  alacritty = all;
 } ))

@@ -10,5 +10,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
 (mapTestOn (rec {
   php56 = all;
   php70 = all;
+  php71 = all;
   phpPackages.composer = all;
 } ))
