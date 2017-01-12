@@ -127,6 +127,9 @@ in
   docker = all;
   dosbox = all;
   dovecot = all;
+  dovecotWithPgSQL = all;
+  dovecot_pigeonhole = all;
+  dovecot_antispam = all;
   dpkg = all;
   dwarf-fortress = all;
   e2fsprogs = all;
@@ -426,6 +429,7 @@ in
   ponysay = all;
   portmap = all;
   postfix = all;
+  postfixWithPgSQL = all;
   postgresql = all;
   postgresql94 = all;
   postgresql95 = all;
