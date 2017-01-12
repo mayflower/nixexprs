@@ -17,8 +17,10 @@ let
     kernel = all;
     perf = all;
     spl = all;
+    splUnstable = all;
     wireguard = all;
     zfs = all;
+    zfsUnstable = all;
   };
 
   kernelPackages_virtualbox = {
