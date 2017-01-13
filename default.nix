@@ -91,6 +91,7 @@ in
   cargo = all;
   casperjs = all;
   cgmanager = all;
+  checksec = all;
   checkstyle = all;
   chromium = all;
   chrony = all;
@@ -164,6 +165,7 @@ in
   gist = all;
   git = all;
   gitAndTools.diff-so-fancy = all;
+  gitAndTools.git-extras = all;
   gitAndTools.gitflow = all;
   gitAndTools.gitFull = all;
   gitAndTools.hub = all;
