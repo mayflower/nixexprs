@@ -261,6 +261,7 @@ in
   kea = all;
   keen4 = ["i686-linux"];
   kismet = all;
+  kubernetes = all;
   kvm = all;
   lame = all;
   latencytop = all;
@@ -312,6 +313,7 @@ in
   mesa_drivers = all;
   minetest = all;
   mingetty = all;
+  minikube = all;
   mirage = all;
   mk = all;
   mkpasswd = all;
@@ -430,9 +432,11 @@ in
   procps = all;
   prometheus = all;
   prometheus-alertmanager = all;
-  prometheus-cli = all;
+  prometheus-blackbox-exporter = all;
+  prometheus-mysqld-exporter = all;
   prometheus-nginx-exporter = all;
   prometheus-node-exporter = all;
+  prometheus-snmp-exporter = all;
   prosody = all;
   pulseaudioFull = all;
   pulseaudioLight = all;
