@@ -105,6 +105,7 @@ in
   compass = all;
   compton-git = all;
   coreutils = all;
+  couchpotato = all;
   cowsay = all;
   cpio = all;
   cpulimit = all;
