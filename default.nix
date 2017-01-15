@@ -274,6 +274,7 @@ in
   libcgroup = all;
   libdbiDrivers = all;
   libinput = all;
+  libmediainfo = all;
   libnotify = all;
   libotr = all;
   libreoffice = all;
