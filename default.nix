@@ -534,6 +534,7 @@ in
   smartmontools = all;
   smokeping = all;
   socat = all;
+  sonarr = all;
   sound-theme-freedesktop = all;
   speedtest-cli = all;
   sqlite = allBut cygwin;
