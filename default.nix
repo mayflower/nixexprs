@@ -366,6 +366,7 @@ in
   ntfs3g = all;
   ntp = all;
   numix-gtk-theme = all;
+  nzbget = all;
   obexftp = all;
   openal = all;
   openarena = all;
