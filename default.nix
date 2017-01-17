@@ -22,7 +22,6 @@ let
     zfs = all;
     zfsUnstable = all;
     cpupower = all;
-    cpufrequtils = all;
   };
 
   kernelPackages_virtualbox = {
@@ -110,6 +109,7 @@ in
   couchpotato = all;
   cowsay = all;
   cpio = all;
+  cpufrequtils = all;
   cpulimit = all;
   crackxls = all;
   cron = all;
