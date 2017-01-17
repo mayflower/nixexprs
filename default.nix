@@ -21,6 +21,8 @@ let
     wireguard = all;
     zfs = all;
     zfsUnstable = all;
+    cpupower = all;
+    cpufrequtils = all;
   };
 
   kernelPackages_virtualbox = {
