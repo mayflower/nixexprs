@@ -105,6 +105,7 @@ in
   compass = all;
   compton-git = all;
   coreutils = all;
+  couchpotato = all;
   cowsay = all;
   cpio = all;
   cpulimit = all;
@@ -452,7 +453,6 @@ in
   pythonFull = all;
   pythonPackages = {
     binwalk = all;
-    couchpotato = all;
     django = all;
     searx = all;
   };
