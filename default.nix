@@ -136,6 +136,8 @@ in
   dpkg = all;
   e2fsprogs = all;
   eduke32 = all;
+  efibootmgr = all;
+  efivar = all;
   eiskaltdcpp = all;
   elasticsearch = all;
   elasticsearch2 = all;
@@ -147,6 +149,7 @@ in
   ethtool = all;
   evince = all;
   exfat = all;
+  f2fs-tools = all;
   fail2ban = all;
   fastd = all;
   feh = all;
@@ -243,6 +246,7 @@ in
   icewm = all;
   idea.idea-community = all;
   idea.pycharm-community = all;
+  idle3tools = all;
   idutils = all;
   iftop = all;
   imagemagick = all;
@@ -255,6 +259,7 @@ in
   iperf2 = all;
   iperf3 = all;
   ipfs = all;
+  ipmitool = all;
   iproute = all;
   iputils = all;
   irqbalance = all;
