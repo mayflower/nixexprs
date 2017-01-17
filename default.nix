@@ -156,6 +156,7 @@ in
   flvstreamer = all;
   foomatic-filters = all;
   fortune = all;
+  fping = all;
   freeciv = all;
   gajim = all;
   gawk = all;
