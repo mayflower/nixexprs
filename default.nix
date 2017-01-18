@@ -106,6 +106,7 @@ in
   compass = all;
   compton-git = all;
   coreutils = all;
+  coturn = all;
   couchpotato = all;
   cowsay = all;
   cpio = all;
@@ -315,6 +316,7 @@ in
   mailutils = all;
   man = all;
   manpages = all;
+  matrix-synapse = all;
   mc = all;
   mcabber = all;
   mcron = all;
@@ -443,6 +445,7 @@ in
   postgresql94 = all;
   postgresql95 = all;
   powertop = all;
+  privoxy = all;
   procps = all;
   prometheus = all;
   prometheus-alertmanager = all;
@@ -463,6 +466,7 @@ in
     binwalk = all;
     django = all;
     searx = all;
+    zerobin = all;
   };
   python3Packages = {
     binwalk = all;
