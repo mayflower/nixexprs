@@ -297,6 +297,7 @@ in
   libyaml = all;
   libyamlcpp = all;
   libzip = all;
+  links2 = all;
   lm_sensors = all;
   lolcat = all;
   lout = all;
