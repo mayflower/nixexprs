@@ -25,8 +25,6 @@ let
       nix.binaryCaches = [ "https://hydra.mayflower.de" ];
       system.defaultChannel = "https://nixos.mayflower.de/channels/branches/production";
 
-      boot.zfs.enableUnstable = true;
-
       users.extraUsers.root = {
         initialHashedPassword = mkForce "$6$rounds=6000000$y4FqIddH$DBusKfK1nqeC74bHFPjKup9reHbJYYhMhF8HvtQJUZlBneuvptwpZA6qrTIT4yG3Zs1AFgpCnSA.g2UYnGODp/";
         openssh.authorizedKeys.keys = [

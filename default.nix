@@ -102,6 +102,7 @@ in
   claws-mail = all;
   cmake = all;
   collectd = all;
+  collectdMinimal = all;
   colordiff = all;
   compass = all;
   compton-git = all;
