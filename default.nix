@@ -490,6 +490,7 @@ in
   qemu = all;
   qemu_kvm = all;
   qiv = all;
+  qpdf = all;
   quicktun = all;
   qutebrowser = all;
   radvd = all;
