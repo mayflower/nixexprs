@@ -190,6 +190,7 @@ in
   gnome2.libglademm = all;
   gnome3.dconf = all;
   gnome3.gedit = all;
+  gnome3.gnome-calendar = all;
   gnufdisk = all;
   gnugrep = all;
   gnum4 = all;
