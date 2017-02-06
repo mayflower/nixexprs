@@ -191,6 +191,9 @@ in
   gnome3.dconf = all;
   gnome3.gedit = all;
   gnome3.gnome-calendar = all;
+  gnome3.gnome-photos = all;
+  gnome3.gnome-software = all;
+  gnome3.gnome-weather = all;
   gnufdisk = all;
   gnugrep = all;
   gnum4 = all;
