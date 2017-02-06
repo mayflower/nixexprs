@@ -193,6 +193,8 @@ in
   gnome3.gnome-calendar = all;
   gnome3.gnome-photos = all;
   gnome3.gnome-software = all;
+  gnome3.gnome_settings_daemon = all;
+  gnome3.gnome-online-miners = all;
   gnome3.gnome-weather = all;
   gnufdisk = all;
   gnugrep = all;
