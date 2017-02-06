@@ -175,8 +175,8 @@ in
   git = all;
   gitAndTools.diff-so-fancy = all;
   gitAndTools.git-extras = all;
-  gitAndTools.gitFull = all;
   gitAndTools.gitflow = all;
+  gitAndTools.gitFull = all;
   gitAndTools.hub = all;
   gitAndTools.tig = all;
   gitMinimal = all;
@@ -188,7 +188,6 @@ in
   gmpc = all;
   gnome2.gconfmm = all;
   gnome2.libglademm = all;
-  gnome3 = all;
   gnome3.dconf = all;
   gnome3.gedit = all;
   gnufdisk = all;
@@ -203,11 +202,11 @@ in
   gnused = all;
   gnutar = all;
   gnutls = all;
+  gocode = all;
   go = all;
-  go2nix = all;
   go_1_6 = all;
   go_1_7 = all;
-  gocode = all;
+  go2nix = all;
   gogoclient = all;
   gox = all;
   gparted = all;
@@ -221,8 +220,8 @@ in
   gsasl = all;
   gsl = all;
   gti = all;
-  gtk-engine-murrine = all;
   gtk_engines = all;
+  gtk-engine-murrine = all;
   guile = all;
   gutenprint = all;
   gzip = all;
