@@ -189,7 +189,6 @@ in
   gnome2.gconfmm = all;
   gnome2.libglademm = all;
   gnome3 = all;
-  gnome3.dconf = all;
   gnome3.gedit = all;
   gnufdisk = all;
   gnugrep = all;
