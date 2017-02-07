@@ -75,6 +75,7 @@ in
   bird6 = all;
   blender = all;
   blobby = all;
+  blueman = all;
   bogofilter = all;
   borgbackup = all;
   brackets = all;
