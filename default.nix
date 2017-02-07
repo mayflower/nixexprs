@@ -38,17 +38,17 @@ in
   acpid = all;
   acpitool = all;
   aircrack-ng = all;
+  alsa-firmware = all;
   alsaLib = all;
-  alsaPlugins = all;
   alsaPluginWrapper = all;
+  alsaPlugins = all;
   alsaTools = all;
   alsaUtils = all;
-  alsa-firmware = all;
   androidenv = {
     platformTools = all;
   };
-  androidsdk = all;
   android-studio = all;
+  androidsdk = all;
   arandr = all;
   arduino = all;
   arp-scan = all;
@@ -134,8 +134,8 @@ in
   dosbox = all;
   dovecot = all;
   dovecotWithPgSQL = all;
-  dovecot_pigeonhole = all;
   dovecot_antispam = all;
+  dovecot_pigeonhole = all;
   dpkg = all;
   e2fsprogs = all;
   eduke32 = all;
@@ -176,8 +176,8 @@ in
   git = all;
   gitAndTools.diff-so-fancy = all;
   gitAndTools.git-extras = all;
-  gitAndTools.gitflow = all;
   gitAndTools.gitFull = all;
+  gitAndTools.gitflow = all;
   gitAndTools.hub = all;
   gitAndTools.tig = all;
   gitMinimal = all;
@@ -192,11 +192,11 @@ in
   gnome3.dconf = all;
   gnome3.gedit = all;
   gnome3.gnome-calendar = all;
+  gnome3.gnome-online-miners = all;
   gnome3.gnome-photos = all;
   gnome3.gnome-software = all;
-  gnome3.gnome_settings_daemon = all;
-  gnome3.gnome-online-miners = all;
   gnome3.gnome-weather = all;
+  gnome3.gnome_settings_daemon = all;
   gnufdisk = all;
   gnugrep = all;
   gnum4 = all;
@@ -209,11 +209,11 @@ in
   gnused = all;
   gnutar = all;
   gnutls = all;
-  gocode = all;
   go = all;
+  go2nix = all;
   go_1_6 = all;
   go_1_7 = all;
-  go2nix = all;
+  gocode = all;
   gogoclient = all;
   gox = all;
   gparted = all;
@@ -227,8 +227,8 @@ in
   gsasl = all;
   gsl = all;
   gti = all;
-  gtk_engines = all;
   gtk-engine-murrine = all;
+  gtk_engines = all;
   guile = all;
   gutenprint = all;
   gzip = all;
@@ -329,8 +329,8 @@ in
   mcabber = all;
   mcron = all;
   mdadm = all;
-  menu-cache = all;
   memtest86plus = all;
+  menu-cache = all;
   mercurial = all;
   mesa = mesaPlatforms;
   mesa_drivers = all;
@@ -489,11 +489,12 @@ in
     tempora = linux;
     zope_schema = linux;
   };
-  python35Packages.youtube-dl = all;
+  SDL2 = all;
   haskellPackages.xmobar = all;
   haskellPackages.xmonad-contrib = all;
   haskellPackages.xmonad-extras = all;
   pv = all;
+  python35Packages.youtube-dl = all;
   qemu = all;
   qemu_kvm = all;
   qiv = all;
@@ -522,7 +523,6 @@ in
   screen-message = all;
   scrot = all;
   scummvm = all;
-  SDL2 = all;
   sdparm = all;
   selenium-server-standalone = all;
   sharutils = all;
@@ -642,10 +642,10 @@ in
   wpa_supplicant_gui = linux;
   xautolock = all;
   xcalib = all;
-  xcompmgr = all;
   xclip = all;
-  xdg_utils = all;
+  xcompmgr = all;
   xdg-user-dirs = all;
+  xdg_utils = all;
   xfce = {
     thunar = all;
     thunar-archive-plugin = all;
@@ -670,8 +670,8 @@ in
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_4 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_9 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_grsec_nixos = kernelPackages;
+  linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
 
   nodePackages = {
     bower = all;
