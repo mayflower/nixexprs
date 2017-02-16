@@ -446,7 +446,6 @@ in
   platinum-searcher = all;
   poezio = all;
   ponysay = all;
-  portmap = all;
   postfix = all;
   postfixWithPgSQL = all;
   postgresql = all;
