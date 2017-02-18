@@ -468,6 +468,7 @@ in
   pwnat = all;
   python = allBut cygwin;
   python3 = allBut cygwin;
+  python36 = allBut cygwin;
   pythonFull = all;
   pythonPackages = {
     binwalk = all;
