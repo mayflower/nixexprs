@@ -575,6 +575,7 @@ in
   supercollider = all;
   syncthing = all;
   synergy = all;
+  sysdig = all;
   sysklogd = all;
   syslinux = ["i686-linux"];
   sysstat = all;
