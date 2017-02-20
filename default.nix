@@ -144,6 +144,7 @@ in
   eiskaltdcpp = all;
   elasticsearch = all;
   elasticsearch2 = all;
+  electricsheep = all;
   emacs25 = gtkSupported;
   emby = all;
   enscript = all;
@@ -182,6 +183,8 @@ in
   gitAndTools.tig = all;
   gitMinimal = all;
   gitlab = all;
+  gitlab-workhorse = all;
+  gitlab-shell = all;
   glibc = all;
   glibcLocales = all;
   global = all;
@@ -416,6 +419,7 @@ in
   parted = all;
   pass = all;
   pavucontrol = all;
+  pbzip2 = all;
   pciutils = all;
   pcmciaUtils = all;
   perf-tools = all;
@@ -505,6 +509,7 @@ in
   rdesktop = all;
   readline = all;
   redir = all;
+  redis = all;
   redshift = all;
   retroshare = all;
   retroshare06 = all;
