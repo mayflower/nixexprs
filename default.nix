@@ -659,6 +659,7 @@ in
   };
   xfsprogs = linux;
   xkeyboard_config = linux;
+  xmlsec = all;
   xmonad-with-packages = all;
   xorg_sys_opengl = all;
   xscreensaver = all;
