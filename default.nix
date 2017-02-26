@@ -158,6 +158,7 @@ in
   fastd = all;
   feh = all;
   file = all;
+  filebeat = all;
   filezilla = all;
   findutils = all;
   firefox = all;
@@ -239,6 +240,7 @@ in
   haveged = all;
   hddtemp = all;
   hdparm = all;
+  heartbeat = all;
   hedgewars = all;
   hello = all;
   hexedit = all;
@@ -337,6 +339,7 @@ in
   mercurial = all;
   mesa = mesaPlatforms;
   mesa_drivers = all;
+  metricbeat = all;
   minetest = all;
   mingetty = all;
   minikube = all;
@@ -408,6 +411,7 @@ in
   openxcom = all;
   oxygen-gtk3 = all;
   packer = all;
+  packetbeat = all;
   pam = all;
   pan = gtkSupported;
   pandoc = all;
