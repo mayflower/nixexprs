@@ -539,6 +539,7 @@ in
   silver-searcher = all;
   simp_le = all;
   sipcalc = all;
+  sitecopy = all;
   sl = all;
   slimerjs = all;
   slimThemes = {
