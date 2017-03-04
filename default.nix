@@ -49,6 +49,7 @@ in
   };
   android-studio = all;
   androidsdk = all;
+  apparmor-utils = all;
   arandr = all;
   arduino = all;
   arp-scan = all;
@@ -92,6 +93,7 @@ in
   calibre = all;
   cargo = all;
   casperjs = all;
+  ccid = all;
   cgmanager = all;
   checksec = all;
   checkstyle = all;
@@ -107,6 +109,7 @@ in
   colordiff = all;
   compass = all;
   compton-git = all;
+  corefonts = all;
   coreutils = all;
   coturn = all;
   couchpotato = all;
@@ -118,6 +121,7 @@ in
   cron = all;
   cryptsetup = all;
   cups = all;
+  cups-pk-helper = all;
   curl = all;
   dbus = all;
   ddrescue = all;
@@ -518,6 +522,7 @@ in
   retroshare = all;
   retroshare06 = all;
   rfkill = all;
+  ripgrep = all;
   rkt = all;
   rlwrap = all;
   rmilter = all;
@@ -526,6 +531,7 @@ in
   rspamd = all;
   rsync = all;
   rsyslog = all;
+  rtkit = all;
   ruby = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
@@ -700,7 +706,9 @@ in
     xkill = all;
     xmessage = all;
     xmodmap = all;
+    xprop = all;
     xrandr = all;
+    xsetroot = all;
   };
 
   # Fonts
