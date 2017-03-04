@@ -628,6 +628,7 @@ in
   unbound = all;
   unetbootin = all;
   units = all;
+  unrar = all;
   unzip = all;
   urlview = all;
   urlwatch = all;
@@ -655,6 +656,7 @@ in
   wireguard = linux;
   wirelesstools = linux;
   wireshark = all;
+  wireshark-cli = all;
   wpa_supplicant = linux;
   wpa_supplicant_gui = linux;
   xautolock = all;
@@ -680,9 +682,11 @@ in
   youtubeDL = all;
   zathura = all;
   zeroad = all;
+  zfstools = all;
   zile = all;
   zip = all;
   zlib = all;
+  znapzend = all;
   zsh = all;
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
@@ -703,11 +707,14 @@ in
     xev = all;
     xf86inputlibinput = all;
     xf86videofbdev = all;
+    xfontsel = all;
     xkill = all;
+    xlsclients = all;
     xmessage = all;
     xmodmap = all;
     xprop = all;
     xrandr = all;
+    xset = all;
     xsetroot = all;
   };
 
