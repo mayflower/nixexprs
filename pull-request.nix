@@ -1,8 +1,10 @@
 { nixpkgs
 , supportedSystems ? [ "x86_64-linux" "x86_64-darwin" ]
-, pullRequestPackages ? {}
+, pullRequestPackages ? []
 }:
 
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
-
-(mapTestOn pullRequestPackages)
+let
+  packages = genAttrs pullRequestPackages (name: {name = all;});
+in
+(mapTestOn packages)
