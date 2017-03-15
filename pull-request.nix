@@ -6,6 +6,7 @@
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
 let
   pkgs = import nixpkgs {};
-  packages = with pkgs.lib; genAttrs pullRequestPackages (name: {name = all;});
+  makeSet  = name: all;
+  packages = with pkgs.lib; genAttrs pullRequestPackages makeSet;
 in
 (mapTestOn packages)
