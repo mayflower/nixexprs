@@ -5,6 +5,6 @@
 
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
 let
-  packages = genAttrs pullRequestPackages (name: {name = all;});
+  packages = stdenv.lib.genAttrs pullRequestPackages (name: {name = all;});
 in
 (mapTestOn packages)
