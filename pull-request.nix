@@ -18,7 +18,7 @@ let
    makeAttrs ["qt58.qtbase" "qcachegrind"]
      => {qt58.qtbase = all; qcachegrind = all;}
    */
-  makeAttrs = with pkgs; paths: (map (p: lib.setAttrByPath (lib.splitString "." p) all) paths)
+  makeAttrs = with pkgs; paths: (map (p: lib.setAttrByPath (lib.splitString "." p) all) paths);
   packages = with pkgs; lib.foldl (a: b: a // b) {} (makeAttrs pullRequestPackages);
 
   # packages = with pkgs; lib.genAttrs pullRequestPackages makeSet;
