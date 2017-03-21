@@ -486,6 +486,7 @@ in
     binwalk = all;
     django = all;
     searx = all;
+    urllib3 = all;
     zerobin = all;
   };
   python3Packages = {
