@@ -21,4 +21,4 @@ let
 
   # packages = filterPkgs pullRequestPackages;
 in
-(map (x: mapTestOn x) packages)
+(mapTestOn packages)
