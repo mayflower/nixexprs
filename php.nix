@@ -8,6 +8,7 @@
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
 
 (mapTestOn (rec {
+  hhvm = all;
   php56 = all;
   php70 = all;
   php71 = all;
