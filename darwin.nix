@@ -3,7 +3,7 @@
 }:
 
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
-
+G
 (mapTestOn {
   ant = all;
   maven = all;
@@ -49,18 +49,26 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   imagemagick = all;
   libtool = all;
   # libstdcxx5 = all;
-  llvmPackages_37.clang = all;
-  llvmPackages_37.libcxx = all;
-  llvmPackages_37.libcxxabi = all;
-  llvmPackages_38.clang = all;
-  llvmPackages_38.libcxx = all;
-  llvmPackages_38.libcxxabi = all;
-  llvmPackages_39.clang = all;
-  llvmPackages_39.libcxx = all;
-  llvmPackages_39.libcxxabi = all;
-  llvmPackages_4.clang = all;
-  llvmPackages_4.libcxx = all;
-  llvmPackages_4.libcxxabi = all;
+  llvmPackages_37 = {
+    clang = all;
+    libcxx = all;
+    libcxxabi = all;
+  };
+  llvmPackages_38 = {
+    clang = all;
+    libcxx = all;
+    libcxxabi = all;
+  };
+  llvmPackages_39 = {
+    clang = all;
+    libcxx = all;
+    libcxxabi = all;
+  };
+  llvmPackages_4 = {
+    clang = all;
+    libcxx = all;
+    libcxxabi = all;
+  };
   mtr = all;
   nghttp2 = all;
   nixops = all;
@@ -71,45 +79,35 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   openssh = all;
   pandoc = all;
   patchutils = all;
-  php56 = all;
-  php56Packages.apcu = all;
-  php56Packages.imagick = all;
-  php56Packages.xdebug = all;
-  php70 = all;
-  php70Packages.apcu = all;
-  php70Packages.imagick = all;
-  php70Packages.xdebug = all;
-  php71 = all;
-  php71Packages.apcu = all;
-  php71Packages.imagick = all;
-  php71Packages.xdebug = all;
   pinentry_mac = all;
   pkgconfig = all;
   poppler = all;
   postgresql = all;
   pwgen = all;
   range-v3 = all;
-  qt57.qtbase = all;
-  qt57.qtconnectivity = all;
-  qt57.qtdeclarative = all;
-  qt57.qtdoc = all;
-  qt57.qtgraphicaleffects = all;
-  qt57.qtimageformats = all;
-  qt57.qtlocation = all;
-  qt57.qtmultimedia = all;
-  qt57.qtquickcontrols = all;
-  qt57.qtquickcontrols2 = all;
-  qt57.qtscript = all;
-  qt57.qtsensors = all;
-  # qt57.qtserialport = all;
-  qt57.qtsvg = all;
-  qt57.qttools = all;
-  qt57.qttranslations = all;
-  qt57.qtwebchannel = all;
-  # qt57.qtwebengine = all;
-  # qt57.qtwebkit = all;
-  qt57.qtwebsockets = all;
-  qt57.qtxmlpatterns = all;
+  qt57 = {
+    qtbase = all;
+    qtconnectivity = all;
+    qtdeclarative = all;
+    qtdoc = all;
+    qtgraphicaleffects = all;
+    qtimageformats = all;
+    qtlocation = all;
+    qtmultimedia = all;
+    qtquickcontrols = all;
+    qtquickcontrols2 = all;
+    qtscript = all;
+    qtsensors = all;
+  #   qtserialport = all;
+    qtsvg = all;
+    qttools = all;
+    qttranslations = all;
+    qtwebchannel = all;
+  #   qtwebengine = all;
+  #   qtwebkit = all;
+    qtwebsockets = all;
+    qtxmlpatterns = all;
+  }
   qtcreator = all;
   rsync = all;
   rtags = all;
