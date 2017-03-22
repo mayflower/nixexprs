@@ -2,7 +2,7 @@
    the load on Hydra when testing the `stdenv-updates' branch. */
 
 { nixpkgs
-, supportedSystems ? [ "x86_64-linux" ]
+, supportedSystems ? [ "x86_64-linux" "x86_64-darwin" ]
 }:
 
 with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
@@ -11,5 +11,28 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
   php56 = all;
   php70 = all;
   php71 = all;
-  phpPackages.composer = all;
+  php56Packages = {
+    apcu = all;
+    imagick = all;
+    memcached = all;
+    phpcs = all;
+    redis = all;
+    xdebug = all;
+  };
+  php70Packages = {
+    apcu = all;
+    imagick = all;
+    memcached = all;
+    phpcs = all;
+    redis = all;
+    xdebug = all;
+  };
+  php71Packages = {
+    apcu = all;
+    imagick = all;
+    memcached = all;
+    phpcs = all;
+    redis = all;p
+    xdebug = all;
+  };
 } ))

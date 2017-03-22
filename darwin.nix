@@ -107,7 +107,7 @@ G
   #   qtwebkit = all;
     qtwebsockets = all;
     qtxmlpatterns = all;
-  }
+  };
   qtcreator = all;
   rsync = all;
   rtags = all;
