@@ -32,7 +32,7 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     imagick = all;
     memcached = all;
     phpcs = all;
-    redis = all;p
+    redis = all;
     xdebug = all;
   };
 } ))
