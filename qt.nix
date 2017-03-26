@@ -30,30 +30,6 @@ with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems;
     qtxmlpatterns = all;
   };
 
-  qt57 = {
-    qtbase = all;
-    qtconnectivity = all;
-    qtdeclarative = all;
-    qtdoc = all;
-    qtgraphicaleffects = all;
-    qtimageformats = all;
-    qtlocation = all;
-    qtmultimedia = all;
-    qtquickcontrols = all;
-    qtquickcontrols2 = all;
-    qtscript = all;
-    qtsensors = all;
-    qtserialport = all;
-    qtsvg = all;
-    qttools = all;
-    qttranslations = all;
-    qtwebchannel = all;
-    qtwebengine = all;
-    qtwebkit = all;
-    qtwebsockets = all;
-    qtxmlpatterns = all;
-  };
-
   # Latest
   qt58 = {
     qtbase = all;
