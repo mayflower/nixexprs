@@ -419,7 +419,6 @@ in
   openttd = all;
   openvpn = all;
   openxcom = all;
-  oxygen-gtk3 = all;
   packer = all;
   packetbeat = all;
   pam = all;
@@ -501,7 +500,6 @@ in
     django = all;
     irc = linux;
     mathics = all;
-    nltkMin = all;
     numpy = all;
     pyramid = linux;
     scipy = all;
@@ -640,7 +638,6 @@ in
   unbound = all;
   unetbootin = all;
   units = all;
-  unrar = all;
   unzip = all;
   urlview = all;
   urlwatch = all;
