@@ -60,6 +60,7 @@ in
   atop = all;
   audacity = all;
   autoconf = all;
+  autocutsel = all;
   automake = all;
   autossh = all;
   avahi = allBut cygwin;  # Cygwin builds fail
@@ -77,6 +78,7 @@ in
   blender = all;
   blobby = all;
   blueman = all;
+  bluez = all;
   bogofilter = all;
   borgbackup = all;
   brackets = all;
@@ -135,6 +137,7 @@ in
   dnsmasq = all;
   dnsutils = all;
   docker = all;
+  docker-machine = all;
   dosbox = all;
   dovecot = all;
   dovecotWithPgSQL = all;
@@ -224,6 +227,7 @@ in
   gocode = all;
   gogoclient = all;
   gox = all;
+  go-mtpfs = all;
   gparted = all;
   gperftools = all;
   gqrx = all;
@@ -252,6 +256,7 @@ in
   host = all;
   hostapd = all;
   hping = all;
+  hplip = all;
   htop = all;
   hydra = all;
   i3 = all;
@@ -401,6 +406,7 @@ in
   obexftp = all;
   openal = all;
   openarena = all;
+  openconnect = all;
   opendungeons = all;
   openjdk = all;
   openmw = all;
@@ -413,6 +419,7 @@ in
   openttd = all;
   openvpn = all;
   openxcom = all;
+  oxygen-gtk3 = all;
   packer = all;
   packetbeat = all;
   pam = all;
@@ -455,6 +462,7 @@ in
   pipework = all;
   pkgconfig = all;
   platinum-searcher = all;
+  pmutils = all;
   poezio = all;
   ponysay = all;
   postfix = all;
@@ -493,6 +501,7 @@ in
     django = all;
     irc = linux;
     mathics = all;
+    nltkMin = all;
     numpy = all;
     pyramid = linux;
     scipy = all;
@@ -513,6 +522,7 @@ in
   quicktun = all;
   qutebrowser = all;
   radvd = all;
+  ranger = all;
   rdesktop = all;
   readline = all;
   redir = all;
@@ -534,6 +544,7 @@ in
   ruby = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
+  screenfetch = all;
   screen-message = all;
   scrot = all;
   scummvm = all;
@@ -541,6 +552,7 @@ in
   selenium-server-standalone = all;
   sharutils = all;
   shishi = all;
+  shutter = all;
   silver-searcher = all;
   simp_le = all;
   sipcalc = all;
@@ -604,6 +616,7 @@ in
   teeworlds = all;
   terminator = all;
   texlive.combined.scheme-small = all;
+  texmaker = all;
   thermald = all;
   thunderbird = all;
   tightvnc = all;
@@ -627,6 +640,7 @@ in
   unbound = all;
   unetbootin = all;
   units = all;
+  unrar = all;
   unzip = all;
   urlview = all;
   urlwatch = all;
@@ -643,6 +657,7 @@ in
   warmux = all;
   warzone2100 = all;
   wavemon = all;
+  wcalc = all;  
   weechat = all;
   wesnoth = all;
   wget = all;
