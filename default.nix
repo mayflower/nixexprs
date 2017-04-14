@@ -137,6 +137,7 @@ in
   dnsmasq = all;
   dnsutils = all;
   docker = all;
+  docker-distribution = all;
   docker-machine = all;
   dosbox = all;
   dovecot = all;
