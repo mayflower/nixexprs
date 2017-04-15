@@ -711,6 +711,11 @@ in
     grunt-cli = all;
   };
 
+  pkgsi686Linux = {
+    mesa = mesaPlatforms;
+    mesa_drivers = all;
+  };
+
   xorg = {
     sessreg = all;
     xbacklight = all;
