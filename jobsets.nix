@@ -42,7 +42,7 @@ let
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} production";
     };
     hydra-jobs-darwin = {
-      inputs.supportedSystems.value =  ''[ \"x86_64-darwin\" ]'';
+      inputs.supportedSystems.value = ''[ \"x86_64-darwin\" ]'';
     };
     mayflower-master = {
       path = "dist.nix";
@@ -53,6 +53,7 @@ let
     };
     php = {
       path = "php.nix";
+      inputs.supportedSystems.value = ''[ \"x86_64-linux\" \"x86_64-darwin\" ]'';
     };
     nixpkgs-manual = {
       input = "nixpkgs";
