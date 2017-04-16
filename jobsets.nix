@@ -28,32 +28,23 @@ let
     mail = true;
     mailOverride = "devnull+hydra@mayflower.de";
   };
-  jobsetsAttrs = with pkgs.lib; mapAttrs (name: settings: defaultSettings // settings) (rec {
+  jobsetsAttrs = with pkgs.lib; mapAttrs (name: settings: recursiveUpdate defaultSettings settings) (rec {
     bootstrap-tools = {
       keep = 2;
       input = "nixpkgs";
       path = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
     };
-    hydra-jobs = {
+    hydra-jobs-master = {
       keep = 3;
       shares = 420;
     };
-    hydra-jobs-production = hydra-jobs // {
-      shares = 420;
-      inputs = defaultSettings.inputs // {
-        nixpkgs = defaultSettings.inputs.nixpkgs // {
-          value = "${defaultSettings.inputs.nixpkgs.value} production";
-        };
-      };
+    hydra-jobs-production = recursiveUpdate hydra-jobs-master {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} production";
     };
     hydra-jobs-darwin = {
-      inputs = defaultSettings.inputs // {
-        supportedSystems = defaultSettings.inputs.supportedSystems // {
-          value =  ''[ \"x86_64-darwin\" ]'';
-        };
-      };
-     };
-     mayflower-master = {
+      inputs.supportedSystems.value =  ''[ \"x86_64-darwin\" ]'';
+    };
+    mayflower-master = {
       path = "dist.nix";
     };
     mayflower-production = {
@@ -69,11 +60,7 @@ let
     };
 
     hydra-jobs-gcc-6 = {
-      inputs = defaultSettings.inputs // {
-        nixpkgs = defaultSettings.inputs.nixpkgs // {
-          value = "${defaultSettings.inputs.nixpkgs.value} gcc-6";
-        };
-      };
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} gcc-6";
     };
 
     hydra-jobs-arm = {
