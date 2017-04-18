@@ -293,6 +293,7 @@ in
   jre = all;
   jwhois = all;
   kbd = all;
+  kde4.krdc = all;
   kea = all;
   keen4 = ["i686-linux"];
   kismet = all;
