@@ -540,6 +540,7 @@ in
   rsync = all;
   rsyslog = all;
   rtkit = all;
+  rtorrent = all;
   ruby = all;
   rxvt_unicode-with-plugins = all;
   screen = all;
