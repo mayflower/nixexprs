@@ -111,7 +111,6 @@ in
   colordiff = all;
   compass = all;
   compton-git = all;
-  corefonts = all;
   coreutils = all;
   coturn = all;
   couchpotato = all;
@@ -356,7 +355,7 @@ in
   mirage = all;
   mk = all;
   mkpasswd = all;
-  mktemp = all;  
+  mktemp = all;
   moc = all;
   module_init_tools = all;
   mongodb = all;
@@ -553,10 +552,8 @@ in
   sharutils = all;
   shishi = all;
   shutter = all;
-  silver-searcher = all;
   simp_le = all;
   sipcalc = all;
-  sitecopy = all;
   sl = all;
   slimerjs = all;
   slimThemes = {
@@ -656,7 +653,7 @@ in
   warmux = all;
   warzone2100 = all;
   wavemon = all;
-  wcalc = all;  
+  wcalc = all;
   weechat = all;
   wesnoth = all;
   wget = all;
@@ -682,6 +679,7 @@ in
     thunar-archive-plugin = all;
     thunar_volman = all;
   };
+  xfontsel = all;
   xfsprogs = linux;
   xkeyboard_config = linux;
   xmlsec = all;
@@ -702,7 +700,6 @@ in
   zsh = all;
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_4_4 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_9 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_grsec_nixos = kernelPackages;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
@@ -724,7 +721,6 @@ in
     xev = all;
     xf86inputlibinput = all;
     xf86videofbdev = all;
-    xfontsel = all;
     xkill = all;
     xlsclients = all;
     xmessage = all;
