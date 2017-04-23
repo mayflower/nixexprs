@@ -286,6 +286,7 @@ in
   iproute = all;
   iputils = all;
   irqbalance = all;
+  jackett = all;
   jnettop = all;
   jool-cli = all;
   jq = all;
