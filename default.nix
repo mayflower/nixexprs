@@ -416,7 +416,6 @@ in
   openmw = all;
   openobex = all;
   openra = all;
-  openrct2 = all;
   openscad = all;
   openssh = all;
   openssl = all;
