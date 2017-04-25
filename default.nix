@@ -518,6 +518,7 @@ in
   python35Packages.youtube-dl = all;
   qemu = all;
   qemu_kvm = all;
+  qemu_test = all;
   qiv = all;
   qpdf = all;
   quicktun = all;
