@@ -124,6 +124,7 @@ in
   cups = all;
   cups-pk-helper = all;
   curl = all;
+  darkice = all;
   dbus = all;
   ddrescue = all;
   debootstrap = all;
@@ -315,6 +316,8 @@ in
   libseccomp = all;
   libtool = all;
   libtool_2 = all;
+  libtxc_dxtn = all;
+  libtxc_dxtn_s2tc = all;
   libvirt = all;
   libxml2 = all;
   libxslt = all;
@@ -690,6 +693,7 @@ in
   xss-lock = all;
   xtrlock-pam = all;
   xz = all;
+  ympd = all;
   youtubeDL = all;
   zathura = all;
   zeroad = all;
