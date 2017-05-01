@@ -706,7 +706,6 @@ in
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_9 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_grsec_nixos = kernelPackages;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
 
   nodePackages = {
