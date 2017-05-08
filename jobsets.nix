@@ -59,11 +59,12 @@ let
       input = "nixpkgs";
       path = "doc/default.nix";
     };
-
     hydra-jobs-gcc-6 = {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} gcc-6";
     };
-
+    hydra-jobs-openssl-1_1 = {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} openssl-1.1";
+    };
     hydra-jobs-arm = {
       path = "arm.nix";
       inputs = {
