@@ -5,7 +5,7 @@ with lib;
 {
   config = {
     boot.tmpOnTmpfs = true;
-    boot.kernelPackages = pkgs.linuxPackages_4_10;
+    boot.kernelPackages = pkgs.linuxPackages_4_11;
     boot.kernelParams = [
       "boot.shell_on_fail"
       "panic=10" # wait a bit before rebooting on panics pre-stage2
