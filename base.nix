@@ -105,6 +105,12 @@ with lib;
         config.fileSystems."/".fsType == "zfs";
     };
 
+    virtualisation.libvirtd.qemuVerbatimConfig = ''
+      namespaces = []
+      set_process_name = 1
+      seccomp_sandbox = 1
+    '';
+
     nix = {
       gc = {
         automatic = !config.boot.isContainer;
