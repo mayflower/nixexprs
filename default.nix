@@ -269,6 +269,7 @@ in
   icedtea_web = all;
   icewm = all;
   idea.idea-community = all;
+  idea.phpstorm = all;
   idea.pycharm-community = all;
   idle3tools = all;
   idutils = all;
