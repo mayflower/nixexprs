@@ -227,7 +227,6 @@ in
   go_1_7 = all;
   gocode = all;
   gogoclient = all;
-  google-chrome = all;
   gox = all;
   go-mtpfs = all;
   gparted = all;
@@ -270,7 +269,6 @@ in
   icedtea_web = all;
   icewm = all;
   idea.idea-community = all;
-  idea.phpstorm = all;
   idea.pycharm-community = all;
   idle3tools = all;
   idutils = all;
@@ -561,7 +559,6 @@ in
   simp_le = all;
   sipcalc = all;
   sl = all;
-  slack = all;
   slimerjs = all;
   slimThemes = {
     archlinuxSimple = all;
