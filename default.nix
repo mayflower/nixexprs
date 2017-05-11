@@ -384,6 +384,7 @@ in
   ncdu = all;
   ncftp = all;
   ncmpcpp = all;
+  neo4j = all;
   netcat = all;
   nethack = all;
   netpbm = all;
