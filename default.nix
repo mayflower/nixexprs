@@ -227,6 +227,7 @@ in
   go_1_7 = all;
   gocode = all;
   gogoclient = all;
+  google-chrome = all;
   gox = all;
   go-mtpfs = all;
   gparted = all;
