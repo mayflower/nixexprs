@@ -561,6 +561,7 @@ in
   simp_le = all;
   sipcalc = all;
   sl = all;
+  slack = all;
   slimerjs = all;
   slimThemes = {
     archlinuxSimple = all;
