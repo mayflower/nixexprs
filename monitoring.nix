@@ -166,7 +166,7 @@ in {
               }
 
               ALERT node_hwmon_temp
-              IF node_hwmon_temp_crit_celsius*0.9 - node_hwmon_temp_celsius < 0 OR node_hwmon_temp_max_celsius*0.9 - node_hwmon_temp_celsius < 0
+              IF node_hwmon_temp_crit_celsius*0.9 - node_hwmon_temp_celsius < 0 OR node_hwmon_temp_max_celsius*0.95 - node_hwmon_temp_celsius < 0
               FOR 5m
               LABELS {
                 severity="page"
