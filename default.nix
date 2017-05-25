@@ -122,6 +122,7 @@ in
   cron = all;
   cryptsetup = all;
   cups = all;
+  cups_filters = all;
   cups-pk-helper = all;
   curl = all;
   darkice = all;
