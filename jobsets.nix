@@ -51,6 +51,15 @@ let
       path = "dist.nix";
       inputs = hydra-jobs-production.inputs;
     };
+    nixos-small-master = {
+      input = "nixpkgs";
+      path = "nixos/release-small.nix";
+    };
+    nixos-small-production = {
+      input = "nixpkgs";
+      path = "nixos/release-small.nix";
+      inputs = hydra-jobs-production.inputs;
+    };
     php = {
       path = "php.nix";
       inputs.supportedSystems.value = ''[ \"x86_64-linux\" \"x86_64-darwin\" ]'';
@@ -65,17 +74,17 @@ let
     hydra-jobs-openssl-1_1 = {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} openssl-1.1";
     };
-    hydra-jobs-arm = {
-      path = "arm.nix";
-      inputs = {
-        nixpkgs = {
-          value = "${defaultSettings.inputs.nixpkgs.value} hydra-arm";
-        };
-        supportedSystems = {
-          value = ''[ \"armv7l-linux\" ]'';
-        };
-      };
-    };
+    #hydra-jobs-arm = {
+    #  path = "arm.nix";
+    #  inputs = {
+    #    nixpkgs = {
+    #      value = "${defaultSettings.inputs.nixpkgs.value} hydra-arm";
+    #    };
+    #    supportedSystems = {
+    #      value = ''[ \"armv7l-linux\" ]'';
+    #    };
+    #  };
+    #};
   });
   fileContents = with pkgs.lib; ''
     cat <<EOF
