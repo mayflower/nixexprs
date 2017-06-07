@@ -126,6 +126,7 @@ in
   cups-pk-helper = all;
   curl = all;
   darkice = all;
+  dash = all;
   dbus = all;
   ddrescue = all;
   debootstrap = all;
@@ -135,6 +136,7 @@ in
   diffutils = all;
   disnix = all;
   dmenu = all;
+  dmidecode = all;
   dnsmasq = all;
   dnsutils = all;
   docker = all;
@@ -288,6 +290,7 @@ in
   iproute = all;
   iputils = all;
   irqbalance = all;
+  jack2Full = all;
   jackett = all;
   jnettop = all;
   jool-cli = all;
@@ -393,6 +396,7 @@ in
   nfs-utils = all;
   nginx = all;
   nginxUnstable = all;
+  ngrep = all;
   nix = all;
   nix-generate-from-cpan = all;
   nix-repl = all;
@@ -424,6 +428,7 @@ in
   openttd = all;
   openvpn = all;
   openxcom = all;
+  OVMF = all;
   packer = all;
   packetbeat = all;
   pam = all;
@@ -457,6 +462,7 @@ in
   php70Packages.composer = all;
   php70Packages.xdebug = all;
   physlock = all;
+  picocom = all;
   pidgin = all;
   pidgin-skypeweb = all;
   pidginotr = all;
@@ -474,6 +480,7 @@ in
   postgresql = all;
   postgresql94 = all;
   postgresql95 = all;
+  postgresql96 = all;
   powertop = all;
   privoxy = all;
   procps = all;
@@ -522,6 +529,7 @@ in
   qemu_kvm = all;
   qemu_test = all;
   qiv = all;
+  qjackctl = all;
   qpdf = all;
   quicktun = all;
   qutebrowser = all;
@@ -539,6 +547,7 @@ in
   rkt = all;
   rlwrap = all;
   rmilter = all;
+  roxterm = all;
   rpm = all;
   rrdtool = all;
   rspamd = all;
@@ -548,6 +557,7 @@ in
   rtorrent = all;
   ruby = all;
   rxvt_unicode-with-plugins = all;
+  sakura = all;
   screen = all;
   screenfetch = all;
   screen-message = all;
@@ -700,6 +710,7 @@ in
   zathura = all;
   zeroad = all;
   zfstools = all;
+  zfstoolsUnstable = all;
   zile = all;
   zip = all;
   zlib = all;
