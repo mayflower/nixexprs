@@ -16,8 +16,6 @@ let
     jool = all;
     kernel = all;
     perf = all;
-    spl = all;
-    splUnstable = all;
     wireguard = all;
     zfs = all;
     zfsUnstable = all;
@@ -195,8 +193,10 @@ in
   gitAndTools.tig = all;
   gitMinimal = all;
   gitlab = all;
-  gitlab-workhorse = all;
+  gitlab-runner = all;
+  gitlab-runner_1_11 = all;
   gitlab-shell = all;
+  gitlab-workhorse = all;
   glibc = all;
   glibcLocales = all;
   global = all;
