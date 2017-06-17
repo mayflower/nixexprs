@@ -26,7 +26,7 @@ let
       system.defaultChannel = "https://nixos.mayflower.de/channels/branches/production";
 
       users.extraUsers.root = {
-        initialHashedPassword = mkForce "$6$rounds=6000000$y4FqIddH$DBusKfK1nqeC74bHFPjKup9reHbJYYhMhF8HvtQJUZlBneuvptwpZA6qrTIT4yG3Zs1AFgpCnSA.g2UYnGODp/";
+        initialHashedPassword = mkForce "$6$rounds=1000000$pAFNlOdBg.Ut$RJwIpzoSkdqUaxyLxtoFdgiR8UrtC/X1vd8W4dFGHDuZWW60J4qNAQ9DrozkmT6/AqBPQ8I2EWviDx.kloVkE.";
         openssh.authorizedKeys.keys = [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD2BA27CHT85uegdPaocOV9YyiKNiVOGm6eU3oaJmuEFp0hpAbjn7pvvNpT6oAXmV06V0Kj7TpKzHrfjWs+kkOnM0LgBAbcPMsJMG/oNCJL9T1JQgBxefJ3ZcSKbPRlutJ6y5hwxFI5dn4DP6OyDfiSvjTEyyRiaa70jbkmixSKZckO5DgvbxEo3lUplZt9zQECZEePkBodTNTT79DWXfbvmLOzdrXG8ekZIjvEvvdDO+3Aj74ca5KOVGgaJSBMNX5DOYI+r9K/oz7E+NFuwORDghXSYmodrC5JMBBuUdhIc0S+pksNZHYYguYUGXaleIXQ10lGBRBSJ6uPdNLFYel3 fadenb@taytay"
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs/VM56N9OsG/hK7LEwheHwptClBNPdBl/tIW8URWyQPsE0dN2FYAERsHom3I3IvAS3phfhYtLOwrQ+MqEt7u5f/E3CgdfvEFRER12arxlT/q3gSh5rUdq508fTjkUNmJr6Vul+BCZ7VeESa2yvvTesFqvdVP9NtpGbAusX/JCrXwQciygJ0hDuMdLFW8MmRzljDoBsyjz18MDaMzsGQddQuE+3uAzJ1NXZpNh+M+C6eLNe+QJQMb9VTPGB3Pc0cU0GWyXYpWTVkpJqJVe180ldMU9x2c2sBBcRM3N/UDn2MF3XQi3TdGO93AIcUHNCLmUvIdqz+DPdKzCt3c3HvHh fpletz@lolnovo"
@@ -38,24 +38,32 @@ let
       };
 
       time.timeZone = "UTC";
-
-      environment.systemPackages= [ pkgs.vim ];
+      sound.enable = false;
 
       nix.maxJobs = 4;
 
       security.polkit.enable = mkForce false;
 
       services.openssh.enable = true;
-
-      system.activationScripts.sshd = ''
-        ${pkgs.systemd}/bin/systemctl enable sshd
-      '';
     };
 
   vmModule =
-    { systemd.services."serial-getty@ttyS0".enable = mkForce true;
-      systemd.services."autovt@".enable = mkForce true;
-      systemd.enableEmergencyMode = mkForce true;
+    { imports = [
+        <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+        <nixpkgs/nixos/modules/virtualisation/grow-partition.nix>
+      ];
+
+      boot.loader.timeout = mkForce 1;
+      boot.loader.grub.splashImage = null;
+      boot.kernelParams = [ "console=ttyS0" "console=tty0" ];
+      boot.loader.grub.device = mkForce "/dev/vda";
+
+      fileSystems."/" = {
+        device = mkForce "/dev/disk/by-label/nixos";
+        autoResize = true;
+      };
+
+      virtualisation.growPartition = true;
     };
 
   makeIso =
@@ -72,7 +80,7 @@ let
     (import <nixpkgs/nixos/lib/eval-config.nix> {
       inherit system;
       modules = [ module versionModule specialSauceModule vmModule ];
-    }).config.system.build.novaImage;
+    }).config.system.build.qemuImage;
 
   makeSystemTarball =
     { module, maintainers ? ["fpletz"], system }:
@@ -133,7 +141,7 @@ in
   });
 
   vmDiskImage = genAttrs supportedSystems (system: makeVMDiskImage {
-    module = <nixpkgs/nixos/modules/virtualisation/nova-image.nix>;
+    module = ./modules/qemu-image.nix;
     inherit system;
   });
 
