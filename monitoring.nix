@@ -61,6 +61,9 @@ in {
       services.prometheus.nginxExporter.openFirewall = config.services.nginx.enable;
     }
     (mkIf cfg.server.enable {
+      systemd.services.prometheus.serviceConfig.LimitNOFILE = 1024000;
+      systemd.services.prometheus-blackbox-exporter.serviceConfig.LimitNOFILE = 1024000;
+
       services = {
         prometheus = {
           enable = true;
