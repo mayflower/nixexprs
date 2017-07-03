@@ -26,6 +26,44 @@ let
       mkdir -p $out/${pkgs.python3.sitePackages}/demockrazy_config
       cat << "EOF" > $out/${pkgs.python3.sitePackages}/demockrazy_config/__init__.py
       from demockrazy.settings import *
+      STATIC_ROOT = '/var/lib/demockrazy/static'
+      DEBUG = False
+      DATABASES = {
+          'default': {
+              'ENGINE': 'django.db.backends.sqlite3',
+              'NAME': '/var/lib/demockrazy/db.sqlite3'
+          }
+      }
+
+      LOGGING = {
+          'version': 1,
+          'disable_existing_loggers': False,
+          'handlers': {
+              'console': {
+                  'class': 'logging.StreamHandler',
+              },
+          },
+          'loggers': {
+              'django': {
+                  'handlers': ['console'],
+                  'level': '${cfg.logLevel}',
+              },
+          },
+      }
+
+      SECRET_KEY = r"""${cfg.secretKey}"""
+
+      ${optionalString (cfg.mail.host != null) "EMAIL_HOST = \"${cfg.mail.host}\""}
+      EMAIL_PORT = ${toString cfg.mail.port}
+      EMAIL_USE_TLS = ${if cfg.mail.useTLS then "True" else "False"}
+      EMAIL_USE_SSL = ${if cfg.mail.useSSL then "True" else "False"}
+      VOTE_MAIL_FROM = "${cfg.mail.from}"
+      VOTE_SEND_MAILS = ${if cfg.mail.sendMails then "True" else "False"}
+      VOTE_BASE_URL = '${cfg.baseUrl}'
+      ALLOWED_HOSTS = [ ${concatStringsSep ", " (map (h: "\"${h}\"") cfg.allowedHosts)} ]
+      CSRF_COOKIE_SECURE = ${if cfg.secureCookies then "True" else "False"}
+      SESSION_COOKIE_SECURE = ${if cfg.secureCookies then "True" else "False"}
+
       ${cfg.djangoSettings}
       EOF
     '';
@@ -38,6 +76,92 @@ in {
       default = "";
       description = ''
         Verbatim django settings.
+      '';
+    };
+    logLevel = mkOption {
+      type = types.str;
+      default = "INFO";
+      description = ''
+        Django log level
+      '';
+    };
+    secretKey = mkOption {
+      type = types.str;
+      description = ''
+        Django secret key
+      '';
+    };
+    baseUrl = mkOption {
+      type = types.str;
+      example = "https://demockrazy.example.com";
+      description = ''
+        Base URL of demockrazy
+      '';
+    };
+    allowedHosts = mkOption {
+      type = types.listOf types.str;
+      example = literalExample ''[ "demockrazy.example.com" ]'';
+      description = ''
+        Hostnames/IPs allowed to access demockrazy
+      '';
+    };
+    secureCookies = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Allows cookies to be only served via HTTPS
+      '';
+    };
+    mail = mkOption {
+      type = types.submodule {
+        options = {
+          sendMails = mkOption {
+            type = types.bool;
+            default = true;
+            description = ''
+              Wheter to enable demockrazy sending mails.
+            '';
+          };
+          from = mkOption {
+            type = types.str;
+            example = "demockrazy@example.com";
+            description = ''
+              Address to send mails from.
+            '';
+          };
+          host = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              Mail relay host name
+            '';
+          };
+          port = mkOption {
+            type = types.nullOr types.int;
+            default = 25;
+            description = ''
+              Mail relay port
+            '';
+          };
+          useTLS = mkOption {
+            type = types.bool;
+            default = true;
+            description = ''
+              Whether to use STARTTLS when connecting to the mail relay host.
+            '';
+          };
+          useSSL = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              Whether to use SSL when connecting to the mail relay host.
+            '';
+          };
+        };
+      };
+      default = {};
+      description = ''
+        Options for mail handling of demockrazy
       '';
     };
   };
