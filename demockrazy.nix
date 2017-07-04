@@ -212,7 +212,7 @@ in {
         PrivateDevices = "yes";
         PrivateTmp = "yes";
         ProtectSystem = "full";
-        ReadWriteDirectories = "/run/demockrazy /var/lib/demockrazy";
+        ReadWritePaths = "/run/demockrazy /var/lib/demockrazy";
         ProtectHome = "yes";
         NoNewPrivileges = "yes";
       };
