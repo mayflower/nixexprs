@@ -719,6 +719,7 @@ in
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_4_9 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_4_11 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
 
   nodePackages = {
