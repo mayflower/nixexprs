@@ -45,6 +45,11 @@ let
       security.polkit.enable = mkForce false;
 
       services.openssh.enable = true;
+
+      hardware.enableAllFirmware = mkForce false;
+      hardware.firmware = [
+        pkgs.firmwareLinuxNonfree
+      ];
     };
 
   vmModule =
