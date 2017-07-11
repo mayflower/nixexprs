@@ -482,6 +482,7 @@ in
   postgresql95 = all;
   postgresql96 = all;
   powertop = all;
+  privacyidea = all;
   privoxy = all;
   procps = all;
   prometheus = all;
