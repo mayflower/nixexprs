@@ -5,11 +5,11 @@
 , supportedSystems ? [ "x86_64-linux" ]
 }:
 
-with import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; };
+with import "${nixpkgs}/pkgs/top-level/release-lib.nix" { inherit supportedSystems; };
 
 let
-
-  recursiveUpdate = (import <nixpkgs> {}).lib.recursiveUpdate;
+  pkgs = import nixpkgs {};
+  recursiveUpdate = pkgs.lib.recursiveUpdate;
 
   kernelPackages = {
     bcc = all;
@@ -773,6 +773,7 @@ in
   vistafonts = all;
   wqy_microhei = all;
 }) // {
-  manual = import <nixpkgs/doc>;
-  lib-tests = import <nixpkgs/lib/tests/release.nix> { pkgs = nixpkgs; };
+  metrics = import "${nixpkgs}/pkgs/top-level/metrics.nix" { inherit pkgs nixpkgs; };
+  manual = import "${nixpkgs}/doc";
+  lib-tests = import "${nixpkgs}/lib/tests/release.nix" { inherit pkgs; };
 }
