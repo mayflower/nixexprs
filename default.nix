@@ -30,7 +30,6 @@ let
 in
 
 (mapTestOn {
-
   ack = all;
   acpi = all;
   acpid = all;
@@ -773,5 +772,7 @@ in
   unifont = all;
   vistafonts = all;
   wqy_microhei = all;
-
-})
+}) // {
+  manual = import <nixpkgs/doc>;
+  lib-tests = import <nixpkgs/lib/tests/release.nix> { inherit nixpkgs; };
+}
