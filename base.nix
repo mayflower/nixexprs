@@ -34,10 +34,10 @@ with lib;
       firewall.allowPing = true;
       defaultMailServer = {
         directDelivery = lib.mkDefault true;
-        hostName = "mail.mayflower.de";
-        domain = "mayflower.de";
+        hostName = mkDefault "mail.mayflower.de";
+        domain = mkDefault "mayflower.de";
         useSTARTTLS = true;
-        root = "devnull@mayflower.de";
+        root = mkDefault "devnull@mayflower.de";
       };
     };
 
@@ -64,7 +64,7 @@ with lib;
 
     environment.variables.EDITOR = "vim";
 
-    time.timeZone = "GMT";
+    time.timeZone = mkDefault "GMT";
 
     security.audit.enable = mkDefault false;
 
