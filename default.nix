@@ -774,5 +774,5 @@ in
   wqy_microhei = all;
 }) // {
   manual = import <nixpkgs/doc>;
-  lib-tests = import <nixpkgs/lib/tests/release.nix> { inherit nixpkgs; };
+  lib-tests = import <nixpkgs/lib/tests/release.nix> { pkgs = nixpkgs; };
 }
