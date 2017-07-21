@@ -530,6 +530,7 @@ in
   qemu_test = all;
   qiv = all;
   qjackctl = all;
+  qlcplus = all;
   qpdf = all;
   quicktun = all;
   qutebrowser = all;
