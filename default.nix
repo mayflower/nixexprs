@@ -774,7 +774,6 @@ in
   vistafonts = all;
   wqy_microhei = all;
 }) // {
-  metrics = import "${nixpkgs}/pkgs/top-level/metrics.nix" { inherit pkgs nixpkgs; };
   manual = import "${nixpkgs}/doc";
   lib-tests = import "${nixpkgs}/lib/tests/release.nix" { inherit pkgs; };
 }
