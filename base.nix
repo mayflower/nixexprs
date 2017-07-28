@@ -16,8 +16,6 @@ with lib;
     boot.loader.grub.copyKernels = true;
     boot.loader.timeout = 2;
 
-    boot.zfs.enableUnstable = true;
-
     boot.kernel.sysctl = {
       "kernel.panic" = "1"; # instantly reboot on panics
       "net.core.default_qdisc" = "fq_codel";
