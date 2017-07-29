@@ -53,11 +53,6 @@ with lib;
     # sigh :/
     nixpkgs.config = {
       allowUnfree = true;
-      packageOverrides = pkgs: with pkgs; rec {
-        oraclejre8 = pkgs.oraclejre8.override {
-          useSystemCACerts = true;
-        };
-      };
     };
 
     environment.variables.EDITOR = "vim";
