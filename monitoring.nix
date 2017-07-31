@@ -316,6 +316,16 @@ in {
               ) (flip filterAttrs config.mayflower.machines (_: m: m.services.prometheus.fritzboxExporter.enable)));
             }
             {
+              job_name = "openvpn";
+              scrape_interval = "60s";
+              static_configs = map (name: {
+                targets = [ "${name}:9167" ];
+                labels.alias = name;
+              }) (mapAttrsToList (n: machine:
+                machine.deployment.targetHost
+              ) (flip filterAttrs config.mayflower.machines (_: m: m.services.prometheus.openvpnExporter.enable)));
+            }
+            {
               job_name = "unifi";
               scrape_interval = "30s";
               static_configs = map (name: {
