@@ -264,6 +264,17 @@ in {
                 summary = "{{$labels.alias}}: OpenVPN instance {{$labels.status_path}} is down.",
                 description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has been down more than 2 minutes."
               }
+
+              ALERT openvpn_instance_noupdate
+              IF time() - openvpn_status_update_time_seconds > 120
+              FOR 1m
+              LABELS {
+                severity="page"
+              }
+              ANNOTATIONS {
+                summary = "{{$labels.alias}}: OpenVPN instance {{$labels.status_path}} is not updating its status.",
+                description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes."
+              }
             ''
           ];
           scrapeConfigs = let
