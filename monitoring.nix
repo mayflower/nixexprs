@@ -242,6 +242,28 @@ in {
                 summary = "{{$labels.instance}}: TLS certificate from {{$labels.source}} is about to expire.",
                 description = "{{$labels.instance}}: The TLS certificate from {{$labels.source}} will expire in less than 7 days: {{$value}}s"
               }
+
+              ALERT openvpn_down
+              IF up{job="openvpn"} == 0
+              FOR 2m
+              LABELS {
+                serverity="page"
+              }
+              ANNOTATIONS {
+                summary = "{{$labels.alias}}: OpenVPN exporter is down.",
+                description = "OpenVPN exporter on {{$labels.alias}} hasn't been responding more than 2 minutes."
+              }
+
+              ALERT openvpn_instance_down
+              IF openvpn_up == 0
+              FOR 2m
+              LABELS {
+                serverity="page"
+              }
+              ANNOTATIONS {
+                summary = "{{$labels.alias}}: OpenVPN instance {{$labels.status_path}} is down.",
+                description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has been down more than 2 minutes."
+              }
             ''
           ];
           scrapeConfigs = let
