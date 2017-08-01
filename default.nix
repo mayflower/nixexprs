@@ -164,6 +164,7 @@ in
   f2fs-tools = all;
   fail2ban = all;
   fastd = all;
+  fd = all;
   feh = all;
   file = all;
   filebeat = all;
