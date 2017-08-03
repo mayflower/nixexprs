@@ -93,6 +93,7 @@ in
   cargo = all;
   casperjs = all;
   ccid = all;
+  ccnet = all;
   cgmanager = all;
   checksec = all;
   checkstyle = all;
