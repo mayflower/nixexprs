@@ -554,6 +554,7 @@ in
   rpm = all;
   rrdtool = all;
   rspamd = all;
+  rstudio = all;
   rsync = all;
   rsyslog = all;
   rtkit = all;
