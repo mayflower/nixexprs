@@ -93,7 +93,6 @@ in
   cargo = all;
   casperjs = all;
   ccid = all;
-  ccnet = all;
   cgmanager = all;
   checksec = all;
   checkstyle = all;
@@ -568,6 +567,7 @@ in
   scrot = all;
   scummvm = all;
   sdparm = all;
+  seafile-client = all;
   selenium-server-standalone = all;
   sharutils = all;
   shishi = all;
