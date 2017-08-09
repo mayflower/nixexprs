@@ -574,6 +574,7 @@ in
   shutter = all;
   simp_le = all;
   sipcalc = all;
+  sks = all;
   sl = all;
   slimerjs = all;
   slimThemes = {
