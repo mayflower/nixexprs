@@ -329,6 +329,7 @@ in
   libyamlcpp = all;
   libzip = all;
   links2 = all;
+  lldpd = all;
   lm_sensors = all;
   lolcat = all;
   lout = all;
