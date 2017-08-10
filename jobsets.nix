@@ -75,7 +75,7 @@ let
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} openssl-1.1";
     };
     hydra-jobs-stdenv-set-u = {
-      inputs.nixpkgs.value = "git://github.com/obsidiansystems/nixpkgs stdenv-set-u";
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} stdenv-set-u";
     };
     #hydra-jobs-arm = {
     #  path = "arm.nix";
