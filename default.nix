@@ -634,8 +634,12 @@ in
   tcpdump = all;
   teeworlds = all;
   terminator = all;
-  texlive.combined.scheme-small = all;
+  texlive.combined = {
+    scheme-small = all;
+    scheme-full = all;
+  };
   texmaker = all;
+  texstudio = all;
   thermald = all;
   thunderbird = all;
   tightvnc = all;
@@ -711,6 +715,7 @@ in
   xss-lock = all;
   xtrlock-pam = all;
   xz = all;
+  yate = all;
   ympd = all;
   youtubeDL = all;
   zathura = all;
