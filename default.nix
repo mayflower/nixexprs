@@ -12,13 +12,13 @@ let
   recursiveUpdate = pkgs.lib.recursiveUpdate;
 
   kernelPackages = {
+    acpi_call = all;
     bcc = all;
     jool = all;
     kernel = all;
     perf = all;
     wireguard = all;
     zfs = all;
-    zfsUnstable = all;
     cpupower = all;
   };
 
@@ -60,7 +60,7 @@ in
   autocutsel = all;
   automake = all;
   autossh = all;
-  avahi = allBut cygwin;  # Cygwin builds fail
+  avahi = all;
   avrdude = all;
   awesome = all;
   babeld = all;
@@ -78,7 +78,6 @@ in
   bluez = all;
   bogofilter = all;
   borgbackup = all;
-  brackets = all;
   bridge-utils = all;
   bruteforce-luks = all;
   bsdgames = all;
@@ -107,6 +106,7 @@ in
   collectdMinimal = all;
   colordiff = all;
   compass = all;
+  compton = all;
   compton-git = all;
   coreutils = all;
   coturn = all;
@@ -149,7 +149,6 @@ in
   eduke32 = all;
   efibootmgr = all;
   efivar = all;
-  eiskaltdcpp = all;
   elasticsearch = all;
   elasticsearch2 = all;
   electricsheep = all;
@@ -218,7 +217,6 @@ in
   gnumake = all;
   gnupatch = all;
   gnupg = all;
-  gnupg21 = all;
   gnuplot = allBut cygwin;
   gnuradio-with-packages = all;
   gnused = all;
@@ -299,7 +297,6 @@ in
   jwhois = all;
   kbd = all;
   kea = all;
-  keen4 = ["i686-linux"];
   kismet = all;
   kubernetes = all;
   kvm = all;
@@ -428,7 +425,6 @@ in
   openssl = all;
   openttd = all;
   openvpn = all;
-  openxcom = all;
   OVMF = all;
   packer = all;
   packetbeat = all;
@@ -505,7 +501,6 @@ in
   pythonPackages = {
     binwalk = all;
     django = all;
-    searx = all;
     urllib3 = all;
     zerobin = all;
   };
@@ -513,7 +508,6 @@ in
     binwalk = all;
     django = all;
     irc = linux;
-    mathics = all;
     numpy = all;
     pyramid = linux;
     scipy = all;
@@ -562,6 +556,7 @@ in
   ruby = all;
   rxvt_unicode-with-plugins = all;
   sakura = all;
+  searx = all;
   screen = all;
   screenfetch = all;
   screen-message = all;
@@ -578,33 +573,11 @@ in
   sks = all;
   sl = all;
   slimerjs = all;
-  slimThemes = {
-    archlinuxSimple = all;
-    capernoited = all;
-    debianMoreblue = all;
-    fingerprint = all;
-    flat = all;
-    flower2 = all;
-    gentooSimple = all;
-    lake = all;
-    lunar = all;
-    mindlock = all;
-    nixosSlim = all;
-    parallelDimensions = all;
-    previous = all;
-    rainbow = all;
-    rear-window = all;
-    scotlandRoad = all;
-    subway = all;
-    wave = all;
-    zenwalk = all;
-  };
   sloccount = allBut cygwin;
   smartmontools = all;
   smokeping = all;
   socat = all;
   sonarr = all;
-  sound-theme-freedesktop = all;
   speedtest-cli = all;
   sqlite = allBut cygwin;
   squid = all;
@@ -652,14 +625,13 @@ in
   toilet = all;
   tor = all;
   torbrowser = all;
+  tpacpi-bat = all;
   traceroute = all;
   transmission = all;
   transmission_gtk = all;
   transmission_remote_gtk = all;
   tree = all;
-  tuxguitar = all;
   tzdata = all;
-  ufoai = all;
   unbound = all;
   unetbootin = all;
   units = all;
@@ -676,8 +648,6 @@ in
   virtualbox = all;
   vlc = all;
   w3m = all;
-  warmux = all;
-  warzone2100 = all;
   wavemon = all;
   wcalc = all;
   weechat = all;
@@ -721,7 +691,6 @@ in
   zathura = all;
   zeroad = all;
   zfstools = all;
-  zfstoolsUnstable = all;
   zile = all;
   zip = all;
   zlib = all;
@@ -729,8 +698,6 @@ in
   zsh = all;
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_4_9 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_4_11 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
 
   nodePackages = {
@@ -741,6 +708,8 @@ in
   pkgsi686Linux = {
     mesa = mesaPlatforms;
     mesa_drivers = all;
+    steam = all;
+    steam-run = all;
   };
 
   xorg = {
