@@ -201,6 +201,16 @@ in {
                 description="{{$labels.alias}} just rebooted."
               }
 
+              ALERT node_uptime
+              IF time() - node_boot_time > 2592000
+              LABELS {
+                severity="page"
+              }
+              ANNOTATIONS {
+                summary="{{$labels.alias}}: Uptime monster",
+                description="{{$labels.alias}} has been up for more than 30 days."
+              }
+
               ALERT blackbox_down
               IF min(up{job=~"blackbox.+"}) by (source, job, instance) == 0
               FOR 1m
