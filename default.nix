@@ -583,6 +583,7 @@ in
   sonarr = all;
   speedtest-cli = all;
   sqlite = allBut cygwin;
+  sqliteInteractive = allBut cygwin;
   squid = all;
   sshfsFuse = all;
   sslscan = all;
