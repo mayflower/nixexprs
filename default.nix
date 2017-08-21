@@ -88,6 +88,7 @@ in
   byobu = all;
   bzip2 = all;
   cabal2nix = all;
+  caddy = all;
   calibre = all;
   cargo = all;
   casperjs = all;
@@ -485,9 +486,11 @@ in
   prometheus = all;
   prometheus-alertmanager = all;
   prometheus-blackbox-exporter = all;
+  prometheus-fritzbox-exporter = all;
   prometheus-mysqld-exporter = all;
   prometheus-nginx-exporter = all;
   prometheus-node-exporter = all;
+  prometheus-openvpn-exporter = all;
   prometheus-snmp-exporter = all;
   prosody = all;
   pulseaudioFull = all;
