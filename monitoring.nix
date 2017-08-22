@@ -452,22 +452,22 @@ in {
                   prober: tcp
                   timeout: 5s
                   tcp:
-                    protocol: tcp4
+                    preferred_ip_protocol: ip4
                 tcp_v6:
                   prober: tcp
                   timeout: 5s
                   tcp:
-                    protocol: tcp6
+                    preferred_ip_protocol: ip6
                 icmp_v4:
                   prober: icmp
                   timeout: 5s
                   icmp:
-                    protocol: icmp4
+                    preferred_ip_protocol: ip4
                 icmp_v6:
                   prober: icmp
                   timeout: 5s
                   icmp:
-                    protocol: icmp6
+                    preferred_ip_protocol: ip6
             '';
           };
         };
