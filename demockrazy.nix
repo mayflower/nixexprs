@@ -198,8 +198,6 @@ in {
         DJANGO_SETTINGS_MODULE = "demockrazy_config";
       };
       preStart = ''
-        mkdir -p /var/lib/demockrazy/static /run/demockrazy
-        chown -R demockrazy:nogroup /var/lib/demockrazy /run/demockrazy
         cd ${pkg}/share/demockrazy && ${djangoenv}/bin/python3 manage.py migrate && ${djangoenv}/bin/python3 manage.py collectstatic --noinput
       '';
       serviceConfig = {
@@ -217,6 +215,11 @@ in {
         NoNewPrivileges = "yes";
       };
     };
+    systemd.tmpfiles.rules = [
+      "d /var/lib/demockrazy 0755 demockrazy nogroup -"
+      "d /var/lib/demockrazy/static 0755 demockrazy nogroup -"
+      "d /run/demockrazy 0755 demockrazy nogroup -"
+    ];
 
     users.extraUsers.demockrazy = {};
   };
