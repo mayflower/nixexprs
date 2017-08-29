@@ -77,6 +77,9 @@ let
     hydra-jobs-cross-rewrite = {
       inputs.nixpkgs.value = "git://github.com/obsidiansystems/nixpkgs binutils-wrapper";
     };
+    hydra-jobs-hardening-redundancy = {
+      inputs.nixpkgs.value = "git://github.com/obsidiansystems/nixpkgs cc-wrapper-ld-hardening-redundancy";
+    };
     #hydra-jobs-arm = {
     #  path = "arm.nix";
     #  inputs = {
