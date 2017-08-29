@@ -59,6 +59,33 @@ in {
       services.nginx.statusPage = true;
       services.prometheus.nginxExporter.enable = config.services.nginx.enable;
       services.prometheus.nginxExporter.openFirewall = config.services.nginx.enable;
+      services.prometheus.nodeExporter = {
+        enable = true;
+        openFirewall = true;
+        enabledCollectors = [
+          "conntrack"
+          "diskstats"
+          "filefd"
+          "filesystem"
+          "netdev"
+          "netstat"
+          "time"
+          "uname"
+          "vmstat"
+          "systemd"
+          "logind"
+          "loadavg"
+        ] ++ lib.optionals (!config.boot.isContainer) [
+          "stat"
+          "entropy"
+          "meminfo"
+          "interrupts"
+          "ksmd"
+          "hwmon"
+          "zfs"
+          "edac"
+        ];
+      };
     }
     (mkIf cfg.server.enable {
       systemd.services.prometheus.serviceConfig.LimitNOFILE = 1024000;
