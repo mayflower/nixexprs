@@ -1,6 +1,6 @@
 [
   ./base.nix
   ./machines.nix
-  ./monitoring.nix
+  ./monitoring/default.nix
   ./demockrazy.nix
 ]

@@ -4,10 +4,49 @@ with lib;
 
 let
   cfg = config.mayflower.monitoring;
+  hostNames = hosts: (flip mapAttrsToList hosts (name: machine:
+    machine.deployment.targetHost or 
+      "${name}.${machine.containerDomains.${machine.hostBridge}}" #"
+  ));
+  # machine config attrs -> { containerName = container machine config // hostBridge // containerDomains }
+  containersOfMachine = m: flip mapAttrs m.containers (_: c:
+    c.config // { hostBridge = c.hostBridge; containerDomains = m.mayflower.monitoring.containerDomains; }
+  );
+  allHosts = fold mergeAttrs config.mayflower.machines (mapAttrsToList (_: machine: containersOfMachine machine) config.mayflower.machines);
+  allHostNames = hostNames allHosts;
+  alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m: 
+    m.services.prometheus.alertmanager.enable
+  ));
+  blackboxExporterHosts = flip filterAttrs allHosts (_: m: 
+    m.services.prometheus.blackboxExporter.enable
+  );
+  nginxExporterHostNames = hostNames (flip filterAttrs allHosts (_: m: 
+    m.services.prometheus.nginxExporter.enable
+  ));
+  unifiExporterHostNames = hostNames (flip filterAttrs allHosts (_: m: 
+    m.services.prometheus.unifiExporter.enable
+  ));
+  fritzboxExporterHostNames = hostNames (flip filterAttrs allHosts (_: m: 
+    m.services.prometheus.fritzboxExporter.enable
+  ));
+  openvpnExporterHostNames = hostNames (flip filterAttrs allHosts (_: m: 
+    m.services.prometheus.openvpnExporter.enable
+  ));
+  nginxVhosts = flatten (flip mapAttrsToList allHosts (_: m:
+    optionals m.services.nginx.enable (attrNames m.services.nginx.virtualHosts)
+  ));
+  mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v: {
+    job_name = k;
+    scrape_interval = "30s";
+    static_configs = flip map v.hostNames (name: {
+      targets = [ "${name}:${toString v.port}" ];
+      labels.alias = name;
+    });
+  });
 in {
   options = {
     # extends base nginx.virtualHosts
-    nginx.virtualHosts = mkOption {
+    services.nginx.virtualHosts = mkOption {
       type = types.submodule {
         options = {
           expectedStatusCode = mkOption {
@@ -37,36 +76,14 @@ in {
               default = {};
               description = "";
             };
-            blackboxSource = mkOption {
-              type = types.str;
-              default = "prometheus-server";
-              description = "";
-            };
-            staticBlackboxHttpsTargets = mkOption {
-              type = types.listOf types.str;
-              default = [];
-              description = "";
-            };
-            staticBlackboxIcmpTargets = mkOption {
-              type = types.listOf types.str;
-              default = [];
-              description = "";
-            };
-            staticBlackboxTcpTargets = mkOption {
-              type = types.listOf types.str;
-              default = [];
-              description = "";
-            };
-            blackboxCheckIP6 = mkOption {
-              type = types.bool;
-              default = true;
-              description = "";
-            };
           };
         };
         description = "";
         default = {};
       };
+      #blackboxExporter = mkOption {
+      #  type = types.submodule (import ./blackbox-exporter.nix { inherit config lib; });
+      #};
     };
   };
 
@@ -105,13 +122,12 @@ in {
     }
     (mkIf cfg.server.enable {
       systemd.services.prometheus.serviceConfig.LimitNOFILE = 1024000;
-      systemd.services.prometheus-blackbox-exporter.serviceConfig.LimitNOFILE = 1024000;
       systemd.services.alertmanager.serviceConfig.LimitNOFILE = 1024000;
 
       services = {
         prometheus = {
           enable = true;
-          alertmanagerURL = [ "http://localhost:9093" ];
+          alertmanagerURL = flip map alertmanagerHostNames (n: "http://${n}:9093");
           rules = mapAttrsToList (name: opts: ''
             ALERT ${name}
             IF ${opts.condition}
@@ -236,142 +252,106 @@ in {
               description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes.";
             };
             unifi_devices_adopted_changed = {
-              condition = "abs(delta(unifi_devices_adopted[5m])) > 1";
+              condition = "abs(delta(unifi_devices_adopted[5m])) >= 1";
               summary = "Unifi: number of adopted devices has changed";
               description = "Unifi: number of adopted devices has changed";
             };
           };
-          scrapeConfigs = let
-            allHosts = (flip mapAttrsToList config.mayflower.machines (_: machine:
-              machine.deployment.targetHost
-            ) ++ flatten (flip mapAttrsToList config.mayflower.machines (_: machine:
-              flip mapAttrsToList machine.containers (name: container:
-                "${name}.${machine.mayflower.monitoring.containerDomains.${container.hostBridge}}"
-              )
-            )));
-          in [
-            {
-              job_name = "blackbox_https";
-              scrape_interval = "60s";
-              metrics_path = "/probe";
-              params = {
-                module = [ "https_2xx" ];
-              };
-              static_configs = [
-                {
-                  targets = filter (n: n != "_" && n != "localhost")
-                              (flatten (flip mapAttrsToList config.mayflower.machines (_: m:
-                                attrNames m.services.nginx.virtualHosts))) ++ cfg.server.staticBlackboxHttpsTargets;
-                  labels = { source = cfg.server.blackboxSource; };
-                }
-              ];
-              relabel_configs = [
-                { source_labels = [ "__address__" ];
-                  regex = "(.*)(:80)?";
-                  target_label = "__param_target";
-                  replacement = ''''${1}'';
-                }
-                { source_labels = [ "__param_target" ];
-                  regex = "(.*)";
-                  target_label = "instance";
-                  replacement = ''''${1}'';
-                }
-                {
-                  source_labels = [];
-                  regex = ".*";
-                  target_label = "__address__";
-                  replacement = "127.0.0.1:9115";
-                }
-              ];
-            }
-            {
-              job_name = "node";
-              scrape_interval = "30s";
-              static_configs = flip map allHosts (name: {
-                targets = [ "${name}:9100" ];
-                labels.alias = name;
-              });
-            }
-            {
-              job_name = "nginx";
-              scrape_interval = "30s";
-              static_configs = map (name: {
-                targets = [ "${name}:9113" ];
-                labels.alias = name;
-              }) (mapAttrsToList (n: machine:
-                machine.deployment.targetHost
-              ) (flip filterAttrs config.mayflower.machines (_: m: m.services.prometheus.nginxExporter.enable)));
-            }
-            {
-              job_name = "fritz";
-              scrape_interval = "30s";
-              static_configs = map (name: {
-                targets = [ "${name}:9133" ];
-                labels.alias = "fritz.${name}";
-              }) (mapAttrsToList (n: machine:
-                machine.deployment.targetHost
-              ) (flip filterAttrs config.mayflower.machines (_: m: m.services.prometheus.fritzboxExporter.enable)));
-            }
-            {
-              job_name = "openvpn";
-              scrape_interval = "60s";
-              static_configs = map (name: {
-                targets = [ "${name}:9167" ];
-                labels.alias = name;
-              }) (mapAttrsToList (n: machine:
-                machine.deployment.targetHost
-              ) (flip filterAttrs config.mayflower.machines (_: m: m.services.prometheus.openvpnExporter.enable)));
-            }
-            {
-              job_name = "unifi";
-              scrape_interval = "30s";
-              static_configs = map (name: {
-                targets = [ "${name}:9130" ];
-                labels.alias = name;
-              }) (mapAttrsToList (n: machine:
-                machine.deployment.targetHost
-              ) (flip filterAttrs config.mayflower.machines (_: m: m.services.prometheus.unifiExporter.enable)));
-            }
-          ] ++ (flip map (
-            [ "icmp_v4" "tcp_v4" ] ++ optionals cfg.server.blackboxCheckIP6 [ "icmp_v6" "tcp_v6" ]
-          ) (name: let
-            suffix = optionalString (elem name [ "tcp_v4" "tcp_v6" ]) ":22";
-          in {
-            job_name = "blackbox_${name}";
-            scrape_interval = "60s";
-            metrics_path = "/probe";
-            params = {
-              module = [ name ];
+          scrapeConfigs = (mkScrapeConfigs {
+            node = {
+              hostNames = allHostNames;
+              port = 9100;
             };
-            static_configs = [
-              {
-                targets = (flip map allHosts (h: h + suffix)) ++
-                  (optionals (elem name [ "tcp_v4" "tcp_v6" ]) cfg.server.staticBlackboxTcpTargets) ++
-                  (optionals (elem name [ "icmp_v4" "icmp_v6" ]) cfg.server.staticBlackboxIcmpTargets);
-                labels = { source = cfg.server.blackboxSource; };
-              }
-            ];
-            relabel_configs = [
-              { source_labels = [ "__address__" ];
-                regex = "(.*)(:80)?";
-                target_label = "__param_target";
-                replacement = ''''${1}'';
-              }
-              { source_labels = [ "__param_target" ];
-                regex = "(.*)";
-                target_label = "instance";
-                replacement = ''''${1}'';
-              }
-              {
-                source_labels = [];
-                regex = ".*";
-                target_label = "__address__";
-                replacement = "127.0.0.1:9115";
-              }
-            ];
-          }));
+            nginx = {
+              hostNames = nginxExporterHostNames;
+              port = 9113;
+            };
+            fritz = {
+              hostNames = fritzboxExporterHostNames;
+              port = 9133;
+            };
+            openvpn = {
+              hostNames = openvpnExporterHostNames;
+              port = 9167;
+            };
+            unifi = {
+              hostNames = unifiExporterHostNames;
+              port = 9130;
+            };
+          }) ++ [
+          #            {
+          #              job_name = "blackbox_https";
+          #              scrape_interval = "60s";
+          #              metrics_path = "/probe";
+          #              params = {
+          #                module = [ "https_2xx" ];
+          #              };
+          #              static_configs = [
+          #                {
+          #                  targets = filter (n: n != "_" && n != "localhost")
+          #                              nginxVhosts ++ cfg.server.staticBlackboxHttpsTargets;
+          #                  labels = { source = cfg.server.blackboxSource; };
+          #                }
+          #              ];
+          #              relabel_configs = [
+          #                { source_labels = [ "__address__" ];
+          #                  regex = "(.*)(:80)?";
+          #                  target_label = "__param_target";
+          #                  replacement = ''''${1}'';
+          #                }
+          #                { source_labels = [ "__param_target" ];
+          #                  regex = "(.*)";
+          #                  target_label = "instance";
+          #                  replacement = ''''${1}'';
+          #                }
+          #                {
+          #                  source_labels = [];
+          #                  regex = ".*";
+          #                  target_label = "__address__";
+          #                  replacement = "127.0.0.1:9115";
+          #                }
+          #              ];
+          #            }
+          #          ] ++ (flip map (
+          #            [ "icmp_v4" "tcp_v4" ] ++ optionals cfg.server.blackboxCheckIP6 [ "icmp_v6" "tcp_v6" ]
+          #          ) (name: let
+          #            suffix = optionalString (elem name [ "tcp_v4" "tcp_v6" ]) ":22";
+          #          in {
+          #            job_name = "blackbox_${name}";
+          #            scrape_interval = "60s";
+          #            metrics_path = "/probe";
+          #            params = {
+          #              module = [ name ];
+          #            };
+          #            static_configs = [
+          #              {
+          #                targets = (flip map (hostNames allHosts) (h: h + suffix)) ++
+          #                  (optionals (elem name [ "tcp_v4" "tcp_v6" ]) cfg.server.staticBlackboxTcpTargets) ++
+          #                  (optionals (elem name [ "icmp_v4" "icmp_v6" ]) cfg.server.staticBlackboxIcmpTargets);
+          #                labels = { source = cfg.server.blackboxSource; };
+          #              }
+          #            ];
+          #            relabel_configs = [
+          #              { source_labels = [ "__address__" ];
+          #                regex = "(.*)(:80)?";
+          #                target_label = "__param_target";
+          #                replacement = ''''${1}'';
+          #              }
+          #              { source_labels = [ "__param_target" ];
+          #                regex = "(.*)";
+          #                target_label = "instance";
+          #                replacement = ''''${1}'';
+          #              }
+          #              {
+          #                source_labels = [];
+          #                regex = ".*";
+          #                target_label = "__address__";
+          #                replacement = "127.0.0.1:9115";
+          #              }
+          ];
           alertmanager = {
             enable = true;
+            meshPeers = alertmanagerHostNames;
             configuration = {
               route = {
                 receiver = "dummy-null";
@@ -391,38 +371,6 @@ in {
                 { name = "dummy-null"; }
               ];
             };
-          };
-
-          blackboxExporter = {
-            enable = true;
-            configFile = pkgs.writeText "blackbox-exporter.yaml" ''
-              modules:
-                https_2xx:
-                  prober: http
-                  timeout: 5s
-                  http:
-                    fail_if_not_ssl: true
-                tcp_v4:
-                  prober: tcp
-                  timeout: 5s
-                  tcp:
-                    preferred_ip_protocol: ip4
-                tcp_v6:
-                  prober: tcp
-                  timeout: 5s
-                  tcp:
-                    preferred_ip_protocol: ip6
-                icmp_v4:
-                  prober: icmp
-                  timeout: 5s
-                  icmp:
-                    preferred_ip_protocol: ip4
-                icmp_v6:
-                  prober: icmp
-                  timeout: 5s
-                  icmp:
-                    preferred_ip_protocol: ip6
-            '';
           };
         };
       };
