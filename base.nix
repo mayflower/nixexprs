@@ -3,7 +3,14 @@
 with lib;
 
 {
-  config = {
+  options = {
+    mayflower.base.enable = mkOption {
+      type = types.bool;
+      default = true;
+    };
+  };
+
+  config = mkIf config.mayflower.base.enable {
     boot.tmpOnTmpfs = true;
     boot.kernelPackages = pkgs.linuxPackages_4_12;
     boot.kernelParams = [
@@ -48,6 +55,7 @@ with lib;
     programs = {
       bash.enableCompletion = true;
       ssh.startAgent = false;
+      mtr.enable = true;
     };
 
     # sigh :/
@@ -55,13 +63,58 @@ with lib;
       allowUnfree = true;
     };
 
-    environment.variables.EDITOR = "vim";
+    environment = {
+      variables.EDITOR = "vim";
+      systemPackages = with pkgs; [
+        curl
+        dnsutils
+        file
+        htop
+        iftop
+        iftop
+        iotop
+        iperf2
+        iperf3
+        jnettop
+        lsof
+        ncdu
+        pbzip2
+        pciutils
+        pv
+        rxvt_unicode.terminfo
+        strace
+        tcpdump
+        tmux
+        vim
+        wget
+      ];
+    };
 
     time.timeZone = mkDefault "GMT";
 
     security.audit.enable = mkDefault false;
 
     services = {
+      openssh = {
+        enable = true;
+        passwordAuthentication = false;
+      };
+
+      fail2ban = {
+        enable = true;
+        # ssh-iptables jail is enabled by default
+      };
+
+      chrony = {
+        enable = !config.boot.isContainer;
+        servers = [
+          "0.de.pool.ntp.org"
+          "1.de.pool.ntp.org"
+          "2.de.pool.ntp.org"
+          "3.de.pool.ntp.org"
+        ];
+      };
+
       nginx = {
         package = pkgs.nginxUnstable;
         appendConfig = ''
