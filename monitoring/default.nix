@@ -32,8 +32,12 @@ let
   openvpnExporterHostNames = hostNames (flip filterAttrs allHosts (_: m: 
     m.services.prometheus.openvpnExporter.enable
   ));
-  nginxVhosts = flatten (flip mapAttrsToList allHosts (_: m:
-    optionals m.services.nginx.enable (attrNames m.services.nginx.virtualHosts)
+  nginxSSLVhosts = flatten (flip mapAttrsToList allHosts (_: m:
+    optionals m.services.nginx.enable (
+      attrNames (flip filterAttrs m.services.nginx.virtualHosts (_: vh:
+        vh.forceSSL || vh.addSSL || vh.onlySSL
+      ))
+    )
   ));
   mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v: {
     job_name = k;
@@ -151,7 +155,7 @@ in {
             host = hostName name m;
           in [
             {
-              job_name = "blackbox_https";
+              job_name = "blackbox_https_${host}";
               scrape_interval = "50s";
               metrics_path = "/probe";
               params = {
@@ -160,7 +164,7 @@ in {
               static_configs = [
                 {
                   targets = filter (n: n != "_" && n != "localhost")
-                              nginxVhosts ++ blackboxCfg.staticBlackboxHttpsTargets;
+                              nginxSSLVhosts ++ blackboxCfg.staticBlackboxHttpsTargets;
                   labels = { source = host; };
                 }
               ];
@@ -188,7 +192,7 @@ in {
             ) (name: let
               suffix = optionalString (elem name [ "tcp_v4" "tcp_v6" ]) ":22";
             in {
-              job_name = "blackbox_${name}";
+              job_name = "blackbox_${name}_${host}";
               scrape_interval = "60s";
               metrics_path = "/probe";
               params = {
