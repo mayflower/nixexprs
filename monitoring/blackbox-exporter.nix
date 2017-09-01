@@ -1,35 +1,40 @@
-{ config, lib }: with lib;
+{ config, lib, pkgs, ... }:
+
+with lib;
+
 let
   cfg = config.mayflower.monitoring.blackboxExporter;
 in {
   options = {
-    enable = mkEnableOption "Mayflower Monitoring Blackbox Exporter";
-    staticBlackboxHttpsTargets = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = "";
-    };
-    staticBlackboxIcmpTargets = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = "";
-    };
-    staticBlackboxTcpTargets = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = "";
-    };
-    blackboxCheckIP6 = mkOption {
-      type = types.bool;
-      default = true;
-      description = "";
+    mayflower.monitoring.blackboxExporter = {
+      enable = mkEnableOption "Mayflower Monitoring Blackbox Exporter";
+      staticBlackboxHttpsTargets = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "";
+      };
+      staticBlackboxIcmpTargets = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "";
+      };
+      staticBlackboxTcpTargets = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "";
+      };
+      blackboxCheckIP6 = mkOption {
+        type = types.bool;
+        default = true;
+        description = "";
+      };
     };
   };
   config = mkIf cfg.enable {
     systemd.services.prometheus-blackbox-exporter.serviceConfig.LimitNOFILE = 1024000;
     services.prometheus.blackboxExporter = {
       enable = true;
-      configFile = pkgs.writeText "blackbox-exporter.yaml" (builtins toJSON {
+      configFile = pkgs.writeText "blackbox-exporter.yaml" (builtins.toJSON {
         modules = {
           https_2xx = {
             prober = "http";
