@@ -47,14 +47,12 @@ in {
   options = {
     # extends base nginx.virtualHosts
     services.nginx.virtualHosts = mkOption {
-      type = types.submodule {
-        options = {
-          expectedStatusCode = mkOption {
-            type = types.int;
-            description = ''
-              HTTP Status Code expected at / on the virtual Host.
-            '';
-          };
+      options = {
+        expectedStatusCode = mkOption {
+          type = types.int;
+          description = ''
+            HTTP Status Code expected at / on the virtual Host.
+          '';
         };
       };
     };
