@@ -73,6 +73,7 @@ let
     };
     "hydra-jobs-release-17.09"= {
       inputs.nixpkgs.value = "git://github.com/nixos/nixpkgs release-17.09";
+      interval = 1800;
     };
     # hydra-jobs-cross-rewrite = {
     #   inputs.nixpkgs.value = "git://github.com/obsidiansystems/nixpkgs binutils-wrapper";
