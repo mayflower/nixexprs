@@ -74,9 +74,9 @@ let
     "hydra-jobs-release-17.09"= {
       inputs.nixpkgs.value = "git://github.com/nixos/nixpkgs release-17.09";
     };
-    hydra-jobs-cross-rewrite = {
-      inputs.nixpkgs.value = "git://github.com/obsidiansystems/nixpkgs binutils-wrapper";
-    };
+    # hydra-jobs-cross-rewrite = {
+    #   inputs.nixpkgs.value = "git://github.com/obsidiansystems/nixpkgs binutils-wrapper";
+    # };
     #hydra-jobs-arm = {
     #  path = "arm.nix";
     #  inputs = {
