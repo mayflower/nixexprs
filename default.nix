@@ -702,6 +702,7 @@ in
   zsh = all;
 
   linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages_4_12 = recursiveUpdate kernelPackages kernelPackages_virtualbox;
   linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
 
   nodePackages = {
