@@ -160,6 +160,7 @@ in
   etcd = all;
   ethtool = all;
   evince = all;
+  exa = all;
   exfat = all;
   f2fs-tools = all;
   fail2ban = all;
