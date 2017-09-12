@@ -2,6 +2,6 @@
   ./base.nix
   ./kvm.nix
   ./machines.nix
-  ./monitoring.nix
+  ./monitoring/default.nix
   ./demockrazy.nix
 ]
