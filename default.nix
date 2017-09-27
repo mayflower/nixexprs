@@ -558,6 +558,7 @@ in
   rtkit = all;
   rtorrent = all;
   ruby = all;
+  rustfmt = all;
   rxvt_unicode-with-plugins = all;
   sakura = all;
   searx = all;
