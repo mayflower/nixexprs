@@ -12,7 +12,7 @@ with lib;
 
   config = mkIf config.mayflower.base.enable {
     boot.tmpOnTmpfs = true;
-    boot.kernelPackages = pkgs.linuxPackages_4_12;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelParams = [
       "boot.shell_on_fail"
       "panic=10" # wait a bit before rebooting on panics pre-stage2
