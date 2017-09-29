@@ -639,6 +639,7 @@ in
   tree = all;
   tzdata = all;
   unbound = all;
+  unclutter-xfixes = all;
   unetbootin = all;
   units = all;
   unzip = all;
