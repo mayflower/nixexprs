@@ -41,6 +41,9 @@ let
     hydra-jobs-production = recursiveUpdate hydra-jobs-master {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} production";
     };
+    hydra-jobs-mariadb-10-2 = recursiveUpdate hydra-jobs-master {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mariadb-10.2";
+    };
     hydra-jobs-darwin = {
       inputs.supportedSystems.value = ''[ \"x86_64-darwin\" ]'';
     };
