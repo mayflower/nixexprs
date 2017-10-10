@@ -508,7 +508,7 @@ in
     urllib3 = all;
     zerobin = all;
   };
-  python3.pkgs = {
+  python3Packages = {
     binwalk = all;
     django = all;
     irc = linux;
