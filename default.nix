@@ -508,11 +508,14 @@ in
     urllib3 = all;
     zerobin = all;
   };
-  python3Packages = {
+  python3.pkgs = {
     binwalk = all;
     django = all;
     irc = linux;
+    jupyter = linux;
     numpy = all;
+    pandas = linux;
+    plotly = linux;
     pyramid = linux;
     scipy = all;
     slackclient = linux;
