@@ -91,7 +91,6 @@ in
   caddy = all;
   calibre = all;
   cargo = all;
-  casperjs = all;
   ccid = all;
   cgmanager = all;
   checksec = all;
@@ -104,7 +103,6 @@ in
   claws-mail = all;
   cmake = all;
   collectd = all;
-  collectdMinimal = all;
   colordiff = all;
   compass = all;
   compton = all;
@@ -718,8 +716,6 @@ in
   pkgsi686Linux = {
     mesa = mesaPlatforms;
     mesa_drivers = all;
-    steam = all;
-    steam-run = all;
   };
 
   xorg = {
