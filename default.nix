@@ -184,6 +184,7 @@ in
   gimp = all;
   gist = all;
   git = all;
+  gitaly = all;
   gitAndTools.diff-so-fancy = all;
   gitAndTools.git-extras = all;
   gitAndTools.gitFull = all;
@@ -292,6 +293,7 @@ in
   jackett = all;
   jnettop = all;
   jool-cli = all;
+  journalbeat = all;
   jq = all;
   jre = all;
   jwhois = all;
