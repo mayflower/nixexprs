@@ -162,8 +162,9 @@ with lib;
         automatic = !config.boot.isContainer;
         options = "--delete-older-than 7d";
       };
-      binaryCaches = [
+      binaryCaches = lib.mkForce [
         "https://hydra.mayflower.de/"
+        "https://cache.nixos.community/"
         "https://cache.nixos.org/"
       ];
       binaryCachePublicKeys = [
