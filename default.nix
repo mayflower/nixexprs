@@ -511,7 +511,9 @@ in
   python3Packages = {
     binwalk = all;
     django = all;
+    git-pandas = all;
     irc = linux;
+    joblib = all;
     jupyter = linux;
     numpy = all;
     pandas = linux;
