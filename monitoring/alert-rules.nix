@@ -1,18 +1,16 @@
 { lib }:
 with lib;
 
-mapAttrsToList (name: opts: ''
-  ALERT ${name}
-  IF ${opts.condition}
-  FOR ${opts.time or "2m"}
-  LABELS {
-    ${optionalString (opts.page or true) ''severity="page"''}
-  }
-  ANNOTATIONS {
-    summary = "${opts.summary}",
-    description = "${opts.description}"
-  }
-'') {
+mapAttrsToList (name: opts: {
+  alert = name;
+  expr = opts.condition;
+  for = opts.time or "2m";
+  labels = if (opts.page or true) then { severity = "page"; } else {};
+  annotations = {
+    summary = opts.summary;
+    description = opts.description;
+  };
+}) {
   node_down = {
     condition = ''up{job="node"} == 0'';
     summary = "{{$labels.alias}}: Node is down.";

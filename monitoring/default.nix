@@ -125,9 +125,9 @@ in {
       systemd.services.alertmanager.serviceConfig.LimitNOFILE = 1024000;
 
       services = {
-        prometheus = {
+        prometheus2 = {
           enable = true;
-          alertmanagerURL = flip map alertmanagerHostNames (n: "http://${n}:9093");
+          alertmanagerURL = flip map alertmanagerHostNames (n: "${n}:9093");
           rules = import ./alert-rules.nix { inherit lib; };
           scrapeConfigs = (mkScrapeConfigs {
             node = {
