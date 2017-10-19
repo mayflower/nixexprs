@@ -226,28 +226,29 @@ in {
               ];
             })))
           ])));
-          alertmanager = {
-            enable = true;
-            meshPeers = alertmanagerHostNames;
-            configuration = {
-              route = {
-                receiver = "dummy-null";
-                routes = [ {
-                  group_by = [ "alertname" "alias" ];
-                  group_wait = "30s";
-                  group_interval = "2m";
-                  repeat_interval = "4h";
-                  receiver = "team-admins";
-                  match = { severity = "page"; };
-                } ];
-              };
-              receivers = [
-                ({
-                  name = "team-admins";
-                } // cfg.server.alertmanagerReceivers)
-                { name = "dummy-null"; }
-              ];
+        };
+
+        prometheus.alertmanager = {
+          enable = true;
+          meshPeers = alertmanagerHostNames;
+          configuration = {
+            route = {
+              receiver = "dummy-null";
+              routes = [ {
+                group_by = [ "alertname" "alias" ];
+                group_wait = "30s";
+                group_interval = "2m";
+                repeat_interval = "4h";
+                receiver = "team-admins";
+                match = { severity = "page"; };
+              } ];
             };
+            receivers = [
+              ({
+                name = "team-admins";
+              } // cfg.server.alertmanagerReceivers)
+              { name = "dummy-null"; }
+            ];
           };
         };
       };
