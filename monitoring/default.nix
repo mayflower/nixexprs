@@ -17,9 +17,6 @@ let
   alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
     m.services.prometheus.alertmanager.enable
   ));
-  blackboxExporterHosts = flip filterAttrs allHosts (_: m:
-    m.mayflower.monitoring.blackboxExporter.enable
-  );
   nginxExporterHostNames = hostNames (flip filterAttrs allHosts (_: m:
     m.services.prometheus.nginxExporter.enable
   ));
@@ -49,13 +46,13 @@ let
     });
   });
 
-  mkBlackboxConfig = { machine, hostname, proto, targets, module, interval ? "60s" }:
+  mkBlackboxConfig = { hostname, module, targets, interval ? "60s" }:
   {
-    job_name = "blackbox_${proto}_${hostname}";
+    job_name = "blackbox_${module}_${hostname}";
     scrape_interval = interval;
     metrics_path = "/probe";
     params = {
-      inherit module;
+      module = singleton module;
     };
     static_configs = [
       {
@@ -82,7 +79,7 @@ let
         source_labels = [];
         regex = ".*";
         target_label = "__address__";
-        replacement = "127.0.0.1:9115";
+        replacement = "${hostname}:9115";
       }
     ];
   };
@@ -109,19 +106,21 @@ in {
           to domains appended to the container name to monitor them.
         '';
       };
-      server = mkOption {
-        type = types.submodule {
-          options = {
-            enable = mkEnableOption "Mayflower-oriented monitoring server with prometheus";
-            alertmanagerReceivers = mkOption {
-              type = types.attrs;
-              default = {};
-              description = "";
-            };
-          };
+
+      server = {
+        enable = mkEnableOption "Mayflower-oriented monitoring server with prometheus";
+
+        alertmanagerReceivers = mkOption {
+          type = types.attrs;
+          default = {};
+          description = "";
         };
-        description = "";
-        default = {};
+
+        blackboxExporterHosts = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = "Hostnames of blackboxExporter instances";
+        };
       };
     };
   };
@@ -190,34 +189,25 @@ in {
               port = 9130;
             };
           }) ++
-          (flatten (flip mapAttrsToList blackboxExporterHosts (name: machine:
-            let
-              blackboxCfg = machine.mayflower.monitoring.blackboxExporter;
-            in
-            (flip map [ "icmp_v4" "icmp_v6" ] (proto: (mkBlackboxConfig
+          (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
+            (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
               {
-                inherit machine proto;
-                hostname = hostName name machine;
-                targets = (hostNames allHosts) ++ blackboxCfg.staticBlackboxIcmpTargets;
-                module = singleton proto;
+                inherit hostname module;
+                targets = (hostNames allHosts) ++ cfg.blackboxExporter.staticBlackboxIcmpTargets;
               }
             ))) ++
-            (flip map [ "tcp_v4" "tcp_v6" ] (proto: (mkBlackboxConfig
+            (flip map [ "tcp_v4" "tcp_v6" ] (module: (mkBlackboxConfig
               {
-                inherit machine proto;
-                hostname = hostName name machine;
-                targets = blackboxCfg.staticBlackboxTcpTargets;
-                module = singleton proto;
+                inherit hostname module;
+                targets = cfg.blackboxExporter.staticBlackboxTcpTargets;
               }
             ))) ++
             [(mkBlackboxConfig
               {
-                inherit machine;
-                proto = "https";
-                hostname = hostName name machine;
+                inherit hostname;
+                module = "https_2xx";
                 targets = (filter (n: n != "_" && n != "localhost")
-                            nginxSSLVhosts ++ blackboxCfg.staticBlackboxHttpsTargets);
-                module = [ "https_2xx" ];
+                            nginxSSLVhosts ++ cfg.blackboxExporter.staticBlackboxHttpsTargets);
                 interval = "50s";
               }
             )]
