@@ -341,6 +341,7 @@ in
   lxappearance = all;
   lxc = all;
   lxd = all;
+  lxqt.qterminal = all;
   lynx = all;
   lzma = all;
   mailutils = all;
