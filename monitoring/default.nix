@@ -164,15 +164,21 @@ in {
           "systemd"
           "logind"
           "loadavg"
-        ] ++ optionals (!config.boot.isContainer) [
-          "stat"
-          "entropy"
           "meminfo"
+          "stat"
+        ] ++ optionals (!config.boot.isContainer) [
           "interrupts"
           "ksmd"
+          "bonding"
+        ];
+        disabledCollectors = [
+          "infiniband"
+        ] ++ optionals config.boot.isContainer [
+          "timex"
+          "edac"
+          "entropy"
           "hwmon"
           "zfs"
-          "edac"
         ];
       };
     }
