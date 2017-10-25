@@ -16,6 +16,11 @@ mapAttrsToList (name: opts: {
     summary = "{{$labels.alias}}: Node is down.";
     description = "{{$labels.alias}} has been down for more than 2 minutes.";
   };
+  node_collector_failed = {
+    condition = ''node_scrape_collector_success{job="node"} == 0'';
+    summary = "{{$labels.alias}}: Node collector {{$labels.collector}} failed.";
+    description = "{{$labels.alias}}: The collector {{$labels.collector}} of node exporter instance {{$labels.instance}} failed.";
+  };
   node_systemd_service_failed = {
     condition = ''node_systemd_unit_state{state="failed"} == 1'';
     summary = "{{$labels.alias}}: Service {{$labels.name}} failed to start.";
