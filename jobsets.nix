@@ -78,6 +78,22 @@ let
       inputs.nixpkgs.value = "git://github.com/nixos/nixpkgs release-17.09";
       interval = 1800;
     };
+    "nixpkgs-stats"= {
+      enabled = false;
+      input = "stats";
+      keep = 5;
+      interval = 3600;
+      inputs = {
+        stats = {
+          type = "git";
+          value = "git://github.com/mayflower/nixpkgs-stats";
+        };
+        nixpkgs = {
+          type = "git";
+          value = "git://github.com/mayflower/nixpkgs";
+        };
+      };
+    };
     #hydra-jobs-arm = {
     #  path = "arm.nix";
     #  inputs = {
