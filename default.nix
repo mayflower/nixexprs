@@ -517,6 +517,7 @@ in
     irc = linux;
     joblib = all;
     jupyter = linux;
+    nltk = all;
     numpy = all;
     pandas = linux;
     plotly = linux;
@@ -524,6 +525,7 @@ in
     scipy = all;
     slackclient = linux;
     tempora = linux;
+    tkinter = all;
     zope_schema = linux;
   };
   SDL2 = all;
