@@ -10,7 +10,7 @@ let
     path = "default.nix";
     keep = 1;
     shares = 42;
-    interval = 60;
+    interval = 300;
     inputs = {
       jobs = {
         type = "git";
