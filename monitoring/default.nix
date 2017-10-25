@@ -8,25 +8,35 @@ let
     machine.deployment.targetHost or
       "${name}.${machine.containerDomains.${machine.hostBridge}}";
   hostNames = hosts: mapAttrsToList hostName hosts;
+
   #" machine config attrs -> { containerName = container machine config // hostBridge // containerDomains }
   containersOfMachine = m: flip mapAttrs m.containers (_: c:
     c.config // { hostBridge = c.hostBridge; containerDomains = m.mayflower.monitoring.containerDomains; }
   );
-  allHosts = fold mergeAttrs config.mayflower.machines (mapAttrsToList (_: machine: containersOfMachine machine) config.mayflower.machines);
+
+  # All hosts in the same datacenter as this host
+  allMachinesSameDC = optionalAttrs (cfg.datacenter != null) (
+    flip filterAttrs config.mayflower.machines (_: v: cfg.datacenter == v.mayflower.monitoring.datacenter));
+  allHostsSameDC = fold mergeAttrs allMachinesSameDC (mapAttrsToList (_: machine: containersOfMachine machine) allMachinesSameDC);
+  allHostNamesSameDC = hostNames allHostsSameDC;
+
+  allMachines = config.mayflower.machines;
+  allHosts = fold mergeAttrs allMachines (mapAttrsToList (_: machine: containersOfMachine machine) allMachines);
   allHostNames = hostNames allHosts;
-  alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
+
+  alertmanagerHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.alertmanager.enable
   ));
-  nginxExporterHostNames = hostNames (flip filterAttrs allHosts (_: m:
+  nginxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.nginxExporter.enable
   ));
-  unifiExporterHostNames = hostNames (flip filterAttrs allHosts (_: m:
+  unifiExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.unifiExporter.enable
   ));
-  fritzboxExporterHostNames = hostNames (flip filterAttrs allHosts (_: m:
+  fritzboxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.fritzboxExporter.enable
   ));
-  openvpnExporterHostNames = hostNames (flip filterAttrs allHosts (_: m:
+  openvpnExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.openvpnExporter.enable
   ));
   nginxSSLVhosts = flatten (flip mapAttrsToList allHosts (_: m:
@@ -107,6 +117,14 @@ in {
         '';
       };
 
+      datacenter = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Domain in which this node is located.
+        '';
+      };
+
       server = {
         enable = mkEnableOption "Mayflower-oriented monitoring server with prometheus";
 
@@ -169,7 +187,7 @@ in {
           rules = import ./alert-rules.nix { inherit lib; };
           scrapeConfigs = (mkScrapeConfigs {
             node = {
-              hostNames = allHostNames;
+              hostNames = allHostNamesSameDC;
               port = 9100;
             };
             nginx = {
@@ -193,7 +211,7 @@ in {
             (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
               {
                 inherit hostname module;
-                targets = (hostNames allHosts) ++ cfg.blackboxExporter.staticBlackboxIcmpTargets;
+                targets = (hostNames allHostsSameDC) ++ cfg.blackboxExporter.staticBlackboxIcmpTargets;
               }
             ))) ++
             (flip map [ "tcp_v4" "tcp_v6" ] (module: (mkBlackboxConfig
