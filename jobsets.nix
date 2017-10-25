@@ -3,7 +3,7 @@
 let
   pkgs = import nixpkgs {};
   defaultSettings = {
-    enabled = true;
+    enabled = "1";
     hidden = false;
     description = "";
     input = "jobs";
@@ -79,7 +79,7 @@ let
       interval = 1800;
     };
     "nixpkgs-stats"= {
-      enabled = false;
+      enabled = "2";
       input = "stats";
       keep = 5;
       interval = 3600;
@@ -114,7 +114,7 @@ let
     {
       ${concatStringsSep "," (mapAttrsToList (name: settings: ''
         "${name}": {
-            "enabled": ${if settings.enabled then "1" else "0"},
+            "enabled": ${settings.enabled},
             "hidden": ${if settings.hidden then "true" else "false"},
             "description": "${settings.description}",
             "nixexprinput": "${settings.input}",
