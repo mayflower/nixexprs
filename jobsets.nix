@@ -79,7 +79,7 @@ let
       interval = 1800;
     };
     "nixpkgs-stats"= {
-      enabled = "2";
+      enabled = "1";
       input = "stats";
       keep = 5;
       interval = 3600;
