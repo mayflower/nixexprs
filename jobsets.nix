@@ -86,7 +86,7 @@ let
       inputs = {
         stats = {
           type = "git";
-          value = "git://github.com/mayflower/nixpkgs-stats master --lfs";
+          value = "https://git.mayflower.de/open-source/nixpkgs-stats";
         };
         nixpkgs = {
           type = "git";
