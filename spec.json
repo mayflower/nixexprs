@@ -4,7 +4,7 @@
     "description": "Jobsets",
     "nixexprinput": "src",
     "nixexprpath": "jobsets.nix",
-    "checkinterval": 60,
+    "checkinterval": 300,
     "schedulingshares": 420,
     "enableemail": true,
     "emailoverride": "devnull+hydra@mayflower.de",
