@@ -220,7 +220,7 @@ in {
             };
             openvpn = {
               hostNames = openvpnExporterHostNames;
-              port = 9167;
+              port = 9176;
             };
             unifi = {
               hostNames = unifiExporterHostNames;
