@@ -27,6 +27,12 @@ let
   alertmanagerHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.alertmanager.enable
   ));
+  prometheusHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.prometheus2.enable
+  ));
+  unboundHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.systemd.services.prometheus-unbound-exporter.enable or false
+  ));
   nginxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.nginxExporter.enable
   ));
@@ -192,6 +198,14 @@ in {
           alertmanagerURL = flip map alertmanagerHostNames (n: "${n}:9093");
           rules = import ./alert-rules.nix { inherit lib; };
           scrapeConfigs = (mkScrapeConfigs {
+            prometheus = {
+              hostNames = prometheusHostNames;
+              port = 9090;
+            };
+            unbound = {
+              hostNames = unboundHostNames;
+              port = 9167;
+            };
             node = {
               hostNames = allHostNamesSameDC;
               port = 9100;
