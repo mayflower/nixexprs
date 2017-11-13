@@ -57,6 +57,16 @@ mapAttrsToList (name: opts: {
     summary = "{{$labels.alias}}: Using more than 30% of its swap.";
     description = "{{$labels.alias}} is using 30% of its swap space for at least 30 minutes.";
   };
+  node_visible_confluence_space = {
+    condition = "node_visible_confluence_space != 0";
+    summary = "crowd prometheus cann see the {{$labels.space_name}} confluence space!";
+    description = "crowd user `prometheus` can see the `{{$labels.space_name}}` confluence space.";
+  };
+  node_visible_jira_project = {
+    condition = "node_visible_jira_project != 0";
+    summary = "crowd user `prometheus` can see the `{{$labels.project_name}}` jira project.";
+    description = "crowd user `prometheus` can see the `{{$labels.project_name}}` jira project.";
+  };
   node_zfs_errors = {
     condition = "node_zfs_arc_l2_writes_error + node_zfs_arc_l2_io_error + node_zfs_arc_l2_writes_error > 0";
     summary = "{{$labels.alias}}: ZFS IO errors";
