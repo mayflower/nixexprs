@@ -24,7 +24,7 @@ let
   allHosts = fold mergeAttrs allMachines (mapAttrsToList (_: machine: containersOfMachine machine) allMachines);
   allHostNames = hostNames allHosts;
 
-  alertmanagerHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+  alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
     m.services.prometheus.alertmanager.enable
   ));
   prometheusHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
