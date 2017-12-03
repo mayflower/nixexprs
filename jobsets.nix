@@ -69,6 +69,10 @@ let
     hydra-jobs-openssl-1_1 = {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} openssl-1.1";
     };
+    hydra-jobs-backport-ff-rust = {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} backport-ff-rust";
+      path = "backport-ff-rust.nix";
+    };
     "nixpkgs-stats"= {
       enabled = "1";
       input = "stats";
