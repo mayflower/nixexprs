@@ -527,6 +527,7 @@ in
     scikitlearn = all;
     slackclient = linux;
     tempora = linux;
+    tensorflow = all;
     tkinter = all;
     zope_schema = linux;
   };
