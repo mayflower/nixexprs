@@ -514,6 +514,7 @@ in
     cufflinks = all;
     django = all;
     git-pandas = all;
+    imageio = all;
     irc = linux;
     joblib = all;
     jupyter = linux;
@@ -523,6 +524,7 @@ in
     plotly = linux;
     pyramid = linux;
     scipy = all;
+    scikitlearn = all;
     slackclient = linux;
     tempora = linux;
     tkinter = all;
