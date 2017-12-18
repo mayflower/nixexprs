@@ -11,6 +11,11 @@ mapAttrsToList (name: opts: {
     description = opts.description;
   };
 }) {
+  node_deployed = {
+    condition = "node_deployed < time()-86400*14";
+    summary = "{{$labels.alias}}: Last deployed on {{$labels.date}} with version {{$labels.version}}";
+    description = "{{$labels.alias}}: Last deployed on {{$labels.date}} with version {{$labels.version}}";
+  };
   node_down = {
     condition = ''up{job="node"} == 0'';
     summary = "{{$labels.alias}}: Node is down.";
