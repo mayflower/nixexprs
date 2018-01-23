@@ -101,6 +101,7 @@ mapAttrsToList (name: opts: {
   };
   node_uptime = {
     condition = "time() - node_boot_time > 2592000";
+    page = false;
     summary = "{{$labels.alias}}: Uptime monster";
     description = "{{$labels.alias}} has been up for more than 30 days.";
   };
