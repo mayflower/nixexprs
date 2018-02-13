@@ -406,7 +406,8 @@ in
   nixops = all;
   nixopsUnstable = all;
   nmap = all;
-  nodejs = all;
+  nodejs-6_x = all;
+  nodejs-8_x = all;
   nox = all;
   nss_ldap = all;
   nssmdns = all;
