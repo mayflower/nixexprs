@@ -247,6 +247,14 @@ in {
                 targets = (filter (n: n != "_" && n != "localhost")
                             nginxSSLVhosts ++ cfg.blackboxExporter.staticBlackboxHttpsTargets);
                 interval = "50s";
+              })
+             (mkBlackboxConfig
+              {
+                inherit hostname;
+                module = "http_2xx";
+                targets = (filter (n: n != "_" && n != "localhost")
+                            cfg.blackboxExporter.staticBlackboxHttpTargets);
+                interval = "50s";
               }
             )]
           )));

@@ -8,6 +8,11 @@ in {
   options = {
     mayflower.monitoring.blackboxExporter = {
       enable = mkEnableOption "Mayflower Monitoring Blackbox Exporter";
+      staticBlackboxHttpTargets = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "";
+      };
       staticBlackboxHttpsTargets = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -36,6 +41,10 @@ in {
       enable = true;
       configFile = pkgs.writeText "blackbox-exporter.yaml" (builtins.toJSON {
         modules = {
+          http_2xx = {
+            prober = "http";
+            timeout = "5s";
+          };
           https_2xx = {
             prober = "http";
             timeout = "5s";
