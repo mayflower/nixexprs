@@ -167,6 +167,7 @@ in
   feh = all;
   file = all;
   filebeat = all;
+  fileshelter = all;
   filezilla = all;
   findutils = all;
   firefox = all;
@@ -180,6 +181,9 @@ in
   gajim = all;
   gawk = all;
   gcc = all;
+  gcc5 = all;
+  gcc6 = all;
+  gcc7 = all;
   gettext = all;
   gimp = all;
   gist = all;
@@ -406,6 +410,7 @@ in
   nixops = all;
   nixopsUnstable = all;
   nmap = all;
+  nodejs = all;
   nodejs-6_x = all;
   nodejs-8_x = all;
   nox = all;
@@ -487,6 +492,7 @@ in
   privoxy = all;
   procps = all;
   prometheus = all;
+  prometheus2 = all;
   prometheus-alertmanager = all;
   prometheus-blackbox-exporter = all;
   prometheus-fritzbox-exporter = all;
@@ -738,6 +744,8 @@ in
     xev = all;
     xf86inputlibinput = all;
     xf86videofbdev = all;
+    xf86videointel = all;
+    xf86videonouveau = all;
     xkill = all;
     xlsclients = all;
     xmessage = all;
@@ -747,6 +755,11 @@ in
     xset = all;
     xsetroot = all;
   };
+
+  # Mailan3
+  mailman3 = all;
+  postorious = all;
+  hyperkitty = all;
 
   # Fonts
   clearlyU = all;
