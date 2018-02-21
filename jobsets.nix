@@ -34,6 +34,14 @@ let
       input = "nixpkgs";
       path = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
     };
+    hydra = {
+      input = "hydra";
+      path = "release.nix";
+      inputs.hydra = {
+        type = "git";
+        value = "git://github.com/mayflower/hydra.git";
+      };
+    };
     hydra-jobs-master = {
       keep = 3;
       shares = 420;
@@ -43,9 +51,6 @@ let
     };
     hydra-jobs-mariadb-10-2 = recursiveUpdate hydra-jobs-master {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mariadb-10.2";
-    };
-    hydra-jobs-darwin = {
-      inputs.supportedSystems.value = ''[ \"x86_64-darwin\" ]'';
     };
     mayflower-master = {
       path = "dist.nix";
@@ -58,20 +63,9 @@ let
       input = "nixpkgs";
       path = "nixos/release-small.nix";
     };
-    php = {
-      path = "php.nix";
-      inputs.supportedSystems.value = ''[ \"x86_64-linux\" \"x86_64-darwin\" ]'';
-    };
     nixpkgs-manual = {
       input = "nixpkgs";
       path = "doc/default.nix";
-    };
-    hydra-jobs-openssl-1_1 = {
-      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} openssl-1.1";
-    };
-    hydra-jobs-backport-ff-rust = {
-      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} backport-ff-rust";
-      path = "backport-ff-rust.nix";
     };
     "nixpkgs-stats"= {
       enabled = "1";
