@@ -27,8 +27,11 @@ let
   alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
     m.services.prometheus.alertmanager.enable
   ));
-  prometheusHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+  prometheusHostNamesSameDC = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus2.enable
+  ));
+  prometheusHostNamesOtherDC = hostNames (flip filterAttrs allHosts (n: m:
+    m.services.prometheus2.enable && !(elem (hostName n m) prometheusHostNamesSameDC)
   ));
   unboundHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.systemd.services.prometheus-unbound-exporter.enable or false
@@ -205,7 +208,7 @@ in {
           rules = import ./alert-rules.nix { inherit lib; };
           scrapeConfigs = (mkScrapeConfigs {
             prometheus = {
-              hostNames = prometheusHostNames;
+              hostNames = prometheusHostNamesSameDC;
               port = 9090;
             };
             unbound = {
@@ -237,7 +240,9 @@ in {
             (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
               {
                 inherit hostname module;
-                targets = (hostNames allHostsSameDC) ++ cfg.blackboxExporter.staticBlackboxIcmpTargets;
+                targets = (hostNames allHostsSameDC)
+                          ++ cfg.blackboxExporter.staticBlackboxIcmpTargets
+                          ++ prometheusHostNamesOtherDC;
               }
             ))) ++
             (flip map [ "tcp_v4" "tcp_v6" ] (module: (mkBlackboxConfig
@@ -258,8 +263,8 @@ in {
               {
                 inherit hostname;
                 module = "http_2xx";
-                targets = (filter (n: n != "_" && n != "localhost")
-                            cfg.blackboxExporter.staticBlackboxHttpTargets);
+                targets = cfg.blackboxExporter.staticBlackboxHttpTargets
+                          ++ (map (h: h + ":9090") prometheusHostNamesOtherDC);
                 interval = "50s";
               }
             )]
