@@ -229,8 +229,6 @@ in
   gnutls = all;
   go = all;
   go2nix = all;
-  go_1_6 = all;
-  go_1_7 = all;
   gocode = all;
   gogoclient = all;
   gox = all;
@@ -566,7 +564,6 @@ in
   ripgrep = all;
   rkt = all;
   rlwrap = all;
-  rmilter = all;
   roxterm = all;
   rpm = all;
   rrdtool = all;
