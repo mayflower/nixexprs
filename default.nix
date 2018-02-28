@@ -462,9 +462,12 @@ in
     NetSNMP = all;
   };
   phantomjs2 = all;
-  php70 = all;
-  php70Packages.composer = all;
-  php70Packages.xdebug = all;
+  php71 = all;
+  php71Packages.composer = all;
+  php71Packages.xdebug = all;
+  php72 = all;
+  php72Packages.composer = all;
+  php72Packages.xdebug = all;
   physlock = all;
   picocom = all;
   pidgin = all;
