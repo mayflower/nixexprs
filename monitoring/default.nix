@@ -27,8 +27,11 @@ let
   alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
     m.services.prometheus.alertmanager.enable
   ));
-  prometheusHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+  prometheusHostNamesSameDC = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus2.enable
+  ));
+  prometheusHostNamesOtherDC = hostNames (flip filterAttrs allHosts (n: m:
+    m.services.prometheus2.enable && !(elem (hostName n m) prometheusHostNamesSameDC)
   ));
   unboundHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.systemd.services.prometheus-unbound-exporter.enable or false
@@ -134,10 +137,16 @@ in {
       server = {
         enable = mkEnableOption "Mayflower-oriented monitoring server with prometheus";
 
-        alertmanagerReceivers = mkOption {
+        alertmanagerPageReceiver = mkOption {
           type = types.attrs;
           default = {};
-          description = "";
+          description = "Receiver settings for alerts with severity page";
+        };
+
+        alertmanagerReceiver = mkOption {
+          type = types.attrs;
+          default = {};
+          description = "Receiver settings for all alerts";
         };
 
         blackboxExporterHosts = mkOption {
@@ -199,7 +208,7 @@ in {
           rules = import ./alert-rules.nix { inherit lib; };
           scrapeConfigs = (mkScrapeConfigs {
             prometheus = {
-              hostNames = prometheusHostNames;
+              hostNames = prometheusHostNamesSameDC;
               port = 9090;
             };
             unbound = {
@@ -231,7 +240,9 @@ in {
             (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
               {
                 inherit hostname module;
-                targets = (hostNames allHostsSameDC) ++ cfg.blackboxExporter.staticBlackboxIcmpTargets;
+                targets = (hostNames allHostsSameDC)
+                          ++ cfg.blackboxExporter.staticBlackboxIcmpTargets
+                          ++ prometheusHostNamesOtherDC;
               }
             ))) ++
             (flip map [ "tcp_v4" "tcp_v6" ] (module: (mkBlackboxConfig
@@ -247,6 +258,14 @@ in {
                 targets = (filter (n: n != "_" && n != "localhost")
                             nginxSSLVhosts ++ cfg.blackboxExporter.staticBlackboxHttpsTargets);
                 interval = "50s";
+              })
+             (mkBlackboxConfig
+              {
+                inherit hostname;
+                module = "http_2xx";
+                targets = cfg.blackboxExporter.staticBlackboxHttpTargets
+                          ++ (map (h: h + ":9090") prometheusHostNamesOtherDC);
+                interval = "50s";
               }
             )]
           )));
@@ -257,21 +276,27 @@ in {
           meshPeers = alertmanagerHostNames;
           configuration = {
             route = {
-              receiver = "dummy-null";
-              routes = [ {
-                group_by = [ "alertname" "alias" ];
-                group_wait = "30s";
-                group_interval = "2m";
-                repeat_interval = "4h";
-                receiver = "team-admins";
-                match = { severity = "page"; };
-              } ];
+              receiver = "default";
+              routes = [
+                { group_by = [ "alertname" "alias" ];
+                  group_wait = "30s";
+                  group_interval = "2m";
+                  repeat_interval = "4h";
+                  match = { severity = "page"; };
+                  receiver = "page";
+                }
+                { group_by = [ "alertname" "alias" ];
+                  group_wait = "30s";
+                  group_interval = "2m";
+                  repeat_interval = "4h";
+                  receiver = "all";
+                }
+              ];
             };
             receivers = [
-              ({
-                name = "team-admins";
-              } // cfg.server.alertmanagerReceivers)
-              { name = "dummy-null"; }
+              ({ name = "page"; } // cfg.server.alertmanagerPageReceiver)
+              ({ name = "all"; } // cfg.server.alertmanagerReceiver)
+              { name = "default"; }
             ];
           };
         };

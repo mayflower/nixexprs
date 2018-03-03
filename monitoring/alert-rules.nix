@@ -52,8 +52,8 @@ mapAttrsToList (name: opts: {
   node_load15 = {
     condition = ''node_load15 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 1.0'';
     time = "5m";
-    summary = "{{$labels.alias}}: Running on high load.";
-    description = "{{$labels.alias}} is running with load15 > 1 for at least 5 minutes.";
+    summary = "{{$labels.alias}}: Running on high load: {{$value}}";
+    description = "{{$labels.alias}} is running with load15 > 1 for at least 5 minutes: {{$value}}";
   };
   node_ram_using_90percent = {
     condition =  "node_memory_MemFree + node_memory_Buffers + node_memory_Cached < node_memory_MemTotal * 0.1";
@@ -79,20 +79,20 @@ mapAttrsToList (name: opts: {
   };
   node_zfs_errors = {
     condition = "node_zfs_arc_l2_writes_error + node_zfs_arc_l2_io_error + node_zfs_arc_l2_writes_error > 0";
-    summary = "{{$labels.alias}}: ZFS IO errors";
-    description = "{{$labels.alias}} reports ZFS IO errors. Drive(s) are failing.";
+    summary = "{{$labels.alias}}: ZFS IO errors: {{$value}}";
+    description = "{{$labels.alias}} reports: {{$value}} ZFS IO errors. Drive(s) are failing.";
   };
   node_hwmon_temp = {
     condition = "node_hwmon_temp_crit_celsius*0.9 - node_hwmon_temp_celsius < 0 OR node_hwmon_temp_max_celsius*0.95 - node_hwmon_temp_celsius < 0";
     time = "5m";
-    summary = "{{$labels.alias}}: Sensor {{$labels.sensor}}/{{$labels.chip}} temp is high";
-    description = "{{$labels.alias}} reports hwmon sensor {{$labels.sensor}}/{{$labels.chip}} temperature value is nearly critical.";
+    summary = "{{$labels.alias}}: Sensor {{$labels.sensor}}/{{$labels.chip}} temp is high: {{$value}} ";
+    description = "{{$labels.alias}} reports hwmon sensor {{$labels.sensor}}/{{$labels.chip}} temperature value is nearly critical: {{$value}}";
   };
   node_conntrack_limit = {
     condition  = "node_nf_conntrack_entries_limit - node_nf_conntrack_entries < 1000";
     time = "5m";
     summary = "{{$labels.alias}}: Number of tracked connections high";
-    description = "{{$labels.alias}} has only few free slots for connection tracking available.";
+    description = "{{$labels.alias}} has only {{$value}} free slots for connection tracking available.";
   };
   node_reboot = {
     condition = "time() - node_boot_time < 300";
@@ -101,6 +101,7 @@ mapAttrsToList (name: opts: {
   };
   node_uptime = {
     condition = "time() - node_boot_time > 2592000";
+    page = false;
     summary = "{{$labels.alias}}: Uptime monster";
     description = "{{$labels.alias}} has been up for more than 30 days.";
   };
@@ -144,7 +145,7 @@ mapAttrsToList (name: opts: {
   };
   unifi_devices_adopted_changed = {
     condition = "abs(delta(unifi_devices_adopted[5m])) >= 1";
-    summary = "Unifi: number of adopted devices has changed";
-    description = "Unifi: number of adopted devices has changed";
+    summary = "Unifi: number of adopted devices has changed: {{$value}}";
+    description = "Unifi: number of adopted devices has changed: {{$value}}";
   };
 }
