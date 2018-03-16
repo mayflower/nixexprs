@@ -44,12 +44,25 @@ in {
           Whether this node should act as bootstrap node for the cluster
         '';
       };
+      sstUserName = mkOption {
+        type = types.str;
+        description = ''
+          Username of the sst user that needs to be present in the cluster databases
+        '';
+      };
+      sstUserPass = mkOption {
+        type = types.str;
+        description = ''
+          Password for the sst user
+        '';
+      };
     };
   };
 
   config = mkIf (clusterName != null) {
     services.mysql.extraOptions = ''
       binlog_format=ROW
+      max_allowed_packet=256M
 
       wsrep_on=ON
       wsrep_provider=${pkgs.mariadb.galera}/lib/galera/libgalera_smm.so
@@ -58,6 +71,7 @@ in {
         "${cnf.mayflower.mysql-ha.nodeAddress}:${toString cnf.mayflower.mysql-ha.listeningPort}"
       ))}"
       wsrep_sst_method=mysqldump
+      wsrep_sst_auth=${cfg.sstUserName}:${cfg.sstUserPass}
 
       wsrep_node_address="${cfg.nodeAddress}"
       wsrep_provider_options="gmcast.listen_addr=tcp://${cfg.nodeAddress}:${toString cfg.listeningPort}; pc.wait_prim=FALSE; pc.recovery=TRUE;"
