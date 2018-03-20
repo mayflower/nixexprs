@@ -37,7 +37,7 @@ in {
   };
   config = mkIf cfg.enable {
     systemd.services.prometheus-blackbox-exporter.serviceConfig.LimitNOFILE = 1024000;
-    services.prometheus.blackboxExporter = {
+    services.prometheus.exporters.blackbox = {
       enable = true;
       configFile = pkgs.writeText "blackbox-exporter.yaml" (builtins.toJSON {
         modules = {

@@ -37,13 +37,13 @@ let
     m.systemd.services.prometheus-unbound-exporter.enable or false
   ));
   nginxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus.nginxExporter.enable
+    m.services.prometheus.exporters.nginx.enable
   ));
   unifiExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus.unifiExporter.enable
+    m.services.prometheus.exporters.unifi.enable
   ));
   fritzboxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus.fritzboxExporter.enable
+    m.services.prometheus.exporters.fritzbox.enable
   ));
   openvpnExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.openvpnExporter.enable
@@ -161,9 +161,9 @@ in {
   config = mkMerge [
     {
       services.nginx.statusPage = true;
-      services.prometheus.nginxExporter.enable = config.services.nginx.enable;
-      services.prometheus.nginxExporter.openFirewall = config.services.nginx.enable;
-      services.prometheus.nodeExporter = {
+      services.prometheus.exporters.nginx.enable = config.services.nginx.enable;
+      services.prometheus.exporters.nginx.openFirewall = config.services.nginx.enable;
+      services.prometheus.exporters.node = {
         enable = true;
         openFirewall = true;
         enabledCollectors = [
