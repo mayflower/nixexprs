@@ -151,6 +151,11 @@ with lib;
         config.fileSystems."/".fsType == "zfs";
     };
 
+    virtualisation.docker.autoPrune = {
+      enable = mkDefault true;
+      flags = [ "--all" ];
+    };
+
     virtualisation.libvirtd.qemuVerbatimConfig = ''
       namespaces = []
       set_process_name = 1
