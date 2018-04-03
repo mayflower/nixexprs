@@ -55,6 +55,12 @@ let
       ))
     )
   ));
+  postfixExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.prometheus.exporters.postfix.enable
+  ));
+  dovecotExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.prometheus.exporters.dovecot.enable
+  ));
 
   mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v: {
     job_name = k;
@@ -163,6 +169,18 @@ in {
       services.nginx.statusPage = true;
       services.prometheus.exporters.nginx.enable = config.services.nginx.enable;
       services.prometheus.exporters.nginx.openFirewall = config.services.nginx.enable;
+      services.prometheus.exporters.postfix = {
+        enable = config.services.postfix.enable;
+        showqPath = "/var/lib/postfix/queue/public/showq";
+        systemd.enable = true;
+        group = "systemd-journal";
+      };
+      services.prometheus.exporters.dovecot = {
+        enable = config.services.dovecot2.enable;
+        group = "dovecot2";
+        socketPath = "/var/run/dovecot2/old-stats";
+        scopes = [ "user" "global" ];
+      };
       services.prometheus.exporters.node = {
         enable = true;
         openFirewall = true;
@@ -234,6 +252,14 @@ in {
             unifi = {
               hostNames = unifiExporterHostNames;
               port = 9130;
+            };
+            postfix = {
+              hostNames = postfixExporterHostNames;
+              port = 9154;
+            };
+            dovecot = {
+              hostNames = dovecotExporterHostNames;
+              port = 9166;
             };
           }) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
