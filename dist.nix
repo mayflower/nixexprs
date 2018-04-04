@@ -16,8 +16,8 @@ let
   versionSuffix =
     (if stableBranch then "." else "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
   versionModule =
-    { system.nixosVersionSuffix = versionSuffix;
-      system.nixosRevision = "pre";
+    { system.nixos.versionSuffix = versionSuffix;
+      system.nixos.revision = "pre";
     };
 
   specialSauceModule =
