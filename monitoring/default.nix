@@ -305,16 +305,16 @@ in {
               receiver = "default";
               routes = [
                 { group_by = [ "alertname" "alias" ];
-                  group_wait = "30s";
+                  group_wait = "5s";
                   group_interval = "2m";
-                  repeat_interval = "4h";
+                  repeat_interval = "2h";
                   match = { severity = "page"; };
                   receiver = "page";
                 }
                 { group_by = [ "alertname" "alias" ];
                   group_wait = "30s";
                   group_interval = "2m";
-                  repeat_interval = "4h";
+                  repeat_interval = "6h";
                   receiver = "all";
                 }
               ];

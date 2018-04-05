@@ -33,7 +33,7 @@ mapAttrsToList (name: opts: {
   };
   node_filesystem_full_90percent = {
     condition = ''sort(node_filesystem_free{device!="ramfs",device!="rpc_pipefs"} < node_filesystem_size{device!="ramfs"} * 0.1) / 1024^3'';
-    time = "1m";
+    time = "10m";
     summary = "{{$labels.alias}}: Filesystem is running out of space soon.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
   };
@@ -51,7 +51,7 @@ mapAttrsToList (name: opts: {
   };
   node_load15 = {
     condition = ''node_load15 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 1.0'';
-    time = "5m";
+    time = "10m";
     summary = "{{$labels.alias}}: Running on high load: {{$value}}";
     description = "{{$labels.alias}} is running with load15 > 1 for at least 5 minutes: {{$value}}";
   };
@@ -107,7 +107,7 @@ mapAttrsToList (name: opts: {
   };
   blackbox_down = {
     condition = ''min(up{job=~"blackbox.+"}) by (source, job, instance) == 0'';
-    time = "1m";
+    time = "3m";
     summary = "{{$labels.instance}}: {{$labels.job}} blackbox exporter from {{$labels.source}} is down.";
     description = "{{$labels.instance}}: {{$labels.job}} blackbox exporter from {{$labels.source}} is down.";
   };
@@ -139,7 +139,7 @@ mapAttrsToList (name: opts: {
   };
   openvpn_instance_noupdate = {
     condition = "time() - openvpn_status_update_time_seconds > 120";
-    time = "1m";
+    time = "3m";
     summary = "{{$labels.alias}}: OpenVPN instance {{$labels.status_path}} is not updating its status.";
     description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes.";
   };
