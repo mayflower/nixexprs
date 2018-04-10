@@ -462,6 +462,9 @@ in
     NetSNMP = all;
   };
   phantomjs2 = all;
+  php70 = all;
+  php70Packages.composer = all;
+  php70Packages.xdebug = all;
   php71 = all;
   php71Packages.composer = all;
   php71Packages.xdebug = all;
