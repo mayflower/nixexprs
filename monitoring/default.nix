@@ -61,6 +61,9 @@ let
   dovecotExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.dovecot.enable
   ));
+  dockerRunnerHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.mayflower.docker-runner.enable
+  ));
 
   mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v: {
     job_name = k;
@@ -260,6 +263,10 @@ in {
             dovecot = {
               hostNames = dovecotExporterHostNames;
               port = 9166;
+            };
+            docker-runner = {
+              hostNames = dockerRunnerHostNames;
+              port = 9055;
             };
           }) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:

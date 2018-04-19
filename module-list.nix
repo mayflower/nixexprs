@@ -1,9 +1,10 @@
 [
   ./base.nix
+  ./demockrazy.nix
+  ./docker-runner.nix
   ./kvm.nix
   ./machines.nix
   ./monitoring/default.nix
   ./openldap-ha.nix
-  ./demockrazy.nix
   ./wireguard-tunnel.nix
 ]
