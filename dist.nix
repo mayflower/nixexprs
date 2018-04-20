@@ -28,12 +28,11 @@ let
       users.extraUsers.root = {
         initialHashedPassword = mkForce "$6$rounds=1000000$pAFNlOdBg.Ut$RJwIpzoSkdqUaxyLxtoFdgiR8UrtC/X1vd8W4dFGHDuZWW60J4qNAQ9DrozkmT6/AqBPQ8I2EWviDx.kloVkE.";
         openssh.authorizedKeys.keys = [
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD2BA27CHT85uegdPaocOV9YyiKNiVOGm6eU3oaJmuEFp0hpAbjn7pvvNpT6oAXmV06V0Kj7TpKzHrfjWs+kkOnM0LgBAbcPMsJMG/oNCJL9T1JQgBxefJ3ZcSKbPRlutJ6y5hwxFI5dn4DP6OyDfiSvjTEyyRiaa70jbkmixSKZckO5DgvbxEo3lUplZt9zQECZEePkBodTNTT79DWXfbvmLOzdrXG8ekZIjvEvvdDO+3Aj74ca5KOVGgaJSBMNX5DOYI+r9K/oz7E+NFuwORDghXSYmodrC5JMBBuUdhIc0S+pksNZHYYguYUGXaleIXQ10lGBRBSJ6uPdNLFYel3 fadenb@taytay"
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs/VM56N9OsG/hK7LEwheHwptClBNPdBl/tIW8URWyQPsE0dN2FYAERsHom3I3IvAS3phfhYtLOwrQ+MqEt7u5f/E3CgdfvEFRER12arxlT/q3gSh5rUdq508fTjkUNmJr6Vul+BCZ7VeESa2yvvTesFqvdVP9NtpGbAusX/JCrXwQciygJ0hDuMdLFW8MmRzljDoBsyjz18MDaMzsGQddQuE+3uAzJ1NXZpNh+M+C6eLNe+QJQMb9VTPGB3Pc0cU0GWyXYpWTVkpJqJVe180ldMU9x2c2sBBcRM3N/UDn2MF3XQi3TdGO93AIcUHNCLmUvIdqz+DPdKzCt3c3HvHh fpletz@lolnovo"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK20Lv3TggAXcctelNGBxjcQeMB4AqGZ1tDCzY19xBUV fpletz@yolovo"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB3eD81QQnNhkDiNVSo8GPd/FCLzNzu38soXZ5VEZnw robin@graffel"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBwSuOuGgbtA1JNWxJzJmiIPyHLquw22us9b6QHZpzae markus.mueller@mayflower.de"
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIENindp3VvVDFERb5Ejlk9/srxExQeeOZd6Bv3ETqmpG 0ida"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOliIgGhQeHx/O7jPhYaCpE6n32IstJlGALNEHp82+J9 butz"
         ];
       };
 
