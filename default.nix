@@ -141,7 +141,6 @@ in
   dosbox = all;
   dovecot = all;
   dovecotWithPgSQL = all;
-  dovecot_antispam = all;
   dovecot_pigeonhole = all;
   dpkg = all;
   e2fsprogs = all;
