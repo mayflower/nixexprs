@@ -55,7 +55,7 @@ in (mapTestOnCross crossSystem ({
   # autoconf = all;
   # automake = all;
   # autossh = all;
-  # avahi = allBut cygwin;  # Cygwin builds fail
+  # avahi = all;
   # bash = all;
   # bashInteractive = all;
   # bc = all;
@@ -116,7 +116,7 @@ in (mapTestOnCross crossSystem ({
   # gnupatch = all;
   # gnupg = all;
   # gnupg21 = all;
-  # gnuplot = allBut cygwin;
+  # gnuplot = all;
   # gnused = all;
   # gnutar = all;
   # gnutls = all;
@@ -255,7 +255,7 @@ in (mapTestOnCross crossSystem ({
   # pulseaudioFull = all;
   # pulseaudioLight = all;
   # pwgen = all;
-  # python = allBut cygwin;
+  # python = all;
   # pythonFull = all;
   # pv = all;
   # qemu = all;
@@ -277,10 +277,10 @@ in (mapTestOnCross crossSystem ({
   # simp_le = all;
   # sipcalc = all;
   # sl = all;
-  # sloccount = allBut cygwin;
+  # sloccount = all;
   # smartmontools = all;
   # socat = all;
-  # sqlite = allBut cygwin;
+  # sqlite = all;
   # squid = all;
   # sshfsFuse = all;
   # sslscan = all;
