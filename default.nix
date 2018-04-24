@@ -761,7 +761,7 @@ in
 
   # Mailan3
   mailman3 = all;
-  postorious = all;
+  postorius = all;
   hyperkitty = all;
 
   # Fonts
