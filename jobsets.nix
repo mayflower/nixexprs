@@ -83,17 +83,10 @@ let
         };
       };
     };
-    #hydra-jobs-arm = {
-    #  path = "arm.nix";
-    #  inputs = {
-    #    nixpkgs = {
-    #      value = "${defaultSettings.inputs.nixpkgs.value} hydra-arm";
-    #    };
-    #    supportedSystems = {
-    #      value = ''[ \"armv7l-linux\" ]'';
-    #    };
-    #  };
-    #};
+    hydra-jobs-arm-cross = {
+      path = "arm-cross.nix";
+      shares = 5;
+    };
   });
   fileContents = with pkgs.lib; ''
     cat <<EOF

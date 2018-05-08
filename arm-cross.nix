@@ -1,5 +1,6 @@
-{ nixpkgs
+{ nixpkgs ? <nixpkgs>
 , supportedSystems ? [ "x86_64-linux" ]
+, crossSystem ? "aarch64-multiplatform"
 }:
 
 import ./packages.nix {
