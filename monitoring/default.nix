@@ -65,6 +65,10 @@ let
     m.mayflower.docker-runner.enable
   ));
 
+  extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
+    _: m: m.mayflower.monitoring.extraScrapeConfigs
+  ));
+
   mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v: {
     job_name = k;
     scrape_interval = "30s";
@@ -72,7 +76,7 @@ let
       targets = [ "${name}:${toString v.port}" ];
       labels.alias = name;
     });
-  });
+  } // (removeAttrs v [ "hostNames" "port" ]));
 
   mkBlackboxConfig = { hostname, module, targets, interval ? "60s" }:
   {
@@ -140,6 +144,26 @@ in {
         default = null;
         description = ''
           Domain in which this node is located.
+        '';
+      };
+
+      extraScrapeConfigs = mkOption {
+        type = types.attrsOf types.attrs;
+        default = {};
+        example = literalExample ''
+          {
+            confluence = {
+              hostNames = [ "confluence.foo.bar" ];
+              port = 8090;
+              metrics_path = "/plugins/servlet/prometheus/metrics";
+              params = {
+                token = [ "verySecretAccessToken" ];
+              };
+            };
+          }
+        '';
+        description = ''
+          Custom scrape configs added to the prometheus instances in the same datacenter.
         '';
       };
 
@@ -227,7 +251,7 @@ in {
           enable = true;
           alertmanagerURL = flip map alertmanagerHostNames (n: "${n}:9093");
           rules = import ./alert-rules.nix { inherit lib; };
-          scrapeConfigs = (mkScrapeConfigs {
+          scrapeConfigs = (mkScrapeConfigs ({
             prometheus = {
               hostNames = prometheusHostNamesSameDC;
               port = 9090;
@@ -268,7 +292,7 @@ in {
               hostNames = dockerRunnerHostNames;
               port = 9055;
             };
-          }) ++
+          } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
             (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
               {
