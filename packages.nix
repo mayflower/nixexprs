@@ -256,6 +256,7 @@ in
   hedgewars = all;
   hello = all;
   hexedit = all;
+  home-assistant = all;
   horst = all;
   host = all;
   hostapd = all;
