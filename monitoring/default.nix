@@ -342,6 +342,13 @@ in {
                   match = { severity = "page"; };
                   receiver = "page";
                 }
+                { group_by = [ "alertname" ];
+                  group_wait = "5s";
+                  group_interval = "2m";
+                  repeat_interval = "2h";
+                  match_re = { metric = ".+"; };
+                  receiver = "page";
+                }
                 { group_by = [ "alertname" "alias" ];
                   group_wait = "30s";
                   group_interval = "2m";
