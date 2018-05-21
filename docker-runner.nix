@@ -60,6 +60,9 @@ in
     networking.dhcpcd.denyInterfaces = [ "veth*" "docker*" ];
     networking.firewall.allowedTCPPorts = [ 9055 ];
 
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      package = pkgs.docker-edge;
+    };
   };
 }
