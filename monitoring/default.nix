@@ -33,6 +33,9 @@ let
   prometheusHostNamesOtherDC = hostNames (flip filterAttrs allHosts (n: m:
     m.services.prometheus2.enable && !(elem (hostName n m) prometheusHostNamesSameDC)
   ));
+  grafanaHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.grafana.enable
+  ));
   unboundHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.systemd.services.prometheus-unbound-exporter.enable or false
   ));
@@ -291,6 +294,10 @@ in {
             docker-runner = {
               hostNames = dockerRunnerHostNames;
               port = 9055;
+            };
+            grafana = {
+              hostNames = grafanaHostNames;
+              port = 3000;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
