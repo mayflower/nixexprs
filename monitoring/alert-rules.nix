@@ -38,16 +38,28 @@ mapAttrsToList (name: opts: {
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
   };
   node_filesystem_full_in_4h = {
-    condition = ''predict_linear(node_filesystem_free{device!="ramfs",device!="rpc_pipefs" }[1h], 4*3600) <= 0'';
+    condition = ''predict_linear(node_filesystem_free{device!="ramfs",device!="rpc_pipefs",device!="lxcfs"}[4h], 4*3600) <= 0'';
     time = "30m";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 4 hours.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 4 hours";
   };
+  node_filesystem_full_in_7d = {
+    condition = ''predict_linear(node_filesystem_free{device!="ramfs",device!="rpc_pipefs",device!="lxcfs"}[7d], 7*24*3600) <= 0'';
+    time = "1h";
+    summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 7 days";
+  };
   node_filedescriptors_full_in_3h = {
-    condition = ''predict_linear(node_filefd_allocated[1h], 3*3600) >= node_filefd_maximum'';
+    condition = ''predict_linear(node_filefd_allocated[3h], 3*3600) >= node_filefd_maximum'';
     time = "20m";
     summary = "{{$labels.alias}} is running out of available file descriptors in 3 hours.";
     description = "{{$labels.alias}} is running out of available file descriptors in approx. 3 hours";
+  };
+  node_filedescriptors_full_in_7d = {
+    condition = ''predict_linear(node_filefd_allocated[7d], 7*24*3600) >= node_filefd_maximum'';
+    time = "1h";
+    summary = "{{$labels.alias}} is running out of available file descriptors in 7 days.";
+    description = "{{$labels.alias}} is running out of available file descriptors in approx. 7 days";
   };
   node_load15 = {
     condition = ''node_load15 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 1.0'';
