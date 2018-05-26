@@ -302,6 +302,7 @@ in
   kbd = all;
   kea = all;
   kismet = all;
+  kubectl = all;
   kubernetes = all;
   kvm = all;
   lame = all;
