@@ -1,7 +1,9 @@
 { lib }:
 with lib;
 
-mapAttrsToList (name: opts: {
+let
+  deviceFilter = ''device!="ramfs",device!="rpc_pipefs",device!="lxcfs"'';
+in mapAttrsToList (name: opts: {
   alert = name;
   expr = opts.condition;
   for = opts.time or "2m";
@@ -32,19 +34,19 @@ mapAttrsToList (name: opts: {
     description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
   };
   node_filesystem_full_90percent = {
-    condition = ''sort(node_filesystem_free{device!="ramfs",device!="rpc_pipefs"} < node_filesystem_size{device!="ramfs"} * 0.1) / 1024^3'';
+    condition = ''sort(node_filesystem_free_bytes{${deviceFilter}} < node_filesystem_size_bytes{${deviceFilter}} * 0.1) / 1024^3'';
     time = "10m";
     summary = "{{$labels.alias}}: Filesystem is running out of space soon.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
   };
   node_filesystem_full_in_4h = {
-    condition = ''predict_linear(node_filesystem_free{device!="ramfs",device!="rpc_pipefs",device!="lxcfs"}[4h], 4*3600) <= 0'';
+    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[4h], 4*3600) <= 0'';
     time = "30m";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 4 hours.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 4 hours";
   };
   node_filesystem_full_in_7d = {
-    condition = ''predict_linear(node_filesystem_free{device!="ramfs",device!="rpc_pipefs",device!="lxcfs"}[7d], 7*24*3600) <= 0'';
+    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[7d], 7*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 7 days";
@@ -62,19 +64,19 @@ mapAttrsToList (name: opts: {
     description = "{{$labels.alias}} is running out of available file descriptors in approx. 7 days";
   };
   node_load15 = {
-    condition = ''node_load15 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 1.0'';
+    condition = ''node_load15 / on(alias) count(node_cpu_seconds_total{mode="system"}) by (alias) >= 1.0'';
     time = "10m";
     summary = "{{$labels.alias}}: Running on high load: {{$value}}";
     description = "{{$labels.alias}} is running with load15 > 1 for at least 5 minutes: {{$value}}";
   };
   node_ram_using_90percent = {
-    condition =  "node_memory_MemFree + node_memory_Buffers + node_memory_Cached < node_memory_MemTotal * 0.1";
+    condition =  "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
     time = "1h";
     summary = "{{$labels.alias}}: Using lots of RAM.";
     description = "{{$labels.alias}} is using at least 90% of its RAM for at least 1 hour.";
   };
   node_swap_using_30percent = {
-    condition = "node_memory_SwapTotal - (node_memory_SwapFree + node_memory_SwapCached) > node_memory_SwapTotal * 0.3";
+    condition = "node_memory_SwapTotal_bytes - (node_memory_SwapFree_bytes + node_memory_SwapCached_bytes) > node_memory_SwapTotal_bytes * 0.3";
     time = "30m";
     summary = "{{$labels.alias}}: Using more than 30% of its swap.";
     description = "{{$labels.alias}} is using 30% of its swap space for at least 30 minutes.";
@@ -107,12 +109,12 @@ mapAttrsToList (name: opts: {
     description = "{{$labels.alias}} has only {{$value}} free slots for connection tracking available.";
   };
   node_reboot = {
-    condition = "time() - node_boot_time < 300";
+    condition = "time() - node_boot_time_seconds < 300";
     summary = "{{$labels.alias}}: Reboot";
     description = "{{$labels.alias}} just rebooted.";
   };
   node_uptime = {
-    condition = "time() - node_boot_time > 2592000";
+    condition = "time() - node_boot_time_seconds > 2592000";
     page = false;
     summary = "{{$labels.alias}}: Uptime monster";
     description = "{{$labels.alias}} has been up for more than 30 days.";
