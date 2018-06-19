@@ -218,7 +218,7 @@ in {
           "conntrack"
           "diskstats"
           "filefd"
-          "filesystem"
+          "filesystem /run/prometheus-node-exporter"
           "netdev"
           "netstat"
           "time"
