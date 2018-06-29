@@ -218,7 +218,7 @@ in {
           "conntrack"
           "diskstats"
           "filefd"
-          "filesystem /run/prometheus-node-exporter"
+          "filesystem"
           "netdev"
           "netstat"
           "time"
@@ -229,6 +229,7 @@ in {
           "loadavg"
           "meminfo"
           "stat"
+          "textfile.directory /run/prometheus-node-exporter"
         ] ++ optionals (!config.boot.isContainer) [
           "interrupts"
           "ksmd"
