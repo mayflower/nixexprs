@@ -171,6 +171,7 @@ in
   findutils = all;
   firefox = all;
   flac = all;
+  flannel = all;
   flex = all;
   flvstreamer = all;
   foomatic-filters = all;
