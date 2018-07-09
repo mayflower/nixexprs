@@ -203,7 +203,6 @@ in {
         enable = config.services.postfix.enable;
         showqPath = "/var/lib/postfix/queue/public/showq";
         systemd.enable = true;
-        group = "systemd-journal";
       };
       services.prometheus.exporters.dovecot = {
         enable = config.services.dovecot2.enable;
