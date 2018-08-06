@@ -1,0 +1,55 @@
+diff --git a/src/postorius/templates/postorius/index.html b/src/postorius/templates/postorius/index.html
+index 6c76350..d5dead5 100644
+--- a/src/postorius/templates/postorius/index.html
++++ b/src/postorius/templates/postorius/index.html
+@@ -12,7 +12,7 @@
+         <h1>{% trans 'Mailing Lists' %}</h1>
+     </div>
+ 
+-    {% if user.is_superuser %}
++    {% if user.is_authenticated %}
+         <p class="text-right">
+             {% if domain_count < 1 %}
+                 <a class="btn btn-success" href="{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
+diff --git a/src/postorius/tests/mailman_api_tests/test_list_new.py b/src/postorius/tests/mailman_api_tests/test_list_new.py
+index 5434c97..58cbf49 100644
+--- a/src/postorius/tests/mailman_api_tests/test_list_new.py
++++ b/src/postorius/tests/mailman_api_tests/test_list_new.py
+@@ -36,11 +36,11 @@ class ListCreationTest(ViewTestCase):
+                 user=user, email=user.email, verified=True)
+         self.domain = self.mm_client.create_domain('example.com')
+ 
+-    def test_permission_denied(self):
+-        self.client.login(username='user', password='pwd')
+-        response = self.client.get(reverse('list_new'))
+-        self.assertEqual(response.status_code, 403)
+-
++#    def test_permission_denied(self):
++#        self.client.login(username='user', password='pwd')
++#        response = self.client.get(reverse('list_new'))
++#        self.assertEqual(response.status_code, 403)
++#
+     def test_duplicate_listname_validation(self):
+         # First, let's create a mailing list.
+         self.domain.create_list('foo')
+diff --git a/src/postorius/views/list.py b/src/postorius/views/list.py
+index 8f8ea37..485cede 100644
+--- a/src/postorius/views/list.py
++++ b/src/postorius/views/list.py
+@@ -46,7 +46,7 @@ from postorius.forms import (
+     DMARCMitigationsForm, ListAnonymousSubscribe)
+ from postorius.models import Domain, List, Mailman404Error, Style
+ from postorius.auth.decorators import (
+-    list_owner_required, list_moderator_required, superuser_required)
++    list_owner_required, list_moderator_required)
+ from postorius.views.generic import MailingListView
+ 
+ 
+@@ -536,7 +536,6 @@ def _get_choosable_styles(request):
+ 
+ 
+ @login_required
+-@superuser_required
+ def list_new(request, template='postorius/lists/new.html'):
+     """
+     Add a new mailing list.
