@@ -1,0 +1,157 @@
+diff --git a/src/mailman/config/schema.cfg b/src/mailman/config/schema.cfg
+index 9568694be..d0ab7ecbc 100644
+--- a/src/mailman/config/schema.cfg
++++ b/src/mailman/config/schema.cfg
+@@ -237,6 +237,13 @@ debug: no
+ #
+ # - level     -- Overrides the default level; this may be any of the
+ #                standard Python logging levels, case insensitive.
++# - handler   -- Which log handler to use.  Currently, either `file` or
++#                `syslog`.
++# - address   -- The address parameter for a `syslog` handler.  Either a path
++#                or a string in the format "host:port" (e.g., localhost:514).
++# - facility  -- The facility parameter for a `syslog` handler.  See the
++#                documentation for the SysLogHandler class for the list of
++#                valid facilities.
+ # - format    -- Overrides the default format string
+ # - datefmt   -- Overrides the default date format string
+ # - path      -- Overrides the default logger path.  This may be a relative
+@@ -266,6 +273,9 @@ debug: no
+ # - smtp-failure    --  Unsuccessful SMTP activity
+ # - subscribe       --  Information about leaves/joins
+ # - vette           --  Message vetting information
++handler: syslog
++address: /dev/log
++facility: user
+ format: %(asctime)s (%(process)d) %(message)s
+ datefmt: %b %d %H:%M:%S %Y
+ propagate: no
+diff --git a/src/mailman/core/logging.py b/src/mailman/core/logging.py
+index e8c5561c3..c878b4343 100644
+--- a/src/mailman/core/logging.py
++++ b/src/mailman/core/logging.py
+@@ -21,8 +21,9 @@ import os
+ import sys
+ import codecs
+ import logging
++import logging.handlers
+ 
+-from lazr.config import as_boolean, as_log_level
++from lazr.config import as_boolean, as_host_port, as_log_level
+ from mailman.config import config
+ from public import public
+ 
+@@ -92,6 +93,27 @@ class ReopenableFileHandler(logging.Handler):
+         self._stream = self._open()
+ 
+ 
++def _get_syslog_params(logger_config):
++    """Return the address and facility in the logger config in a format
++    ready to pass to SysLogHandler()
++
++    :param logger_config: The configuration for this logger.
++    :type logger_config: Section of lazr.config
++    :return: a 2-tuple of the form (host, port)
++    :rtype: 2-tuple of (string, integer)
++    """
++    address = getattr(logger_config, 'address', ('localhost', 514))
++    if ':' in address:
++        host, port = as_host_port(address)
++        address = (host, port)
++
++    facility_names = getattr(logging.handlers.SysLogHandler, 'facility_names')
++    facility = facility_names.get(
++        logger_config.facility, logging.handlers.SysLogHandler.LOG_USER)
++
++    return address, facility
++
++
+ def _init_logger(propagate, sub_name, log, logger_config):
+     # Get settings from log configuration file (or defaults).
+     log_format = logger_config.format
+@@ -105,11 +127,16 @@ def _init_logger(propagate, sub_name, log, logger_config):
+     # Create a formatter for this logger, then a handler, and link the
+     # formatter to the handler.
+     formatter = logging.Formatter(fmt=log_format, datefmt=log_datefmt)
+-    path_str = logger_config.path
+-    path_abs = os.path.normpath(os.path.join(config.LOG_DIR, path_str))
+-    handler = ReopenableFileHandler(sub_name, path_abs)
+-    _handlers[sub_name] = handler
++    if logger_config.handler == 'syslog':
++        address, facility = _get_syslog_params(logger_config)
++        handler = logging.handlers.SysLogHandler(
++            address=address, facility=facility)
++    else:
++        path_str = logger_config.path
++        path_abs = os.path.normpath(os.path.join(config.LOG_DIR, path_str))
++        handler = ReopenableFileHandler(sub_name, path_abs)
+     handler.setFormatter(formatter)
++    _handlers[sub_name] = handler
+     log.addHandler(handler)
+ 
+ 
+@@ -124,10 +151,26 @@ def initialize(propagate=None):
+     """
+     # First, find the root logger and configure the logging subsystem.
+     # Initialize the root logger, then create a formatter for all the
+-    # sublogs.  The root logger should log to stderr.
+-    logging.basicConfig(format=config.logging.root.format,
+-                        datefmt=config.logging.root.datefmt,
+-                        level=as_log_level(config.logging.root.level))
++    # sublogs.
++    if config.logging.root.handler == 'syslog':
++        # The root logger should log to syslog.
++
++        address, facility = _get_syslog_params(config.logging.root)
++
++        root_logger = logging.getLogger()
++        root_logger.setLevel(as_log_level(config.logging.root.level))
++        handler = logging.handlers.SysLogHandler(
++            address=address, facility=facility)
++        handler.setFormatter(logging.Formatter(
++            config.logging.root.format))
++        _handlers['mailman.root'] = handler
++        root_logger.addHandler(handler)
++    else:
++        # The root logger should log to stderr.
++        logging.basicConfig(format=config.logging.root.format,
++                            datefmt=config.logging.root.datefmt,
++                            level=as_log_level(config.logging.root.level))
++
+     # Create the sub-loggers.  Note that we'll redirect flufl.lock to
+     # mailman.locks.
+     for logger_config in config.logger_configs:
+@@ -161,7 +204,8 @@ def initialize(propagate=None):
+ def reopen():
+     """Re-open all log files."""
+     for handler in _handlers.values():
+-        handler.reopen()
++        if isinstance(handler, ReopenableFileHandler):
++            handler.reopen()
+ 
+ 
+ @public
+diff --git a/src/mailman/testing/layers.py b/src/mailman/testing/layers.py
+index dbed1fccf..945e53a3d 100644
+--- a/src/mailman/testing/layers.py
++++ b/src/mailman/testing/layers.py
+@@ -35,7 +35,7 @@ from lazr.config import as_boolean
+ from mailman.config import config
+ from mailman.core import initialize
+ from mailman.core.initialize import INHIBIT_CONFIG_FILE
+-from mailman.core.logging import get_handler
++from mailman.core.logging import get_handler, ReopenableFileHandler
+ from mailman.database.transaction import transaction
+ from mailman.interfaces.domain import IDomainManager
+ from mailman.testing.helpers import (
+@@ -147,7 +147,9 @@ class ConfigLayer(MockAndMonkeyLayer):
+             # specific to the logger so that tests can find expected output
+             # more easily.
+             path = os.path.join(config.LOG_DIR, sub_name)
+-            get_handler(sub_name).reopen(path)
++            handler = get_handler(sub_name)
++            if isinstance(handler, ReopenableFileHandler):
++                handler.reopen(path)
+             log.setLevel(logging.DEBUG)
+             # If stderr debugging is enabled, make sure subprocesses are also
+             # more verbose.  In general though, we still don't want SQLAlchemy

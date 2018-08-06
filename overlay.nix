@@ -6,4 +6,7 @@ self: super:
   python36 = super.python36.override { packageOverrides = import ./pkgs/python-packages.nix; };
   python2 = super.python2.override { packageOverrides = import ./pkgs/python-packages.nix; };
   python = super.python.override { packageOverrides = import ./pkgs/python-packages.nix; };
+
+  mailman = super.callPackage pkgs/mailman { };
+  postorius = super.callPackage pkgs/mailman/postorius.nix { };
 }
