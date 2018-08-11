@@ -386,6 +386,7 @@ in
   mpv = all;
   msf = all;
   mtr = all;
+  mumble = all;
   mupdf = all;
   mutt = all;
   mysql.server = all;
