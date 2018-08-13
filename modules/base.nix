@@ -152,7 +152,7 @@ with lib;
 
     virtualisation.docker.autoPrune = {
       enable = mkDefault true;
-      flags = [ "--all" ];
+      flags = [ "--all" "--volumes" ];
     };
 
     virtualisation.libvirtd.qemuVerbatimConfig = ''
