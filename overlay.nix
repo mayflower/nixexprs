@@ -9,4 +9,5 @@ self: super:
 
   mailman = super.callPackage pkgs/mailman { };
   postorius = super.callPackage pkgs/mailman/postorius.nix { };
+  hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
 }

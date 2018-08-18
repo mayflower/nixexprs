@@ -3,7 +3,12 @@ self: super: {
   atpublic = super.callPackage ./python/atpublic { };
   colorhash = super.callPackage ./python/colorhash { };
   coloredlogs = super.callPackage ./python/coloredlogs { };
+  cssmin = super.callPackage ./python/cssmin { };
+  django-allauth = super.callPackage ./python/django-allauth { };
+  django-gravatar2 = super.callPackage ./python/django-gravatar2 { };
   django-mailman3 = super.callPackage ./python/django-mailman3 { };
+  django-paintstore = super.callPackage ./python/django-paintstore { };
+  django-q = super.callPackage ./python/django-q { };
   duckling = super.callPackage ./python/duckling { };
   fakeredis = super.callPackage ./python/fakeredis { };
   fbmessenger = super.callPackage ./python/fbmessenger { };
@@ -37,4 +42,17 @@ self: super: {
       sha256 = "0gnl11w98iib7vif92f3vircavy2v1yl9sl54y6hhk1mwm0f07f6";
     };
   });
+  django-haystack = super.django-haystack.overrideAttrs (oldAttrs: rec {
+    pname = "django-haystack";
+    version = "2.8.1";
+    name = "${pname}-${version}";
+
+    src = super.fetchPypi {
+      inherit pname version;
+      sha256 = "1302fqsrx8w474xk5cmnmg3hjqfprlxnjg9qlg86arsr4v4vqm4b";
+    };
+    propagatedBuildInputs = with super; [ django python-dateutil whoosh pysolr elasticsearch setuptools_scm ];
+  });
+
+  # geopy FIXME
 }
