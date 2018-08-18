@@ -407,7 +407,6 @@ in
   nix-generate-from-cpan = all;
   nix-repl = all;
   nixUnstable = all;
-  nixbot = all;
   nixops = all;
   nixopsUnstable = all;
   nmap = all;
@@ -789,7 +788,6 @@ in
   ttf_bitstream_vera = all;
   ubuntu_font_family = all;
   unifont = all;
-  vistafonts = all;
   wqy_microhei = all;
 }) // {
   manual = import "${nixpkgs}/doc";
