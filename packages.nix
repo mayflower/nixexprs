@@ -595,6 +595,7 @@ in
   sdparm = all;
   seafile-client = all;
   selenium-server-standalone = all;
+  shairport-sync = all;
   sharutils = all;
   shishi = all;
   shutter = all;
