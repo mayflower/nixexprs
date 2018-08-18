@@ -32,7 +32,7 @@ let
 
 in
 
-(mapTestOn {
+((mapTestOn {
   ack = all;
   acpi = all;
   acpid = all;
@@ -795,4 +795,4 @@ in
 }) // {
   manual = import "${nixpkgs}/doc";
   lib-tests = import "${nixpkgs}/lib/tests/release.nix" { inherit pkgs; };
-}
+})
