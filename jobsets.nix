@@ -20,6 +20,10 @@ let
         type = "git";
         value = "git://github.com/mayflower/nixpkgs";
       };
+      nixexprs = {
+        type = "git";
+        value = "git://github.com/mayflower/nixexprs";
+      };
       supportedSystems = {
         type = "nix";
         value = ''[ \"x86_64-linux\" ]'';
