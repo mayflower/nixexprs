@@ -67,6 +67,9 @@ let
   dockerRunnerHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.mayflower.docker-runner.enable
   ));
+  rspamdHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.rspamd.enable
+  ));
 
   extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
     _: m: m.mayflower.monitoring.extraScrapeConfigs
@@ -210,6 +213,9 @@ in {
         socketPath = "/var/run/dovecot2/old-stats";
         scopes = [ "user" "global" ];
       };
+      services.prometheus.exporters.rspamd = {
+        enable = config.services.rspamd.enable;
+      };
       services.prometheus.exporters.node = {
         enable = true;
         openFirewall = true;
@@ -298,6 +304,10 @@ in {
             grafana = {
               hostNames = grafanaHostNames;
               port = 3000;
+            };
+            rspamd = {
+              hostNames = rspamdHostNames;
+              port = 7980;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
