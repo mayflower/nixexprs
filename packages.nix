@@ -2,16 +2,13 @@
    the load on Hydra when testing the `stdenv-updates' branch. */
 
 { nixpkgs
-, nixexprs
 , releaseLib
 }:
 
 with releaseLib;
 
 let
-  pkgs = import nixpkgs {
-    overlays = [ (import "${nixexprs}/overlay.nix") ];
-  };
+  pkgs = import nixpkgs { };
   recursiveUpdate = pkgs.lib.recursiveUpdate;
 
   kernelPackages = {

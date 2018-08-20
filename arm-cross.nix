@@ -5,7 +5,7 @@
 }:
 
 import ./packages.nix {
-  inherit nixpkgs nixexprs;
+  inherit nixpkgs;
   releaseLib = import "${nixpkgs}/pkgs/top-level/release-lib.nix" {
     inherit supportedSystems;
     nixpkgsArgs = {
@@ -13,6 +13,7 @@ import ./packages.nix {
         allowUnfree = false;
         inHydra = true;
       };
+      overlays = [ (import "${nixexprs}/overlay.nix") ];
       crossSystem = (import nixpkgs {}).lib.systems.examples.${crossSystem};
     };
   };
