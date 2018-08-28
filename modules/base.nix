@@ -70,7 +70,6 @@ with lib;
         file
         htop
         iftop
-        iftop
         iotop
         iperf2
         iperf3
