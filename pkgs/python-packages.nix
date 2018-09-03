@@ -1,6 +1,7 @@
 self: super: {
   aiosmtpd = super.callPackage ./python/aiosmtpd { };
   atpublic = super.callPackage ./python/atpublic { };
+  automx = super.callPackage ./python/automx { };
   colorhash = super.callPackage ./python/colorhash { };
   coloredlogs = super.callPackage ./python/coloredlogs { };
   cssmin = super.callPackage ./python/cssmin { };

@@ -1,4 +1,5 @@
 [
+  modules/automx.nix
   modules/base.nix
   modules/demockrazy.nix
   modules/docker-runner.nix
