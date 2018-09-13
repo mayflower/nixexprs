@@ -14,14 +14,16 @@ let
     "obsolete"       = "error";
     ""               = "";
   }.${s};
+
+  toKebabCase = s: lib.toLower (lib.replaceChars [" "] ["-"] s);
 in
 
 ''
   <tr>
   <td>
     <a class="float-left text-bold entry-address" href="${address}">${name}</a>
-    <a class="show-sm btn btn-primary float-right mx-2" href="#${lib.toLower name}">Info</a>
-    <div id="${lib.toLower name}" class="modal modal-lg">
+    <a class="show-sm btn btn-primary float-right mx-2" href="#${toKebabCase name}">Info</a>
+    <div id="${toKebabCase name}" class="modal modal-lg">
       <a class="modal-overlay" href="#" aria-labels="Close"></a>
       <div class="modal-container" role="document">
         <div class="modal-header">
