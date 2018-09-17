@@ -14,11 +14,18 @@ let
 
   entry = name: val: import templates/entry.nix ({ inherit lib name; } // val);
 
+  order = [
+    "production"
+    "beta"
+    "alpha"
+    "deprecated"
+    "obsolete"
+  ];
+
   generateEntries = srvAttrs: lib.concatStrings (
-    lib.mapAttrsToList (n: v: (
-      entry n v
-    ))
-    srvAttrs);
+    lib.flatten (map (stat: lib.mapAttrsToList (n: v: (
+      if v.status == stat then entry n v else ""
+    )) srvAttrs) order));
 
   genHtml = services: minifyHTML ''
     ${header}
