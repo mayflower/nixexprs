@@ -16,6 +16,7 @@ let
 
   order = [
     "production"
+    "external"
     "beta"
     "alpha"
     "deprecated"
