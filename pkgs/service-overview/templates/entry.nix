@@ -12,6 +12,7 @@ let
     "production"     = "success";
     "deprecated"     = "error";
     "obsolete"       = "error";
+    "external"       = "primary";
     ""               = "";
   }.${s};
 
