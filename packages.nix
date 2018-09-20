@@ -387,6 +387,7 @@ in
   msf = all;
   mtr = all;
   mumble = all;
+  mumble_git = all;
   mupdf = all;
   mutt = all;
   mysql.server = all;
@@ -772,6 +773,7 @@ in
   cm_unicode = all;
   dejavu_fonts = all;
   eb-garamond = all;
+  emojione = all;
   font-awesome-ttf = all;
   freefont_ttf = all;
   freeorion = all;
