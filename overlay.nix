@@ -7,7 +7,7 @@ self: super:
   python2 = super.python2.override { packageOverrides = import ./pkgs/python-packages.nix; };
   python = super.python.override { packageOverrides = import ./pkgs/python-packages.nix; };
 
-  mailman = super.callPackage pkgs/mailman { };
+  mailman3 = super.callPackage pkgs/mailman { };
   postorius = super.callPackage pkgs/mailman/postorius.nix { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
   serviceOverview = super.callPackage pkgs/service-overview { };
