@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, fetchurl, runCommand, nodePackages_6_x, services ? {} }:
+{ stdenv, fetchFromGitHub, fetchurl, runCommand, nodePackages_8_x, services ? {} }:
 
 let
   lib = stdenv.lib;
 
-  html-minifier = "${nodePackages_6_x.html-minifier}/bin/html-minifier";
+  html-minifier = "${nodePackages_8_x.html-minifier}/bin/html-minifier";
 
   minifyHTML = input: runCommand "service-overview.min.html" {} ''
     echo '${input}' | ${html-minifier} --collapse-whitespace -o $out
