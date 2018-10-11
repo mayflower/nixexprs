@@ -6,16 +6,12 @@ let
     enabled = "1";
     hidden = false;
     description = "";
-    input = "jobs";
-    path = "default.nix";
+    input = "nixexprs";
+    path = "hydra-jobs/default.nix";
     keep = 1;
     shares = 42;
     interval = 300;
     inputs = {
-      jobs = {
-        type = "git";
-        value = "git://github.com/mayflower/hydra-jobs";
-      };
       nixpkgs = {
         type = "git";
         value = "git://github.com/mayflower/nixpkgs";
@@ -57,10 +53,10 @@ let
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-18.09";
     };
     mayflower-master = {
-      path = "dist.nix";
+      path = "hydra-jobs/dist.nix";
     };
     mayflower-production = {
-      path = "dist.nix";
+      path = "hydra-jobs/dist.nix";
       inputs = hydra-jobs-production.inputs;
     };
     nixos-small-master = {
@@ -88,7 +84,7 @@ let
       };
     };
     hydra-jobs-arm-cross = {
-      path = "arm-cross.nix";
+      path = "hydra-jobs/arm-cross.nix";
       shares = 5;
     };
   });
