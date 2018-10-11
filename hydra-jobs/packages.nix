@@ -45,7 +45,6 @@ in
     platformTools = all;
   };
   android-studio = all;
-  androidsdk = all;
   apparmor-utils = all;
   arandr = all;
   arduino = all;
@@ -148,7 +147,6 @@ in
   efibootmgr = all;
   efivar = all;
   elasticsearch = all;
-  elasticsearch2 = all;
   electricsheep = all;
   emacs25 = gtkSupported;
   emby = all;
@@ -359,7 +357,6 @@ in
   memtest86plus = all;
   menu-cache = all;
   mercurial = all;
-  mesa = mesaPlatforms;
   mesa_drivers = all;
   metricbeat = all;
   minetest = all;
@@ -372,7 +369,6 @@ in
   moc = all;
   module_init_tools = all;
   mongodb = all;
-  monodevelop = all;
   monotone = all;
   moonlight-embedded = all;
   mopidy = all;
@@ -406,7 +402,6 @@ in
   ngrep = all;
   nix = all;
   nix-generate-from-cpan = all;
-  nix-repl = all;
   nixUnstable = all;
   nixops = all;
   nixopsUnstable = all;
@@ -465,9 +460,6 @@ in
     NetSNMP = all;
   };
   phantomjs2 = all;
-  php70 = all;
-  php70Packages.composer = all;
-  php70Packages.xdebug = all;
   php71 = all;
   php71Packages.composer = all;
   php71Packages.xdebug = all;
@@ -499,7 +491,7 @@ in
   privoxy = all;
   procps = all;
   prometheus = all;
-  prometheus2 = all;
+  prometheus_2 = all;
   prometheus-alertmanager = all;
   prometheus-blackbox-exporter = all;
   prometheus-fritzbox-exporter = all;
@@ -567,8 +559,6 @@ in
   redir = all;
   redis = all;
   redshift = all;
-  retroshare = all;
-  retroshare06 = all;
   rfkill = all;
   ripgrep = all;
   rkt = all;
