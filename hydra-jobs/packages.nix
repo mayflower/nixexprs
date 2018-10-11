@@ -156,6 +156,7 @@ in
   ethtool = all;
   evince = all;
   exa = all;
+  exercism = all;
   exfat = all;
   f2fs-tools = all;
   fail2ban = all;
@@ -606,6 +607,7 @@ in
   sshfsFuse = all;
   sslscan = all;
   ssmtp = all;
+  stack = all;
   stdenv = all;
   strace = all;
   strongswan = all;
