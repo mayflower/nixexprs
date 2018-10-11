@@ -347,7 +347,7 @@ in {
 
         prometheus.alertmanager = {
           enable = true;
-          meshPeers = alertmanagerHostNames;
+          clusterPeers = alertmanagerHostNames;
           configuration = {
             route = {
               receiver = "default";
