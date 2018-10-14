@@ -14,4 +14,5 @@ self: super:
 
   dovecot = super.dovecot.override { withPgSQL = true; };
   postfix = super.postfix.override { withPgSQL = true; };
+  freeradius = super.freeradius.override { withJson = true; withRest = true; };
 }
