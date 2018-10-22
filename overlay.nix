@@ -11,4 +11,7 @@ self: super:
   postorius = super.callPackage pkgs/mailman/postorius.nix { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
   serviceOverview = super.callPackage pkgs/service-overview { };
+
+  dovecot = super.dovecot.override { withPgSQL = true; };
+  postfix = super.postfix.override { withPgSQL = true; };
 }
