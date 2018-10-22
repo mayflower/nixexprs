@@ -11,6 +11,7 @@ self: super:
   postorius = super.callPackage pkgs/mailman/postorius.nix { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
   serviceOverview = super.callPackage pkgs/service-overview { };
+
   yarn2nix = super.callPackage (super.fetchFromGitHub {
     owner = "mayflower";
     repo = "yarn2nix-moretea";
@@ -19,4 +20,7 @@ self: super:
   }) {};
   mkYarnPackage = (super.callPackage self.yarn2nix.src {}).mkYarnPackage;
   loomio = super.callPackage pkgs/loomio { };
+
+  dovecot = super.dovecot.override { withPgSQL = true; };
+  postfix = super.postfix.override { withPgSQL = true; };
 }
