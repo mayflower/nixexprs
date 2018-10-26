@@ -57,11 +57,6 @@ with lib;
       mtr.enable = true;
     };
 
-    # sigh :/
-    nixpkgs.config = {
-      allowUnfree = true;
-    };
-
     environment = {
       variables.EDITOR = "vim";
       systemPackages = with pkgs; [
