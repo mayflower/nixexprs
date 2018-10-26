@@ -263,6 +263,7 @@ in
   hping = all;
   hplip = all;
   htop = all;
+  hugo = all;
   hydra = all;
   i3 = all;
   i3-gaps = all;
