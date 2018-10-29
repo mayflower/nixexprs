@@ -4,6 +4,7 @@
   modules/demockrazy.nix
   modules/docker-runner.nix
   modules/kvm.nix
+  modules/loomio.nix
   modules/machines.nix
   modules/mailman3.nix
   modules/monitoring/default.nix

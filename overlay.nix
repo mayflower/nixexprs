@@ -11,4 +11,12 @@ self: super:
   postorius = super.callPackage pkgs/mailman/postorius.nix { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
   serviceOverview = super.callPackage pkgs/service-overview { };
+  yarn2nix = super.callPackage (super.fetchFromGitHub {
+    owner = "mayflower";
+    repo = "yarn2nix-moretea";
+    rev = "bcac6f2b96c795fe9eda9b9b75e6c885db184e66";
+    sha256 = "0g0gy9yv39k1cd8nyh1cv8hwzx18w4y4fzjqpnbpz3vcnnkx7jsm";
+  }) {};
+  mkYarnPackage = (super.callPackage self.yarn2nix.src {}).mkYarnPackage;
+  loomio = super.callPackage pkgs/loomio { };
 }
