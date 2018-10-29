@@ -595,7 +595,6 @@ in {
       '';
     };
 
-    systemd.services.unbound.serviceConfig.Restart = "on-failure";
     services.unbound = optionalAttrs (cfg.dnsDomain != null) {
       enable = true;
       allowedAccess = [ "::/0" "0.0.0.0/0" ];
