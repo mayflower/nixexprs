@@ -35,7 +35,6 @@ with lib;
     };
 
     networking = {
-      firewall.allowPing = true;
       defaultMailServer = {
         directDelivery = lib.mkDefault true;
         hostName = mkDefault "mail.mayflower.de";
