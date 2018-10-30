@@ -35,6 +35,7 @@ in
   acpid = all;
   acpitool = all;
   aircrack-ng = all;
+  alacritty = all;
   alsa-firmware = all;
   alsaLib = all;
   alsaPluginWrapper = all;
