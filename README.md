@@ -15,8 +15,10 @@ upstream currently:
 
 When importing `nixpkgs`:
 ```
+{ nixpkgs ? <nixpkgs> }:
+
 let
-  nixexprsRepo = pkgs.fetchFromGitHub {
+  nixexprsRepo = (import nixpkgs {}).fetchFromGitHub {
     owner = "mayflower";
     repo = "nixexprs";
     rev = "afee8fa90f5f864a9d011a0bdcdb4b657deff813";
@@ -29,6 +31,8 @@ in import nixpkgs {
 
 When using it in the NixOS configuration:
 ```
+{ pkgs, ... }:
+
 let
   nixexprsRepo = pkgs.fetchFromGitHub {
     owner = "mayflower";
