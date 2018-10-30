@@ -82,6 +82,14 @@ let
         });
       };
 
+      configureInterface = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Specify whether the router module should pass the IP
+          configuration to <literal>networking.interfaces</literal>.
+        '';
+      };
       enableDHCP = mkEnableOption "Enable DHCP server for this network";
       enableRA = mkEnableOption "Enable RA";
       enableNAT = mkEnableOption "Enable NAT from hosts of this network";
@@ -90,6 +98,7 @@ let
   };
 
   specifiedNetworks = remove null (flip map mayflowerNetworks (x: if (getAttr x cfg.networks) != null then x else null));
+  configureNetworks = filter (net: cfg.networks.${net}.configureInterface) specifiedNetworks;
   createInterfaceNetworks = (filter (net: isNull cfg.networks."${net}".interface) specifiedNetworks);
   natNetworks = (filter (net: cfg.networks."${net}".enableNAT) specifiedNetworks);
   natInterfaces = (map interfaceForNet natNetworks);
@@ -476,8 +485,8 @@ in {
     # Use mkVLAN function to create VLAN definitions based on createInterfaceNetworks
     networking.vlans = listToAttrs (flip map createInterfaceNetworks (net: (mkVLAN net cfg.internalInterface)));
 
-    # Create interface definitions based on the specifiedNetworks
-    networking.interfaces = listToAttrs (flip map specifiedNetworks (net: {
+    # Create interface definitions based on the configureNetworks
+    networking.interfaces = listToAttrs (flip map configureNetworks (net: {
       "name" = (if (elem net createInterfaceNetworks) then net else cfg.networks."${net}".interface);
       "value" = (getAttr net componentConfig.networks).addressConfig;
     }));
@@ -607,7 +616,6 @@ in {
         server:
           port: 53
           so-reuseport: yes
-          interface-automatic: yes
           num-threads: 2
           outgoing-range: 8192
           outgoing-num-tcp: 64
