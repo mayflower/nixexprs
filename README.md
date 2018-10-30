@@ -66,7 +66,7 @@ but not clean enough, yet.
 ### services.mailman
 
 Mailman3 plus Hyperkitty and Postorius service. To be upstreamed after clean-up
-and stabilisation. (And rather a lot of code, maybe to opinionated in parts
+and stabilisation. (And rather a lot of code, maybe too opinionated in parts
 even)
 
 ### mayflower.base
