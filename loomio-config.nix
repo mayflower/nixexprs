@@ -9,4 +9,6 @@
   services.postgresql = {
     enable = true;
   };
+  networking.firewall.enable = false;
+  systemd.services.loomio.environment.CANONICAL_HOST = "10.233.1.2:3000";
 }

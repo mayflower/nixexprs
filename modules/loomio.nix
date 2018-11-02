@@ -236,10 +236,11 @@ in {
       environment = loomioEnv;
       path = with pkgs; [
         config.services.postgresql.package
+        nodejs
       ];
       preStart = ''
         set -x
-        mkdir -p ${cfg.statePath}/builds
+        mkdir -p ${cfg.statePath}/tmp
         mkdir -p ${cfg.statePath}/db
         mkdir -p ${cfg.statePath}/uploads
 
@@ -280,26 +281,20 @@ in {
           if ! test -e "${cfg.statePath}/db-created"; then
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "CREATE ROLE ${cfg.databaseUsername} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.databasePassword}'"
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} ${config.services.postgresql.package}/bin/createdb --owner ${cfg.databaseUsername} ${cfg.databaseName}
+            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres --dbname=${cfg.databaseName} -c 'CREATE EXTENSION IF NOT EXISTS "citext"; CREATE EXTENSION IF NOT EXISTS "hstore"; CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";'
             touch "${cfg.statePath}/db-created"
+            ${loomio-rake}/bin/loomio-rake db:schema:load RAILS_ENV=production
           fi
         fi
 
         # Always do the db migrations just to be sure the database is up-to-date
         ${loomio-rake}/bin/loomio-rake db:migrate RAILS_ENV=production
 
-        if ! test -e "${cfg.statePath}/db-seeded"; then
-          ${loomio-rake}/bin/loomio-rake db:seed_fu RAILS_ENV=production
-          touch "${cfg.statePath}/db-seeded"
-        fi
-
         # Change permissions in the last step because some of the
         # intermediary scripts like to create directories as root.
         chown -R ${cfg.user}:${cfg.group} ${cfg.statePath}
         chmod -R ug+rwX,o-rwx+X ${cfg.statePath}
-        chmod -R u+rwX,go-rwx+X ${loomioEnv.HOME}
-        chmod -R ug+rwX,o-rwx ${cfg.statePath}/repositories
-        chmod -R ug-s ${cfg.statePath}/repositories
-        find ${cfg.statePath}/repositories -type d -print0 | xargs -0 chmod g+s
+        #chmod -R u+rwX,go-rwx+X ${loomioEnv.HOME}
       '';
 
       serviceConfig = {
@@ -307,7 +302,7 @@ in {
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        TimeoutSec = "60";
+        TimeoutSec = "180";
         Restart = "no"; # XXX
         WorkingDirectory = "${cfg.package}/share/loomio";
         ExecStart = "${cfg.package.rubyEnv}/bin/rails s";

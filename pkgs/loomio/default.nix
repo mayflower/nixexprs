@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     mv config config.dist
     mv client/tasks/{config,config.dist}
     substituteInPlace config.dist/application.rb --replace '../lib/version' "$out/share/loomio/lib/version"
-    find . -name "*.rb" -exec sed -ri 's/< ActiveRecord::Migration(\[[0-9]+\.[0-9]+\])?/< ActiveRecord::Migration[5.1]/' {} +
+    find . -name "*.rb" -exec sed -ri 's/< ActiveRecord::Migration(\[[0-9]+\.[0-9]+\])?/< ActiveRecord::Migration[4.2]/' {} +
     cp -r . $out/share/loomio
     ln -s ${rubyEnv} $out/rubyenv
     rsync -rv ${frontend}/share/loomio/public $out/share/loomio/
