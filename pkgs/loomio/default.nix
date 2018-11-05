@@ -61,5 +61,7 @@ stdenv.mkDerivation rec {
     ln -s /run/loomio/log $out/share/loomio/log
     ln -s /run/loomio/config $out/share/loomio/config
     ln -s /run/loomio/client-tasks-config $out/share/loomio/client/tasks/config
+    # TODO: work out what this version number or whatever is
+    ln -s $out/share/loomio/public/client/development $out/share/loomio/public/client/1.8.443
   '';
 }

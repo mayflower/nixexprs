@@ -28,6 +28,7 @@ let
     RAILS_ENV = "production";
     SECRET_COOKIE_TOKEN = cfg.secrets.secret;
     DEVISE_SECRET = cfg.secrets.secret; # TODO: change secret
+    CANONICAL_HOST = cfg.domain;
   };
 
   loomio-rake = pkgs.runCommand "loomio-rake" {
@@ -130,6 +131,12 @@ in {
           Initial password of the root account if this is a new install.
         '';
       };
+
+      domain = mkOption {
+        type = types.str;
+        description = "Domain to run loomio on";
+      };
+
 
 /*
       smtp = {
@@ -308,6 +315,10 @@ in {
         ExecStart = "${cfg.package.rubyEnv}/bin/rails s";
       };
 
+    };
+    services.nginx.virtualHosts.${cfg.domain} = {
+      locations."/client".root = "${cfg.package}/share/loomio/public/";
+      locations."/".proxyPass = http://localhost:3000;
     };
 
   };
