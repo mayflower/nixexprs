@@ -868,10 +868,10 @@
     dependencies = ["regexp_parser"];
     source = {
       remotes = ["http://rubygems.org"];
-      sha256 = "0nmnymvmhnf89a6va1c650fck0xlirbwbh6xzn3giw5w6jqlx3wp";
+      sha256 = "06882jlfhaj987hxais97kw7kxhf1rm22xl2i83s8ffd03w2sw4z";
       type = "gem";
     };
-    version = "2.1.0";
+    version = "2.2.2";
   };
   json = {
     source = {
@@ -1387,10 +1387,10 @@
   regexp_parser = {
     source = {
       remotes = ["http://rubygems.org"];
-      sha256 = "1bg1j5dymdzhhv47nh3zhdmmd7bmrpigc9p17yfyg3yrp718gzv6";
+      sha256 = "1375q2v74cccjh290d9x28fdircvy18v6h0ww7a8i66qhh1jf2pb";
       type = "gem";
     };
-    version = "0.4.9";
+    version = "0.5.0";
   };
   request_store = {
     dependencies = ["rack"];
