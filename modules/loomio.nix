@@ -29,6 +29,11 @@ let
     SECRET_COOKIE_TOKEN = cfg.secrets.secret;
     DEVISE_SECRET = cfg.secrets.secret; # TODO: change secret
     CANONICAL_HOST = cfg.domain;
+    WELCOME_EMAIL_SENDER_NAME = "TODO";
+    WELCOME_EMAIL_SENDER_EMAIL = "todo@example.com";
+    DISABLED_PLUGINS = "";
+    DISABLE_USAGE_REPORTING = "1";
+    REDIS_URL = "localhost:6379";
   };
 
   loomio-rake = pkgs.runCommand "loomio-rake" {
@@ -265,7 +270,9 @@ in {
 
         cp -rf ${cfg.package}/share/loomio/db/* ${cfg.statePath}/db
         cp -rf ${cfg.package}/share/loomio/config.dist/* ${cfg.statePath}/config
-        sed -ri -e '/log_level/a config.logger = Logger.new(STDERR)' ${cfg.statePath}/config/environments/production.rb
+        sed -ri -e '/log_level/a config.logger = Logger.new(STDERR)' \
+                -e '/^end/i config.action_cable.allow_same_origin_as_host = true' \
+                ${cfg.statePath}/config/environments/production.rb
         cp -rf ${cfg.package}/share/loomio/client/tasks/config.dist/* ${cfg.statePath}/client-tasks-config
         ${#optionalString cfg.smtp.enable ''
           optionalString false ''
@@ -312,13 +319,23 @@ in {
         TimeoutSec = "180";
         Restart = "no"; # XXX
         WorkingDirectory = "${cfg.package}/share/loomio";
-        ExecStart = "${cfg.package.rubyEnv}/bin/rails s";
+        ExecStart = "${cfg.package.rubyEnv}/bin/puma config/puma.rb";
       };
 
     };
+    services.nginx.recommendedProxySettings = true;
+    services.nginx.recommendedGzipSettings = true;
+    services.nginx.recommendedOptimisation = true;
+    services.nginx.recommendedTlsSettings = true;
     services.nginx.virtualHosts.${cfg.domain} = {
       locations."/client".root = "${cfg.package}/share/loomio/public/";
-      locations."/".proxyPass = http://localhost:3000;
+      locations."/" = {
+        proxyPass = http://localhost:3000;
+      };
+      locations."/cable" = {
+        proxyPass = http://localhost:3000;
+        proxyWebsockets = true;
+      };
     };
 
   };
