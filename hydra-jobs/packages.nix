@@ -185,6 +185,7 @@ in
   gcc6 = all;
   gcc7 = all;
   gettext = all;
+  ghc = all;
   gimp = all;
   gist = all;
   git = all;
