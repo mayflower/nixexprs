@@ -88,6 +88,7 @@ in
   byobu = all;
   bzip2 = all;
   cabal2nix = all;
+  cabal-install = all;
   caddy = all;
   calibre = all;
   cargo = all;
@@ -542,6 +543,7 @@ in
     zope_schema = linux;
   };
   SDL2 = all;
+  haskellPackages.hoogle = all;
   haskellPackages.xmobar = all;
   haskellPackages.xmonad-contrib = all;
   haskellPackages.xmonad-extras = all;
