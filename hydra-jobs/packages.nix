@@ -19,6 +19,7 @@ let
     perf = all;
     wireguard = all;
     zfs = all;
+    zfsUnstable = all;
     cpupower = all;
   };
 
