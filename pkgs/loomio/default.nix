@@ -1,6 +1,7 @@
 { stdenv
 , pkgs
 , callPackage
+, lib
 , runCommandNoCC
 , fetchFromGitHub
 , bundlerEnv
@@ -9,6 +10,7 @@
 , nodejs
 , rsync
 , yarn2nix
+, debug ? false # If true, patch loomio so as not to minify the javascript
 }:
 let
   version = "2018-03-08-1";
@@ -42,16 +44,16 @@ let
   frontend = runCommandNoCC "loomio-frontend" {} ''
     src=${src}/client unpackPhase
     cd client
-    echo "--- Patching lodash stuff ---"
-    find . \
-         -name '*.js' -or -name '*.coffee' \
-         -exec sed -ri 's/_\.pluck/_.map/g ;
-                        s/_\.all/_.every/g ;
-                        s/_\.contains/_.includes/g;
-                        s/_\.trunc/_.truncate/g;
-                        s/_\.any/_.some/g;
-         ' {} +
-    ln -s ${nodeModules}/libexec/Loomio/node_modules .
+    ${lib.optionalString debug "patch -p2 <${./debug.patch}"}
+
+    # TODO: Work out why this hack for getting the right version of
+    # lodash in is necessary, and fix the problem properly (I hope
+    # this isn't the proper fix!?)
+    cp -r ${nodeModules}/libexec/Loomio/node_modules .
+    chmod u+w node_modules
+    chmod -R u+w node_modules/lodash
+    cp -r ${nodeModules}/libexec/Loomio/deps/Loomio/node_modules/* node_modules/
+
     ./node_modules/.bin/gulp compile
     mkdir -p $out/share/loomio
     cp -r ../public $out/share/loomio

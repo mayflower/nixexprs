@@ -1,0 +1,16 @@
+diff --git a/client/tasks/angular.coffee b/client/tasks/angular.coffee
+index bbaa6fd91..6ea818e1b 100644
+--- a/client/tasks/angular.coffee
++++ b/client/tasks/angular.coffee
+@@ -44,11 +44,9 @@ module.exports =
+     browserify(browserifyOpts())
+       .transform("babelify", {presets: ["@babel/preset-env"], extensions: ['.coffee', '.js']})
+       .plugin(collapse)
+-      .transform('uglifyify')
+       .bundle()
+       .pipe(source('angular.bundle.min.js'))
+       .pipe(buffer())
+-      .pipe(uglify())
+       .on('error', onError)
+       .pipe(gulp.dest(paths.dist.assets))
+ 
