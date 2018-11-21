@@ -6,6 +6,7 @@
     databasePassword = "hs4IesTZGTQF9se7uC/w";
     secrets.secret = "hs4IesTZGTQF9se7uC";
     domain = "10.233.1.2";
+    redisUrl = "redis://localhost:6379";
   };
   services.postgresql = {
     enable = true;

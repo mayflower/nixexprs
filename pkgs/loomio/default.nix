@@ -34,7 +34,6 @@ let
       echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
       ln -sfv ${nodejs}/include $HOME/.node-gyp/${nodejs.version}
     '';
-    # TODO: release-mode gulp build
     pkgConfig.node-sass = {
       buildInputs = [ python ];
       postInstall = "npm run build";

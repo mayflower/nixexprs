@@ -33,7 +33,7 @@ let
     WELCOME_EMAIL_SENDER_EMAIL = "todo@example.com";
     DISABLED_PLUGINS = "";
     DISABLE_USAGE_REPORTING = "1";
-    REDIS_URL = "localhost:6379";
+    REDIS_URL = cfg.redisUrl;
   };
 
   loomio-rake = pkgs.runCommand "loomio-rake" {
@@ -140,6 +140,11 @@ in {
       domain = mkOption {
         type = types.str;
         description = "Domain to run loomio on";
+      };
+
+      redisUrl = mkOption {
+        type = types.str;
+        description = "URL to the redis server to use";
       };
 
 
