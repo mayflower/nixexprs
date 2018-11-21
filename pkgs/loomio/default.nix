@@ -20,13 +20,14 @@ let
     gemdir = ./.;
     groups = [ "default" "production" ];
   };
-  src = #(pkgs.lib.cleanSource /home/linus/projects/loomio)
+  src = #(pkgs.lib.cleanSource /home/linus/projects/loomio); /*
   fetchFromGitHub {
     owner = "loomio";
     repo = "loomio";
-    rev = "e122bff3ce011748eb767ce2c300e057e74ae315"; # 1.8.656
-    sha256 = "1wn6nss7lvmn5cv62khjcrx5zry9hvhl4nvag9y7hiiklqk11avb";
+    rev = "dbd75a9f492df0a2831c4890996825242bc78402"; # 1.8.675
+    sha256 = "0k1vc3824ac51dka8jv6v1abpcjfvc0n0j8q7d7kk213rkpdm8ji";
   };
+  # */
   nodeModules = yarn2nix.mkYarnPackage {
     name = "loomio-frontend";
     src = "${src}/client";
@@ -78,7 +79,9 @@ stdenv.mkDerivation rec {
     ln -s /run/loomio/client-tasks-config $out/share/loomio/client/tasks/config
 
     chmod u+w $out/share/loomio/public/client
-    # TODO: work out what this version number or whatever is
-    ln -s $out/share/loomio/public/client/development $out/share/loomio/public/client/1.8.657
+    ln -s $out/share/loomio/public/client/development $out/share/loomio/public/client/1.8.675
   '';
+  passthru = {
+    inherit nodeModules frontend;
+  };
 }
