@@ -171,10 +171,8 @@ in {
 
     environment.systemPackages = [ loomio-rake ];
 
-    # We use postgres as the main data store.
-    services.postgresql.enable = mkDefault true;
-    # Use postfix to send out mails.
-    # services.postfix.enable = mkDefault true;
+    services.postgresql.enable = mkDefault (cfg.databaseHost == "127.0.0.1");
+    services.redis.enable = lib.mkDefault (cfg.redisUrl == "redis://localhost:6379");
 
     # TODO unhack
     ids.uids.loomio = 9999;
@@ -265,7 +263,7 @@ in {
         User = cfg.user;
         Group = cfg.group;
         TimeoutSec = "180";
-        Restart = "no"; # XXX
+        Restart = "no"; # TODO
         WorkingDirectory = "${cfg.package}/share/loomio";
         ExecStart = "${cfg.package.rubyEnv}/bin/puma config/puma.rb";
       };
@@ -286,11 +284,6 @@ in {
         proxyWebsockets = true;
       };
     };
-
-    services.redis.enable = lib.mkDefault (cfg.redisUrl == "redis://localhost:6379");
   };
-
-
   #meta.doc = ./gitlab.xml;
-
 }
