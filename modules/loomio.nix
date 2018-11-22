@@ -24,8 +24,8 @@ let
     HOME = "${cfg.statePath}/home";
     SCHEMA = "${cfg.statePath}/db/schema.rb";
     RAILS_ENV = "production";
-    SECRET_COOKIE_TOKEN = cfg.secret;
-    DEVISE_SECRET = cfg.secret; # TODO: change secret
+    SECRET_COOKIE_TOKEN = cfg.secrets.cookie;
+    DEVISE_SECRET = cfg.secrets.devise;
     CANONICAL_HOST = cfg.domain;
     WELCOME_EMAIL_SENDER_NAME = "TODO";
     WELCOME_EMAIL_SENDER_EMAIL = "todo@example.com";
@@ -35,9 +35,11 @@ let
     REDIS_URL = cfg.redisUrl;
     SMTP_SERVER = cfg.smtp.address;
     SMTP_PORT = toString cfg.smtp.port;
-    SMTP_USERNAME = cfg.smtp.username;
-    SMTP_PASSWORD = cfg.smtp.password; # TODO: don't put password in nix store?
     SMTP_DOMAIN = cfg.smtp.domain;
+  } // optionalAttrs (cfg.smtp.username != null) {
+    SMTP_USERNAME = cfg.smtp.username;
+  } // optionalAttrs (cfg.smtp.password != null) {
+    SMTP_PASSWORD = cfg.smtp.password;
   };
 
   loomio-rake = pkgs.runCommand "loomio-rake" {
@@ -130,12 +132,14 @@ in {
         };
 
         username = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
+          default = null;
           description = "SMTP username for Loomio.";
         };
 
         password = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
+          default = null;
           description = "SMTP username for Loomio.";
         };
 
@@ -152,16 +156,31 @@ in {
         };
       };
 
-      secret = mkOption {
-        type = types.str;
-        description = ''
-          The secret is used to encrypt variables in the DB. If
-          you change or lose this key you will be unable to access variables
-          stored in database.
+      secrets = {
+        devise = mkOption {
+          type = types.str;
+          description = ''
+            FIXME
+            The secret is used to encrypt variables in the DB. If
+            you change or lose this key you will be unable to access variables
+            stored in database.
 
-          Make sure the secret is at least 30 characters and all random,
-          no regular words or you'll be exposed to dictionary attacks.
-        '';
+            Make sure the secret is at least 30 characters and all random,
+            no regular words or you'll be exposed to dictionary attacks.
+          '';
+        };
+        cookie = mkOption {
+          type = types.str;
+          description = ''
+            FIXME
+            The secret is used to encrypt variables in the DB. If
+            you change or lose this key you will be unable to access variables
+            stored in database.
+
+            Make sure the secret is at least 30 characters and all random,
+            no regular words or you'll be exposed to dictionary attacks.
+          '';
+        };
       };
     };
   };
@@ -171,7 +190,7 @@ in {
     environment.systemPackages = [ loomio-rake ];
 
     services.postgresql.enable = mkDefault (cfg.databaseHost == "127.0.0.1");
-    services.redis.enable = lib.mkDefault (cfg.redisUrl == "redis://localhost:6379");
+    services.redis.enable = mkIf (cfg.redisUrl == "redis://localhost:6379") (mkDefault true);
 
     # TODO unhack
     ids.uids.loomio = 9999;
