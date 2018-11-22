@@ -150,7 +150,6 @@ in
   efibootmgr = all;
   efivar = all;
   elasticsearch = all;
-  electricsheep = all;
   emacs25 = gtkSupported;
   emby = all;
   enscript = all;
@@ -260,7 +259,6 @@ in
   hedgewars = all;
   hello = all;
   hexedit = all;
-  home-assistant = all;
   horst = all;
   host = all;
   hostapd = all;
@@ -735,11 +733,6 @@ in
   nodePackages = {
     bower = all;
     grunt-cli = all;
-  };
-
-  pkgsi686Linux = {
-    mesa = mesaPlatforms;
-    mesa_drivers = all;
   };
 
   xorg = {
