@@ -8,9 +8,7 @@ let
 
   ruby = cfg.package.rubyEnv;
 
-  pathUrlQuote = url: replaceStrings ["/"] ["%2F"] url;
   pgSuperUser = config.services.postgresql.superUser;
-
 
   databaseYml = ''
     production:
@@ -33,6 +31,7 @@ let
     WELCOME_EMAIL_SENDER_EMAIL = "todo@example.com";
     DISABLED_PLUGINS = "";
     DISABLE_USAGE_REPORTING = "1";
+    NEW_RELIC_AGENT_ENABLED = "false";
     REDIS_URL = cfg.redisUrl;
     SMTP_SERVER = cfg.smtp.address;
     SMTP_PORT = toString cfg.smtp.port;
