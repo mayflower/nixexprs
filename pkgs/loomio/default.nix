@@ -63,6 +63,7 @@ in
 stdenv.mkDerivation rec {
   name = "loomio-${version}";
   inherit rubyEnv src frontend;
+  patches = [ ./smtp-security.patch ];
   nativeBuildInputs = [ rsync ];
   installPhase = ''
     mkdir -p $out/share

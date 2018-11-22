@@ -26,14 +26,19 @@ let
     HOME = "${cfg.statePath}/home";
     SCHEMA = "${cfg.statePath}/db/schema.rb";
     RAILS_ENV = "production";
-    SECRET_COOKIE_TOKEN = cfg.secrets.secret;
-    DEVISE_SECRET = cfg.secrets.secret; # TODO: change secret
+    SECRET_COOKIE_TOKEN = cfg.secret;
+    DEVISE_SECRET = cfg.secret; # TODO: change secret
     CANONICAL_HOST = cfg.domain;
     WELCOME_EMAIL_SENDER_NAME = "TODO";
     WELCOME_EMAIL_SENDER_EMAIL = "todo@example.com";
     DISABLED_PLUGINS = "";
     DISABLE_USAGE_REPORTING = "1";
     REDIS_URL = cfg.redisUrl;
+    SMTP_SERVER = cfg.smtp.address;
+    SMTP_PORT = toString cfg.smtp.port;
+    SMTP_USERNAME = cfg.smtp.username;
+    SMTP_PASSWORD = cfg.smtp.password; # TODO: don't put password in nix store?
+    SMTP_DOMAIN = cfg.smtp.domain;
   };
 
   loomio-rake = pkgs.runCommand "loomio-rake" {
@@ -46,26 +51,6 @@ let
           --set RAKEOPT '-f ${cfg.package}/share/loomio/Rakefile' \
           --run 'cd ${cfg.package}/share/loomio'
       '';
-
-/*
-  smtpSettings = pkgs.writeText "gitlab-smtp-settings.rb" ''
-    if Rails.env.production?
-      Rails.application.config.action_mailer.delivery_method = :smtp
-
-      ActionMailer::Base.delivery_method = :smtp
-      ActionMailer::Base.smtp_settings = {
-        address: "${cfg.smtp.address}",
-        port: ${toString cfg.smtp.port},
-        ${optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''}
-        ${optionalString (cfg.smtp.password != null) ''password: "${cfg.smtp.password}",''}
-        domain: "${cfg.smtp.domain}",
-        ${optionalString (cfg.smtp.authentication != null) "authentication: :${cfg.smtp.authentication},"}
-        enable_starttls_auto: ${toString cfg.smtp.enableStartTLSAuto},
-        openssl_verify_mode: '${cfg.smtp.opensslVerifyMode}'
-      }
-    end
-  '';
-  */
 
 in {
 
@@ -121,22 +106,6 @@ in {
         description = "Group to run loomio.";
       };
 
-      initialRootEmail = mkOption {
-        type = types.str;
-        default = "admin@local.host";
-        description = ''
-          Initial email address of the root account if this is a new install.
-        '';
-      };
-
-      initialRootPassword = mkOption {
-        type = types.str;
-        default = "UseNixOS!";
-        description = ''
-          Initial password of the root account if this is a new install.
-        '';
-      };
-
       domain = mkOption {
         type = types.str;
         description = "Domain to run loomio on";
@@ -144,69 +113,47 @@ in {
 
       redisUrl = mkOption {
         type = types.str;
+        default = "redis://localhost:6379";
         description = "URL to the redis server to use";
       };
 
-
-/*
       smtp = {
-        enable = mkOption {
-          type = types.bool;
-          default = false;
-          description = "Enable gitlab mail delivery over SMTP.";
-        };
-
         address = mkOption {
           type = types.str;
           default = "localhost";
-          description = "Address of the SMTP server for Gitlab.";
+          description = "Address of the SMTP server for Loomio.";
         };
 
         port = mkOption {
           type = types.int;
           default = 465;
-          description = "Port of the SMTP server for Gitlab.";
+          description = "Port of the SMTP server for Loomio.";
         };
 
         username = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description = "Username of the SMTP server for Gitlab.";
+          type = types.str;
+          description = "SMTP username for Loomio.";
         };
 
         password = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description = "Password of the SMTP server for Gitlab.";
+          type = types.str;
+          description = "SMTP username for Loomio.";
         };
 
         domain = mkOption {
           type = types.str;
           default = "localhost";
-          description = "HELO domain to use for outgoing mail.";
+          description = "HELO domain to use for Loomio's outgoing mail.";
         };
 
         authentication = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description = "Authentitcation type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
-        };
-
-        enableStartTLSAuto = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Whether to try to use StartTLS.";
-        };
-
-        opensslVerifyMode = mkOption {
           type = types.str;
-          default = "peer";
-          description = "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          default = "plain";
+          description = "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
       };
-      */
 
-      secrets.secret = mkOption {
+      secret = mkOption {
         type = types.str;
         description = ''
           The secret is used to encrypt variables in the DB. If
@@ -279,10 +226,6 @@ in {
                 -e '/^end/i config.action_cable.allow_same_origin_as_host = true' \
                 ${cfg.statePath}/config/environments/production.rb
         cp -rf ${cfg.package}/share/loomio/client/tasks/config.dist/* ${cfg.statePath}/client-tasks-config
-        ${#optionalString cfg.smtp.enable ''
-          optionalString false ''
-          ln -sf ${smtpSettings} ${cfg.statePath}/config/initializers/smtp_settings.rb
-        ''}
         ln -sf ${cfg.statePath}/config /run/loomio/config
         ln -sf ${cfg.statePath}/client-tasks-config /run/loomio/client-tasks-config
         if [ -e ${cfg.statePath}/lib ]; then
@@ -328,6 +271,7 @@ in {
       };
 
     };
+    # TODO: is it ok to set these globally?
     services.nginx.recommendedProxySettings = true;
     services.nginx.recommendedGzipSettings = true;
     services.nginx.recommendedOptimisation = true;
@@ -343,7 +287,9 @@ in {
       };
     };
 
+    services.redis.enable = lib.mkDefault (cfg.redisUrl == "redis://localhost:6379");
   };
+
 
   #meta.doc = ./gitlab.xml;
 
