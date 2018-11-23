@@ -270,12 +270,12 @@ in {
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} ${config.services.postgresql.package}/bin/createdb --owner ${cfg.databaseUsername} ${cfg.databaseName}
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres --dbname=${cfg.databaseName} -c 'CREATE EXTENSION IF NOT EXISTS "citext"; CREATE EXTENSION IF NOT EXISTS "hstore"; CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";'
             touch "${cfg.statePath}/db-created"
-            ${loomio-rake}/bin/loomio-rake db:schema:load RAILS_ENV=production
+            ${loomio-rake}/bin/loomio-rake db:schema:load
           fi
         fi
 
         # Always do the db migrations just to be sure the database is up-to-date
-        ${loomio-rake}/bin/loomio-rake db:migrate RAILS_ENV=production
+        ${loomio-rake}/bin/loomio-rake db:migrate
 
         # Change permissions in the last step because some of the
         # intermediary scripts like to create directories as root.
