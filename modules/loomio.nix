@@ -24,8 +24,8 @@ let
     HOME = "${cfg.statePath}/home";
     SCHEMA = "${cfg.statePath}/db/schema.rb";
     RAILS_ENV = "production";
-    SECRET_COOKIE_TOKEN = cfg.secret;
-    DEVISE_SECRET = cfg.secret; # TODO: change secret
+    SECRET_COOKIE_TOKEN = cfg.secrets.cookie;
+    DEVISE_SECRET = cfg.secrets.devise;
     CANONICAL_HOST = cfg.domain;
     WELCOME_EMAIL_SENDER_NAME = cfg.welcomeName;
     WELCOME_EMAIL_SENDER_EMAIL = cfg.welcomeAddr;
@@ -159,16 +159,31 @@ in {
         };
       };
 
-      secret = mkOption {
-        type = types.str;
-        description = ''
-          The secret is used to encrypt variables in the DB. If
-          you change or lose this key you will be unable to access variables
-          stored in database.
+      secrets = {
+        devise = mkOption {
+          type = types.str;
+          description = ''
+            FIXME
+            The secret is used to encrypt variables in the DB. If
+            you change or lose this key you will be unable to access variables
+            stored in database.
 
-          Make sure the secret is at least 30 characters and all random,
-          no regular words or you'll be exposed to dictionary attacks.
-        '';
+            Make sure the secret is at least 30 characters and all random,
+            no regular words or you'll be exposed to dictionary attacks.
+          '';
+        };
+        cookie = mkOption {
+          type = types.str;
+          description = ''
+            FIXME
+            The secret is used to encrypt variables in the DB. If
+            you change or lose this key you will be unable to access variables
+            stored in database.
+
+            Make sure the secret is at least 30 characters and all random,
+            no regular words or you'll be exposed to dictionary attacks.
+          '';
+        };
       };
 
       welcomeAddr = mkOption {
@@ -195,7 +210,7 @@ in {
     environment.systemPackages = [ loomio-rake ];
 
     services.postgresql.enable = mkDefault (cfg.databaseHost == "127.0.0.1");
-    services.redis.enable = lib.mkDefault (cfg.redisUrl == "redis://localhost:6379");
+    services.redis.enable = mkIf (cfg.redisUrl == "redis://localhost:6379") (mkDefault true);
 
     # TODO unhack
     ids.uids.loomio = 9999;

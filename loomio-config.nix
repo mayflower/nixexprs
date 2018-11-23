@@ -4,7 +4,8 @@
   services.loomio = {
     enable = true;
     databasePassword = "hs4IesTZGTQF9se7uC/w";
-    secret = "hs4IesTZGTQF9se7uC";
+    secrets.cookie = "hs4IesTZGTQF9se7uC";
+    secrets.devise = "hs4IesTZGTQF9se7uC";
     domain = "10.233.1.2";
     smtp = {
       address = "mail.mayflower.de";
