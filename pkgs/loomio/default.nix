@@ -70,8 +70,10 @@ stdenv.mkDerivation rec {
     substituteInPlace config.dist/application.rb --replace '../lib/version' "$out/share/loomio/lib/version"
     cp -r . $out/share/loomio
     ln -s ${rubyEnv} $out/rubyenv
-    # TODO: This is necessary (as opposed to symlinking) because…
-    rsync -rv ${frontend}/share/loomio/public $out/share/loomio/
+    # This is necessary (as opposed to symlinking) because the trees
+    # need to be merged as opposed to just containing files from the
+    # one
+    rsync -r ${frontend}/share/loomio/public $out/share/loomio/
     ln -s /run/loomio/tmp $out/share/loomio/tmp
     ln -s /run/loomio/log $out/share/loomio/log
     ln -s /run/loomio/config $out/share/loomio/config

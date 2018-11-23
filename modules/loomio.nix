@@ -37,7 +37,7 @@ let
     SMTP_PORT = toString cfg.smtp.port;
     SMTP_AUTH = cfg.smtp.authentication;
     SMTP_USERNAME = cfg.smtp.username;
-    SMTP_PASSWORD = cfg.smtp.password; # TODO: don't put password in nix store?
+    SMTP_PASSWORD = cfg.smtp.password; # TODO: don't put password (and above secrets) in nix store?
     SMTP_DOMAIN = cfg.smtp.domain;
   };
 
@@ -212,23 +212,14 @@ in {
     services.postgresql.enable = mkDefault (cfg.databaseHost == "127.0.0.1");
     services.redis.enable = mkIf (cfg.redisUrl == "redis://localhost:6379") (mkDefault true);
 
-    # TODO unhack
-    ids.uids.loomio = 9999;
-    ids.gids.loomio = 9999;
     users.users = [
       { name = cfg.user;
         group = cfg.group;
         home = "${cfg.statePath}/home";
         shell = "${pkgs.bash}/bin/bash";
-        uid = config.ids.uids.loomio;
       }
     ];
-
-    users.groups = [
-      { name = cfg.group;
-        gid = config.ids.gids.loomio;
-      }
-    ];
+    users.groups = [{ name = cfg.group; }];
 
     systemd.services.loomio-web = {
       after = [ "network.target" "postgresql.service" ];
@@ -251,10 +242,6 @@ in {
         [ -d /run/loomio/tmp ] || ln -sf ${cfg.statePath}/tmp /run/loomio/tmp
         [ -d /run/loomio/uploads ] || ln -sf ${cfg.statePath}/uploads /run/loomio/uploads
         chown -R ${cfg.user}:${cfg.group} /run/loomio
-
-        # Prepare home directory
-        #mkdir -p ${loomioEnv.HOME}
-        #chown -R ${cfg.user}:${cfg.group} ${loomioEnv.HOME}/
 
         cp -rf ${cfg.package}/share/loomio/db/* ${cfg.statePath}/db
         cp -rf ${cfg.package}/share/loomio/config.dist/* ${cfg.statePath}/config
@@ -292,7 +279,6 @@ in {
         # intermediary scripts like to create directories as root.
         chown -R ${cfg.user}:${cfg.group} ${cfg.statePath}
         chmod -R ug+rwX,o-rwx+X ${cfg.statePath}
-        #chmod -R u+rwX,go-rwx+X ${loomioEnv.HOME}
       '';
 
       serviceConfig = {
@@ -300,8 +286,6 @@ in {
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        TimeoutSec = "180";
-        Restart = "no"; # TODO
         WorkingDirectory = "${cfg.package}/share/loomio";
         ExecStart = "${cfg.package.rubyEnv}/bin/puma config/puma.rb";
       };
@@ -316,7 +300,6 @@ in {
         User = cfg.user;
         Group = cfg.group;
         TimeoutSec = "180";
-        Restart = "no"; # TODO
         WorkingDirectory = "${cfg.package}/share/loomio";
         ExecStart = "${loomio-rake}/bin/loomio-rake jobs:work";
       };

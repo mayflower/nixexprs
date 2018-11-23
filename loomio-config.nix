@@ -18,5 +18,4 @@
   };
   networking.firewall.enable = false;
   services.nginx.enable = true;
-  services.redis.enable = true;
 }
