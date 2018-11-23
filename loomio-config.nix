@@ -8,8 +8,8 @@
     domain = "10.233.1.2";
     smtp = {
       address = "mail.mayflower.de";
-      username = "loomio";
-      password = "NZyD0JwBSWq8idok"; # not really :)
+      domain = "mayflower.de";
+      port = 25;
     };
   };
   services.postgresql = {

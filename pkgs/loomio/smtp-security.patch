@@ -1,15 +1,17 @@
 diff --git a/config/application.rb b/config/application.rb
-index 07e0d6f38..2613ea856 100644
+index 07e0d6f38..a8cccc172 100644
 --- a/config/application.rb
 +++ b/config/application.rb
-@@ -103,8 +103,8 @@ module Loomio
+@@ -103,8 +103,10 @@ module Loomio
          user_name: ENV['SMTP_USERNAME'],
          password: ENV['SMTP_PASSWORD'],
          domain: ENV['SMTP_DOMAIN'],
 -        ssl: ENV['SMTP_USE_SSL'],
 -        openssl_verify_mode: 'none'
-+        ssl: true,
-+        openssl_verify_mode: 'peer'
++        ssl: false, # only supporting STARTTLS for now
++        enable_starttls: true,
++        openssl_verify_mode: 'peer',
++        ca_file: "/etc/ssl/certs/ca-certificates.crt"
        }.compact
      else
        config.action_mailer.delivery_method = :test

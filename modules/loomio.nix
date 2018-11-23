@@ -20,21 +20,22 @@ let
       encoding: utf8
   '';
 
-  loomioEnv = {
+  loomioEnv = lib.filterAttrs (k: v: v != null) {
     HOME = "${cfg.statePath}/home";
     SCHEMA = "${cfg.statePath}/db/schema.rb";
     RAILS_ENV = "production";
     SECRET_COOKIE_TOKEN = cfg.secret;
     DEVISE_SECRET = cfg.secret; # TODO: change secret
     CANONICAL_HOST = cfg.domain;
-    WELCOME_EMAIL_SENDER_NAME = "TODO";
-    WELCOME_EMAIL_SENDER_EMAIL = "todo@example.com";
+    WELCOME_EMAIL_SENDER_NAME = cfg.welcomeName;
+    WELCOME_EMAIL_SENDER_EMAIL = cfg.welcomeAddr;
     DISABLED_PLUGINS = "";
     DISABLE_USAGE_REPORTING = "1";
     NEW_RELIC_AGENT_ENABLED = "false";
     REDIS_URL = cfg.redisUrl;
     SMTP_SERVER = cfg.smtp.address;
     SMTP_PORT = toString cfg.smtp.port;
+    SMTP_AUTH = cfg.smtp.authentication;
     SMTP_USERNAME = cfg.smtp.username;
     SMTP_PASSWORD = cfg.smtp.password; # TODO: don't put password in nix store?
     SMTP_DOMAIN = cfg.smtp.domain;
@@ -130,24 +131,30 @@ in {
         };
 
         username = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
+          default = null;
           description = "SMTP username for Loomio.";
         };
 
         password = mkOption {
-          type = types.str;
-          description = "SMTP username for Loomio.";
+          type = types.nullOr types.str;
+          default = null;
+          description = "SMTP password for Loomio.";
         };
 
         domain = mkOption {
           type = types.str;
           default = "localhost";
-          description = "HELO domain to use for Loomio's outgoing mail.";
+          description = ''
+            HELO domain to use for Loomio's outgoing mail. Also abused
+            as the domain for the email address that notifications are
+            sent from (notifications@<domain>).
+          '';
         };
 
         authentication = mkOption {
-          type = types.str;
-          default = "plain";
+          type = types.nullOr types.str;
+          default = null;
           description = "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
       };
@@ -162,6 +169,23 @@ in {
           Make sure the secret is at least 30 characters and all random,
           no regular words or you'll be exposed to dictionary attacks.
         '';
+      };
+
+      welcomeAddr = mkOption {
+        type = types.str;
+        description = "The email address from which to send welcome emails.";
+        default = "notifications@${cfg.smtp.domain}";
+      };
+
+      welcomeName = mkOption {
+        type = types.str;
+        description = ''
+          The sender name to use for the welcome email.
+
+          This will be included in an email sent to new users like
+          "I'm <name>, one of the Loomio team members here to help."
+        '';
+        default = "a bot";
       };
     };
   };
@@ -191,7 +215,7 @@ in {
       }
     ];
 
-    systemd.services.loomio = {
+    systemd.services.loomio-web = {
       after = [ "network.target" "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
       environment = loomioEnv;
@@ -267,6 +291,20 @@ in {
         ExecStart = "${cfg.package.rubyEnv}/bin/puma config/puma.rb";
       };
 
+    };
+    systemd.services.loomio-worker = {
+      wantedBy = ["multi-user.target"];
+      after = [ "loomio-web.service" ];
+      environment = loomioEnv;
+      serviceConfig = {
+        Type = "simple";
+        User = cfg.user;
+        Group = cfg.group;
+        TimeoutSec = "180";
+        Restart = "no"; # TODO
+        WorkingDirectory = "${cfg.package}/share/loomio";
+        ExecStart = "${loomio-rake}/bin/loomio-rake jobs:work";
+      };
     };
     # TODO: is it ok to set these globally?
     services.nginx.recommendedProxySettings = true;
