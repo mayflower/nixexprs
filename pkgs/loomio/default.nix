@@ -77,6 +77,7 @@ stdenv.mkDerivation rec {
     ln -s /run/loomio/tmp $out/share/loomio/tmp
     ln -s /run/loomio/log $out/share/loomio/log
     ln -s /run/loomio/config $out/share/loomio/config
+    ln -s /run/loomio/public-system $out/share/loomio/public/system
     ln -s /run/loomio/client-tasks-config $out/share/loomio/client/tasks/config
 
     chmod u+w $out/share/loomio/public/client

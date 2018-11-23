@@ -228,19 +228,21 @@ in {
       path = with pkgs; [
         config.services.postgresql.package
         nodejs
+        file # for discovering filetype on uploads
+        imagemagick # for image processing
       ];
       preStart = ''
         set -x
         mkdir -p ${cfg.statePath}/tmp
         mkdir -p ${cfg.statePath}/db
-        mkdir -p ${cfg.statePath}/uploads
+        mkdir -p ${cfg.statePath}/public-system # uploads seem to go here
 
         rm -rf ${cfg.statePath}/config ${cfg.statePath}/client-tasks-config ${cfg.statePath}/shell/hooks
-        mkdir -p ${cfg.statePath}/config ${cfg.statePath}/client-tasks-config
+        mkdir -p ${cfg.statePath}/config ${cfg.statePath}/client-tasks-config ${cfg.statePath}/system
 
         mkdir -p /run/loomio
         [ -d /run/loomio/tmp ] || ln -sf ${cfg.statePath}/tmp /run/loomio/tmp
-        [ -d /run/loomio/uploads ] || ln -sf ${cfg.statePath}/uploads /run/loomio/uploads
+        [ -d /run/loomio/public-system ] || ln -sf ${cfg.statePath}/public-system /run/loomio/public-system
         chown -R ${cfg.user}:${cfg.group} /run/loomio
 
         cp -rf ${cfg.package}/share/loomio/db/* ${cfg.statePath}/db
