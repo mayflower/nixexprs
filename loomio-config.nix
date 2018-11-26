@@ -18,4 +18,7 @@
   };
   networking.firewall.enable = false;
   services.nginx.enable = true;
+  services.nginx.recommendedGzipSettings = true;
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedTlsSettings = true;
 }
