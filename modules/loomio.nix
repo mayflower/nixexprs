@@ -310,22 +310,19 @@ in {
       locations."/client".root = "${cfg.package}/share/loomio/public/";
       locations."/" = {
         proxyPass = http://localhost:3000;
-      };
-      locations."/cable" = {
-        proxyPass = http://localhost:3000;
         proxyWebsockets = true;
+        # Stolen from nixpkgs/nixos/modules/services/web-servers/nginx/default.nix, recommendedProxyConfig
+        # Because we don't want to apply this globally
+        extraConfig = ''
+          proxy_set_header        Host $host;
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+          proxy_set_header        X-Forwarded-Host $host;
+          proxy_set_header        X-Forwarded-Server $host;
+          proxy_set_header        Accept-Encoding "";
+        '';
       };
-      # Stolen from nixpkgs/nixos/modules/services/web-servers/nginx/default.nix, recommendedProxyConfig
-      # Because we don't want to apply this globally
-      extraConfig = ''
-        proxy_set_header        Host $host;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
-        proxy_set_header        X-Forwarded-Host $host;
-        proxy_set_header        X-Forwarded-Server $host;
-        proxy_set_header        Accept-Encoding "";
-      '';
     };
   };
   #meta.doc = ./gitlab.xml;
