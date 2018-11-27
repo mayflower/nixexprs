@@ -268,7 +268,7 @@ in {
           if ! test -e "${cfg.statePath}/db-created"; then
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "CREATE ROLE ${cfg.databaseUsername} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.databasePassword}'"
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} ${config.services.postgresql.package}/bin/createdb --owner ${cfg.databaseUsername} ${cfg.databaseName}
-            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres --dbname=${cfg.databaseName} -c 'CREATE EXTENSION IF NOT EXISTS "citext"; CREATE EXTENSION IF NOT EXISTS "hstore"; CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";'
+            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql --dbname=${cfg.databaseName} -c 'CREATE EXTENSION IF NOT EXISTS "citext"; CREATE EXTENSION IF NOT EXISTS "hstore"; CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";'
             touch "${cfg.statePath}/db-created"
             ${loomio-rake}/bin/loomio-rake db:schema:load
           fi
