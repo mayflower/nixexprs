@@ -29,6 +29,7 @@ let
     CANONICAL_HOST = cfg.domain;
     WELCOME_EMAIL_SENDER_NAME = cfg.welcomeName;
     WELCOME_EMAIL_SENDER_EMAIL = cfg.welcomeAddr;
+    DEFAULT_SUBDOMAIN = cfg.domain;
     DISABLED_PLUGINS = "";
     DISABLE_USAGE_REPORTING = "1";
     NEW_RELIC_AGENT_ENABLED = "false";
