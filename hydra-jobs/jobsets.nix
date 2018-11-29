@@ -81,6 +81,7 @@ let
       };
     };
     hydra-jobs-arm-cross = {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-cross";
       path = "hydra-jobs/arm-cross.nix";
       shares = 5;
     };
