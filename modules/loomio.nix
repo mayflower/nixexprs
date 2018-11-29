@@ -294,7 +294,10 @@ in {
 
     };
     systemd.services.loomio-worker = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = ["loomio-web.service"];
+      # It needs the database to be set up before it starts, so require it and order after.
+      # It could theoretically run on a separate machine but in practice this module doesn't currently support it :)
+      requires = ["loomio-web.service"];
       after = [ "loomio-web.service" ];
       environment = loomioEnv;
       serviceConfig = {
@@ -309,7 +312,7 @@ in {
     services.nginx.virtualHosts.${cfg.domain} = {
       locations."/client".root = "${cfg.package}/share/loomio/public/";
       locations."/" = {
-        proxyPass = http://localhost:3000;
+        proxyPass = http://127.0.0.1:3000; # puma doesn't listen on ipv6…
         proxyWebsockets = true;
         # Stolen from nixpkgs/nixos/modules/services/web-servers/nginx/default.nix, recommendedProxyConfig
         # Because we don't want to apply this globally
