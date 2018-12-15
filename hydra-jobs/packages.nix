@@ -152,6 +152,7 @@ in
   elasticsearch = all;
   emacs25 = gtkSupported;
   emby = all;
+  EmptyEpsilon = all;
   enscript = all;
   errbot = all;
   etcd = all;
