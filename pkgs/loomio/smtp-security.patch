@@ -7,7 +7,7 @@ index 07e0d6f38..a8cccc172 100644
          password: ENV['SMTP_PASSWORD'],
          domain: ENV['SMTP_DOMAIN'],
 -        ssl: ENV['SMTP_USE_SSL'],
--        openssl_verify_mode: 'none'
+-        openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY_MODE', 'none')
 +        ssl: false, # only supporting STARTTLS for now
 +        enable_starttls: true,
 +        openssl_verify_mode: 'peer',

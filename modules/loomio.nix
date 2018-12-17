@@ -21,7 +21,6 @@ let
   '';
 
   loomioEnv = lib.filterAttrs (k: v: v != null) {
-    HOME = "${cfg.statePath}/home";
     SCHEMA = "${cfg.statePath}/db/schema.rb";
     RAILS_ENV = "production";
     SECRET_COOKIE_TOKEN = cfg.secrets.cookie;
@@ -68,7 +67,7 @@ in {
 
       statePath = mkOption {
         type = types.str;
-        default = "/var/loomio/state";
+        default = "/var/lib/loomio/state";
         description = "Loomio state directory, logs are stored here.";
       };
 
@@ -238,7 +237,7 @@ in {
         mkdir -p ${cfg.statePath}/db
         mkdir -p ${cfg.statePath}/public-system # uploads seem to go here
 
-        rm -rf ${cfg.statePath}/config ${cfg.statePath}/client-tasks-config ${cfg.statePath}/shell/hooks
+        rm -rf ${cfg.statePath}/config ${cfg.statePath}/client-tasks-config
         mkdir -p ${cfg.statePath}/config ${cfg.statePath}/client-tasks-config ${cfg.statePath}/system
 
         mkdir -p /run/loomio
@@ -267,9 +266,11 @@ in {
 
         if [ "${cfg.databaseHost}" = "127.0.0.1" ]; then
           if ! test -e "${cfg.statePath}/db-created"; then
-            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "CREATE ROLE ${cfg.databaseUsername} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.databasePassword}'"
+            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres \
+              -c "CREATE ROLE ${cfg.databaseUsername} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.databasePassword}'"
             ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} ${config.services.postgresql.package}/bin/createdb --owner ${cfg.databaseUsername} ${cfg.databaseName}
-            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql --dbname=${cfg.databaseName} -c 'CREATE EXTENSION IF NOT EXISTS "citext"; CREATE EXTENSION IF NOT EXISTS "hstore"; CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";'
+            ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql --dbname=${cfg.databaseName} \
+              -c 'CREATE EXTENSION IF NOT EXISTS "citext"; CREATE EXTENSION IF NOT EXISTS "hstore"; CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";'
             touch "${cfg.statePath}/db-created"
             ${loomio-rake}/bin/loomio-rake db:schema:load
           fi
@@ -292,7 +293,6 @@ in {
         WorkingDirectory = "${cfg.package}/share/loomio";
         ExecStart = "${cfg.package.rubyEnv}/bin/puma config/puma.rb";
       };
-
     };
     systemd.services.loomio-worker = {
       wantedBy = ["loomio-web.service"];
@@ -306,10 +306,10 @@ in {
         User = cfg.user;
         Group = cfg.group;
         TimeoutSec = "180";
-        WorkingDirectory = "${cfg.package}/share/loomio";
         ExecStart = "${loomio-rake}/bin/loomio-rake jobs:work";
       };
     };
+
     services.nginx.virtualHosts.${cfg.domain} = {
       locations."/client".root = "${cfg.package}/share/loomio/public/";
       locations."/" = {
@@ -329,5 +329,4 @@ in {
       };
     };
   };
-  #meta.doc = ./gitlab.xml;
 }

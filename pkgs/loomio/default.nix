@@ -13,7 +13,7 @@
 , enableDebug ? false # If true, patch loomio so as not to minify the javascript
 }:
 let
-  version = "1.8.675";
+  version = "1.8.718";
   rubyEnv = bundlerEnv {
     name = "loomio-env-${version}";
     inherit ruby;
@@ -23,12 +23,13 @@ let
   src = fetchFromGitHub {
     owner = "loomio";
     repo = "loomio";
-    rev = "dbd75a9f492df0a2831c4890996825242bc78402";
-    sha256 = "0k1vc3824ac51dka8jv6v1abpcjfvc0n0j8q7d7kk213rkpdm8ji";
+    rev = "d55e13a638ed80a8b60801102a687b3d49eeb9a7";
+    sha256 = "1w821ima3id8sqp0dp94mzlmr8y2qan7s7vzpsd5iksi57xglcp2";
   };
   nodeModules = yarn2nix.mkYarnPackage {
     name = "loomio-frontend-${version}";
     src = "${src}/client";
+    yarnLock = ./yarn.lock;
     yarnNix = ./yarn.nix;
     yarnPreBuild = ''
       mkdir -p $HOME/.node-gyp/${nodejs.version}
@@ -50,8 +51,6 @@ let
     # this isn't the proper fix!?)
     cp -r ${nodeModules}/libexec/Loomio/node_modules .
     chmod u+w node_modules
-    chmod -R u+w node_modules/lodash
-    cp -r ${nodeModules}/libexec/Loomio/deps/Loomio/node_modules/* node_modules/
 
     ./node_modules/.bin/gulp compile
     mkdir -p $out/share/loomio
@@ -60,9 +59,12 @@ let
 in
 stdenv.mkDerivation rec {
   name = "loomio-${version}";
+
   inherit rubyEnv src frontend;
   patches = [ ./smtp-security.patch ];
+
   nativeBuildInputs = [ rsync ];
+
   installPhase = ''
     mkdir -p $out/share
     mv config config.dist
@@ -83,6 +85,7 @@ stdenv.mkDerivation rec {
     chmod u+w $out/share/loomio/public/client
     ln -s $out/share/loomio/public/client/development $out/share/loomio/public/client/${version}
   '';
+
   passthru = {
     inherit nodeModules frontend;
   };
