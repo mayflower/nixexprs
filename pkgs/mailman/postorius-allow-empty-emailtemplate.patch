@@ -1,0 +1,26 @@
+From 2ff9337cf7a52bd68d74be4f0d960b1421a64011 Mon Sep 17 00:00:00 2001
+From: Robin Gloster <mail@glob.in>
+Date: Tue, 8 Jan 2019 19:45:55 +0100
+Subject: [PATCH] EmailTemplate model: allow blank data
+
+---
+ src/postorius/models.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/postorius/models.py b/src/postorius/models.py
+index 219ef14..3e001dd 100644
+--- a/src/postorius/models.py
++++ b/src/postorius/models.py
+@@ -245,7 +245,8 @@ class EmailTemplate(models.Model):
+             '$owner_email: The email address for -owner address \n'
+             '$site_email: The email address to reach the owners of the site \n'
+             '$language: The two letter language code for list\'s preferred language e.g. fr, en, de \n'  # noqa: E501
+-        )
++        ),
++        blank=True
+     )
+     language = models.CharField(
+         max_length=5, choices=LANGUAGES,
+-- 
+2.18.1
+

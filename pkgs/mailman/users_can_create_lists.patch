@@ -2,15 +2,15 @@ diff --git a/src/postorius/templates/postorius/index.html b/src/postorius/templa
 index 6c76350..d5dead5 100644
 --- a/src/postorius/templates/postorius/index.html
 +++ b/src/postorius/templates/postorius/index.html
-@@ -12,7 +12,7 @@
-         <h1>{% trans 'Mailing Lists' %}</h1>
-     </div>
- 
+@@ -32,7 +32,7 @@
+           {% endif %}
+         </div>
+     {% endif %}
 -    {% if user.is_superuser %}
 +    {% if user.is_authenticated %}
+       <div class="col-md-4">
          <p class="text-right">
              {% if domain_count < 1 %}
-                 <a class="btn btn-success" href="{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
 diff --git a/src/postorius/tests/mailman_api_tests/test_list_new.py b/src/postorius/tests/mailman_api_tests/test_list_new.py
 index 5434c97..58cbf49 100644
 --- a/src/postorius/tests/mailman_api_tests/test_list_new.py
