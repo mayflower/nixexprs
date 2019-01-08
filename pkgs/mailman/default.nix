@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, python3 }:
+{ stdenv, fetchFromGitLab, fetchpatch, python3 }:
 
 python3.pkgs.buildPythonPackage rec {
   name = "mailman-${version}";
@@ -17,7 +17,13 @@ python3.pkgs.buildPythonPackage rec {
     zope_component click
   ];
 
-  patches = [ ./log-to-syslog.patch ];
+  patches = [
+    ./log-to-syslog.patch
+    (fetchpatch {
+      url = "https://gitlab.com/mailman/mailman/commit/22270007e941ec4418653fddeb06a3d17413e196.patch";
+      sha256 = "0a7rbqh73411pjyf3m65blflpdh97hvz9w150vp29z2dnbj98clw";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace src/mailman/commands/cli_control.py \
