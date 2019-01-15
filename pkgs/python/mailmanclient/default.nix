@@ -2,13 +2,13 @@
 
 buildPythonPackage rec {
   name = "mailmanclient-${version}";
-  version = "3.2.0";
+  version = "3.2.1";
 
   src = fetchFromGitLab {
     owner = "mailman";
     repo = "mailmanclient";
     rev = version;
-    sha256 = "0gspdcsvqc2zadz49f63mhgadw2k4zlqrypxc9nb0rzc8axzr3gv";
+    sha256 = "13in4lf7vsp9cdbdy0ld5dw4sj3aqn3jjc1fs8hngh7rb12i15j8";
   };
 
   propagatedBuildInputs = [ httplib2 six ];

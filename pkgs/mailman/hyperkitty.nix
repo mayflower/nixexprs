@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonPackage rec {
   name = "hyperkitty-${version}";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitLab {
     owner = "mailman";
     repo = "hyperkitty";
     rev = "v${version}";
-    sha256 = "1x6bp5y3583lw5cpylb61j2in3vc4npji9pk3xf1a5b6ak3visls";
+    sha256 = "0p3x6xi83c4mvggz3a7n4wkwpwqw91klhdrayc8y95y8x5ip6nxa";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
