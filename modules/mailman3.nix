@@ -60,9 +60,10 @@ let
       SERVER_EMAIL = '${cfg.siteOwner}'
       DEFAULT_FROM_EMAIL = '${cfg.fromEmail}'
 
-      MAILMAN_REST_API_URL = 'http://localhost:8001'
+      MAILMAN_REST_API_URL = '${cfg.restApiURL}'
       MAILMAN_REST_API_USER = '${cfg.restApiUser}'
       MAILMAN_REST_API_PASS = '${cfg.restApiPassword}'
+      POSTORIUS_TEMPLATE_BASE_URL = '${cfg.restApiURL}'
       MAILMAN_ARCHIVER_KEY = '${cfg.hyperkittyApiKey}'
       MAILMAN_ARCHIVER_FROM = ('127.0.0.1', '::1',
         ${concatMapStringsSep "," (s: "'${s}'") cfg.allowedArchivingHosts})
@@ -280,6 +281,14 @@ in {
           URL scheme for the baseURL, normally "https", but you might want to override
           this if you have a special configuration terminating your SSL connections on
           another host.
+        '';
+      };
+
+      restApiURL = mkOption {
+        type = types.str;
+        default = "http://localhost:8001";
+        description = ''
+          URL of the mailman REST API.
         '';
       };
 
