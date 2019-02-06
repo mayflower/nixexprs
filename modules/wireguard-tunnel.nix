@@ -54,6 +54,20 @@ in {
           Port this node is listening on
         '';
       };
+      additionalAllowedIPs = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          Additional IPs to be set for this peer
+        '';
+      };
+      baseV4Net = mkOption {
+        type = types.str;
+        default = "10.123.124";
+        description = ''
+          Base address of the /24 to be used in the tunnel
+        '';
+      };
     };
   };
 
@@ -61,16 +75,16 @@ in {
     networking.wireguard.interfaces.${tunnelName} = {
       inherit (cfg) privateKey;
       inherit (cfg) listenPort;
-      ips = [ "10.123.124.${toString cfg.nodeIndex}/24" "fe80::${toString cfg.nodeIndex}/64"];
+      ips = [ "${cfg.baseV4Net}.${toString cfg.nodeIndex}/24" "fe80::${toString cfg.nodeIndex}/64"];
       peers = flip mapAttrsToList allMachinesSameTunnel (n: v:
         let
           peerTunnelConfig = v.mayflower.wireguard-tunnel;
         in
         { inherit (peerTunnelConfig) publicKey;
           allowedIPs = [
-            "10.123.124.${toString peerTunnelConfig.nodeIndex}/32"
+            "${peerTunnelConfig.baseV4Net}.${toString peerTunnelConfig.nodeIndex}/32"
             "fe80::${toString peerTunnelConfig.nodeIndex}/128"
-          ];
+          ] ++ peerTunnelConfig.additionalAllowedIPs;
           endpoint = "${v.deployment.targetHost}:${toString peerTunnelConfig.listenPort}";
         }
       );
