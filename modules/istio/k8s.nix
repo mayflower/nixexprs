@@ -44,7 +44,6 @@
     environment.systemPackages = with pkgs; [
       dnsutils
       git
-      istio
       kitty
       kubectl
       kubernetes-helm
