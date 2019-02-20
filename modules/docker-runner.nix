@@ -63,6 +63,10 @@ in
     virtualisation.docker = {
       enable = true;
       package = pkgs.docker-edge;
+      autoPrune = {
+        enable = true;
+        dates = "daily";
+      };
     };
   };
 }
