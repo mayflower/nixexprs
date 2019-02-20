@@ -121,6 +121,9 @@ with lib;
           server_names_hash_bucket_size  64;
 
           add_header X-Content-Type-Options "nosniff" always;
+
+          access_log stderr;
+          error_log stderr;
         '';
         recommendedOptimisation = true;
         recommendedTlsSettings = true;
