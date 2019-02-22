@@ -13,30 +13,14 @@ let
     };
   };
 
-  version = "4.1.0";
+  version = "4.1.1";
   srcs = let
     baseUrl = "https://github.com/conversejs/converse.js/releases/download";
   in {
     favicon = ../pkgs/service-overview/assets/img/favicons/favicon.ico;
-    css = fetchurl {
-      url = "${baseUrl}/v${version}/converse.min.css";
-      sha256 = "06whcy3km1gcclgzzlmfwz71fzh7ip3qb2nsd6049ykfv5gq8xkf";
-    };
-    js = fetchurl {
-      url = "${baseUrl}/v${version}/converse.min.js";
-      sha256 = "1nazi6w0qgxz344p9hsk4i06hldqdylgxaqq618z52b0xxdqmpxw";
-    };
-    locales = fetchzip {
-      url = "${baseUrl}/v${version}/locale.zip";
-      sha256 = "1ym7ziz59lwgxpfdjlc134pvcb9w26m009w0phq4b9c69msvabbi";
-    };
-    sounds = fetchzip {
-      url = "${baseUrl}/v${version}/sounds.zip";
-      sha256 = "0d1f3zx1d1brd5l1pxv48mdsqdcnvagxpl7474d7rw3lzggch879";
-    };
-    webfonts = fetchzip {
-      url = "${baseUrl}/v${version}/webfonts.zip";
-      sha256 = "18xgc247clzraq9x42fj07ajjr8bvvavbwb110qfzvbb2zz2s8ff";
+    assets = fetchzip {
+      url = "${baseUrl}/v${version}/converse-assets-${version}.zip";
+      sha256 = "194cn7yh9mlnv7p1w63zsci6fb40m6dvwnfkk47snvh4l9jmg2xy";
     };
   };
 in
@@ -46,14 +30,10 @@ stdenv.mkDerivation rec {
   phases = [ "installPhase" ];
 
   installPhase = with stdenv.lib; ''
-    mkdir -p $out/{css,img,js,fonts}
-    cp ${srcs.css} $out/css/converse.min.css
-    cp ${srcs.js} $out/js/converse.min.js
+    mkdir -p $out/img
     cp ${srcs.favicon} $out/img/favicon.ico
-    cp -r ${srcs.locales} $out/locales
-    cp -r ${srcs.sounds} $out/sounds
-    cp -r ${srcs.webfonts}/webfonts $out/css/webfonts
-    ${optionalString withLibSignal "cp ${libsignal} $out/js/libsignal-protocol.js"}
+    cp -r ${srcs.assets}/* $out
+    ${optionalString withLibSignal "cp ${libsignal} $out/libsignal-protocol.js"}
 
     cat >> $out/index.html << EOF
     <!doctype html>
@@ -63,9 +43,9 @@ stdenv.mkDerivation rec {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Mayflower XMPP Webchat</title>
       <link rel="shortcut icon" href="/img/favicon.ico">
-      <link rel="stylesheet" type="text/css" media="screen" href="/css/converse.min.css">
-      ${optionalString withLibSignal ''<script src="/js/libsignal-protocol.js"></script>''}
-      <script src="/js/converse.min.js"></script>
+      <link rel="stylesheet" type="text/css" media="screen" href="/css/converse.css">
+      ${optionalString withLibSignal ''<script src="/libsignal-protocol.js"></script>''}
+      <script src="/converse.js"></script>
     </head>
     <body class="converse-fullscreen">
     <div id="conversejs-bg"></div>
