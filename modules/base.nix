@@ -161,7 +161,6 @@ with lib;
       };
       binaryCaches = lib.mkForce [
         "https://hydra.mayflower.de/"
-        "https://cache.nixos.community/"
         "https://cache.nixos.org/"
       ];
       binaryCachePublicKeys = [
