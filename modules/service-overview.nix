@@ -26,6 +26,7 @@ in
         '';
       };
       services = mkOption {
+        default = {};
         type = types.attrsOf (types.submodule {
           options = {
             address = mkOption {
