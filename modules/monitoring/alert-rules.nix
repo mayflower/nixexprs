@@ -15,6 +15,7 @@ in mapAttrsToList (name: opts: {
 }) {
   node_deployed = {
     condition = "node_deployed < time()-86400*14";
+    page = false;
     summary = "{{$labels.alias}}: Last deployed on {{$labels.date}} with version {{$labels.version}}";
     description = "{{$labels.alias}}: Last deployed on {{$labels.date}} with version {{$labels.version}}";
   };
