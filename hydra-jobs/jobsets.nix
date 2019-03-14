@@ -49,6 +49,9 @@ let
     hydra-jobs-production = recursiveUpdate hydra-jobs-master {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} production";
     };
+    "hydra-jobs-19.03" = recursiveUpdate hydra-jobs-master {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-19.03";
+    };
     mayflower-master = {
       path = "hydra-jobs/dist.nix";
     };
