@@ -25,7 +25,7 @@ buildPythonPackage rec {
     mailmanclient pytz django-gravatar2 django django-allauth future
     django_compressor
   ];
-  checkInputs = [ mock ];
+  checkInputs = [ mock django ];
 
   checkPhase = ''
     cd $NIX_BUILD_TOP/$sourceRoot
