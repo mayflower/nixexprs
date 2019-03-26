@@ -4,13 +4,15 @@
     istio = pkgs.stdenv.mkDerivation rec {
       name = "istio-${version}";
       #version = "master-20190209-09-16";
-      version = "master-20190210-09-16";
+      #version = "master-20190210-09-16";
+      version = "master-20190311-09-16";
 
       src = pkgs.fetchurl {
         url = "https://gcsweb.istio.io/gcs/istio-prerelease/daily-build/${version}/istio-${version}-linux.tar.gz";
         name = "istio-${version}-linux.tar.gz";
         #sha256 = "0il14kql2cchsl8rz1mqs8ghb8k0f45q8lhlc26py8fiwb3xwl2h";
-        sha256 = "0pzi3a9nvkjkac1v1csa81c77j6bz944zbj3ckv6ip21amgbia76";
+        #sha256 = "0pzi3a9nvkjkac1v1csa81c77j6bz944zbj3ckv6ip21amgbia76";
+        sha256 = "1g7zl0gjn505fnynjj4mz682a4vm70kws0irc68p2qp5i2knnzfj";
       };
 
       dontBuild = true;
