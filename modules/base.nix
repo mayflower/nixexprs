@@ -135,9 +135,8 @@ with lib;
       udisks2.enable = false;
       ntp.enable = false;
       timesyncd.enable = false;
-      nixosManual.enable = false;
 
-      journald.extraConfig=''
+      journald.extraConfig = ''
         MaxFileSec=1day
         MaxRetentionSec=1week
       '';
@@ -171,6 +170,8 @@ with lib;
       ];
       buildCores = 0;
     };
+
+    documentation.nixos.enable = false;
 
     hardware.enableAllFirmware = mkDefault false;
     sound.enable = mkDefault false;
