@@ -94,6 +94,9 @@ in
   calibre = all;
   cargo = all;
   ccid = all;
+  certmgr = all;
+  certmgr-selfsigned = all;
+  cfssl = all;
   cgmanager = all;
   checksec = all;
   checkstyle = all;
@@ -106,6 +109,7 @@ in
   cmake = all;
   collectd = all;
   colordiff = all;
+  conntrack-tools = all;
   compass = all;
   compton = all;
   compton-git = all;
