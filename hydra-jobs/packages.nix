@@ -475,6 +475,11 @@ in
   php72 = all;
   php72Packages.composer = all;
   php72Packages.xdebug = all;
+  php73 = all;
+  php73Packages.apcu = all;
+  php73Packages.composer = all;
+  php73Packages.imagick = all;
+  php73Packages.xdebug = all;
   physlock = all;
   picocom = all;
   pidgin = all;
