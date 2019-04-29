@@ -9,9 +9,11 @@ self: super:
 
   conversejs = super.callPackage pkgs/conversejs.nix {};
   mailman3 = super.callPackage pkgs/mailman { };
-  postorius = super.callPackage pkgs/mailman/postorius.nix { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
+  postorius = super.callPackage pkgs/mailman/postorius.nix { };
   serviceOverview = super.callPackage pkgs/service-overview { };
+  simplesamlphp = super.callPackage pkgs/simplesamlphp { };
+  simplesamlphp-module-privacyidea = super.callPackage pkgs/simplesamlphp/module-privacyidea.nix { };
 
   dovecot = super.dovecot.override { withPgSQL = true; };
   postfix = super.postfix.override { withPgSQL = true; };
