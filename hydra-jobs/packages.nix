@@ -94,6 +94,7 @@ in
   calibre = all;
   cargo = all;
   ccid = all;
+  ceph = all;
   certmgr = all;
   certmgr-selfsigned = all;
   cfssl = all;
