@@ -603,6 +603,7 @@ in
   selenium-server-standalone = all;
   shairport-sync = all;
   sharutils = all;
+  shellcheck = all;
   shishi = all;
   shutter = all;
   simp_le = all;
