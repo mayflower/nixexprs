@@ -592,6 +592,8 @@ in
   rustfmt = all;
   rxvt_unicode-with-plugins = all;
   sakura = all;
+  samba = all;
+  sambaMaster = all;
   searx = all;
   screen = all;
   screenfetch = all;
