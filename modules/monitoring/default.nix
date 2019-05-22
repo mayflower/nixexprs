@@ -6,7 +6,7 @@ let
   cfg = config.mayflower.monitoring;
   hostName = name: machine:
     machine.deployment.targetHost or
-      "${name}.${machine.containerDomains.${machine.hostBridge}}";
+      "${machine.networking.hostName}.${machine.containerDomains.${machine.hostBridge}}";
   hostNames = hosts: mapAttrsToList hostName hosts;
 
   #" machine config attrs -> { containerName = container machine config // hostBridge // containerDomains }
