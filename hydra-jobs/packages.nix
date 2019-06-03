@@ -568,8 +568,8 @@ in
   znapzend = all;
   zsh = all;
 
-  linuxPackages = recursiveUpdate kernelPackages kernelPackages_virtualbox;
-  linuxPackages_latest = recursiveUpdate kernelPackages kernelPackages_virtualbox;
+  linuxPackages = kernelPackages;
+  linuxPackages_latest = kernelPackages;
 
   nodePackages = {
     bower = all;
