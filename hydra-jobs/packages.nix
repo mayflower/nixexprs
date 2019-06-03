@@ -584,7 +584,6 @@ in
     xf86inputlibinput = all;
     xf86videofbdev = all;
     xf86videointel = all;
-    xf86videomodesetting = all;
     xf86videonouveau = all;
     xkill = all;
     xlsclients = all;
