@@ -77,6 +77,7 @@ in
   cipherscan = all;
   clamav = all;
   cmake = all;
+  codimd = all;
   collectd = all;
   colordiff = all;
   conntrack-tools = all;
@@ -261,6 +262,8 @@ in
   libyaml = all;
   libyamlcpp = all;
   libzip = all;
+  lightdm = all;
+  lightdm_gtk_greeter = all;
   links2 = all;
   lldpd = all;
   lm_sensors = all;
@@ -268,6 +271,10 @@ in
   lout = all;
   lsof = all;
   ltrace = all;
+  lua = all;
+  lua_5_1 = all;
+  lua_5_2 = all;
+  lua_5_3 = all;
   lua52Packages.lua = all;
   lua52Packages.luarocks = all;
   lua52Packages.vicious = all;
@@ -336,6 +343,7 @@ in
   openssl = all;
   openvpn = all;
   OVMF = all;
+  oxidized = all;
   pam = all;
   pandoc = all;
   pango = linux;
@@ -399,6 +407,7 @@ in
   prometheus-node-exporter = all;
   prometheus-openvpn-exporter = all;
   prometheus-snmp-exporter = all;
+  prometheus-unifi-exporter = all;
   prosody = all;
   pulseaudioFull = all;
   pulseaudioLight = all;
@@ -520,8 +529,10 @@ in
   unetbootin = all;
   units = all;
   unzip = all;
+  uqmi = all;
   usbutils = all;
   utillinux = all;
+  uwsgi = all;
   vaapiIntel = all;
   vim = all;
   vimHugeX = all;
