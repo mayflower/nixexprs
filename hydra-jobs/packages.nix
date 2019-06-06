@@ -272,9 +272,6 @@ in
   lsof = all;
   ltrace = all;
   lua = all;
-  lua_5_1 = all;
-  lua_5_2 = all;
-  lua_5_3 = all;
   lua52Packages.lua = all;
   lua52Packages.luarocks = all;
   lua52Packages.vicious = all;
