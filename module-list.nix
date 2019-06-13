@@ -6,6 +6,7 @@
   modules/kvm.nix
   modules/machines.nix
   modules/mailman3.nix
+  modules/matrix.nix
   modules/monitoring/default.nix
   modules/openldap-ha.nix
   modules/service-overview.nix
