@@ -10,9 +10,9 @@ let
   hostNames = hosts: mapAttrsToList hostName hosts;
 
   #" machine config attrs -> { containerName = container machine config // hostBridge // containerDomains }
-  containersOfMachine = m: flip mapAttrs m.containers (_: c:
+  containersOfMachine = m: filterAttrs (_: c: c.hostBridge != null) (flip mapAttrs m.containers (_: c:
     c.config // { hostBridge = c.hostBridge; containerDomains = m.mayflower.monitoring.containerDomains; }
-  );
+  ));
 
   # All hosts in the same datacenter as this host
   allMachinesSameDC = optionalAttrs (cfg.datacenter != null) (
