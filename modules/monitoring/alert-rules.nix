@@ -2,7 +2,7 @@
 with lib;
 
 let
-  deviceFilter = ''device!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs"'';
+  deviceFilter = ''device!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
 in mapAttrsToList (name: opts: {
   alert = name;
   expr = opts.condition;
@@ -34,23 +34,23 @@ in mapAttrsToList (name: opts: {
     summary = "{{$labels.alias}}: Service {{$labels.name}} failed to start.";
     description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
   };
-  node_filesystem_full_90percent = {
-    condition = ''sort(node_filesystem_free_bytes{${deviceFilter}} < node_filesystem_size_bytes{${deviceFilter}} * 0.1) / 1024^3'';
+  node_filesystem_full_80percent = {
+    condition = ''sort(node_filesystem_free_bytes{${deviceFilter}} < node_filesystem_size_bytes{${deviceFilter}} * 0.2) / 1024^3'';
     time = "10m";
     summary = "{{$labels.alias}}: Filesystem is running out of space soon.";
-    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
-  };
-  node_filesystem_full_in_4h = {
-    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[4h], 4*3600) <= 0'';
-    time = "30m";
-    summary = "{{$labels.alias}}: Filesystem is running out of space in 4 hours.";
-    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 4 hours";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 20% space left on its filesystem.";
   };
   node_filesystem_full_in_7d = {
-    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[7d], 7*24*3600) <= 0'';
+    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[2d], 7*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 7 days";
+  };
+  node_filesystem_full_in_30d = {
+    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[30d], 30*24*3600) <= 0'';
+    time = "1h";
+    summary = "{{$labels.alias}}: Filesystem is running out of space in 30 days.";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 30 days";
   };
   node_filedescriptors_full_in_3h = {
     condition = ''predict_linear(node_filefd_allocated[3h], 3*3600) >= node_filefd_maximum'';
