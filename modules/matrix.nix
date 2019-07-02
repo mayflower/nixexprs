@@ -70,7 +70,7 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Wether or not to allow custom URLs in Riot.
+          Whether or not to allow custom URLs in Riot.
         '';
       };
 
@@ -78,7 +78,7 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Wether or not to allow guest logins through Riot.
+          Whether or not to allow guest logins through Riot.
           Guests must be enabled on the server too.
         '';
       };
@@ -87,7 +87,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Wether or not to allow users to change the language for Riot.
+          Whether or not to allow users to change the language for Riot.
         '';
       };
 
@@ -95,7 +95,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Wether or not to allow third party ID logins.
+          Whether or not to allow third party ID logins.
           This can be an E-Mail address or phone number using an identity server.
         '';
       };
@@ -109,6 +109,12 @@ in
         type = types.nullOr types.str;
         default = null;
         description = "";
+      };
+
+      extraConfig = mkOption {
+        type = types.attrs;
+        default = {};
+        description = "Overrides to the riot config";
       };
     };
   };
@@ -186,40 +192,38 @@ in
                 "/" = {
                   root = pkgs.riot-web.override {
                         #"welcomePageUrl": "home.html",
-                    conf = ''
-                      {
-                        "default_hs_url": "${cfg.riot.defaultHomeServerUrl}",
-                        "default_is_url": "${cfg.riot.defaultIdentityServerUrl}",
-                        "disable_custom_urls": ${boolToString cfg.riot.disableCustomUrls},
-                        "disable_guests": ${boolToString cfg.riot.disableGuests},
-                        "disable_login_language_selector": ${boolToString cfg.riot.disableLoginLanguageSelector},
-                        "disable_3pid_login": ${boolToString cfg.riot.disable3pidLogin},
-                        "brand": "${cfg.riot.brand}",
-                        "integrations_ui_url": "https://scalar.vector.im/",
-                        "integrations_rest_url": "https://scalar.vector.im/api",
-                        "integrations_jitsi_widget_url": "https://scalar.vector.im/api/widgets/jitsi.html",
-                        "defaultCountryCode": "DE",
-                        "showLabsSettings": true,
-                        "features": {
-                            "feature_groups": "enable",
-                            "feature_pinning": "enable",
-                            "feature_reactions": "enable",
-                            "feature_message_editing": "labs"
-                        },
-                        "default_federate": false,
-                        "default_theme": "dark",
-                        "roomDirectory": {
-                            "servers": [
-                                "${cfg.fqdn}", "matrix.org"
-                            ]
-                        },
-                        "welcomeUserId": null,
-                        "piwik": false,
-                        "enable_presence_by_hs_url": {
-                            "https://matrix.org": false
-                        }
-                      }
-                    '';
+                    conf = builtins.toJSON (flip recursiveUpdate cfg.riot.extraConfig {
+                      "default_hs_url" = cfg.riot.defaultHomeServerUrl;
+                      "default_is_url" = cfg.riot.defaultIdentityServerUrl;
+                      "disable_custom_urls" = cfg.riot.disableCustomUrls;
+                      "disable_guests" = cfg.riot.disableGuests;
+                      "disable_login_language_selector" = cfg.riot.disableLoginLanguageSelector;
+                      "disable_3pid_login" = cfg.riot.disable3pidLogin;
+                      "brand" = cfg.riot.brand;
+                      "integrations_ui_url" = "https://scalar.vector.im/";
+                      "integrations_rest_url" = "https://scalar.vector.im/api";
+                      "integrations_jitsi_widget_url" = "https://scalar.vector.im/api/widgets/jitsi.html";
+                      "defaultCountryCode" = "DE";
+                      "showLabsSettings" = true;
+                      "features" = {
+                          "feature_groups" = "enable";
+                          "feature_pinning" = "enable";
+                          "feature_reactions" = "enable";
+                          "feature_message_editing" = "labs";
+                      };
+                      "default_federate" = false;
+                      "default_theme" = "dark";
+                      "roomDirectory" = {
+                          "servers" = [
+                              cfg.fqdn "matrix.org"
+                          ];
+                      };
+                      "welcomeUserId" = null;
+                      "piwik" = false;
+                      "enable_presence_by_hs_url" = {
+                          "https://matrix.org" = false;
+                      };
+                    });
                   };
                 };
               };
