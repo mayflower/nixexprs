@@ -1,5 +1,6 @@
 [
   modules/automx.nix
+  modules/cachet.nix
   modules/base.nix
   modules/demockrazy.nix
   modules/docker-runner.nix
