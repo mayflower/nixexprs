@@ -70,6 +70,9 @@ let
   rspamdHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.rspamd.enable
   ));
+  mailExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.prometheus.exporters.mail.enable
+  ));
 
   extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
     _: m: m.mayflower.monitoring.extraScrapeConfigs
@@ -308,6 +311,10 @@ in {
             rspamd = {
               hostNames = rspamdHostNames;
               port = 7980;
+            };
+            mail = {
+              hostNames = mailExporterHostNames;
+              port = 9225;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
