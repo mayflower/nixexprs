@@ -170,9 +170,9 @@ let
       name = "composer-${name}";
       buildInputs = [ php composer ] ++ buildInputs;
 
-      inherit unpackPhase buildPhase;
+      inherit buildPhase;
 
-      installPhase = ''
+      unpackPhase = ''
         ${if executable then ''
           mkdir -p $out/share/php
           cp -av $src $out/share/php/$name
@@ -203,7 +203,9 @@ let
         }
         EOF
         fi
+      '';
 
+      installPhase = ''
         # Reconstruct the installed.json file from the lock file
         mkdir -p vendor/composer
         ${reconstructInstalled} composer.lock > vendor/composer/installed.json
