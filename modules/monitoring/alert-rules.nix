@@ -174,12 +174,12 @@ in mapAttrsToList (name: opts: {
     description = "{{$labels.alias}}: Mail delivery unsuccessful";
   };
   mail_delivery_late = {
-    condition = "delta(mail_late_mails_total[1m]) >= 1";
+    condition = "increase(mail_late_mails_total[1h]) >= 1";
     summary = "{{$labels.alias}}: Mail delivery late";
     description = "{{$labels.alias}}: Mail delivery late";
   };
   mail_send_fails = {
-    condition = "delta(mail_send_fails_total[1m]) >= 1";
+    condition = "increase(mail_send_fails_total[1h]) >= 1";
     summary = "{{$labels.alias}}: Mail send failed";
     description = "{{$labels.alias}}: Mail send failed";
   };
