@@ -1,0 +1,105 @@
+From f8f058bbba4dcd24ff915b73bc1e76c221474c89 Mon Sep 17 00:00:00 2001
+From: Antonio <AntonioKL@users.noreply.github.com>
+Date: Fri, 18 Jan 2019 02:01:43 +0200
+Subject: [PATCH] Fix slack notifications
+
+---
+ app/Http/Middleware/SubscribersConfigured.php              | 4 ----
+ .../Component/ComponentStatusChangedNotification.php       | 2 +-
+ app/Notifications/Incident/NewIncidentNotification.php     | 3 +--
+ app/Notifications/Schedule/NewScheduleNotification.php     | 3 +--
+ resources/views/dashboard/subscribers/index.blade.php      | 7 ++-----
+ 5 files changed, 5 insertions(+), 14 deletions(-)
+
+diff --git a/app/Http/Middleware/SubscribersConfigured.php b/app/Http/Middleware/SubscribersConfigured.php
+index b154b435..116b20a5 100644
+--- a/app/Http/Middleware/SubscribersConfigured.php
++++ b/app/Http/Middleware/SubscribersConfigured.php
+@@ -52,10 +52,6 @@ class SubscribersConfigured
+      */
+     public function handle(Request $request, Closure $next)
+     {
+-        if (!$this->config->get('setting.enable_subscribers')) {
+-            return cachet_redirect('status-page');
+-        }
+-
+         return $next($request);
+     }
+ }
+diff --git a/app/Notifications/Component/ComponentStatusChangedNotification.php b/app/Notifications/Component/ComponentStatusChangedNotification.php
+index 8621e6f7..47502ed2 100644
+--- a/app/Notifications/Component/ComponentStatusChangedNotification.php
++++ b/app/Notifications/Component/ComponentStatusChangedNotification.php
+@@ -140,7 +140,7 @@ class ComponentStatusChangedNotification extends Notification
+ 
+         return (new SlackMessage())
+                     ->$status()
+-                    ->content(trans('notifications.component.status_update.slack.subject'))
++                    ->content(trans('notifications.component.status_update.slack.title'))
+                     ->attachment(function ($attachment) use ($content, $notifiable) {
+                         $attachment->title($content, cachet_route('status-page'))
+                                    ->fields(array_filter([
+diff --git a/app/Notifications/Incident/NewIncidentNotification.php b/app/Notifications/Incident/NewIncidentNotification.php
+index f816fa6f..c0f956b2 100644
+--- a/app/Notifications/Incident/NewIncidentNotification.php
++++ b/app/Notifications/Incident/NewIncidentNotification.php
+@@ -133,8 +133,7 @@ class NewIncidentNotification extends Notification
+                                    ->fields(array_filter([
+                                         'ID'   => "#{$this->incident->id}",
+                                         'Link' => $this->incident->permalink,
+-                                    ]))
+-                                   ->footer(trans('cachet.subscriber.unsubscribe', ['link' => cachet_route('subscribe.unsubscribe', $notifiable->verify_code)]));
++                                    ]));
+                     });
+     }
+ }
+diff --git a/app/Notifications/Schedule/NewScheduleNotification.php b/app/Notifications/Schedule/NewScheduleNotification.php
+index 2ba73596..b86c61de 100644
+--- a/app/Notifications/Schedule/NewScheduleNotification.php
++++ b/app/Notifications/Schedule/NewScheduleNotification.php
+@@ -124,8 +124,7 @@ class NewScheduleNotification extends Notification implements ShouldQueue
+                                    ->fields(array_filter([
+                                         'ID'     => "#{$this->schedule->id}",
+                                         'Status' => $this->schedule->human_status,
+-                                    ]))
+-                                   ->footer(trans('cachet.subscriber.unsubscribe', ['link' => cachet_route('subscribe.unsubscribe', $notifiable->verify_code)]));
++                                    ]));
+                     });
+     }
+ }
+diff --git a/resources/views/dashboard/subscribers/index.blade.php b/resources/views/dashboard/subscribers/index.blade.php
+index 55c0f926..bba28c24 100644
+--- a/resources/views/dashboard/subscribers/index.blade.php
++++ b/resources/views/dashboard/subscribers/index.blade.php
+@@ -8,7 +8,7 @@
+     <span class="uppercase">
+         <i class="ion ion-ios-email-outline"></i> {{ trans('dashboard.subscribers.subscribers') }}
+     </span>
+-    @if($currentUser->isAdmin && $enableSubscribers)
++    @if($currentUser->isAdmin)
+     <a class="btn btn-md btn-success pull-right" href="{{ cachet_route('dashboard.subscribers.create') }}">
+         {{ trans('dashboard.subscribers.add.title') }}
+     </a>
+@@ -19,11 +19,7 @@
+     <div class="row">
+         <div class="col-sm-12">
+             <p class="lead">
+-                @if($enableSubscribers)
+                 {{ trans('dashboard.subscribers.description') }}
+-                @else
+-                {{ trans('dashboard.subscribers.description_disabled') }}
+-                @endif
+             </p>
+ 
+             <div class="striped-list">
+@@ -51,6 +47,7 @@
+                         @endif
+                     </div>
+                     <div class="col-xs-3 text-right">
++                        <a href="{{ cachet_route('subscribe.manage', $subscriber->verify_code) }}" target="_blank" class="btn btn-success">{{ trans('forms.edit') }}</a>
+                         <a href="{{ cachet_route('dashboard.subscribers.delete', [$subscriber->id], 'delete') }}" class="btn btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
+                     </div>
+                 </div>
+-- 
+2.19.2
+
