@@ -103,32 +103,35 @@ in
 
   config = mkIf cfg.enable {
 
-    system.activationScripts.cachet = ''
-      mkdir -p ${cfg.dataDir}/cachet-home
+    systemd.services.cachet-setup = {
+      wantedBy = [ "multi-user.target" ];
+      after = [ "postgresql.service" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        mkdir -p ${cfg.dataDir}/cachet-home
 
-      if ! test -e "${cfg.dataDir}/db_created"; then
-        if [ "${cfg.database.host}" = "localhost" ]; then
-          #${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "CREATE ROLE ${cfg.database.user} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.database.password}'"
-          ${config.services.postgresql.package}/bin/psql postgres -c "CREATE ROLE ${cfg.database.user} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.database.password}'"
-          #${pkgs.sudo}/bin/sudo -u ${pgSuperUser} ${config.services.postgresql.package}/bin/createdb --owner ${cfg.database.user} ${cfg.database.dbname}
-          ${config.services.postgresql.package}/bin/createdb --owner ${cfg.database.user} ${cfg.database.dbname}
+        if ! test -e "${cfg.dataDir}/db_created"; then
+          if [ "${cfg.database.host}" = "localhost" ]; then
+            ${config.services.postgresql.package}/bin/psql postgres -c "CREATE ROLE ${cfg.database.user} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${cfg.database.password}'"
+            ${config.services.postgresql.package}/bin/createdb --owner ${cfg.database.user} ${cfg.database.dbname}
 
-          touch ${cfg.dataDir}/db_created
+            touch ${cfg.dataDir}/db_created
+          fi
         fi
-      fi
 
-      ${pkgs.rsync}/bin/rsync -a ${pkgs.cachet}/ ${cfg.dataDir}/cachet-home
-      ${pkgs.rsync}/bin/rsync -a ${envfile} ${cfg.dataDir}/cachet-home/.env
-      chown -R nginx:nginx ${cfg.dataDir}/cachet-home
-      chmod -R u+w ${cfg.dataDir}/cachet-home
+        ${pkgs.rsync}/bin/rsync -a ${pkgs.cachet}/ ${cfg.dataDir}/cachet-home
+        ${pkgs.rsync}/bin/rsync -a ${envfile} ${cfg.dataDir}/cachet-home/.env
+        chown -R nginx:nginx ${cfg.dataDir}/cachet-home
+        chmod -R u+w ${cfg.dataDir}/cachet-home
 
-      # upgrade steps
-      cd ${cfg.dataDir}/cachet-home/
-      ${pkgs.php}/bin/php artisan down
-      ${pkgs.php}/bin/php artisan app:update
-      ${pkgs.php}/bin/php artisan up
-      ${pkgs.php}/bin/php artisan config:cache
-    '';
+        # upgrade steps
+        cd ${cfg.dataDir}/cachet-home/
+        ${pkgs.php}/bin/php artisan down
+        ${pkgs.php}/bin/php artisan app:update
+        ${pkgs.php}/bin/php artisan up
+        ${pkgs.php}/bin/php artisan config:cache
+      '';
+    };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
