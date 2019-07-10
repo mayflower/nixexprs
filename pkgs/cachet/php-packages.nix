@@ -1287,7 +1287,7 @@ composerEnv.buildPackage {
     sha256 = "1srfn5ywvfwypssqj6b06fg6m07d0v2k6pfg39hwl7gwha1nnxkz";
   };
 
-  patches = [ ./0001-Fix-slack-notifications.patch ];
+  patches = [ ./0001-Fix-slack-notifications.patch ./0002-Improve-slack-notifications.patch ];
 
   executable = false;
   symlinkDependencies = false;

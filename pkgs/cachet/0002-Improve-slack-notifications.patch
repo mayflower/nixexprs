@@ -1,0 +1,77 @@
+From a5df1a0aeca91aa9296bcca506e32c6186cb4813 Mon Sep 17 00:00:00 2001
+From: Robin Gloster <mail@glob.in>
+Date: Wed, 10 Jul 2019 17:35:26 +0200
+Subject: [PATCH 2/2] Improve slack notifications
+
+---
+ .../Component/ComponentStatusChangedNotification.php        | 3 +--
+ app/Notifications/Incident/NewIncidentNotification.php      | 3 ++-
+ .../IncidentUpdate/IncidentUpdatedNotification.php          | 2 +-
+ app/Notifications/Schedule/NewScheduleNotification.php      | 6 ++++--
+ 4 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/app/Notifications/Component/ComponentStatusChangedNotification.php b/app/Notifications/Component/ComponentStatusChangedNotification.php
+index 47502ed2..1e3ac404 100644
+--- a/app/Notifications/Component/ComponentStatusChangedNotification.php
++++ b/app/Notifications/Component/ComponentStatusChangedNotification.php
+@@ -148,8 +148,7 @@ class ComponentStatusChangedNotification extends Notification
+                                         'Old Status' => $this->component->human_status,
+                                         'New Status' => trans("cachet.components.status.{$this->status}"),
+                                         'Link'       => $this->component->link,
+-                                    ]))
+-                                   ->footer(trans('cachet.subscriber.unsubscribe', ['link' => cachet_route('subscribe.unsubscribe', $notifiable->verify_code)]));
++                                    ])) ;
+                     });
+     }
+ }
+diff --git a/app/Notifications/Incident/NewIncidentNotification.php b/app/Notifications/Incident/NewIncidentNotification.php
+index c0f956b2..5e7473d7 100644
+--- a/app/Notifications/Incident/NewIncidentNotification.php
++++ b/app/Notifications/Incident/NewIncidentNotification.php
+@@ -128,7 +128,8 @@ class NewIncidentNotification extends Notification
+                     ->$status()
+                     ->content($content)
+                     ->attachment(function ($attachment) use ($notifiable) {
+-                        $attachment->title(trans('notifications.incident.new.slack.title', ['name' => $this->incident->name]))
++                        $url = cachet_route('status-page');
++                        $attachment->title(trans('notifications.incident.new.slack.title', ['name' => $this->incident->name]), $url)
+                                    ->timestamp($this->incident->getWrappedObject()->occurred_at)
+                                    ->fields(array_filter([
+                                         'ID'   => "#{$this->incident->id}",
+diff --git a/app/Notifications/IncidentUpdate/IncidentUpdatedNotification.php b/app/Notifications/IncidentUpdate/IncidentUpdatedNotification.php
+index 758f9afe..999c0f67 100644
+--- a/app/Notifications/IncidentUpdate/IncidentUpdatedNotification.php
++++ b/app/Notifications/IncidentUpdate/IncidentUpdatedNotification.php
+@@ -138,7 +138,7 @@ class IncidentUpdatedNotification extends Notification
+                         $attachment->title(trans('notifications.incident.update.slack.title', [
+                                         'name'       => $this->update->incident->name,
+                                         'new_status' => $this->update->human_status,
+-                                    ]))
++                                    ]), cachet_route('status-page'))
+                                    ->timestamp($this->update->getWrappedObject()->created_at)
+                                    ->fields(array_filter([
+                                         'ID'   => "#{$this->update->id}",
+diff --git a/app/Notifications/Schedule/NewScheduleNotification.php b/app/Notifications/Schedule/NewScheduleNotification.php
+index b86c61de..686a0ab3 100644
+--- a/app/Notifications/Schedule/NewScheduleNotification.php
++++ b/app/Notifications/Schedule/NewScheduleNotification.php
+@@ -119,12 +119,14 @@ class NewScheduleNotification extends Notification implements ShouldQueue
+         return (new SlackMessage())
+                     ->content(trans('notifications.schedule.new.slack.title'))
+                     ->attachment(function ($attachment) use ($content) {
+-                        $attachment->title($content)
++                        $attachment->title($content, cachet_route('status-page'))
+                                    ->timestamp($this->schedule->getWrappedObject()->scheduled_at)
+                                    ->fields(array_filter([
+                                         'ID'     => "#{$this->schedule->id}",
+                                         'Status' => $this->schedule->human_status,
++                                        'Message' => $this->schedule->message,
+                                     ]));
+-                    });
++                    })
++                    ->footer($this->schedule->message);
+     }
+ }
+-- 
+2.19.2
+
