@@ -163,4 +163,24 @@ in mapAttrsToList (name: opts: {
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
     description = "Unifi: number of adopted devices has changed: {{$value}}";
   };
+  mail_down = {
+    condition = ''up{job="mail"} == 0'';
+    summary = "{{$labels.alias}}: Mail exporter is down.";
+    description = "Mail exporter on {{$labels.alias}} hasn't been responding more than 2 minutes.";
+  };
+  mail_delivery_unsuccessful = {
+    condition = "mail_deliver_success == 0";
+    summary = "{{$labels.alias}}: Mail delivery unsuccessful";
+    description = "{{$labels.alias}}: Mail delivery unsuccessful";
+  };
+  mail_delivery_late = {
+    condition = "delta(mail_late_mails_total[1m]) >= 1";
+    summary = "{{$labels.alias}}: Mail delivery late";
+    description = "{{$labels.alias}}: Mail delivery late";
+  };
+  mail_send_fails = {
+    condition = "delta(mail_send_fails_total[1m]) >= 1";
+    summary = "{{$labels.alias}}: Mail send failed";
+    description = "{{$labels.alias}}: Mail send failed";
+  };
 }
