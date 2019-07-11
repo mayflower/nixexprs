@@ -57,6 +57,8 @@ let
       EMAIL_PORT = ${toString cfg.mail.port}
       EMAIL_USE_TLS = ${if cfg.mail.useTLS then "True" else "False"}
       EMAIL_USE_SSL = ${if cfg.mail.useSSL then "True" else "False"}
+      ${optionalString (cfg.mail.user != null) "EMAIL_HOST_USER = \"${cfg.mail.user}\""}
+      ${optionalString (cfg.mail.password != null) "EMAIL_HOST_PASSWORD = \"${cfg.mail.password}\""}
       VOTE_MAIL_FROM = "${cfg.mail.from}"
       VOTE_SEND_MAILS = ${if cfg.mail.sendMails then "True" else "False"}
       VOTE_BASE_URL = '${cfg.baseUrl}'
@@ -134,6 +136,20 @@ in {
             default = null;
             description = ''
               Mail relay host name
+            '';
+          };
+          user = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              Mail relay user name
+            '';
+          };
+          password = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              Mail relay user password
             '';
           };
           port = mkOption {
