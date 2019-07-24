@@ -20,6 +20,21 @@ self: super:
   postfix = super.postfix.override { withPgSQL = true; };
   freeradius = super.freeradius.override { withJson = true; withRest = true; };
 
+  grafana-loki = super.grafana-loki.overrideAttrs (oldAttrs: {
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.makeWrapper ];
+    buildInputs = oldAttrs.buildInputs ++ [ super.systemd.dev ];
+    src = super.fetchFromGitHub {
+      rev = "3d5319e72afb8008e1ed75432af4212fc7e5be47";
+      owner = "grafana";
+      repo = "loki";
+      sha256 = "1pdq4lf4v9rnsvdippb9bh1nsp8rjcv7yq709n3kx6az9v4wmkdh";
+    };
+    preFixup = oldAttrs.preFixup + ''
+      wrapProgram $bin/bin/promtail \
+        --prefix LD_LIBRARY_PATH : "${super.systemd.lib}/lib"
+    '';
+  });
+
   defaultGemConfig = super.defaultGemConfig // {
     oxidized = (attrs: rec {
       tplinkPatch = (super.fetchpatch {
