@@ -50,6 +50,7 @@ in
   binutils = all;
   bird = all;
   bird6 = all;
+  bitwarden_rs = all;
   bluez = all;
   borgbackup = all;
   bridge-utils = all;
