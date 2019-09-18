@@ -20,6 +20,14 @@ self: super:
   postfix = super.postfix.override { withPgSQL = true; };
   freeradius = super.freeradius.override { withJson = true; withRest = true; };
 
+  bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
+    postPatch = (oldAttrs.postPatch or "") + ''
+      substituteInPlace src/api/admin.rs --replace \
+        'let org_name = "bitwarden_rs";' \
+        'let org_name = "Mayflower GmbH";'
+    '';
+  });
+
   grafana-loki = super.grafana-loki.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.makeWrapper ];
     buildInputs = oldAttrs.buildInputs ++ [ super.systemd.dev ];
