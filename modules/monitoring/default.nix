@@ -28,10 +28,10 @@ let
     m.services.prometheus.alertmanager.enable
   ));
   prometheusHostNamesSameDC = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus2.enable
+    m.services.prometheus.enable
   ));
   prometheusHostNamesOtherDC = hostNames (flip filterAttrs allHosts (n: m:
-    m.services.prometheus2.enable && !(elem (hostName n m) prometheusHostNamesSameDC)
+    m.services.prometheus.enable && !(elem (hostName n m) prometheusHostNamesSameDC)
   ));
   grafanaHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.grafana.enable
@@ -259,7 +259,7 @@ in {
       systemd.services.alertmanager.serviceConfig.LimitNOFILE = 1024000;
 
       services = {
-        prometheus2 = {
+        prometheus = {
           enable = true;
           alertmanagerURL = flip map alertmanagerHostNames (n: "${n}:9093");
           rules = import ./alert-rules.nix { inherit lib; };

@@ -54,7 +54,7 @@ in
     debug = mkEnableOption "debug mode";
 
     hostName = mkOption {
-      type = types.string;
+      type = types.str;
       description = "";
     };
 
@@ -65,36 +65,36 @@ in
     };
 
     appKey = mkOption {
-      type = types.string;
+      type = types.str;
       description = "Laravel appKey: must be a random, 32-character string";
     };
 
     database = {
       driver = mkOption {
-        type = types.string;
+        type = types.str;
         default = "pgsql";
         description = "";
       };
 
       host = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "";
       };
 
       user = mkOption {
-        type = types.string;
+        type = types.str;
         default = "cachet";
         description = "";
       };
 
       password = mkOption {
-        type = types.string;
+        type = types.str;
         description = "";
       };
 
       dbname = mkOption {
-        type = types.string;
+        type = types.str;
         default = "cachet";
         description = "";
       };

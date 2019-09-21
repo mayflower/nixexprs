@@ -94,7 +94,6 @@ in
   cups_filters = all;
   cups-pk-helper = all;
   curl = all;
-  darkice = all;
   dash = all;
   dbus = all;
   ddrescue = all;
@@ -366,9 +365,6 @@ in
     NetSNMP = all;
   };
   phantomjs2 = all;
-  php71 = all;
-  php71Packages.composer = all;
-  php71Packages.xdebug = all;
   php72 = all;
   php72Packages.composer = all;
   php72Packages.xdebug = all;
@@ -386,7 +382,6 @@ in
   postfix = all;
   postfixWithPgSQL = all;
   postgresql = all;
-  postgresql_9_4 = all;
   postgresql_9_5 = all;
   postgresql_9_6 = all;
   postgresql_10 = all;
@@ -396,7 +391,6 @@ in
   privoxy = all;
   procps = all;
   prometheus = all;
-  prometheus_2 = all;
   prometheus-alertmanager = all;
   prometheus-blackbox-exporter = all;
   prometheus-fritzbox-exporter = all;
