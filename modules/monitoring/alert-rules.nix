@@ -3,7 +3,7 @@ with lib;
 
 let
   deviceFilter = ''device!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
-in mapAttrsToList (name: opts: builtins.toJSON {
+in mapAttrsToList (name: opts: {
   alert = name;
   expr = opts.condition;
   for = opts.time or "2m";

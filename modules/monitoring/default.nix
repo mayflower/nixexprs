@@ -261,8 +261,17 @@ in {
       services = {
         prometheus = {
           enable = true;
-          alertmanagerURL = flip map alertmanagerHostNames (n: "${n}:9093");
-          rules = import ./alert-rules.nix { inherit lib; };
+          alertmanagers = singleton {
+            static_configs = singleton {
+              targets = flip map alertmanagerHostNames (n: "${n}:9093");
+            };
+          };
+          ruleFiles = singleton (pkgs.writeText "prometheus-rules.yml" (builtins.toJSON {
+            groups = singleton {
+              name = "mf-alerting-rules";
+              rules = import ./alert-rules.nix { inherit lib; };
+            };
+          }));
           scrapeConfigs = (mkScrapeConfigs ({
             prometheus = {
               hostNames = prometheusHostNamesSameDC;
