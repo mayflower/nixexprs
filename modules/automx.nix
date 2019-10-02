@@ -85,6 +85,9 @@ in {
             uwsgi_pass unix:/run/automx/web.socket;
           '';
         };
+        extraConfig = ''
+          add_header X-Content-Type-Options "nosniff" always;
+        '';
       };
     };
   };

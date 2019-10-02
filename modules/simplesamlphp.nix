@@ -412,6 +412,7 @@ in
       "${cfg.hostname}".locations."${cfg.samlLocation}/".extraConfig = ''
         alias ${pkgs.simplesamlphp}/www/;
         index index.php;
+        add_header X-Content-Type-Options "nosniff" always;
 
         location ~ /\. {
           return 404;

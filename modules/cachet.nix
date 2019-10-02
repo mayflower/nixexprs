@@ -148,6 +148,7 @@ in
       locations = {
         "/".extraConfig = ''
           add_header Strict-Transport-Security max-age=15768000;
+          add_header X-Content-Type-Options "nosniff" always;
           try_files $uri /index.php$is_args$args;
         '';
         "~ \.php$".extraConfig = ''
@@ -157,6 +158,7 @@ in
           fastcgi_index index.php;
           fastcgi_keep_conn on;
           add_header Strict-Transport-Security max-age=15768000;
+          add_header X-Content-Type-Options "nosniff" always;
         '';
       };
     };

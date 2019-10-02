@@ -120,8 +120,6 @@ with lib;
           server_names_hash_max_size 1024;
           server_names_hash_bucket_size  64;
 
-          # add_header X-Content-Type-Options "nosniff" always; FIXME
-
           access_log stderr;
           error_log stderr;
         '';
