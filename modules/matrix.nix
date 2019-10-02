@@ -154,18 +154,25 @@ in
                 "/_matrix" = {
                   proxyPass = "http://127.0.0.1:8008";
                   priority = 30;
+                  extraConfig = ''
+                    add_header X-Content-Type-Options "nosniff" always;
+                  '';
                 };
                 "/_matrix/identity" = {
                   proxyPass = "http://127.0.0.1:8090/_matrix/identity";
                   extraConfig = ''
                     add_header Access-Control-Allow-Origin *;
                     add_header Access-Control-Allow-Method 'GET, POST, PUT, DELETE, OPTIONS';
+                    add_header X-Content-Type-Options "nosniff" always;
                   '';
                   priority = 20;
                 };
                 "/_matrix/client/r0/user_directory" = {
                   proxyPass = "http://127.0.0.1:8090/_matrix/client/r0/user_directory";
                   priority = 10;
+                  extraConfig = ''
+                    add_header X-Content-Type-Options "nosniff" always;
+                  '';
                 };
               };
             };
@@ -180,6 +187,9 @@ in
                 rev = "2c43f6dbbb64b4e589209965533f7c8a14806010";
                 sha256 = "074ln7hfwwwnjhgzx3a59ds6k6007mx0brp7m7lrz1pfn6v79b8j";
               };
+              extraConfig = ''
+                add_header X-Content-Type-Options "nosniff" always;
+              '';
             };
           })
           (mkIf cfg.riot.enable {
@@ -190,6 +200,9 @@ in
 
               locations = {
                 "/" = {
+                  extraConfig = ''
+                    add_header X-Content-Type-Options "nosniff" always;
+                  '';
                   root = pkgs.riot-web.override {
                         #"welcomePageUrl": "home.html",
                     conf = builtins.toJSON (flip recursiveUpdate cfg.riot.extraConfig {

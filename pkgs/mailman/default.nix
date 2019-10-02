@@ -2,27 +2,23 @@
 
 python3.pkgs.buildPythonPackage rec {
   name = "mailman-${version}";
-  version = "3.2.0";
+  version = "3.2.2";
 
   src = fetchFromGitLab {
     owner = "mailman";
     repo = "mailman";
     rev = version;
-    sha256 = "0azipmsr5s483dahx6ann42rckcdjx3lwg7clpx0x8w3j1vxw2cx";
+    sha256 = "0p1z2i2x6f0g05lx5mymiiw2ij1bsycvbxwabb52nisdddcfhhzp";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
     aiosmtpd alembic atpublic falcon flufl-bounce flufl-i18n flufl-lock flufl-testing
     dns httplib2 lazr-config lazr-smtptest nose nose2 passlib psycopg2 requests
-    zope_component click
+    zope_component click importlib-resources
   ];
 
   patches = [
     ./log-to-syslog.patch
-    (fetchpatch {
-      url = "https://gitlab.com/mailman/mailman/commit/22270007e941ec4418653fddeb06a3d17413e196.patch";
-      sha256 = "0a7rbqh73411pjyf3m65blflpdh97hvz9w150vp29z2dnbj98clw";
-    })
   ];
 
   postPatch = ''

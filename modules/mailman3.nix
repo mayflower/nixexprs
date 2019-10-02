@@ -444,6 +444,9 @@ in {
           '';
           "/static".root = "/var/lib/mailman/web";
         };
+        extraConfig = ''
+          add_header X-Content-Type-Options "nosniff" always;
+        '';
       };
     };
   };

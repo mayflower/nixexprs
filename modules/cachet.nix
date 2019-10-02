@@ -54,7 +54,7 @@ in
     debug = mkEnableOption "debug mode";
 
     hostName = mkOption {
-      type = types.string;
+      type = types.str;
       description = "";
     };
 
@@ -65,36 +65,36 @@ in
     };
 
     appKey = mkOption {
-      type = types.string;
+      type = types.str;
       description = "Laravel appKey: must be a random, 32-character string";
     };
 
     database = {
       driver = mkOption {
-        type = types.string;
+        type = types.str;
         default = "pgsql";
         description = "";
       };
 
       host = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "";
       };
 
       user = mkOption {
-        type = types.string;
+        type = types.str;
         default = "cachet";
         description = "";
       };
 
       password = mkOption {
-        type = types.string;
+        type = types.str;
         description = "";
       };
 
       dbname = mkOption {
-        type = types.string;
+        type = types.str;
         default = "cachet";
         description = "";
       };
@@ -119,8 +119,8 @@ in
           fi
         fi
 
-        ${pkgs.rsync}/bin/rsync -a ${pkgs.cachet}/ ${cfg.dataDir}/cachet-home
-        ${pkgs.rsync}/bin/rsync -a ${envfile} ${cfg.dataDir}/cachet-home/.env
+        ${pkgs.rsync}/bin/rsync -aI ${pkgs.cachet}/ ${cfg.dataDir}/cachet-home
+        ${pkgs.rsync}/bin/rsync -aI ${envfile} ${cfg.dataDir}/cachet-home/.env
         chown -R nginx:nginx ${cfg.dataDir}/cachet-home
         chmod -R u+w ${cfg.dataDir}/cachet-home
 
@@ -148,32 +148,35 @@ in
       locations = {
         "/".extraConfig = ''
           add_header Strict-Transport-Security max-age=15768000;
+          add_header X-Content-Type-Options "nosniff" always;
           try_files $uri /index.php$is_args$args;
         '';
         "~ \.php$".extraConfig = ''
           include ${config.services.nginx.package}/conf/fastcgi_params;
-          fastcgi_pass unix:/run/phpfpm/cachet;
+          fastcgi_pass unix:${config.services.phpfpm.pools.cachet.socket};
           fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
           fastcgi_index index.php;
           fastcgi_keep_conn on;
           add_header Strict-Transport-Security max-age=15768000;
+          add_header X-Content-Type-Options "nosniff" always;
         '';
       };
     };
 
-    services.phpfpm.poolConfigs.cachet = ''
-      listen = /run/phpfpm/cachet
-      listen.owner = nginx
-      listen.group = nginx
-      listen.mode = 0600
-      user = nginx
-      group = nginx
-      pm = dynamic
-      pm.max_children = 4
-      pm.start_servers = 1
-      pm.min_spare_servers = 1
-      pm.max_spare_servers = 2
-      pm.max_requests = 0
-    '';
+    services.phpfpm.pools.cachet = {
+      user = "nginx";
+      group = "nginx";
+      extraConfig = ''
+        listen.owner = nginx
+        listen.group = nginx
+        listen.mode = 0600
+        pm = dynamic
+        pm.max_children = 4
+        pm.start_servers = 1
+        pm.min_spare_servers = 1
+        pm.max_spare_servers = 2
+        pm.max_requests = 0
+      '';
+    };
   };
 }

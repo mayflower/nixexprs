@@ -1,14 +1,7 @@
-{ stdenv, fetchFromGitHub, fetchurl, runCommand, nodePackages_8_x, writeText, services ? {} }:
+{ stdenv, fetchFromGitHub, fetchurl, runCommand, writeText, services ? {} }:
 
 let
   lib = stdenv.lib;
-
-  # html-minifier is currently broken from STDIN
-  # html-minifier = "${nodePackages_8_x.html-minifier}/bin/html-minifier";
-
-  # minifyHTML = input: runCommand "service-overview.min.html" {} ''
-  #   echo '${input}' | ${html-minifier} --collapse-whitespace -o $out
-  # '';
 
   header = import templates/header.nix { inherit lib; };
   footer = import templates/footer.nix { inherit lib; };
