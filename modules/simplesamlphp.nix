@@ -409,8 +409,8 @@ in
     services.nginx.enable = true;
 
     services.nginx.virtualHosts = {
-      "${cfg.hostname}".locations."${cfg.samlLocation}".extraConfig = ''
-        alias ${pkgs.simplesamlphp}/www;
+      "${cfg.hostname}".locations."${cfg.samlLocation}/".extraConfig = ''
+        alias ${pkgs.simplesamlphp}/www/;
         index index.php;
 
         location ~ /\. {
@@ -422,26 +422,27 @@ in
           fastcgi_param  SCRIPT_FILENAME  $document_root$phpfile;
           fastcgi_split_path_info ^(.+?\.php)(/.*)$;
           fastcgi_param PATH_INFO $fastcgi_path_info if_not_empty;
-          fastcgi_pass unix:/run/phpfpm/simplesamlphp;
+          fastcgi_pass unix:${config.services.phpfpm.pools.simplesamlphp.socket};
         }
       '';
     };
 
-    services.phpfpm.poolConfigs.simplesamlphp = ''
-        listen = /run/phpfpm/simplesamlphp
-        listen.owner = nginx
-        listen.group = nginx
-        listen.mode = 0600
-        user = simplesamlphp
-        group = nginx
-        pm = dynamic
-        pm.max_children = 4
-        pm.start_servers = 1
-        pm.min_spare_servers = 1
-        pm.max_spare_servers = 2
-        pm.max_requests = 0
-        env[SIMPLESAMLPHP_CONFIG_DIR] = ${pkgs.simplesamlphp}/config
-    '';
+    services.phpfpm.pools.simplesamlphp = {
+        user = "simplesamlphp";
+        group = "nginx";
+        extraConfig = ''
+          listen.owner = nginx
+          listen.group = nginx
+          listen.mode = 0600
+          pm = dynamic
+          pm.max_children = 4
+          pm.start_servers = 1
+          pm.min_spare_servers = 1
+          pm.max_spare_servers = 2
+          pm.max_requests = 0
+          env[SIMPLESAMLPHP_CONFIG_DIR] = ${pkgs.simplesamlphp}/config
+      '';
+    };
 
     users.extraUsers.simplesamlphp.group = "nginx";
   };
