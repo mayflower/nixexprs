@@ -291,8 +291,13 @@ in
           resources = [
             { names = ["client" "webclient"]; compress = false; }
           ];
+        } {
+          port = 9092;
+          bind_address = "0.0.0.0";
+          type = "metrics";
+          tls = false;
+          resources = [];
         }];
-        trusted_third_party_id_servers = [ cfg.fqdn ];
         extraConfig = ''
           password_providers:
             - module: "rest_auth_provider.RestAuthProvider"
