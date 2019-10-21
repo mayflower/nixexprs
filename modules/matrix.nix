@@ -279,7 +279,6 @@ in
             { names = ["client" "webclient"]; compress = false; }
           ];
         }];
-        trusted_third_party_id_servers = [ cfg.fqdn ];
         extraConfig = ''
           password_providers:
             - module: "rest_auth_provider.RestAuthProvider"
