@@ -10,6 +10,7 @@ let
     [postfix]
     postmap_command: ${pkgs.postfix}/bin/postmap
     transport_file_type: hash
+    smtp_port: 8025
   '';
   hyperkittyConfigFile = pkgs.writeText "mailman-hyperkitty.cfg" ''
     [general]
@@ -431,6 +432,18 @@ in {
         transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
         local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
         relay_domains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
+      };
+      masterConfig.mailman-submission = {
+        name = "127.0.0.1:8025";
+        private = false;
+        type = "inet";
+        command = "smtpd";
+        args = [
+          "-o" "syslog_name=postfix/smtp-mailman"
+          "-o" "cleanup_service_name=auth-cleanup"
+          "-o" "smtpd_client_restrictions=permit_mynetworks,reject"
+          "-o" "smtpd_milters="
+        ];
       };
     };
     services.nginx = {
