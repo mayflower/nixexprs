@@ -73,6 +73,9 @@ let
   mailExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.mail.enable
   ));
+  matrixSynapseHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.mayflower.matrix.enable
+  ));
 
   extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
     _: m: m.mayflower.monitoring.extraScrapeConfigs
@@ -324,6 +327,10 @@ in {
             mail = {
               hostNames = mailExporterHostNames;
               port = 9225;
+            };
+            synapse = {
+              hostNames = matrixSynapseHostNames;
+              port = 9092;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
