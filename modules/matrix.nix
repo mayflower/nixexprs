@@ -261,7 +261,7 @@ in
         });
         server_name = cfg.fqdn;
         enable_registration = false;
-        enable_metrics = false;
+        enable_metrics = true;
         # turn configuration with coturn
         turn_uris = optionals cfg.turn.enable [
           "turn:${cfg.fqdn}:3478?transport=udp"
