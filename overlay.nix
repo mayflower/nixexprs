@@ -54,4 +54,10 @@ self: super:
       '';
     });
   };
+
+  inherit (import (builtins.fetchTarball {
+    # 2019-11-15
+    url = "https://github.com/nixos/nixpkgs/archive/4583e293fd5f4df1246b658d802a1b519bc05cd8.tar.gz";
+    sha256 = "1527nqi4bv4p74m0j6mpngcdn4vvzx08dci62nxi521qqaycinh3";
+  }) {}) matrix-appservice-slack;
 }
