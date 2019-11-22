@@ -10,6 +10,7 @@ self: super:
   cachet = super.callPackage pkgs/cachet {};
   conversejs = super.callPackage pkgs/conversejs.nix {};
   mailman3 = super.callPackage pkgs/mailman { };
+  matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
   postorius = super.callPackage pkgs/mailman/postorius.nix { };
   serviceOverview = super.callPackage pkgs/service-overview { };
