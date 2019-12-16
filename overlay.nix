@@ -57,8 +57,8 @@ self: super:
   };
 
   inherit (import (builtins.fetchTarball {
-    # 2019-11-15
-    url = "https://github.com/nixos/nixpkgs/archive/4583e293fd5f4df1246b658d802a1b519bc05cd8.tar.gz";
-    sha256 = "1527nqi4bv4p74m0j6mpngcdn4vvzx08dci62nxi521qqaycinh3";
+    # 2019-12-12
+    url = "https://github.com/nixos/nixpkgs/archive/d2eba63b317f2112260b50bb3f61aa4b879e9041.tar.gz";
+    sha256 = "02h927vivzc1g4qkyyjw8xdxinfzc7l065qqljkz9r9g0frh8xkp";
   }) {}) matrix-appservice-slack;
 }
