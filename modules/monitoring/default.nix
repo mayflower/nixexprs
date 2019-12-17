@@ -25,7 +25,7 @@ let
   allHostNames = hostNames allHosts;
 
   alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
-    m.services.prometheus.alertmanager.enable
+    m.mayflower.monitoring.server.enable && m.mayflower.monitoring.server.enableAlertmanagerMeshing
   ));
   prometheusHostNamesSameDC = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.enable
@@ -81,14 +81,18 @@ let
     _: m: m.mayflower.monitoring.extraScrapeConfigs
   ));
 
-  mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v: {
-    job_name = k;
-    scrape_interval = "30s";
+  mkScrapeConfigs = configs: flip mapAttrsToList configs (k: v:
+  let
     static_configs = flip map v.hostNames (name: {
       targets = [ "${name}:${toString v.port}" ];
       labels.alias = name;
     });
-  } // (removeAttrs v [ "hostNames" "port" ]));
+  in
+  (mkIf (static_configs != []) ({
+    inherit static_configs;
+    job_name = k;
+    scrape_interval = "30s";
+  } // (removeAttrs v [ "hostNames" "port" ]))));
 
   mkBlackboxConfig = { hostname, module, targets, interval ? "60s" }:
   {
@@ -182,6 +186,26 @@ in {
       server = {
         enable = mkEnableOption "Mayflower-oriented monitoring server with prometheus";
 
+        configurePrometheusAlertmanagers = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Automatically add all alertmanagers handled by this module to prometheus.
+          '';
+        };
+
+        enableAlertmanagerMeshing = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Add this host to the cluster peers of every other host";
+        };
+
+        alertmanagerExtraPeers = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = "List of additional cluster peers";
+        };
+
         alertmanagerPageReceiver = mkOption {
           type = types.attrs;
           default = {};
@@ -257,18 +281,50 @@ in {
         ];
       };
     }
-    (mkIf cfg.server.enable {
-      systemd.services.prometheus.serviceConfig.LimitNOFILE = 1024000;
-      systemd.services.alertmanager.serviceConfig.LimitNOFILE = 1024000;
-
-      services = {
-        prometheus = {
+    (mkIf cfg.server.enable (mkMerge [
+      {
+        systemd.services.alertmanager.serviceConfig.LimitNOFILE = 1024000;
+        services.prometheus.alertmanager = {
           enable = true;
-          alertmanagers = singleton {
-            static_configs = singleton {
-              targets = flip map alertmanagerHostNames (n: "${n}:9093");
+          clusterPeers = optionals cfg.server.enableAlertmanagerMeshing (
+            alertmanagerHostNames ++ cfg.server.alertmanagerExtraPeers
+          );
+          configuration = {
+            route = {
+              receiver = "default";
+              routes = [
+                { group_by = [ "alertname" "alias" ];
+                  group_wait = "5s";
+                  group_interval = "2m";
+                  repeat_interval = "2h";
+                  match = { severity = "page"; };
+                  receiver = "page";
+                }
+                { group_by = [ "alertname" ];
+                  group_wait = "5s";
+                  group_interval = "2m";
+                  repeat_interval = "2h";
+                  match_re = { metric = ".+"; };
+                  receiver = "page";
+                }
+                { group_by = [ "alertname" "alias" ];
+                  group_wait = "30s";
+                  group_interval = "2m";
+                  repeat_interval = "6h";
+                  receiver = "all";
+                }
+              ];
             };
+            receivers = [
+              ({ name = "page"; } // cfg.server.alertmanagerPageReceiver)
+              ({ name = "all"; } // cfg.server.alertmanagerReceiver)
+              { name = "default"; }
+            ];
           };
+        };
+        systemd.services.prometheus.serviceConfig.LimitNOFILE = 1024000;
+        services.prometheus = {
+          enable = true;
           ruleFiles = singleton (pkgs.writeText "prometheus-rules.yml" (builtins.toJSON {
             groups = singleton {
               name = "mf-alerting-rules";
@@ -367,44 +423,16 @@ in {
             )]
           )));
         };
-
-        prometheus.alertmanager = {
-          enable = true;
-          clusterPeers = alertmanagerHostNames;
-          configuration = {
-            route = {
-              receiver = "default";
-              routes = [
-                { group_by = [ "alertname" "alias" ];
-                  group_wait = "5s";
-                  group_interval = "2m";
-                  repeat_interval = "2h";
-                  match = { severity = "page"; };
-                  receiver = "page";
-                }
-                { group_by = [ "alertname" ];
-                  group_wait = "5s";
-                  group_interval = "2m";
-                  repeat_interval = "2h";
-                  match_re = { metric = ".+"; };
-                  receiver = "page";
-                }
-                { group_by = [ "alertname" "alias" ];
-                  group_wait = "30s";
-                  group_interval = "2m";
-                  repeat_interval = "6h";
-                  receiver = "all";
-                }
-              ];
+      }
+      (mkIf cfg.server.configurePrometheusAlertmanagers {
+        services.prometheus = {
+          alertmanagers = singleton {
+            static_configs = singleton {
+              targets = flip map alertmanagerHostNames (n: "${n}:9093");
             };
-            receivers = [
-              ({ name = "page"; } // cfg.server.alertmanagerPageReceiver)
-              ({ name = "all"; } // cfg.server.alertmanagerReceiver)
-              { name = "default"; }
-            ];
           };
         };
-      };
-    })
-  ];
+      })
+    ])
+  )];
 }
