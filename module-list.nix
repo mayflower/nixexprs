@@ -9,6 +9,7 @@
   modules/mailman3.nix
   modules/matrix.nix
   modules/monitoring/default.nix
+  modules/prometheus-federation.nix
   modules/openldap-ha.nix
   modules/service-overview.nix
   modules/simplesamlphp.nix
