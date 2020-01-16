@@ -433,18 +433,23 @@ in {
         local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
         relay_domains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
       };
-      masterConfig.mailman-submission = {
-        name = "127.0.0.1:8025";
-        private = false;
-        type = "inet";
-        command = "smtpd";
-        args = [
-          "-o" "syslog_name=postfix/smtp-mailman"
-          "-o" "cleanup_service_name=auth-cleanup"
-          "-o" "smtpd_client_restrictions=permit_mynetworks,reject"
-          "-o" "smtpd_milters="
-        ];
-      };
+      masterConfig = (mapAttrs' (version: name:
+        nameValuePair "mailman-submission${version}" {
+          inherit name;
+          private = false;
+          type = "inet";
+          command = "smtpd";
+          args = [
+            "-o" "syslog_name=postfix/smtp-mailman"
+            "-o" "cleanup_service_name=auth-cleanup"
+            "-o" "smtpd_client_restrictions=permit_mynetworks,reject"
+            "-o" "smtpd_milters="
+          ];
+        }
+      ) {
+        "-v4" = "127.0.0.1:8025";
+        "-v6" = "::1:8025";
+      });
     };
     services.nginx = {
       enable = mkDefault true;
