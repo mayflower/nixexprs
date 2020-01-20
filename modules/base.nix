@@ -120,9 +120,10 @@ with lib;
           server_names_hash_max_size 1024;
           server_names_hash_bucket_size  64;
 
-          access_log stderr;
-          error_log stderr;
+          error_log syslog:server=unix:/dev/log;
+          access_log syslog:server=unix:/dev/log;
         '';
+        logError = "syslog:server=unix:/dev/log error";
         recommendedOptimisation = true;
         recommendedTlsSettings = true;
         recommendedGzipSettings = true;
