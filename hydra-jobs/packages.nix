@@ -120,7 +120,6 @@ in
   emacs25 = gtkSupported;
   EmptyEpsilon = all;
   enscript = all;
-  errbot = all;
   etcd = all;
   ethtool = all;
   evince = all;

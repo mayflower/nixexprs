@@ -8,7 +8,6 @@ self: super:
   python = super.python.override { packageOverrides = import ./pkgs/python-packages.nix; };
 
   cachet = super.callPackage pkgs/cachet {};
-  conversejs = super.callPackage pkgs/conversejs.nix {};
   mailman3 = super.callPackage pkgs/mailman { };
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   hyperkitty = super.callPackage pkgs/mailman/hyperkitty.nix { };
