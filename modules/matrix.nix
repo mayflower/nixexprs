@@ -205,7 +205,7 @@ in
                   '';
                   root = pkgs.riot-web.override {
                         #"welcomePageUrl": "home.html",
-                    conf = builtins.toJSON (flip recursiveUpdate cfg.riot.extraConfig {
+                    conf = (flip recursiveUpdate cfg.riot.extraConfig {
                       "default_hs_url" = cfg.riot.defaultHomeServerUrl;
                       "default_is_url" = cfg.riot.defaultIdentityServerUrl;
                       "disable_custom_urls" = cfg.riot.disableCustomUrls;
