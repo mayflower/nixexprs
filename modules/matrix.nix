@@ -60,7 +60,7 @@ in
       defaultIdentityServerUrl = mkOption {
         type = types.str;
         example = "https://vector.im/";
-        default = "https://${cfg.fqdn}/";
+        default = "";
         description = ''
           The default identity server URL Riot should use.
         '';
@@ -206,8 +206,13 @@ in
                   root = pkgs.riot-web.override {
                         #"welcomePageUrl": "home.html",
                     conf = (flip recursiveUpdate cfg.riot.extraConfig {
-                      "default_hs_url" = cfg.riot.defaultHomeServerUrl;
-                      "default_is_url" = cfg.riot.defaultIdentityServerUrl;
+                      "default_server_config" = {
+                        "m.homeserver" = {
+                          "base_url" = cfg.riot.defaultHomeServerUrl;
+                          "server_name" = cfg.fqdn;
+                        };
+                        "m.identity_server"."base_url" = cfg.riot.defaultIdentityServerUrl;
+                      };
                       "disable_custom_urls" = cfg.riot.disableCustomUrls;
                       "disable_guests" = cfg.riot.disableGuests;
                       "disable_login_language_selector" = cfg.riot.disableLoginLanguageSelector;
