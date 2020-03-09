@@ -257,10 +257,10 @@ in
           doInstallCheck = false;
           postInstall = ''
             cp ${pkgs.fetchFromGitHub {
-              owner = "kamax-matrix";
+              owner = "ma1uta";
               repo = "matrix-synapse-rest-password-provider";
-              rev = "776f3da0dee65b5862c25fd94a7488b08c42f0ef";
-              sha256 = "0a8lgz37z0qvq2h8akkkb73an1lwwh7xphpri7nkza6b400gv12d";
+              rev = "ed377fb70513c2e51b42055eb364195af1ccaf33";
+              sha256 = "130mc2i8v9p9ngcysg95jbp5fqxlz9p2byca2nsnb2ki96k8k3g7";
             }}/rest_auth_provider.py $out/lib/${pkgs.python37.libPrefix}/site-packages
           '';
         });
