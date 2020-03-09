@@ -55,6 +55,13 @@ self: super:
     });
   };
 
+  mxisd = super.runCommandNoCC "override-mxisd" {
+    preferLocalBuild = true;
+  } ''
+    mkdir -p $out/bin
+    ln -vs ${super.ma1sd}/bin/ma1sd $out/bin/mxisd
+  '';
+
   inherit (import (builtins.fetchTarball {
     # 2019-12-12
     url = "https://github.com/nixos/nixpkgs/archive/d2eba63b317f2112260b50bb3f61aa4b879e9041.tar.gz";
