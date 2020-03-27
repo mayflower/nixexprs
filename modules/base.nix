@@ -34,10 +34,11 @@ with lib;
       "net.ipv6.conf.default.accept_ra" = 0;
     };
 
-    i18n = {
-      consoleFont = "Lat2-Terminus16";
-      consoleKeyMap = "us";
-      defaultLocale = "en_US.UTF-8";
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    console = {
+      font = "Lat2-Terminus16";
+      keyMap = "us";
     };
 
     programs = {
