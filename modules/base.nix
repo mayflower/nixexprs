@@ -34,16 +34,6 @@ with lib;
       "net.ipv6.conf.default.accept_ra" = 0;
     };
 
-    networking = {
-      defaultMailServer = {
-        directDelivery = lib.mkDefault true;
-        hostName = mkDefault "mail.mayflower.de";
-        domain = mkDefault "mayflower.de";
-        useSTARTTLS = true;
-        root = mkDefault "devnull@mayflower.de";
-      };
-    };
-
     i18n = {
       consoleFont = "Lat2-Terminus16";
       consoleKeyMap = "us";
@@ -142,6 +132,14 @@ with lib;
 
       zfs.autoScrub.enable = config.fileSystems ? "/" &&
         config.fileSystems."/".fsType == "zfs";
+
+      ssmtp = {
+        enable = mkDefault true;
+        hostName = mkDefault "mail.mayflower.de";
+        domain = mkDefault "mayflower.de";
+        useSTARTTLS = true;
+        root = mkDefault "devnull@mayflower.de";
+      };
     };
 
     virtualisation.docker.autoPrune = {
