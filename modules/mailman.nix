@@ -18,21 +18,13 @@ let
     api_key: ${cfg.hyperkittyApiKey}
   '';
   configFile = pkgs.writeText "mailman.cfg" ''
-    [mailman]
-    site_owner: ${cfg.siteOwner}
-    layout: here
     [mta]
-    configuration: ${postfixConfigFile}
-    [paths.here]
-    var_dir: ${cfg.dataDir}
-    bin_dir: ${mailmanEnv}/bin
+    incoming: mailman.mta.postfix.LMTP
+    outgoing: mailman.mta.deliver.deliver
+    smtp_port: 8025
     [database]
     class: mailman.database.postgresql.PostgreSQLDatabase
     url: postgres:///mailman
-    [archiver.hyperkitty]
-    class: mailman_hyperkitty.Archiver
-    enable: yes
-    configuration: ${hyperkittyConfigFile}
     [webservice]
     admin_user: ${cfg.restApiUser}
     admin_pass: ${cfg.restApiPassword}
