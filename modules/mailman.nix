@@ -18,16 +18,6 @@ let
     api_key: ${cfg.hyperkittyApiKey}
   '';
   configFile = pkgs.writeText "mailman.cfg" ''
-    [mta]
-    incoming: mailman.mta.postfix.LMTP
-    outgoing: mailman.mta.deliver.deliver
-    smtp_port: 8025
-    [database]
-    class: mailman.database.postgresql.PostgreSQLDatabase
-    url: postgres:///mailman
-    [webservice]
-    admin_user: ${cfg.restApiUser}
-    admin_pass: ${cfg.restApiPassword}
   '';
   uwsgi = pkgs.uwsgi.override { plugins = [ "python3" ]; };
   configModule = python.pkgs.buildPythonPackage {
@@ -38,101 +28,9 @@ let
       mkdir -p $out/${python.sitePackages}/mailman_web_config
       cat << "EOF" > $out/${python.sitePackages}/mailman_web_config/__init__.py
       from example_project.settings import *
-      BASE_DIR = '${cfg.dataDir}/web'
-      STATIC_ROOT = BASE_DIR + '/static'
-      SECRET_KEY = '${cfg.webSecretKey}'
-      DEBUG = False
-
-      ALLOWED_HOSTS = [
-        '::1', '127.0.0.1', 'localhost', '${cfg.baseURL}',
-        ${concatMapStringsSep "," (s: "'${s}'") cfg.allowedHosts}
-      ]
-
-      ROOT_URLCONF = 'mailman_web_config.urls'
-
-      SERVER_EMAIL = '${cfg.siteOwner}'
-      DEFAULT_FROM_EMAIL = '${cfg.fromEmail}'
-
-      MAILMAN_REST_API_URL = '${cfg.restApiURL}'
-      MAILMAN_REST_API_USER = '${cfg.restApiUser}'
-      MAILMAN_REST_API_PASS = '${cfg.restApiPassword}'
       POSTORIUS_TEMPLATE_BASE_URL = '${cfg.restApiURL}'
-      MAILMAN_ARCHIVER_KEY = '${cfg.hyperkittyApiKey}'
-      MAILMAN_ARCHIVER_FROM = ('127.0.0.1', '::1',
-        ${concatMapStringsSep "," (s: "'${s}'") cfg.allowedArchivingHosts})
 
-      TEMPLATES = [
-          {
-              'BACKEND': 'django.template.backends.django.DjangoTemplates',
-              'DIRS': [],
-              'APP_DIRS': True,
-              'OPTIONS': {
-                  'context_processors': [
-                      'django.template.context_processors.debug',
-                      'django.template.context_processors.i18n',
-                      'django.template.context_processors.media',
-                      'django.template.context_processors.static',
-                      'django.template.context_processors.tz',
-                      'django.template.context_processors.csrf',
-                      'django.template.context_processors.request',
-                      'django.contrib.auth.context_processors.auth',
-                      'django.contrib.messages.context_processors.messages',
-                      'django_mailman3.context_processors.common',
-                      'hyperkitty.context_processors.common',
-                    'postorius.context_processors.postorius',
-                  ],
-              },
-          },
-      ]
-
-      INSTALLED_APPS = (
-        'hyperkitty',
-        'postorius',
-        'rest_framework',
-        'paintstore',
-        'compressor',
-        'haystack',
-        'django_extensions',
-        'django_q',
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'django_mailman3',
-        'django_gravatar',
-        'allauth',
-        'allauth.account',
-        'allauth.socialaccount',
-        ${optionalString cfg.externalAuthProviders ''
-          'allauth.socialaccount.providers.openid',
-          'django_mailman3.lib.auth.fedora',
-          'allauth.socialaccount.providers.github',
-          'allauth.socialaccount.providers.gitlab',
-          'allauth.socialaccount.providers.google',
-          'allauth.socialaccount.providers.facebook',
-          'allauth.socialaccount.providers.twitter',
-          'allauth.socialaccount.providers.stackexchange',
-        ''}
-      )
-
-      MIDDLEWARE += ('django_mailman3.middleware.TimezoneMiddleware',)
-
-      DATABASES = {
-          'default': {
-              'ENGINE': 'django.db.backends.postgresql',
-              'NAME': 'mailman'
-          }
-      }
-
-      STATICFILES_FINDERS = (
-          'django.contrib.staticfiles.finders.FileSystemFinder',
-          'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-          # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-          'compressor.finders.CompressorFinder',
-      )
+      INSTALLED_APPS = ('paintstore',)
 
       SOCIALACCOUNT_PROVIDERS = {}
 
@@ -186,8 +84,6 @@ let
 
       FILTER_VHOST = False
       EOF
-      install -v ${pkgs.postorius}/share/postorius/example_project/urls.py $out/${python.sitePackages}/mailman_web_config/urls.py
-      sed -i "\$i url(r'^hyperkitty/', include('hyperkitty.urls'))," $out/${python.sitePackages}/mailman_web_config/urls.py
     '';
   };
   mailmanWebEnv = uwsgi.python3.withPackages (ps: [ configModule pkgs.postorius pkgs.hyperkitty ]);
@@ -306,15 +202,6 @@ in {
         example = [ "lists.example.com" ];
         description = ''
           Hosts to allow requests from apart from localhost.
-        '';
-      };
-
-      allowedArchivingHosts = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        example = [ "lists.example.com" ];
-        description = ''
-          Hosts to allow archiving from.
         '';
       };
 
