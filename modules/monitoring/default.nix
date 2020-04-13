@@ -76,6 +76,9 @@ let
   matrixSynapseHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.mayflower.matrix.enable
   ));
+  dockerHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.virtualisation.docker.enable
+  ));
 
   extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
     _: m: m.mayflower.monitoring.extraScrapeConfigs
@@ -280,6 +283,9 @@ in {
           "zfs"
         ];
       };
+
+      networking.firewall.allowedTCPPorts = mkIf config.virtualisation.docker.enable [ 9323 ];
+      virtualisation.docker.extraOptions = "--experimental --metrics-addr 0.0.0.0:9323";
     }
     (mkIf cfg.server.enable (mkMerge [
       {
@@ -387,6 +393,10 @@ in {
             synapse = {
               hostNames = matrixSynapseHostNames;
               port = 9092;
+            };
+            docker = {
+              hostNames = dockerHostNames;
+              port = 9323;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
