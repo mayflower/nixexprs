@@ -34,25 +34,6 @@ let
 
       SOCIALACCOUNT_PROVIDERS = {}
 
-      COMPRESS_PRECOMPILERS = (
-         ('text/x-scss', 'sassc -t compressed {infile} {outfile}'),
-         ('text/x-sass', 'sassc -t compressed {infile} {outfile}'),
-      )
-      COMPRESS_OFFLINE = True
-      COMPRESS_ENABLED = True
-
-      HAYSTACK_CONNECTIONS = {
-          'default': {
-              'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-              'PATH': os.path.join(BASE_DIR, "fulltext_index"),
-              # You can also use the Xapian engine, it's faster and more accurate,
-              # but requires another library.
-              # http://django-haystack.readthedocs.io/en/v2.4.1/installing_search_engines.html#xapian
-              # Example configuration for Xapian:
-              #'ENGINE': 'xapian_backend.XapianEngine'
-          },
-      }
-
       REST_FRAMEWORK = {
           'PAGE_SIZE': 10,
           'DEFAULT_FILTER_BACKENDS': (
@@ -60,29 +41,7 @@ let
           ),
       }
 
-      Q_CLUSTER = {
-          'timeout': 300,
-          'save_limit': 100,
-          'orm': 'default',
-      }
-
-      LOGGING = {
-          'version': 1,
-          'disable_existing_loggers': False,
-          'handlers': {
-              'console': {
-                  'class': 'logging.StreamHandler',
-              },
-          },
-          'loggers': {
-              'django': {
-                  'handlers': ['console'],
-                  'level': 'DEBUG',
-              },
-          },
-      }
-
-      FILTER_VHOST = False
+      # TODO: disable file/email logging handlers?
       EOF
     '';
   };
@@ -239,17 +198,6 @@ in {
     ];
 
     systemd.services.mailman = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-
-      serviceConfig = {
-        ExecStart = "${mailmanEnv}/bin/mailman -C ${configFile} start";
-        Restart = "always";
-        Type = "forking";
-        User = "mailman";
-        PermissionsStartOnly = true;
-      };
-
       preStart = let
         pgSuperUser = config.services.postgresql.superUser;
       in ''
