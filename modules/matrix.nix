@@ -135,7 +135,6 @@ in
     services = {
       postgresql = {
         enable = true;
-        package = mkDefault pkgs.postgresql_11;
         extraConfig = ''
           synchronous_commit = off
         '';
