@@ -6,117 +6,82 @@ let
     enabled = "1";
     hidden = false;
     description = "";
-    input = "nixexprs";
-    path = "hydra-jobs/default.nix";
-    keep = 1;
-    shares = 42;
-    interval = 300;
+    nixexprinput = "nixexprs";
+    nixexprpath = "hydra-jobs/default.nix";
+    keepnr = 1;
+    schedulingshares = 42;
+    checkinterval = 300;
+    type = 0;
     inputs = {
       nixpkgs = {
         type = "git";
         value = "git://github.com/mayflower/nixpkgs";
+        emailresponsible = false;
       };
       nixexprs = {
         type = "git";
-        value = "git://github.com/mayflower/nixexprs";
+        value = "git://github.com/mayflower/nixexprs mf-20.03";
+        emailresponsible = false;
       };
       supportedSystems = {
         type = "nix";
-        value = ''[ \"x86_64-linux\" ]'';
+        value = ''[ "x86_64-linux" ]'';
+        emailresponsible = false;
       };
     };
-    mail = true;
-    mailOverride = "devnull+hydra@mayflower.de";
+    enableemail = true;
+    emailoverride = "devnull+hydra@mayflower.de";
   };
-  jobsetsAttrs = with pkgs.lib; mapAttrs (name: settings: recursiveUpdate defaultSettings settings) (rec {
+  jobsets = with pkgs.lib; mapAttrs (name: settings: recursiveUpdate defaultSettings settings) (rec {
     bootstrap-tools = {
-      keep = 2;
-      input = "nixpkgs";
-      path = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
-    };
-    hydra = {
-      input = "hydra";
-      path = "release.nix";
-      inputs.hydra = {
-        type = "git";
-        value = "git://github.com/mayflower/hydra.git";
-      };
+      keepnr = 2;
+      nixexprinput = "nixpkgs";
+      nixexprpath = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
     };
     hydra-jobs-master = {
-      keep = 3;
-      shares = 420;
+      keepnr = 3;
+      schedulingshares = 420;
     };
     hydra-jobs-production = recursiveUpdate hydra-jobs-master {
       inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} production";
     };
-    "hydra-jobs-19.03" = recursiveUpdate hydra-jobs-master {
-      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-19.03";
-    };
     mayflower-master = {
-      path = "hydra-jobs/dist.nix";
+      nixexprpath = "hydra-jobs/dist.nix";
     };
     mayflower-production = {
-      path = "hydra-jobs/dist.nix";
+      nixexprpath = "hydra-jobs/dist.nix";
       inputs = hydra-jobs-production.inputs;
     };
     nixos-small-master = {
-      input = "nixpkgs";
-      path = "nixos/release-small.nix";
+      nixexprinput = "nixpkgs";
+      nixexprpath = "nixos/release-small.nix";
     };
     nixpkgs-manual = {
-      input = "nixpkgs";
-      path = "doc/default.nix";
+      nixexprinput = "nixpkgs";
+      nixexprpath = "doc/default.nix";
     };
-    "nixpkgs-stats"= {
-      enabled = "1";
-      input = "stats";
-      keep = 5;
-      interval = 3600;
-      inputs = {
-        stats = {
-          type = "git";
-          value = "https://git.mayflower.de/open-source/nixpkgs-stats";
-        };
-        nixpkgs = {
-          type = "git";
-          value = "git://github.com/mayflower/nixpkgs";
-        };
-      };
-    };
+    #"nixpkgs-stats"= {
+    #  enabled = "1";
+    #  nixexprinput = "stats";
+    #  keepnr = 5;
+    #  checkinterval = 3600;
+    #  inputs = {
+    #    stats = {
+    #      type = "git";
+    #      value = "https://git.mayflower.de/open-source/nixpkgs-stats";
+    #    };
+    #    nixpkgs = {
+    #      type = "git";
+    #      value = "git://github.com/mayflower/nixpkgs";
+    #    };
+    #  };
+    #};
     hydra-jobs-arm-cross = {
-      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-cross";
-      path = "hydra-jobs/arm-cross.nix";
-      shares = 5;
+      #inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-cross";
+      nixexprpath = "hydra-jobs/arm-cross.nix";
+      schedulingshares = 5;
     };
   });
-  fileContents = with pkgs.lib; ''
-    cat <<EOF
-    ${builtins.toXML declInput}
-    EOF
-    cat > $out <<EOF
-    {
-      ${concatStringsSep "," (mapAttrsToList (name: settings: ''
-        "${name}": {
-            "enabled": ${settings.enabled},
-            "hidden": ${if settings.hidden then "true" else "false"},
-            "description": "${settings.description}",
-            "nixexprinput": "${settings.input}",
-            "nixexprpath": "${settings.path}",
-            "checkinterval": ${toString settings.interval},
-            "schedulingshares": ${toString settings.shares},
-            "enableemail": ${if settings.mail then "true" else "false"},
-            "emailoverride": "${settings.mailOverride}",
-            "keepnr": ${toString settings.keep},
-            "inputs": {
-              ${concatStringsSep "," (mapAttrsToList (inputName: inputSettings: ''
-                "${inputName}": { "type": "${inputSettings.type}", "value": "${inputSettings.value}", "emailresponsible": false }
-              '') settings.inputs)}
-            }
-        }
-      '') jobsetsAttrs)}
-    }
-    EOF
-  '';
 in {
-  jobsets = pkgs.runCommand "spec.json" {} fileContents;
+  jobsets = pkgs.writeText "spec.json" (builtins.toJSON jobsets);
 }
