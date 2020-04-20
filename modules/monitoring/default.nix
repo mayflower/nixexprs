@@ -76,6 +76,9 @@ let
   matrixSynapseHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.mayflower.matrix.enable
   ));
+  nextcloudExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    m.services.prometheus.exporters.nextcloud.enable
+  ));
 
   extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
     _: m: m.mayflower.monitoring.extraScrapeConfigs
@@ -229,56 +232,66 @@ in {
 
   config = mkMerge [
     {
+
       services.nginx.statusPage = true;
-      services.prometheus.exporters.nginx.enable = config.services.nginx.enable;
-      services.prometheus.exporters.nginx.openFirewall = config.services.nginx.enable;
-      services.prometheus.exporters.postfix = {
-        enable = config.services.postfix.enable;
-        showqPath = "/var/lib/postfix/queue/public/showq";
-        systemd.enable = true;
-      };
-      services.prometheus.exporters.dovecot = {
-        enable = config.services.dovecot2.enable;
-        group = "dovecot2";
-        socketPath = "/var/run/dovecot2/old-stats";
-        scopes = [ "user" "global" ];
-      };
-      services.prometheus.exporters.rspamd = {
-        enable = config.services.rspamd.enable;
-      };
-      services.prometheus.exporters.node = {
-        enable = true;
-        openFirewall = true;
-        enabledCollectors = [
-          "conntrack"
-          "diskstats"
-          "filefd"
-          "filesystem"
-          "netdev"
-          "netstat"
-          "time"
-          "uname"
-          "vmstat"
-          "systemd"
-          "logind"
-          "loadavg"
-          "meminfo"
-          "stat"
-          "textfile.directory /run/prometheus-node-exporter"
-        ] ++ optionals (!config.boot.isContainer) [
-          "interrupts"
-          "ksmd"
-          "bonding"
-        ];
-        disabledCollectors = [
-          "infiniband"
-        ] ++ optionals config.boot.isContainer [
-          "timex"
-          "edac"
-          "entropy"
-          "hwmon"
-          "zfs"
-        ];
+      services.prometheus.exporters = {
+        nginx = {
+          enable = config.services.nginx.enable;
+          openFirewall = config.services.nginx.enable;
+        };
+        postfix = {
+          enable = config.services.postfix.enable;
+          showqPath = "/var/lib/postfix/queue/public/showq";
+          systemd.enable = true;
+        };
+        dovecot = {
+          enable = config.services.dovecot2.enable;
+          group = "dovecot2";
+          socketPath = "/var/run/dovecot2/old-stats";
+          scopes = [ "user" "global" ];
+        };
+        rspamd = {
+          enable = config.services.rspamd.enable;
+        };
+        node = {
+          enable = true;
+          openFirewall = true;
+          enabledCollectors = [
+            "conntrack"
+            "diskstats"
+            "filefd"
+            "filesystem"
+            "netdev"
+            "netstat"
+            "time"
+            "uname"
+            "vmstat"
+            "systemd"
+            "logind"
+            "loadavg"
+            "meminfo"
+            "stat"
+            "textfile.directory /run/prometheus-node-exporter"
+          ] ++ optionals (!config.boot.isContainer) [
+            "interrupts"
+            "ksmd"
+            "bonding"
+          ];
+          disabledCollectors = [
+            "infiniband"
+          ] ++ optionals config.boot.isContainer [
+            "timex"
+            "edac"
+            "entropy"
+            "hwmon"
+            "zfs"
+          ];
+        };
+        nextcloud = {
+          enable = config.services.nextcloud.enable;
+          openFirewall = config.services.nextcloud.enable;
+          url = "https://${config.services.nextcloud.hostName}";
+        };
       };
     }
     (mkIf cfg.server.enable (mkMerge [
@@ -387,6 +400,10 @@ in {
             synapse = {
               hostNames = matrixSynapseHostNames;
               port = 9092;
+            };
+            nextcloud = {
+              hostNames = nextcloudExporterHostNames;
+              port = 9205;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
