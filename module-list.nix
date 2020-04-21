@@ -6,7 +6,6 @@
   modules/docker-runner.nix
   modules/kvm.nix
   modules/machines.nix
-  modules/mailman3.nix
   modules/matrix.nix
   modules/monitoring/default.nix
   modules/prometheus-federation.nix

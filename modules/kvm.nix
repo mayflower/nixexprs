@@ -20,6 +20,6 @@ with lib;
         fsType = lib.mkDefault "ext4";
       };
     }
-    ((import <nixpkgs/nixos/modules/profiles/qemu-guest.nix>) { inherit config pkgs; })
+    ((import <nixpkgs/nixos/modules/profiles/qemu-guest.nix>) { inherit config pkgs lib; })
   ]);
 }

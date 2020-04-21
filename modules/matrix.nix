@@ -135,7 +135,6 @@ in
     services = {
       postgresql = {
         enable = true;
-        package = pkgs.postgresql_11;
         extraConfig = ''
           synchronous_commit = off
         '';
@@ -267,6 +266,7 @@ in
         server_name = cfg.fqdn;
         enable_registration = false;
         enable_metrics = true;
+        database_type = "psycopg2";
         # turn configuration with coturn
         turn_uris = optionals cfg.turn.enable [
           "turn:${cfg.fqdn}:3478?transport=udp"
