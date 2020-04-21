@@ -20,7 +20,7 @@ let
       };
       nixexprs = {
         type = "git";
-        value = "git://github.com/mayflower/nixexprs mf-20.03";
+        value = "git://github.com/mayflower/nixexprs";
         emailresponsible = false;
       };
       supportedSystems = {
