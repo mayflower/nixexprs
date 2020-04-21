@@ -1,0 +1,28 @@
+diff --git a/privacyidea/static/components/token/views/token.enroll.spass.html b/privacyidea/static/components/token/views/token.enroll.spass.html
+index aea3fe15..83735ade 100644
+--- a/privacyidea/static/components/token/views/token.enroll.spass.html
++++ b/privacyidea/static/components/token/views/token.enroll.spass.html
+@@ -2,3 +2,9 @@
+ The Simple Pass Token does not take additional arguments. You only need to
+     specify a OTP PIN.
+ </p>
++<div class="form-group">
++    <label for="description" translate>Description</label>
++    <input type="text" class="form-control"
++            placeholder="{{ 'Some nice words...'|translate }}"
++            ng-model="form.description" />
++</div>
+diff --git a/privacyidea/static/components/token/views/token.enroll.u2f.html b/privacyidea/static/components/token/views/token.enroll.u2f.html
+index 525a49dd..c167bb86 100644
+--- a/privacyidea/static/components/token/views/token.enroll.u2f.html
++++ b/privacyidea/static/components/token/views/token.enroll.u2f.html
+@@ -3,3 +3,9 @@
+     You can register this token with any webservice and with as many web
+     services you wish to.
+ </p>
++<div class="form-group">
++    <label for="description" translate>Description</label>
++    <input type="text" class="form-control"
++            placeholder="{{ 'Some nice words...'|translate }}"
++            ng-model="form.description" />
++</div>
