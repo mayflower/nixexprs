@@ -33,6 +33,13 @@ self: super: {
   sklearn-crfsuite = super.callPackage ./python/sklearn-crfsuite { };
   verboselogs = super.callPackage ./python/verboselogs { };
 
+  privacyidea = super.privacyidea.overrideAttrs (old: {
+    patches = old.patches or [] ++ [
+      ./privacyidea/0001-remove-subscription-check.patch
+      ./privacyidea/add-description.patch
+    ];
+  });
+
   graphviz = super.graphviz.overrideAttrs (oldAttrs: rec {
     pname = "graphviz";
     version = "0.8.3";

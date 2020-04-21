@@ -1,0 +1,73 @@
+From 9bf40b35b097faadd4af56d2be8c6ea4a7c0f912 Mon Sep 17 00:00:00 2001
+From: Robin Gloster <mail@glob.in>
+Date: Sat, 1 Feb 2020 01:52:56 +0100
+Subject: [PATCH] remove subscription check
+
+---
+ privacyidea/lib/subscriptions.py | 43 --------------------------------
+ 1 file changed, 43 deletions(-)
+
+diff --git a/privacyidea/lib/subscriptions.py b/privacyidea/lib/subscriptions.py
+index 7daf990e..f67804ef 100644
+--- a/privacyidea/lib/subscriptions.py
++++ b/privacyidea/lib/subscriptions.py
+@@ -99,20 +99,6 @@ def subscription_status():
+ 
+     :return: subscription state
+     """
+-    token_count = get_tokens(assigned=True, active=True, count=True)
+-    if token_count <= APPLICATIONS.get("privacyidea", 50):
+-        return 0
+-
+-    subscriptions = get_subscription("privacyidea")
+-    if len(subscriptions) == 0:
+-        return 1
+-
+-    try:
+-        check_subscription("privacyidea")
+-    except SubscriptionError as exx:
+-        log.warning(u"{0}".format(exx))
+-        return 2
+-
+     return 3
+ 
+ 
+@@ -234,35 +220,6 @@ def check_subscription(application, max_free_subscriptions=None):
+         without a subscription file. If not given, the default is used.
+     :return: bool
+     """
+-    if application.lower() in APPLICATIONS:
+-        subscriptions = get_subscription(application) or get_subscription(
+-            application.lower())
+-        # get the number of users with active tokens
+-        token_users = get_users_with_active_tokens()
+-        free_subscriptions = max_free_subscriptions or APPLICATIONS.get(application.lower())
+-        if len(subscriptions) == 0:
+-            if token_users > free_subscriptions:
+-                raise SubscriptionError(description="No subscription for your client.",
+-                                        application=application)
+-        else:
+-            subscription = subscriptions[0]
+-            expire_date = subscription.get("date_till")
+-            if expire_date < datetime.datetime.now():
+-                # subscription has expired
+-                if raise_exception_probability(subscription):
+-                    raise SubscriptionError(description="Your subscription "
+-                                                        "expired.",
+-                                            application=application)
+-            else:
+-                # subscription is still valid, so check the signature.
+-                check_signature(subscription)
+-                if token_users > subscription.get("num_tokens"):
+-                    # subscription is exceeded
+-                    raise SubscriptionError(description="Too many users "
+-                                                        "with assigned tokens. "
+-                                                        "Subscription exceeded.",
+-                                            application="privacyIDEA")
+-
+     return True
+ 
+ 
+-- 
+2.24.0
+
