@@ -21,8 +21,6 @@ self: super: {
   lazr-config = super.callPackage ./python/lazr-config { };
   lazr-delegates = super.callPackage ./python/lazr-delegates { };
   lazr-smtptest = super.callPackage ./python/lazr-smtptest { };
-  mailmanclient = super.callPackage ./python/mailmanclient { };
-  mailman-hyperkitty = super.callPackage ./python/mailman-hyperkitty { };
   mattermostwrapper = super.callPackage ./python/mattermostwrapper { };
   pykwalify = super.callPackage ./python/pykwalify { };
   python3-openid = super.callPackage ./python/python3-openid { };
