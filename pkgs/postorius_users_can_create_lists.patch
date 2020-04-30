@@ -1,0 +1,50 @@
+diff --git a/src/postorius/templates/postorius/index.html b/src/postorius/templates/postorius/index.html
+index c26460d5..d645fa15 100644
+--- a/src/postorius/templates/postorius/index.html
++++ b/src/postorius/templates/postorius/index.html
+@@ -33,10 +33,10 @@
+           {% endif %}
+         </div>
+     {% endif %}
+-    {% if user.is_superuser %}
++    {% if user.is_authenticated %}
+       <div class="col-md-4">
+         <p class="text-right">
+-            {% if domain_count < 1 %}
++            {% if domain_count < 1 and user.is_superuser %}
+                 <a class="btn btn-success" href="{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
+             {% else %}
+                 <a class="btn btn-success" href="{% url 'list_new' %}">{% trans 'Create New List' %}</a>
+diff --git a/src/postorius/tests/mailman_api_tests/test_list_new.py b/src/postorius/tests/mailman_api_tests/test_list_new.py
+index 91d8ae78..6b0a6768 100644
+--- a/src/postorius/tests/mailman_api_tests/test_list_new.py
++++ b/src/postorius/tests/mailman_api_tests/test_list_new.py
+@@ -38,7 +38,6 @@ class ListCreationTest(ViewTestCase):
+         self.domain = self.mm_client.create_domain('example.com')
+ 
+     def test_permission_denied(self):
+-        self.client.login(username='user', password='pwd')
+         response = self.client.get(reverse('list_new'))
+         self.assertEqual(response.status_code, 403)
+ 
+diff --git a/src/postorius/views/list.py b/src/postorius/views/list.py
+index 6aa06cb1..ced5cdc3 100644
+--- a/src/postorius/views/list.py
++++ b/src/postorius/views/list.py
+@@ -44,7 +44,7 @@ from django_mailman3.signals import (
+     mailinglist_created, mailinglist_deleted, mailinglist_modified)
+ 
+ from postorius.auth.decorators import (
+-    list_moderator_required, list_owner_required, superuser_required)
++    list_moderator_required, list_owner_required)
+ from postorius.auth.mixins import ListOwnerMixin
+ from postorius.forms import (
+     AlterMessagesForm, ArchiveSettingsForm, DigestSettingsForm,
+@@ -613,7 +613,6 @@ def _get_default_style():
+ 
+ 
+ @login_required
+-@superuser_required
+ def list_new(request, template='postorius/lists/new.html'):
+     """
+     Add a new mailing list.
