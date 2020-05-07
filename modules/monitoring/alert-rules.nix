@@ -159,7 +159,7 @@ in mapAttrsToList (name: opts: {
     description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes.";
   };
   unifi_devices_adopted_changed = {
-    condition = "abs(delta(unifi_devices_adopted[5m])) >= 1";
+    condition = "abs(delta(unifi_devices_adopted[1h])) >= 1";
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
     description = "Unifi: number of adopted devices has changed: {{$value}}";
   };
@@ -182,5 +182,10 @@ in mapAttrsToList (name: opts: {
     condition = "increase(mail_send_fails_total[1h]) >= 1";
     summary = "{{$labels.alias}}: Mail send failed";
     description = "{{$labels.alias}}: Mail send failed";
+  };
+  alerts_silences_changed = {
+    condition = ''abs(delta(alertmanager_silences{state="active"}[1h])) >= 1'';
+    summary = "alertmanager: number of active silences has changed: {{$value}}";
+    description = "alertmanager: number of active silences has changed: {{$value}}";
   };
 }
