@@ -2,7 +2,7 @@
 with lib;
 
 let
-  deviceFilter = ''device!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
+  deviceFilter = ''fstype!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
 in mapAttrsToList (name: opts: {
   alert = name;
   expr = opts.condition;
