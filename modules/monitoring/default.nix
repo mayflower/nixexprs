@@ -433,8 +433,7 @@ in {
               {
                 inherit hostname;
                 module = "http_2xx";
-                targets = cfg.blackboxExporter.staticBlackboxHttpTargets
-                          ++ (map (h: h + ":9090") prometheusHostNamesOtherDC);
+                targets = cfg.blackboxExporter.staticBlackboxHttpTargets;
                 interval = "50s";
               }
             )]
