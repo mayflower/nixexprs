@@ -349,6 +349,10 @@ in {
               hostNames = prometheusHostNamesSameDC;
               port = 9090;
             };
+            alertmanager = {
+              hostNames = prometheusHostNamesSameDC;
+              port = 9093;
+            };
             unbound = {
               hostNames = unboundHostNames;
               port = 9167;
