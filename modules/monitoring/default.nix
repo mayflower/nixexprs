@@ -349,6 +349,10 @@ in {
               hostNames = prometheusHostNamesSameDC;
               port = 9090;
             };
+            alertmanager = {
+              hostNames = prometheusHostNamesSameDC;
+              port = 9093;
+            };
             unbound = {
               hostNames = unboundHostNames;
               port = 9167;
@@ -433,8 +437,7 @@ in {
               {
                 inherit hostname;
                 module = "http_2xx";
-                targets = cfg.blackboxExporter.staticBlackboxHttpTargets
-                          ++ (map (h: h + ":9090") prometheusHostNamesOtherDC);
+                targets = cfg.blackboxExporter.staticBlackboxHttpTargets;
                 interval = "50s";
               }
             )]
