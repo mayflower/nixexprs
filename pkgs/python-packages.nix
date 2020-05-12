@@ -1,28 +1,14 @@
 self: super: {
-  aiosmtpd = super.callPackage ./python/aiosmtpd { };
   atpublic = super.callPackage ./python/atpublic { };
   automx = super.callPackage ./python/automx { };
   colorhash = super.callPackage ./python/colorhash { };
   coloredlogs = super.callPackage ./python/coloredlogs { };
-  cssmin = super.callPackage ./python/cssmin { };
   django-allauth = super.callPackage ./python/django-allauth { };
   django-gravatar2 = super.callPackage ./python/django-gravatar2 { };
-  django-mailman3 = super.callPackage ./python/django-mailman3 { };
-  django-paintstore = super.callPackage ./python/django-paintstore { };
-  django-q = super.callPackage ./python/django-q { };
   duckling = super.callPackage ./python/duckling { };
   fakeredis = super.callPackage ./python/fakeredis { };
   fbmessenger = super.callPackage ./python/fbmessenger { };
-  flufl-bounce = super.callPackage ./python/flufl-bounce { };
-  flufl-i18n = super.callPackage ./python/flufl-i18n { };
-  flufl-lock = super.callPackage ./python/flufl-lock { };
-  flufl-testing = super.callPackage ./python/flufl-testing { };
   humanfriendly = super.callPackage ./python/humanfriendly { };
-  lazr-config = super.callPackage ./python/lazr-config { };
-  lazr-delegates = super.callPackage ./python/lazr-delegates { };
-  lazr-smtptest = super.callPackage ./python/lazr-smtptest { };
-  mailmanclient = super.callPackage ./python/mailmanclient { };
-  mailman-hyperkitty = super.callPackage ./python/mailman-hyperkitty { };
   mattermostwrapper = super.callPackage ./python/mattermostwrapper { };
   pykwalify = super.callPackage ./python/pykwalify { };
   python3-openid = super.callPackage ./python/python3-openid { };
@@ -32,6 +18,13 @@ self: super: {
   robot-detection = super.callPackage ./python/robot-detection { };
   sklearn-crfsuite = super.callPackage ./python/sklearn-crfsuite { };
   verboselogs = super.callPackage ./python/verboselogs { };
+
+  privacyidea = super.privacyidea.overrideAttrs (old: {
+    patches = old.patches or [] ++ [
+      ./privacyidea/0001-remove-subscription-check.patch
+      ./privacyidea/add-description.patch
+    ];
+  });
 
   graphviz = super.graphviz.overrideAttrs (oldAttrs: rec {
     pname = "graphviz";
@@ -53,6 +46,10 @@ self: super: {
       sha256 = "1302fqsrx8w474xk5cmnmg3hjqfprlxnjg9qlg86arsr4v4vqm4b";
     };
     propagatedBuildInputs = with super; [ django python-dateutil whoosh pysolr elasticsearch setuptools_scm ];
+  });
+
+  postorius = super.postorius.overrideAttrs ({patches ? [], ...}: {
+    patches = patches ++ [ ./postorius_users_can_create_lists.patch ];
   });
 
   # geopy FIXME
