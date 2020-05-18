@@ -2,7 +2,7 @@
 with lib;
 
 let
-  deviceFilter = ''device!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
+  deviceFilter = ''fstype!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
 in mapAttrsToList (name: opts: {
   alert = name;
   expr = opts.condition;
@@ -44,13 +44,25 @@ in mapAttrsToList (name: opts: {
     condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[2d], 7*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
-    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 7 days";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 7 days";
   };
   node_filesystem_full_in_30d = {
     condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[30d], 30*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 30 days.";
-    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 30 days";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 30 days";
+  };
+  node_inodes_full_in_7d = {
+    condition = ''predict_linear(node_filesystem_files_free{${deviceFilter}}[2d], 7*24*3600) < 0'';
+    time = "1h";
+    summary = "{{$labels.alias}}: Filesystem is running out of inodes in 7 days.";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of inodes in approx. 7 days";
+  };
+  node_inodes_full_in_30d = {
+    condition = ''predict_linear(node_filesystem_files_free{${deviceFilter}}[30d], 30*24*3600) < 0'';
+    time = "1h";
+    summary = "{{$labels.alias}}: Filesystem is running out of inodes in 30 days.";
+    description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of inodes in approx. 30 days";
   };
   node_filedescriptors_full_in_3h = {
     condition = ''predict_linear(node_filefd_allocated[3h], 3*3600) >= node_filefd_maximum'';
@@ -159,7 +171,7 @@ in mapAttrsToList (name: opts: {
     description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes.";
   };
   unifi_devices_adopted_changed = {
-    condition = "abs(delta(unifi_devices_adopted[5m])) >= 1";
+    condition = "abs(delta(unifi_devices_adopted[1h])) >= 1";
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
     description = "Unifi: number of adopted devices has changed: {{$value}}";
   };
@@ -182,5 +194,10 @@ in mapAttrsToList (name: opts: {
     condition = "increase(mail_send_fails_total[1h]) >= 1";
     summary = "{{$labels.alias}}: Mail send failed";
     description = "{{$labels.alias}}: Mail send failed";
+  };
+  alerts_silences_changed = {
+    condition = ''abs(delta(alertmanager_silences{state="active"}[1h])) >= 1'';
+    summary = "alertmanager: number of active silences has changed: {{$value}}";
+    description = "alertmanager: number of active silences has changed: {{$value}}";
   };
 }

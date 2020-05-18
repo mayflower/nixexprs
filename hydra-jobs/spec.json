@@ -9,6 +9,7 @@
     "enableemail": true,
     "emailoverride": "devnull+hydra@mayflower.de",
     "keepnr": 3,
+    "type": 0,
     "inputs": {
         "src": { "type": "git", "value": "git://github.com/mayflower/nixexprs", "emailresponsible": false },
         "nixpkgs": { "type": "git", "value": "git://github.com/mayflower/nixpkgs.git", "emailresponsible": false }

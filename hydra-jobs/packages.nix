@@ -111,7 +111,6 @@ in
   docker-distribution = all;
   docker-machine = all;
   dovecot = all;
-  dovecotWithPgSQL = all;
   dovecot_pigeonhole = all;
   dpkg = all;
   e2fsprogs = all;
@@ -207,7 +206,7 @@ in
   hplip = all;
   htop = all;
   hugo = all;
-  hydra = all;
+  hydra-unstable = all;
   i3 = all;
   i3-gaps = all;
   i3lock = all;
@@ -216,7 +215,6 @@ in
   icecast = all;
   icedtea_web = all;
   icewm = all;
-  idutils = all;
   iftop = all;
   imagemagick = all;
   inetutils = all;
@@ -291,13 +289,10 @@ in
   mesa_drivers = all;
   mingetty = all;
   minikube = all;
-  mirage = all;
   mk = all;
   mkpasswd = all;
   mktemp = all;
   module_init_tools = all;
-  mongodb = all;
-  monotone = all;
   mosh = all;
   mpd = all;
   mpg321 = all;
@@ -379,14 +374,12 @@ in
   pkgconfig = all;
   ponysay = all;
   postfix = all;
-  postfixWithPgSQL = all;
   postgresql = all;
   postgresql_9_5 = all;
   postgresql_9_6 = all;
   postgresql_10 = all;
   postgresql_11 = all;
   powertop = all;
-  privacyidea = all;
   privoxy = all;
   procps = all;
   prometheus = all;
@@ -409,7 +402,7 @@ in
   pythonFull = all;
   pythonPackages = {
     binwalk = all;
-    django = all;
+    privacyidea-ldap-proxy = all;
     urllib3 = all;
   };
   python3Packages = {
@@ -426,6 +419,7 @@ in
     pandas = linux;
     plotly = linux;
     pyramid = linux;
+    privacyidea = all;
     scipy = all;
     scikitlearn = all;
     slackclient = linux;
@@ -453,7 +447,6 @@ in
   redshift = all;
   rfkill = all;
   ripgrep = all;
-  rkt = all;
   rlwrap = all;
   rrdtool = all;
   rspamd = all;
@@ -484,7 +477,6 @@ in
   sqliteInteractive = all;
   squid = all;
   sshfsFuse = all;
-  sslscan = all;
   ssmtp = all;
   stack = all;
   stdenv = all;
@@ -609,7 +601,6 @@ in
   eb-garamond = all;
   font-awesome-ttf = all;
   freefont_ttf = all;
-  freeorion = all;
   gentium = all;
   hack-font = all;
   inconsolata = all;
