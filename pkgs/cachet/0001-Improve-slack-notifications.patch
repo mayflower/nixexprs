@@ -55,7 +55,7 @@ diff --git a/app/Notifications/Schedule/NewScheduleNotification.php b/app/Notifi
 index 3b04bc67..b560c98e 100644
 --- a/app/Notifications/Schedule/NewScheduleNotification.php
 +++ b/app/Notifications/Schedule/NewScheduleNotification.php
-@@ -119,12 +119,14 @@ class NewScheduleNotification extends Notification implements ShouldQueue
+@@ -119,12 +119,13 @@ class NewScheduleNotification extends Notification implements ShouldQueue
          return (new SlackMessage())
                      ->content(trans('notifications.schedule.new.slack.title'))
                      ->attachment(function ($attachment) use ($content) {
@@ -67,9 +67,7 @@ index 3b04bc67..b560c98e 100644
                                         'Status' => $this->schedule->human_status,
 +                                       'Message' => $this->schedule->message,
                                     ]));
--                    });
-+                    })
-+                    ->footer($this->schedule->message);
+                     });
      }
  }
 -- 
