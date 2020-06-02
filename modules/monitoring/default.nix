@@ -135,7 +135,10 @@ let
     ];
   };
 in {
-  imports = [ ./blackbox-exporter.nix ];
+  imports = [
+    ./blackbox-exporter.nix
+    ./smartmon-textfile.nix
+  ];
   options = {
     # extends base nginx.virtualHosts
     services.nginx.virtualHosts = mkOption {
