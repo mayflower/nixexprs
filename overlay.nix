@@ -25,21 +25,6 @@ self: super:
     '';
   });
 
-  grafana-loki = super.grafana-loki.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.makeWrapper ];
-    buildInputs = oldAttrs.buildInputs ++ [ super.systemd.dev ];
-    src = super.fetchFromGitHub {
-      rev = "3d5319e72afb8008e1ed75432af4212fc7e5be47";
-      owner = "grafana";
-      repo = "loki";
-      sha256 = "1pdq4lf4v9rnsvdippb9bh1nsp8rjcv7yq709n3kx6az9v4wmkdh";
-    };
-    preFixup = oldAttrs.preFixup + ''
-      wrapProgram $bin/bin/promtail \
-        --prefix LD_LIBRARY_PATH : "${super.systemd.lib}/lib"
-    '';
-  });
-
   defaultGemConfig = super.defaultGemConfig // {
     oxidized = (attrs: rec {
       tplinkPatch = (super.fetchpatch {
@@ -60,8 +45,8 @@ self: super:
   '';
 
   inherit (import (builtins.fetchTarball {
-    # 2019-12-12
-    url = "https://github.com/nixos/nixpkgs/archive/d2eba63b317f2112260b50bb3f61aa4b879e9041.tar.gz";
-    sha256 = "02h927vivzc1g4qkyyjw8xdxinfzc7l065qqljkz9r9g0frh8xkp";
+    # 2020-06-03
+    url = "https://github.com/nixos/nixpkgs/archive/86a8c3f48591257f2fe4f25dddcc5958f287ebd4.tar.gz";
+    sha256 = "11930iwshikysq2hq6k41wwq6m0wyqjgqnwsg2vfg8f9997iq8p5";
   }) {}) matrix-appservice-slack;
 }
