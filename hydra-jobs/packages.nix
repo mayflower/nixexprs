@@ -15,7 +15,6 @@ let
     bcc = all;
     kernel = all;
     perf = all;
-    wireguard = all;
     zfs = all;
     zfsUnstable = all;
     cpupower = all;
@@ -562,7 +561,7 @@ in
   znapzend = all;
   zsh = all;
 
-  linuxPackages = kernelPackages;
+  linuxPackages = kernelPackages // { wireguard = all; };
   linuxPackages_latest = kernelPackages;
 
   nodePackages = {
@@ -590,9 +589,8 @@ in
   };
 
   # Mailan3
-  mailman3 = all;
-  postorius = all;
-  hyperkitty = all;
+  mailman = all;
+  mailman-web = all;
 
   # Fonts
   clearlyU = all;
