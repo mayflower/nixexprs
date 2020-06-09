@@ -41,37 +41,43 @@ in mapAttrsToList (name: opts: {
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 20% space left on its filesystem.";
   };
   node_filesystem_full_in_7d = {
-    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[2d], 7*24*3600) <= 0'';
+    condition = ''node_filesystem_free_bytes{${deviceFilter}} ''
+      + ''and predict_linear(node_filesystem_free_bytes{${deviceFilter}}[2d], 7*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 7 days";
   };
   node_filesystem_full_in_30d = {
-    condition = ''predict_linear(node_filesystem_free_bytes{${deviceFilter}}[30d], 30*24*3600) <= 0'';
+    condition = ''node_filesystem_free_bytes{${deviceFilter}} ''
+      + ''and predict_linear(node_filesystem_free_bytes{${deviceFilter}}[30d], 30*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 30 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 30 days";
   };
   node_inodes_full_in_7d = {
-    condition = ''predict_linear(node_filesystem_files_free{${deviceFilter}}[2d], 7*24*3600) < 0'';
+    condition = ''node_filesystem_files_free{${deviceFilter}} ''
+      + ''and predict_linear(node_filesystem_files_free{${deviceFilter}}[2d], 7*24*3600) < 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of inodes in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of inodes in approx. 7 days";
   };
   node_inodes_full_in_30d = {
-    condition = ''predict_linear(node_filesystem_files_free{${deviceFilter}}[30d], 30*24*3600) < 0'';
+    condition = ''node_filesystem_files_free{${deviceFilter}} ''
+      + ''and predict_linear(node_filesystem_files_free{${deviceFilter}}[30d], 30*24*3600) < 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of inodes in 30 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of inodes in approx. 30 days";
   };
   node_filedescriptors_full_in_3h = {
-    condition = ''predict_linear(node_filefd_allocated[3h], 3*3600) >= node_filefd_maximum'';
+    condition = ''node_filefd_allocated ''
+      + ''and predict_linear(node_filefd_allocated[3h], 3*3600) >= node_filefd_maximum'';
     time = "20m";
     summary = "{{$labels.alias}} is running out of available file descriptors in 3 hours.";
     description = "{{$labels.alias}} is running out of available file descriptors in approx. 3 hours";
   };
   node_filedescriptors_full_in_7d = {
-    condition = ''predict_linear(node_filefd_allocated[7d], 7*24*3600) >= node_filefd_maximum'';
+    condition = ''node_filefd_allocated ''
+      + ''and predict_linear(node_filefd_allocated[7d], 7*24*3600) >= node_filefd_maximum'';
     time = "1h";
     summary = "{{$labels.alias}} is running out of available file descriptors in 7 days.";
     description = "{{$labels.alias}} is running out of available file descriptors in approx. 7 days";
