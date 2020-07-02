@@ -169,6 +169,16 @@ in {
         '';
       };
 
+      exemptNodeCollectors = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          Disables the specified node_exporter collectors.
+          This is mainly useful for containers
+          if the host already reports the same metrics.
+        '';
+      };
+
       extraScrapeConfigs = mkOption {
         type = types.attrsOf types.attrs;
         default = {};
@@ -259,7 +269,7 @@ in {
         node = {
           enable = true;
           openFirewall = true;
-          enabledCollectors = [
+          enabledCollectors = subtractLists cfg.exemptNodeCollectors ([
             "conntrack"
             "diskstats"
             "filefd"
@@ -279,8 +289,8 @@ in {
             "interrupts"
             "ksmd"
             "bonding"
-          ];
-          disabledCollectors = [
+          ]);
+          disabledCollectors = concatLists cfg.exemptNodeCollectors ([
             "infiniband"
           ] ++ optionals config.boot.isContainer [
             "timex"
@@ -288,7 +298,7 @@ in {
             "entropy"
             "hwmon"
             "zfs"
-          ];
+          ]);
         };
         nextcloud = {
           enable = config.services.nextcloud.enable;
