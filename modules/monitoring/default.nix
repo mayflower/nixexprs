@@ -259,34 +259,48 @@ in {
         node = {
           enable = true;
           openFirewall = true;
+          extraFlags = [ "--collector.disable-defaults" ];
           enabledCollectors = [
+            "arp"
+            "bcache"
             "conntrack"
             "diskstats"
             "filefd"
             "filesystem"
+            "ipvs"
+            "logind"
+            "mdadm"
+            "netclass"
             "netdev"
             "netstat"
+            "nfs"
+            "nfsd"
+            "rapl"
+            "schedstat"
+            "sockstat"
+            "softnet"
+            "stat"
+            "systemd"
+            "textfile.directory /run/prometheus-node-exporter"
+            "thermal_zone"
             "time"
+            "udp_queues"
             "uname"
             "vmstat"
-            "systemd"
-            "logind"
-            "loadavg"
-            "meminfo"
-            "stat"
-            "textfile.directory /run/prometheus-node-exporter"
           ] ++ optionals (!config.boot.isContainer) [
-            "interrupts"
-            "ksmd"
             "bonding"
-          ];
-          disabledCollectors = [
-            "infiniband"
-          ] ++ optionals config.boot.isContainer [
-            "timex"
+            "cpu"
+            "cpufreq"
             "edac"
             "entropy"
             "hwmon"
+            "interrupts"
+            "ksmd"
+            "loadavg"
+            "meminfo"
+            "pressure"
+            "timex"
+            "xfs"
             "zfs"
           ];
         };
