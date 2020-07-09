@@ -134,6 +134,9 @@ let
       }
     ];
   };
+
+  mountsFileSystemType = fsType: {} != filterAttrs (n: v: v.fsType == fsType) config.fileSystems;
+
 in {
   imports = [
     ./blackbox-exporter.nix
@@ -264,19 +267,12 @@ in {
             "arp"
             "bcache"
             "conntrack"
-            "diskstats"
             "filefd"
-            "filesystem"
-            "ipvs"
             "logind"
-            "mdadm"
             "netclass"
             "netdev"
             "netstat"
-            "nfs"
-            "nfsd"
             "rapl"
-            "schedstat"
             "sockstat"
             "softnet"
             "stat"
@@ -288,11 +284,12 @@ in {
             "uname"
             "vmstat"
           ] ++ optionals (!config.boot.isContainer) [
-            "bonding"
             "cpu"
             "cpufreq"
+            "diskstats"
             "edac"
             "entropy"
+            "filesystem"
             "hwmon"
             "interrupts"
             "ksmd"
@@ -300,9 +297,19 @@ in {
             "meminfo"
             "pressure"
             "timex"
-            "xfs"
-            "zfs"
-          ];
+          ] ++ (
+            optionals (config.services.nfs.server.enable) [ "nfsd" ]
+          ) ++ (
+            optionals ("" != config.boot.initrd.mdadmConf) [ "mdadm" ]
+          ) ++ (
+            optionals ({} != config.networking.bonds) [ "bonding" ]
+          ) ++ (
+            optionals (mountsFileSystemType "nfs") [ "nfs" ]
+          ) ++ (
+            optionals (mountsFileSystemType "xfs") [ "xfs" ]
+          ) ++ (
+            optionals (mountsFileSystemType "zfs" || elem "zfs" config.boot.supportedFilesystems) [ "zfs" ]
+          );
         };
         nextcloud = {
           enable = config.services.nextcloud.enable;
