@@ -25,7 +25,6 @@ in {
       };
       nodeAddress = mkOption {
         type = types.str;
-        default = config.deployment.targetHost;
         description = ''
           Address of this node other nodes should connect to. Defaults to deployment.targetHost address
         '';
@@ -65,6 +64,7 @@ in {
   };
 
   config = mkIf (clusterName != null) {
+    mayflower.openldap-ha.nodeAddress = lib.mkDefault config.deployment.targetHost;
     services = {
       openldap = {
         extraConfig = ''

@@ -51,7 +51,6 @@ in
       defaultHomeServerUrl = mkOption {
         type = types.str;
         example = "https://matrix.org/";
-        default = "https://${cfg.fqdn}/";
         description = ''
           The default home server URL Riot should use.
         '';
@@ -368,5 +367,7 @@ in
         '';
       };
     };
+
+    mayflower.matrix.riot.defaultHomeServerURL = lib.mkDefault "https://${cfg.fqdn}/";
   };
 }

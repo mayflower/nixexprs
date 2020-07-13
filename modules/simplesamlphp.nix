@@ -193,7 +193,6 @@ in
 
       baseUrlPath = mkOption {
         type = types.str;
-        default = "https://${cfg.hostname}${cfg.samlLocation}/";
         description = ''
           The base URL (e.g. https://sso.example.org/saml/). Secure (https) by
           default, but can be overriden with this option for local test cases.
@@ -395,6 +394,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    services.simplesamlphp.hostname = lib.mkDefault "https://${cfg.hostname}${cfg.samlLocation}/";
 
     system.activationScripts.simplesamlphp = ''
       mkdir -p /run/simplesamlphp/{metadata,config,modules}

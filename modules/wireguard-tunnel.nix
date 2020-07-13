@@ -25,7 +25,6 @@ in {
       };
       nodeAddress = mkOption {
         type = types.str;
-        default = config.deployment.targetHost;
         description = ''
           Address of this node to which other nodes should connect to. Defaults to deployment.targetHost address
         '';
@@ -58,6 +57,7 @@ in {
   };
 
   config = mkIf (tunnelName != null) {
+    mayflower.wireguard-tunnel.nodeAddress = lib.mkDefault config.deployment.targetHost;
     networking.wireguard.interfaces.${tunnelName} = {
       inherit (cfg) privateKey;
       inherit (cfg) listenPort;
