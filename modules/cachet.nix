@@ -144,7 +144,6 @@ in
       root = "${cfg.dataDir}/cachet-home/public";
       forceSSL = true;
       enableACME = true;
-      basicAuth = { "mayflower" = "best4all"; };
       locations = {
         "/".extraConfig = ''
           add_header Strict-Transport-Security max-age=15768000;
