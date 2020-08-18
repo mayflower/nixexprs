@@ -368,6 +368,6 @@ in
       };
     };
 
-    mayflower.matrix.riot.defaultHomeServerURL = lib.mkDefault "https://${cfg.fqdn}/";
+    mayflower.matrix.riot.defaultHomeServerUrl = lib.mkDefault "https://${cfg.fqdn}/";
   };
 }
