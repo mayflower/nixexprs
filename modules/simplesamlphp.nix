@@ -394,7 +394,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.simplesamlphp.hostname = lib.mkDefault "https://${cfg.hostname}${cfg.samlLocation}/";
+    services.simplesamlphp.baseUrlPath = lib.mkDefault "https://${cfg.hostname}${cfg.samlLocation}/";
 
     system.activationScripts.simplesamlphp = ''
       mkdir -p /run/simplesamlphp/{metadata,config,modules}
