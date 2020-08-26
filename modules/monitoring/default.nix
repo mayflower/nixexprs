@@ -277,6 +277,7 @@ in {
             "softnet"
             "stat"
             "systemd"
+            "textfile"
             "textfile.directory /run/prometheus-node-exporter"
             "thermal_zone"
             "time"
