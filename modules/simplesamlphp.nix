@@ -42,6 +42,9 @@ let
   configFile = pkgs.writeText "config.php" ''
     <?php
 
+    $adminpassword = file('${cfg.adminPasswordFile}', FILE_IGNORE_NEW_LINES)[0];
+    $secretsalt = file('${cfg.secretSaltFile}', FILE_IGNORE_NEW_LINES)[0];
+
     $config = array_merge([
         'baseurlpath' => '${cfg.baseUrlPath}',
         'certdir' => 'cert/',
@@ -51,8 +54,8 @@ let
         'technicalcontact_name' => 'Administrator',
         'technicalcontact_email' => '${cfg.technicalContactEmail}',
         'timezone' => null,
-        'secretsalt' => '${cfg.secretSalt}',
-        'auth.adminpassword' => '${cfg.adminPassword}',
+        'secretsalt' => $secretsalt,
+        'auth.adminpassword' => $adminpassword,
         'admin.protectindexpage' => false,
         'admin.protectmetadata' => false,
         'admin.checkforupdates' => ${boolToString cfg.checkForUpdates},
@@ -205,20 +208,17 @@ in
         description = "The email that's shown if something goes wrong.";
       };
 
-      adminPassword = mkOption {
-        type = types.str;
-        default = "";
+      adminPasswordFile = mkOption {
+        type = types.path;
         description = ''
-          Password for the default admin user. Is directly inserted into the PHP
-          source files and lives world-readable in the nix store.
+          Password file for the default admin user.
         '';
       };
 
-      secretSalt = mkOption {
-        type = types.str;
-        default = "defaultsecretsalt";
+      secretSaltFile = mkOption {
+        type = types.path;
         description = ''
-          Salt for hash generation. SimpleSAMLphp will warn if not changed.
+          File with salt for hash generation.
         '';
       };
 
