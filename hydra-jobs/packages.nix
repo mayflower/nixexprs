@@ -406,7 +406,6 @@ in
   };
   python3Packages = {
     binwalk = all;
-    cufflinks = all;
     django = all;
     git-pandas = all;
     imageio = all;
