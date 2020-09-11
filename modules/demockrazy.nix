@@ -51,8 +51,7 @@ let
           },
       }
 
-      with open('${cfg.secretKeyFile}') as secret_file:
-        SECRET_KEY = secret_file.read().strip()
+      SECRET_KEY = r"""${cfg.secretKey}"""
 
       ${optionalString (cfg.mail.host != null) "EMAIL_HOST = \"${cfg.mail.host}\""}
       EMAIL_PORT = ${toString cfg.mail.port}
@@ -88,10 +87,10 @@ in {
         Django log level
       '';
     };
-    secretKeyFile = mkOption {
-      type = types.path;
+    secretKey = mkOption {
+      type = types.str;
       description = ''
-        File containing the Django secret key
+        Django secret key
       '';
     };
     baseUrl = mkOption {
@@ -193,7 +192,6 @@ in {
           plugins = [ "python3" ];
           pythonpath = "${djangoenv}/${uwsgi.python3.sitePackages}";
           uid = "demockrazy";
-          gid = "demockrazy";
           socket = "/run/demockrazy/uwsgi.socket";
           chown-socket = "demockrazy:nginx";
           chmod-socket = 770;
@@ -234,12 +232,11 @@ in {
       };
     };
     systemd.tmpfiles.rules = [
-      "d /var/lib/demockrazy 0755 demockrazy demockrazy -"
-      "d /var/lib/demockrazy/static 0755 demockrazy demockrazy -"
-      "d /run/demockrazy 0755 demockrazy demockrazy -"
+      "d /var/lib/demockrazy 0755 demockrazy nogroup -"
+      "d /var/lib/demockrazy/static 0755 demockrazy nogroup -"
+      "d /run/demockrazy 0755 demockrazy nogroup -"
     ];
 
-    users.users.demockrazy.group = "demockrazy";
-    users.groups.demockrazy = {};
+    users.extraUsers.demockrazy = {};
   };
 }
