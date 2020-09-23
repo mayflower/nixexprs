@@ -43,10 +43,4 @@ self: super:
     mkdir -p $out/bin
     ln -vs ${super.ma1sd}/bin/ma1sd $out/bin/mxisd
   '';
-
-  inherit (import (builtins.fetchTarball {
-    # 2020-06-03
-    url = "https://github.com/nixos/nixpkgs/archive/86a8c3f48591257f2fe4f25dddcc5958f287ebd4.tar.gz";
-    sha256 = "11930iwshikysq2hq6k41wwq6m0wyqjgqnwsg2vfg8f9997iq8p5";
-  }) {}) matrix-appservice-slack;
 }
