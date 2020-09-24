@@ -115,7 +115,6 @@ in
   e2fsprogs = all;
   efibootmgr = all;
   efivar = all;
-  emacs25 = gtkSupported;
   EmptyEpsilon = all;
   enscript = all;
   etcd = all;
