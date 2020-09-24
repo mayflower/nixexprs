@@ -2,6 +2,7 @@
 
 let
   pkgs = import nixpkgs {};
+  inherit (pkgs) lib;
   defaultSettings = {
     enabled = "1";
     hidden = false;
@@ -15,7 +16,7 @@ let
     inputs = {
       nixpkgs = {
         type = "git";
-        value = "git://github.com/mayflower/nixpkgs";
+        value = "https://github.com/mayflower/nixpkgs";
         emailresponsible = false;
       };
       nixexprs = {
@@ -32,31 +33,37 @@ let
     enableemail = true;
     emailoverride = "devnull+hydra@mayflower.de";
   };
-  jobsets = with pkgs.lib; mapAttrs (name: settings: recursiveUpdate defaultSettings settings) (rec {
+
+  jobsets = lib.mapAttrs (name: settings: lib.recursiveUpdate defaultSettings settings) (rec {
     bootstrap-tools = {
       keepnr = 2;
       nixexprinput = "nixpkgs";
       nixexprpath = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
     };
-    hydra-jobs-stable = {
+    hydra-jobs = {
       keepnr = 3;
       schedulingshares = 420;
     };
-    hydra-jobs-next = recursiveUpdate hydra-jobs-stable {
-      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-next";
-      inputs.nixexprs.value = "${defaultSettings.inputs.nixexprs.value} mf-next";
-    };
-    hydra-jobs-arm-cross = {
-      #inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-cross";
-      nixexprpath = "hydra-jobs/arm-cross.nix";
-      schedulingshares = 5;
-    };
-    nixos-small-stable = {
+    nixos-small = {
       nixexprinput = "nixpkgs";
       nixexprpath = "nixos/release-small.nix";
     };
-    docs.nixexprpath = "hydra-jobs/docs.nix";
+    docs = {
+      nixexprpath = "hydra-jobs/docs.nix";
+    };
+    #hydra-jobs-arm-cross = {
+    #  nixexprpath = "hydra-jobs/arm-cross.nix";
+    #  schedulingshares = 5;
+    #};
   });
+
+  jobsets-next = lib.mapAttrs' (name: value: {
+    name = "next-${name}";
+    value = lib.recursiveUpdate value {
+      inputs.nixpkgs.value = "https://github.com/mayflower/nixpkgs mf-next";
+      inputs.nixexprs.value = "https://github.com/mayflower/nixexprs mf-next";
+    };
+  }) jobsets;
 in {
-  jobsets = pkgs.writeText "spec.json" (builtins.toJSON jobsets);
+  jobsets = pkgs.writeText "spec.json" (builtins.toJSON (jobsets // jobsets-next));
 }
