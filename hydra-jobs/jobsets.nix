@@ -38,49 +38,24 @@ let
       nixexprinput = "nixpkgs";
       nixexprpath = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
     };
-    hydra-jobs-master = {
+    hydra-jobs-stable = {
       keepnr = 3;
       schedulingshares = 420;
     };
-    hydra-jobs-production = recursiveUpdate hydra-jobs-master {
-      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} production";
+    hydra-jobs-next = recursiveUpdate hydra-jobs-stable {
+      inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-next";
+      inputs.nixexprs.value = "${defaultSettings.inputs.nixexprs.value} mf-next";
     };
-    mayflower-master = {
-      nixexprpath = "hydra-jobs/dist.nix";
-    };
-    mayflower-production = {
-      nixexprpath = "hydra-jobs/dist.nix";
-      inputs = hydra-jobs-production.inputs;
-    };
-    nixos-small-master = {
-      nixexprinput = "nixpkgs";
-      nixexprpath = "nixos/release-small.nix";
-    };
-    nixpkgs-manual = {
-      nixexprinput = "nixpkgs";
-      nixexprpath = "doc/default.nix";
-    };
-    #"nixpkgs-stats"= {
-    #  enabled = "1";
-    #  nixexprinput = "stats";
-    #  keepnr = 5;
-    #  checkinterval = 3600;
-    #  inputs = {
-    #    stats = {
-    #      type = "git";
-    #      value = "https://git.mayflower.de/open-source/nixpkgs-stats";
-    #    };
-    #    nixpkgs = {
-    #      type = "git";
-    #      value = "git://github.com/mayflower/nixpkgs";
-    #    };
-    #  };
-    #};
     hydra-jobs-arm-cross = {
       #inputs.nixpkgs.value = "${defaultSettings.inputs.nixpkgs.value} mf-cross";
       nixexprpath = "hydra-jobs/arm-cross.nix";
       schedulingshares = 5;
     };
+    nixos-small-stable = {
+      nixexprinput = "nixpkgs";
+      nixexprpath = "nixos/release-small.nix";
+    };
+    docs.nixexprpath = "hydra-jobs/docs.nix";
   });
 in {
   jobsets = pkgs.writeText "spec.json" (builtins.toJSON jobsets);
