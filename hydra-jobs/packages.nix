@@ -400,7 +400,6 @@ in
     binwalk = all;
     django = all;
     imageio = all;
-    irc = linux;
     joblib = all;
     jupyter = linux;
     nltk = all;
