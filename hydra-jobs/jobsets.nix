@@ -16,7 +16,7 @@ let
     inputs = {
       nixpkgs = {
         type = "git";
-        value = "https://github.com/mayflower/nixpkgs";
+        value = "https://github.com/mayflower/nixpkgs mf-stable";
         emailresponsible = false;
       };
       nixexprs = {
