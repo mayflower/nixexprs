@@ -11,7 +11,7 @@
     "keepnr": 3,
     "type": 0,
     "inputs": {
-        "src": { "type": "git", "value": "git://github.com/mayflower/nixexprs mf-next", "emailresponsible": false },
-        "nixpkgs": { "type": "git", "value": "git://github.com/mayflower/nixpkgs.git", "emailresponsible": false }
+        "src": { "type": "git", "value": "https://github.com/mayflower/nixexprs mf-next", "emailresponsible": false },
+        "nixpkgs": { "type": "git", "value": "https://github.com/mayflower/nixpkgs.git mf-stable", "emailresponsible": false }
     }
 }
