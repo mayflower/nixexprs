@@ -52,7 +52,7 @@ let
     m.services.prometheus.exporters.fritzbox.enable
   ));
   openvpnExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus.openvpnExporter.enable
+    m.services.prometheus.exporters.openvpn.enable
   ));
   nginxSSLVhosts = flatten (flip mapAttrsToList allHosts (_: m:
     optionals m.services.nginx.enable (
