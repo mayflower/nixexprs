@@ -138,11 +138,28 @@ let
     ];
   };
 
+  mkSNMPConfig = { hostname, module, targets, interval ? "60s" }: {
+    job_name = "snmp_${module}";
+    scrape_interval = interval;
+    metrics_path = "/snmp";
+    params.module = [module];
+    static_configs = [{
+      inherit targets;
+      labels.source = hostname;
+    }];
+    relabel_configs = [
+      { source_labels = [ "__address__" ]; target_label = "__param_target"; }
+      { source_labels = [ "__param_target" ]; target_label = "instance"; }
+      { target_label = "__address__"; replacement = "${hostname}:9116"; }
+    ];
+  };
+
   mountsFileSystemType = fsType: {} != filterAttrs (n: v: v.fsType == fsType) config.fileSystems;
 
 in {
   imports = [
     ./blackbox-exporter.nix
+    ./snmp-exporter.nix
     ./smartmon-textfile.nix
   ];
   options = {
@@ -442,7 +459,7 @@ in {
               port = 9205;
             };
           } // extraScrapeConfigsSameDC)) ++
-          (flatten (flip map cfg.server.blackboxExporterHosts (hostname:
+          (flip concatMap cfg.server.blackboxExporterHosts (hostname:
             (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
               {
                 inherit hostname module;
@@ -473,7 +490,13 @@ in {
                 interval = "50s";
               }
             )]
-          )));
+          )) ++
+          (forEach (attrNames cfg.snmpExporter.modules) (module: mkSNMPConfig {
+              hostname = "localhost";
+              inherit module;
+              inherit (cfg.snmpExporter.modules.${module}) targets;
+            })
+          );
         };
       }
       (mkIf cfg.server.configurePrometheusAlertmanagers {
