@@ -122,7 +122,6 @@ with lib;
         recommendedProxySettings = true;
       };
 
-      nscd.enable = false;
       udisks2.enable = false;
       ntp.enable = false;
       timesyncd.enable = false;
