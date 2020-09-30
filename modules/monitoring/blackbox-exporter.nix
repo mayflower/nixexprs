@@ -28,7 +28,7 @@ in {
         default = [];
         description = "";
       };
-      blackboxCheckIP6 = mkOption {
+      checkIP6 = mkOption {
         type = types.bool;
         default = true;
         description = "";
@@ -39,7 +39,9 @@ in {
     systemd.services.prometheus-blackbox-exporter.serviceConfig.LimitNOFILE = 1024000;
     services.prometheus.exporters.blackbox = {
       enable = true;
-      configFile = pkgs.writeText "blackbox-exporter.yaml" (builtins.toJSON {
+      configFile = let
+        if6 = name: if cfg.checkIP6 then name else null;
+      in pkgs.writeText "blackbox-exporter.yaml" (builtins.toJSON {
         modules = {
           http_2xx = {
             prober = "http";
@@ -59,7 +61,7 @@ in {
               preferred_ip_protocol = "ip4";
             };
           };
-          tcp_v6 = {
+          ${if6 "tcp_v6"} = {
             prober = "tcp";
             timeout = "5s";
             tcp = {
@@ -73,7 +75,7 @@ in {
               preferred_ip_protocol = "ip4";
             };
           };
-          icmp_v6 = {
+          ${if6 "icmp_v6"} = {
             prober = "icmp";
             timeout = "5s";
             icmp = {
