@@ -2,13 +2,16 @@
 Use the snmp_exporter's `generator` tool[1] to fill in an snmp.yml
 using MIB definitions from librenms.
 
-Pass an attribute set representing `generator.yml` to this function,
-and it will produce a derivation which in turn produces `snmp.yml`.
+Pass an attribute set containing:
+- config, an attrset representing `generator.yml`
+- (optionally) extraMIBs, a list of paths to include in the Net-SNMP search path
+to this function, and it will produce a derivation which in turn
+produces `snmp.yml`.
 
 [1]: https://github.com/prometheus/snmp_exporter/tree/master/generator
 */
-{ stdenvNoCC, prometheus-snmp-exporter, fetchFromGitHub }:
-config:
+{ stdenvNoCC, lib, prometheus-snmp-exporter, net-snmp, fetchFromGitHub }:
+{ config, extraMIBs ? [] }:
 
 let
   librenms_source = fetchFromGitHub {
@@ -21,11 +24,11 @@ in stdenvNoCC.mkDerivation {
   name = "snmp.yml";
   nativeBuildInputs = [ prometheus-snmp-exporter ];
   configJSON = builtins.toJSON config;
+  MIBDIRS = lib.concatStringsSep ":" extraMIBs;
   buildCommand = ''
     echo "$configJSON" > generator.yml
-    mkdir .snmp
-    ln -s ${librenms_source}/mibs .snmp/
-    HOME=. generator generate
+    export MIBDIRS="${net-snmp.out}/share/snmp/mibs:${librenms_source}/mibs:$MIBDIRS"
+    generator generate
     mv snmp.yml $out
   '';
 }

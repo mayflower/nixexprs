@@ -19,8 +19,13 @@ let
 in {
   options.mayflower.monitoring.snmpExporter = {
     enable = mkEnableOption "Mayflower SNMP exporter";
+    extraMIBs = mkOption {
+      type = types.listOf types.path;
+      description = "List of directories to be added to the MIB search path.";
+    };
     modules = mkOption {
       type = types.attrsOf moduleType;
+      default = {};
       description = "SNMP exporter modules to define and use.";
     };
   };
@@ -28,7 +33,8 @@ in {
     services.prometheus.exporters.snmp = {
       enable = true;
       configurationPath = pkgs.prometheus-snmp-exporter-generator {
-        modules = lib.mapAttrs (_: lib.flip builtins.removeAttrs ["targets"]) cfg.modules;
+        inherit (cfg) extraMIBs;
+        config.modules = lib.mapAttrs (_: lib.flip builtins.removeAttrs ["targets" "interval"]) cfg.modules;
       };
     };
   };
