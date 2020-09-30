@@ -125,13 +125,10 @@ let
       }
       {
         source_labels = [ "__param_target" ];
-        regex = "(.*)";
         target_label = "instance";
-        replacement = ''''${1}'';
       }
       {
         source_labels = [];
-        regex = ".*";
         target_label = "__address__";
         replacement = "${hostname}:9115";
       }
