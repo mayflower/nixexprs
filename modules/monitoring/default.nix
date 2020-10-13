@@ -457,7 +457,8 @@ in {
             };
           } // extraScrapeConfigsSameDC)) ++
           (flip concatMap cfg.server.blackboxExporterHosts (hostname:
-            (flip map [ "icmp_v4" "icmp_v6" ] (module: (mkBlackboxConfig
+            let withIpVersions = name: ["${name}_v4"] ++ optional cfg.blackboxExporter.checkIP6 "${name}_v6"; in
+            (forEach (withIpVersions "icmp") (module: (mkBlackboxConfig
               {
                 inherit hostname module;
                 targets = (hostNames allHostsSameDC)
@@ -465,7 +466,7 @@ in {
                           ++ prometheusHostNamesOtherDC;
               }
             ))) ++
-            (flip map [ "tcp_v4" "tcp_v6" ] (module: (mkBlackboxConfig
+            (flip map (withIpVersions "tcp") (module: (mkBlackboxConfig
               {
                 inherit hostname module;
                 targets = cfg.blackboxExporter.staticBlackboxTcpTargets;
