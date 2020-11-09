@@ -4,8 +4,8 @@ let
   prometheus-community-scripts = pkgs.fetchFromGitHub rec {
     owner  = "prometheus-community";
     repo   = "node-exporter-textfile-collector-scripts";
-    rev    = "48aaf1cba1309214d30a23a9f4c01816f20ff955";
-    sha256 = "19cfxw0l9ykskwgghi3nf51q2s99d9kicl5xsj8357zv79j6r33x";
+    rev    = "71a86190cef829a8d4fdadf86bda811a5b1c04a1";
+    sha256 = "0xw77yk6a3mqbwjrrwpjvcsjy5nfljbfzkiridhm4masldx1hllr";
   };
 
   smartmon-script = "${prometheus-community-scripts}/smartmon.py";
