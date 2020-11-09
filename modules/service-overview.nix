@@ -4,8 +4,9 @@ with lib;
 
 let
   cfg = config.mayflower.serviceOverview;
-  services = fold mergeAttrs {} (mapAttrsToList (_: c:
-    c.mayflower.serviceOverview.services
+  services = fold mergeAttrs {} (mapAttrsToList (n: c: let
+    result = builtins.tryEval c.mayflower.serviceOverview.services;
+  in if result.success then result else throw "serviceOverview.services missing for host ${n}"
   ) config.mayflower.machines);
 in
 {
