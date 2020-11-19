@@ -289,7 +289,6 @@ in {
             "netclass"
             "netdev"
             "netstat"
-            "rapl"
             "sockstat"
             "softnet"
             "stat"
