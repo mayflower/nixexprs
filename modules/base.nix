@@ -173,12 +173,5 @@ with lib;
 
     hardware.enableAllFirmware = mkDefault false;
     sound.enable = mkDefault false;
-
-    # set nixpkgs in NIX_PATH to the currently deployed git revision
-    nix.nixPath = let
-      gitRevCmd = "/run/current-system/sw/bin/cut -d. -f4 < /run/current-system/nixos-version";
-    in [
-      "nixpkgs=https://github.com/mayflower/nixpkgs/archive/$(${gitRevCmd}).tar.gz"
-    ];
   };
 }
