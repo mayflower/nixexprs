@@ -186,6 +186,7 @@ in
               extraConfig = ''
                 add_header X-Content-Type-Options "nosniff" always;
               '';
+              locations."/".extraConfig = "return 204;";
             };
           })
           (mkIf cfg.element.enable {
