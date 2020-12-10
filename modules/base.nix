@@ -143,6 +143,8 @@ with lib;
       };
     };
 
+    fonts.fontconfig.enable = lib.mkDefault config.services.xserver.enable;
+
     virtualisation.docker.autoPrune = {
       enable = mkDefault true;
       flags = [ "--all" "--volumes" ];
