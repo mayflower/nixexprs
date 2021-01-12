@@ -42,7 +42,7 @@ in mapAttrsToList (name: opts: {
   };
   node_filesystem_full_in_7d = {
     condition = ''node_filesystem_free_bytes{${deviceFilter}} ''
-      + ''and predict_linear(node_filesystem_free_bytes{${deviceFilter}}[2d], 7*24*3600) <= 0'';
+      + ''and predict_linear(node_filesystem_free_bytes{${deviceFilter}}[7d], 7*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 7 days";
