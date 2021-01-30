@@ -5,12 +5,13 @@ with lib;
 let
   cfg = config.mayflower.demockrazy;
   pkg = pkgs.stdenv.mkDerivation rec {
-    name = "demockrazy-2016-08-08";
+    pname = "demockrazy";
+    version = "2021-01-29";
     src = pkgs.fetchFromGitHub {
       owner = "mayflower";
       repo = "demockrazy";
-      rev = "b208d101831b7621f21e437827a906cdd0491b0a";
-      sha256 = "1rvsm8xkfkpjlbsmna1cyp4gzl7c30r4qd5q71msys7449hs6q0q";
+      rev = "7c0608b15e68c3bb013201de0b5ee0671ca533f7";
+      sha256 = "1fm6sw4jbh2l07z77sb2ah9vrl7h2hzafizs772liy0ail1s8ppx";
     };
 
     installPhase = ''
@@ -186,7 +187,7 @@ in {
     systemd.services.demockrazy = let
       uwsgi = pkgs.uwsgi.override { plugins = [ "python3" ]; };
       djangoenv = uwsgi.python3.buildEnv.override {
-        extraLibs = [ pkgs.python3Packages.django_1_11 configModule uwsgi ];
+        extraLibs = [ pkgs.python3Packages.django configModule uwsgi ];
       };
       demockrazyUwsgi = pkgs.writeText "uwsgi.json" (builtins.toJSON {
         uwsgi = {
