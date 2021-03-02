@@ -394,6 +394,7 @@ in
   pythonFull = all;
   pythonPackages = {
     binwalk = all;
+    privacyidea-ldap-proxy = all;
     urllib3 = all;
   };
   python3Packages = {
@@ -408,7 +409,6 @@ in
     plotly = linux;
     pyramid = linux;
     privacyidea = all;
-    privacyidea-ldap-proxy = all; # currently broken, pending https://github.com/twisted/ldaptor/pull/174
     scipy = all;
     scikitlearn = all;
     slackclient = linux;
