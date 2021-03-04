@@ -431,18 +431,18 @@ in
     services.phpfpm.pools.simplesamlphp = {
         user = "simplesamlphp";
         group = "nginx";
-        extraConfig = ''
-          listen.owner = nginx
-          listen.group = nginx
-          listen.mode = 0600
-          pm = dynamic
-          pm.max_children = 4
-          pm.start_servers = 1
-          pm.min_spare_servers = 1
-          pm.max_spare_servers = 2
-          pm.max_requests = 0
-          env[SIMPLESAMLPHP_CONFIG_DIR] = ${pkgs.simplesamlphp}/config
-      '';
+        settings = {
+          "listen.owner" = "nginx";
+          "listen.group" = "nginx";
+          "listen.mode" = "0600";
+          "pm" = "dynamic";
+          "pm.max_children" = 4;
+          "pm.start_servers" = 1;
+          "pm.min_spare_servers" = 1;
+          "pm.max_spare_servers" = 2;
+          "pm.max_requests" = 0;
+          "env[SIMPLESAMLPHP_CONFIG_DIR]" = "${pkgs.simplesamlphp}/config";
+      };
     };
 
     users.extraUsers.simplesamlphp.group = "nginx";
