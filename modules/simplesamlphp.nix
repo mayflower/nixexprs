@@ -272,13 +272,11 @@ in
 
       phpSessionCookieName = mkOption {
         type = types.str;
-        default = "";
         description = "Name of php session cookie.";
       };
 
       authTokenCookieName = mkOption {
         type = types.str;
-        default = "";
         description = "Name of auth token cookie.";
       };
 
