@@ -37,14 +37,14 @@ in
       };
     };
 
-    riot = {
-      enable = mkEnableOption "riot web client";
+    element = {
+      enable = mkEnableOption "Element web client";
 
       fqdn = mkOption {
         type = types.str;
         example = "chat.example.com";
         description = ''
-          The fully qualified domain name of where the Riot web frontend will be deployed.
+          The fully qualified domain name of where the Element web frontend will be deployed.
         '';
       };
 
@@ -52,7 +52,7 @@ in
         type = types.str;
         example = "https://matrix.org/";
         description = ''
-          The default home server URL Riot should use.
+          The default home server URL Element should use.
         '';
       };
 
@@ -61,7 +61,7 @@ in
         example = "https://vector.im/";
         default = "";
         description = ''
-          The default identity server URL Riot should use.
+          The default identity server URL Element should use.
         '';
       };
 
@@ -69,7 +69,7 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Whether or not to allow custom URLs in Riot.
+          Whether or not to allow custom URLs in Element.
         '';
       };
 
@@ -77,7 +77,7 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Whether or not to allow guest logins through Riot.
+          Whether or not to allow guest logins through Element.
           Guests must be enabled on the server too.
         '';
       };
@@ -86,7 +86,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Whether or not to allow users to change the language for Riot.
+          Whether or not to allow users to change the language for Element.
         '';
       };
 
@@ -101,7 +101,7 @@ in
 
       brand = mkOption {
         type = types.str;
-        default = "Riot";
+        default = "Element";
       };
 
       crossOriginRendererDomain = mkOption {
@@ -113,7 +113,7 @@ in
       extraConfig = mkOption {
         type = types.attrs;
         default = {};
-        description = "Overrides to the riot config";
+        description = "Overrides to the Element config";
       };
     };
   };
@@ -134,9 +134,7 @@ in
     services = {
       postgresql = {
         enable = true;
-        extraConfig = ''
-          synchronous_commit = off
-        '';
+        settings.synchronous_commit = "off";
       };
 
       nginx = {
@@ -148,7 +146,7 @@ in
               enableACME = true;
 
               locations = {
-                "/".extraConfig = mkIf cfg.riot.enable "return 302 https://${cfg.riot.fqdn};";
+                "/".extraConfig = mkIf cfg.element.enable "return 302 https://${cfg.element.fqdn};";
                 "/_matrix" = {
                   proxyPass = "http://127.0.0.1:8008";
                   priority = 30;
@@ -175,8 +173,8 @@ in
               };
             };
           }
-          (mkIf (cfg.riot.crossOriginRendererDomain != null) {
-            ${cfg.riot.crossOriginRendererDomain} = {
+          (mkIf (cfg.element.crossOriginRendererDomain != null) {
+            ${cfg.element.crossOriginRendererDomain} = {
               forceSSL = true;
               enableACME = true;
               root = pkgs.fetchFromGitHub {
@@ -188,11 +186,12 @@ in
               extraConfig = ''
                 add_header X-Content-Type-Options "nosniff" always;
               '';
+              locations."/".extraConfig = "return 204;";
             };
           })
-          (mkIf cfg.riot.enable {
-            # Riot web frontend configuration
-            ${cfg.riot.fqdn} = {
+          (mkIf cfg.element.enable {
+            # element web frontend configuration
+            ${cfg.element.fqdn} = {
               forceSSL = true;
               enableACME = true;
 
@@ -201,21 +200,21 @@ in
                   extraConfig = ''
                     add_header X-Content-Type-Options "nosniff" always;
                   '';
-                  root = pkgs.riot-web.override {
+                  root = pkgs.element-web.override {
                         #"welcomePageUrl": "home.html",
-                    conf = (flip recursiveUpdate cfg.riot.extraConfig {
+                    conf = (flip recursiveUpdate cfg.element.extraConfig {
                       "default_server_config" = {
                         "m.homeserver" = {
-                          "base_url" = cfg.riot.defaultHomeServerUrl;
+                          "base_url" = cfg.element.defaultHomeServerUrl;
                           "server_name" = cfg.fqdn;
                         };
-                        "m.identity_server"."base_url" = cfg.riot.defaultIdentityServerUrl;
+                        "m.identity_server"."base_url" = cfg.element.defaultIdentityServerUrl;
                       };
-                      "disable_custom_urls" = cfg.riot.disableCustomUrls;
-                      "disable_guests" = cfg.riot.disableGuests;
-                      "disable_login_language_selector" = cfg.riot.disableLoginLanguageSelector;
-                      "disable_3pid_login" = cfg.riot.disable3pidLogin;
-                      "brand" = cfg.riot.brand;
+                      "disable_custom_urls" = cfg.element.disableCustomUrls;
+                      "disable_guests" = cfg.element.disableGuests;
+                      "disable_login_language_selector" = cfg.element.disableLoginLanguageSelector;
+                      "disable_3pid_login" = cfg.element.disable3pidLogin;
+                      "brand" = cfg.element.brand;
                       "integrations_ui_url" = "https://scalar.vector.im/";
                       "integrations_rest_url" = "https://scalar.vector.im/api";
                       "integrations_jitsi_widget_url" = "https://scalar.vector.im/api/widgets/jitsi.html";
@@ -259,7 +258,7 @@ in
               repo = "matrix-synapse-rest-password-provider";
               rev = "ed377fb70513c2e51b42055eb364195af1ccaf33";
               sha256 = "130mc2i8v9p9ngcysg95jbp5fqxlz9p2byca2nsnb2ki96k8k3g7";
-            }}/rest_auth_provider.py $out/lib/${pkgs.python37.libPrefix}/site-packages
+            }}/rest_auth_provider.py $out/lib/${pkgs.python3.libPrefix}/site-packages
           '';
         });
         server_name = cfg.fqdn;
@@ -359,7 +358,6 @@ in
     security.acme.certs = {
       ${cfg.fqdn} = {
         group = "matrix-certs";
-        allowKeysForGroup = true;
         postRun = ''
           systemctl restart matrix-synapse
         '' + optionalString cfg.turn.enable ''
@@ -368,6 +366,6 @@ in
       };
     };
 
-    mayflower.matrix.riot.defaultHomeServerUrl = lib.mkDefault "https://${cfg.fqdn}/";
+    mayflower.matrix.element.defaultHomeServerUrl = lib.mkDefault "https://${cfg.fqdn}/";
   };
 }

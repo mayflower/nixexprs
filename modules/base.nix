@@ -35,6 +35,7 @@ with lib;
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
+    i18n.supportedLocales = ["en_US.UTF-8/UTF-8" "en_GB.UTF-8/UTF-8"];
 
     console = {
       font = "Lat2-Terminus16";
@@ -121,7 +122,6 @@ with lib;
         recommendedProxySettings = true;
       };
 
-      nscd.enable = false;
       udisks2.enable = false;
       ntp.enable = false;
       timesyncd.enable = false;
@@ -142,6 +142,8 @@ with lib;
         root = mkDefault "devnull@mayflower.de";
       };
     };
+
+    fonts.fontconfig.enable = lib.mkDefault config.services.xserver.enable;
 
     virtualisation.docker.autoPrune = {
       enable = mkDefault true;
@@ -173,12 +175,5 @@ with lib;
 
     hardware.enableAllFirmware = mkDefault false;
     sound.enable = mkDefault false;
-
-    # set nixpkgs in NIX_PATH to the currently deployed git revision
-    nix.nixPath = let
-      gitRevCmd = "/run/current-system/sw/bin/cut -d. -f4 < /run/current-system/nixos-version";
-    in [
-      "nixpkgs=https://github.com/mayflower/nixpkgs/archive/$(${gitRevCmd}).tar.gz"
-    ];
   };
 }

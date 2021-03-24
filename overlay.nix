@@ -25,6 +25,8 @@ self: super:
     '';
   });
 
+  prometheus-snmp-exporter-generator = super.callPackage ./pkgs/prometheus-snmp-exporter-generator.nix {};
+
   defaultGemConfig = super.defaultGemConfig // {
     oxidized = (attrs: rec {
       tplinkPatch = (super.fetchpatch {

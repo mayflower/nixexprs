@@ -68,7 +68,6 @@ in
   certmgr = all;
   certmgr-selfsigned = all;
   cfssl = all;
-  cgmanager = all;
   checksec = all;
   checkstyle = all;
   chromium = all;
@@ -115,7 +114,6 @@ in
   e2fsprogs = all;
   efibootmgr = all;
   efivar = all;
-  emacs25 = gtkSupported;
   EmptyEpsilon = all;
   enscript = all;
   etcd = all;
@@ -250,8 +248,6 @@ in
   libseccomp = all;
   libtool = all;
   libtool_2 = all;
-  libtxc_dxtn = all;
-  libtxc_dxtn_s2tc = all;
   libvirt = all;
   libxml2 = all;
   libxslt = all;
@@ -358,14 +354,11 @@ in
     NetSNMP = all;
   };
   phantomjs2 = all;
-  php72 = all;
-  php72Packages.composer = all;
-  php72Packages.xdebug = all;
   php73 = all;
-  php73Packages.apcu = all;
   php73Packages.composer = all;
-  php73Packages.imagick = all;
-  php73Packages.xdebug = all;
+  php73Extensions.apcu = all;
+  php73Extensions.imagick = all;
+  php73Extensions.xdebug = all;
   physlock = all;
   picocom = all;
   pinentry = all;
@@ -407,9 +400,7 @@ in
   python3Packages = {
     binwalk = all;
     django = all;
-    git-pandas = all;
     imageio = all;
-    irc = linux;
     joblib = all;
     jupyter = linux;
     nltk = all;
@@ -422,8 +413,8 @@ in
     scikitlearn = all;
     slackclient = linux;
     tempora = linux;
-    tensorflow = all;
     tkinter = all;
+    youtube-dl = all;
     zope_schema = linux;
   };
   SDL2 = all;
@@ -432,7 +423,6 @@ in
   haskellPackages.xmonad-contrib = all;
   haskellPackages.xmonad-extras = all;
   pv = all;
-  python35Packages.youtube-dl = all;
   qemu = all;
   qemu_kvm = all;
   qemu_test = all;
@@ -443,7 +433,6 @@ in
   redir = all;
   redis = all;
   redshift = all;
-  rfkill = all;
   ripgrep = all;
   rlwrap = all;
   rrdtool = all;
