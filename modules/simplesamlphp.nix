@@ -15,7 +15,7 @@ let
   saml20-idp-hosted = pkgs.writeText "saml20-idp-hosted.php" (''
     <?php
   '' + (optionalString cfg.saml20.idp.hosted.enable ''
-    $metadata['__DYNAMIC:1__'] = array_merge([
+    $metadata['__DYNAMIC:1__'] = array_replace_recursive([
       'host' => '__DEFAULT__',
       'privatekey' => '${cfg.saml20.idp.hosted.privKeyFile}',
       'certificate' => '${cfg.saml20.idp.hosted.certificateFile}',
@@ -45,7 +45,7 @@ let
     $adminpassword = trim(file_get_contents('${cfg.adminPasswordFile}'));
     $secretsalt = trim(file_get_contents('${cfg.secretSaltFile}'));
 
-    $config = array_merge([
+    $config = array_replace_recursive([
         'baseurlpath' => '${cfg.baseUrlPath}',
         'certdir' => 'cert/',
         'loggingdir' => 'log/',
@@ -327,12 +327,12 @@ in
         type = types.str;
         default = "";
         example = ''
-	      'privacyidea' => [
-	        'privacyidea:privacyidea',
-	        'privacyideaserver' => 'https://privacyidea.example.org/',
-	        'sslverifyhost' => True,
-	        'sslverifypeer' => True,
-	        'realm' => "",
+          'privacyidea' => [
+            'privacyidea:privacyidea',
+            'privacyideaserver' => 'https://privacyidea.example.org/',
+            'sslverifyhost' => True,
+            'sslverifypeer' => True,
+            'realm' => "",
             'attributemap' => [
               'username' => 'samlLoginName',
               'surname' => 'surName',
