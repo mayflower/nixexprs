@@ -69,8 +69,8 @@ let
         ),
         'showerrors' => true,
         'errorreporting' => true,
-        'logging.level' => SimpleSAML\Logger::NOTICE,
-        'logging.handler' => 'errorlog',
+        'logging.level' => ${cfg.loglevel},
+        'logging.handler' => '${cfg.logFacility}',
         'logging.facility' => defined('LOG_LOCAL5') ? constant('LOG_LOCAL5') : LOG_USER,
         'logging.processname' => 'simplesamlphp',
         'logging.logfile' => 'simplesamlphp.log',
@@ -278,6 +278,32 @@ in
       authTokenCookieName = mkOption {
         type = types.str;
         description = "Name of auth token cookie.";
+      };
+
+      loglevel = mkOption {
+        default = "info";
+        type = types.enum [ "emerg" "alert" "crit" "err" "warning" "notice" "info" "debug" ];
+        apply = x: "SimpleSAML\\Logger::${toUpper x}";
+        description = ''
+          Define the minimum log level to log. Available levels:
+          <itemizedlist>
+          <listitem><para><literal>emerg</literal></para></listitem>
+          <listitem><para><literal>alert</literal></para></listitem>
+          <listitem><para><literal>err</literal>     No statistics, only errors</para></listitem>
+          <listitem><para><literal>warning</literal> No statistics, only warnings/errors</para></listitem>
+          <listitem><para><literal>notice</literal>  Statistics and errors</para></listitem>
+          <listitem><para><literal>info</literal>    Verbose logs</para></listitem>
+          <listitem><para><literal>debug</literal>   Full debug logs - not recommended for production</para></listitem>
+          </itemizedlist>
+        '';
+      };
+
+      logFacility = mkOption {
+        default = "syslog";
+        type = types.enum [ "syslog" "file" "errorlog" "stderr" ];
+        description = ''
+          Where to write logs.
+        '';
       };
 
       extraConfig = mkOption {
