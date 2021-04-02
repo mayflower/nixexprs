@@ -311,6 +311,7 @@ in
   nginxUnstable = all;
   ngrep = all;
   nix = all;
+  nix-diff = all;
   nix-generate-from-cpan = all;
   nixUnstable = all;
   nixops = all;
