@@ -19,8 +19,9 @@ self: super: {
   sklearn-crfsuite = super.callPackage ./python/sklearn-crfsuite { };
   verboselogs = super.callPackage ./python/verboselogs { };
 
-  privacyidea = super.privacyidea.overrideAttrs (old: {
-    patches = old.patches or [] ++ [
+  privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
+    disabledTests = disabledTests ++ [ "test_03_check_subscription" ];
+    patches = patches ++ [
       ./privacyidea/0001-remove-subscription-check.patch
       ./privacyidea/add-description.patch
     ];
