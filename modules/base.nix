@@ -113,7 +113,6 @@ with lib;
           server_names_hash_bucket_size  64;
 
           error_log syslog:server=unix:/dev/log;
-          access_log syslog:server=unix:/dev/log;
         '';
         logError = "syslog:server=unix:/dev/log error";
         recommendedOptimisation = true;
