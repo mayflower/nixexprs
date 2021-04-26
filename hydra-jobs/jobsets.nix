@@ -21,8 +21,7 @@ let
       };
       nixexprs = {
         type = "git";
-        # TODO: remove mf-next here before merging
-        value = "https://github.com/mayflower/nixexprs mf-next";
+        value = "https://github.com/mayflower/nixexprs";
         emailresponsible = false;
       };
       supportedSystems = {
