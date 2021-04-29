@@ -37,7 +37,7 @@ let
     m.services.grafana.enable
   ));
   unboundHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.systemd.services.prometheus-unbound-exporter.enable or false
+    m.services.prometheus.exporters.unbound.enable
   ));
   nginxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.nginx.enable

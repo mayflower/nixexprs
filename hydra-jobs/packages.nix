@@ -496,6 +496,7 @@ in
   tree = all;
   tzdata = all;
   unbound = all;
+  unbound-with-systemd = all;
   unclutter-xfixes = all;
   unetbootin = all;
   units = all;
