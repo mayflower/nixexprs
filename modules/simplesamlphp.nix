@@ -15,7 +15,7 @@ let
   saml20-idp-hosted = pkgs.writeText "saml20-idp-hosted.php" (''
     <?php
   '' + (optionalString cfg.saml20.idp.hosted.enable ''
-    $metadata['__DYNAMIC:1__'] = array_merge([
+    $metadata['__DYNAMIC:1__'] = array_replace_recursive([
       'host' => '__DEFAULT__',
       'privatekey' => '${cfg.saml20.idp.hosted.privKeyFile}',
       'certificate' => '${cfg.saml20.idp.hosted.certificateFile}',
@@ -45,7 +45,7 @@ let
     $adminpassword = trim(file_get_contents('${cfg.adminPasswordFile}'));
     $secretsalt = trim(file_get_contents('${cfg.secretSaltFile}'));
 
-    $config = array_merge([
+    $config = array_replace_recursive([
         'baseurlpath' => '${cfg.baseUrlPath}',
         'certdir' => 'cert/',
         'loggingdir' => 'log/',
@@ -69,8 +69,8 @@ let
         ),
         'showerrors' => true,
         'errorreporting' => true,
-        'logging.level' => SimpleSAML\Logger::NOTICE,
-        'logging.handler' => 'errorlog',
+        'logging.level' => ${cfg.loglevel},
+        'logging.handler' => '${cfg.logFacility}',
         'logging.facility' => defined('LOG_LOCAL5') ? constant('LOG_LOCAL5') : LOG_USER,
         'logging.processname' => 'simplesamlphp',
         'logging.logfile' => 'simplesamlphp.log',
@@ -272,14 +272,38 @@ in
 
       phpSessionCookieName = mkOption {
         type = types.str;
-        default = "";
         description = "Name of php session cookie.";
       };
 
       authTokenCookieName = mkOption {
         type = types.str;
-        default = "";
         description = "Name of auth token cookie.";
+      };
+
+      loglevel = mkOption {
+        default = "info";
+        type = types.enum [ "emerg" "alert" "crit" "err" "warning" "notice" "info" "debug" ];
+        apply = x: "SimpleSAML\\Logger::${toUpper x}";
+        description = ''
+          Define the minimum log level to log. Available levels:
+          <itemizedlist>
+          <listitem><para><literal>emerg</literal></para></listitem>
+          <listitem><para><literal>alert</literal></para></listitem>
+          <listitem><para><literal>err</literal>     No statistics, only errors</para></listitem>
+          <listitem><para><literal>warning</literal> No statistics, only warnings/errors</para></listitem>
+          <listitem><para><literal>notice</literal>  Statistics and errors</para></listitem>
+          <listitem><para><literal>info</literal>    Verbose logs</para></listitem>
+          <listitem><para><literal>debug</literal>   Full debug logs - not recommended for production</para></listitem>
+          </itemizedlist>
+        '';
+      };
+
+      logFacility = mkOption {
+        default = "syslog";
+        type = types.enum [ "syslog" "file" "errorlog" "stderr" ];
+        description = ''
+          Where to write logs.
+        '';
       };
 
       extraConfig = mkOption {
@@ -303,12 +327,12 @@ in
         type = types.str;
         default = "";
         example = ''
-	      'privacyidea' => [
-	        'privacyidea:privacyidea',
-	        'privacyideaserver' => 'https://privacyidea.example.org/',
-	        'sslverifyhost' => True,
-	        'sslverifypeer' => True,
-	        'realm' => "",
+          'privacyidea' => [
+            'privacyidea:privacyidea',
+            'privacyideaserver' => 'https://privacyidea.example.org/',
+            'sslverifyhost' => True,
+            'sslverifypeer' => True,
+            'realm' => "",
             'attributemap' => [
               'username' => 'samlLoginName',
               'surname' => 'surName',
