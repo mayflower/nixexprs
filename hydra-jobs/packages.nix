@@ -496,6 +496,7 @@ in
   tree = all;
   tzdata = all;
   unbound = all;
+  unbound-telemetry = all;
   unbound-with-systemd = all;
   unclutter-xfixes = all;
   unetbootin = all;
