@@ -384,6 +384,7 @@ in
   prometheus-node-exporter = all;
   prometheus-openvpn-exporter = all;
   prometheus-snmp-exporter = all;
+  prometheus-unbound-exporter = all;
   prometheus-unifi-exporter = all;
   prosody = all;
   pulseaudioFull = all;
@@ -496,7 +497,6 @@ in
   tree = all;
   tzdata = all;
   unbound = all;
-  unbound-telemetry = all;
   unbound-with-systemd = all;
   unclutter-xfixes = all;
   unetbootin = all;
