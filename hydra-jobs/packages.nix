@@ -510,6 +510,7 @@ in
   vim = all;
   vimHugeX = all;
   virtmanager = all;
+  virtualbox = ["x86_64-linux"];
   vlc = all;
   w3m = all;
   wavemon = all;
