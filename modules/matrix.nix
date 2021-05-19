@@ -249,18 +249,6 @@ in
 
       matrix-synapse = {
         enable = true;
-        package = pkgs.matrix-synapse.overrideAttrs (oldAttrs: {
-          doCheck = false;
-          doInstallCheck = false;
-          postInstall = ''
-            cp ${pkgs.fetchFromGitHub {
-              owner = "ma1uta";
-              repo = "matrix-synapse-rest-password-provider";
-              rev = "ed377fb70513c2e51b42055eb364195af1ccaf33";
-              sha256 = "130mc2i8v9p9ngcysg95jbp5fqxlz9p2byca2nsnb2ki96k8k3g7";
-            }}/rest_auth_provider.py $out/lib/${pkgs.python3.libPrefix}/site-packages
-          '';
-        });
         server_name = cfg.fqdn;
         enable_registration = false;
         enable_metrics = true;
