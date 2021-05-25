@@ -553,7 +553,7 @@ in
   znapzend = all;
   zsh = all;
 
-  linuxPackages = kernelPackages // { wireguard = all; };
+  linuxPackages = kernelPackages;
   linuxPackages_latest = kernelPackages;
 
   nodePackages = {
