@@ -393,11 +393,6 @@ in
   python3 = all;
   python36 = all;
   pythonFull = all;
-  pythonPackages = {
-    binwalk = all;
-    privacyidea-ldap-proxy = all;
-    urllib3 = all;
-  };
   python3Packages = {
     binwalk = all;
     django = all;
@@ -410,6 +405,7 @@ in
     plotly = linux;
     pyramid = linux;
     privacyidea = all;
+    privacyidea-ldap-proxy = all;
     scipy = all;
     scikitlearn = all;
     slackclient = linux;
