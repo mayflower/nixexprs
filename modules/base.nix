@@ -137,7 +137,7 @@ with lib;
         enable = mkDefault true;
         hostName = mkDefault "mail.mayflower.de";
         domain = mkDefault "mayflower.de";
-        useSTARTTLS = true;
+        useTLS = true;
         root = mkDefault "devnull@mayflower.de";
       };
     };
