@@ -1,13 +1,13 @@
 self: super: {
-  automx = super.callPackage ./python/automx { };
-  colorhash = super.callPackage ./python/colorhash { };
-  duckling = super.callPackage ./python/duckling { };
-  fbmessenger = super.callPackage ./python/fbmessenger { };
-  mattermostwrapper = super.callPackage ./python/mattermostwrapper { };
-  python-crfsuite = super.callPackage ./python/python-crfsuite { };
-  rasa-core = super.callPackage ./python/rasa-core { };
-  rasa-nlu = super.callPackage ./python/rasa-nlu { };
-  sklearn-crfsuite = super.callPackage ./python/sklearn-crfsuite { };
+  automx = self.callPackage ./python/automx { };
+  colorhash = self.callPackage ./python/colorhash { };
+  duckling = self.callPackage ./python/duckling { };
+  fbmessenger = self.callPackage ./python/fbmessenger { };
+  mattermostwrapper = self.callPackage ./python/mattermostwrapper { };
+  python-crfsuite = self.callPackage ./python/python-crfsuite { };
+  rasa-core = self.callPackage ./python/rasa-core { };
+  rasa-nlu = self.callPackage ./python/rasa-nlu { };
+  sklearn-crfsuite = self.callPackage ./python/sklearn-crfsuite { };
 
   privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
     disabledTests = disabledTests ++ [ "test_03_check_subscription" ];
