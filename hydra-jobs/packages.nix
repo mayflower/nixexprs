@@ -368,7 +368,6 @@ in
   ponysay = all;
   postfix = all;
   postgresql = all;
-  postgresql_9_5 = all;
   postgresql_9_6 = all;
   postgresql_10 = all;
   postgresql_11 = all;
