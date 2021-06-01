@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, lxml, dateutil }:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, lxml, dateutil }:
 
 buildPythonPackage rec {
   pname = "automx";
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     install -vD src/conf/automx.conf* -t $out/etc
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A mail client account configuration service, combining various autoconfiguration techniques in one webservice";
     homepage = "https://automx.org";
     license = licenses.gpl3Plus;

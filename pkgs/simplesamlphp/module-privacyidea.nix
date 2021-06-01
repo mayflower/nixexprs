@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   name = "simplesamlphp-module-privacyidea-${version}";
   version = "1.8";
@@ -14,14 +14,14 @@ stdenv.mkDerivation rec {
     cp -va . $out
   '';
 
-  meta = {
+  meta = with lib; {
     description = ''
       OTP Two Factor Authentication Module for simpleSAMLphp to run with
       privacyIDEA.
     '';
     homepage = https://simplesamlphp.org;
-    maintainers = with stdenv.lib.maintainers; [ ciil ];
-    license = stdenv.lib.licenses.agpl3;
-    platforms = with stdenv.lib.platforms; unix;
+    maintainers = [ ];
+    license = licenses.agpl3;
+    platforms = platforms.unix;
   };
 }

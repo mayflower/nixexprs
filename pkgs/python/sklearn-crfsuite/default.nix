@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, tabulate, python-crfsuite, tqdm, six, scikitlearn, pytest }:
+{ stdenv, lib, fetchPypi, buildPythonPackage, tabulate, python-crfsuite, tqdm, six, scikitlearn, pytest }:
 
 buildPythonPackage rec {
   pname = "sklearn-crfsuite";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A thin CRFsuite wrapper which provides interface simlar to scikit-learn";
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];
