@@ -121,7 +121,7 @@ let
         source_labels = [ "__address__" ];
         regex = "(.*)(:80)?";
         target_label = "__param_target";
-        replacement = ''''${1}'';
+        replacement = "\$\${1}";
       }
       {
         source_labels = [ "__param_target" ];
