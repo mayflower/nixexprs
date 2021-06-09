@@ -469,6 +469,9 @@ in
       };
     };
 
-    users.extraUsers.simplesamlphp.group = "nginx";
+    users.extraUsers.simplesamlphp = {
+      group = "nginx";
+      isSystemUser = true;
+    };
   };
 }
