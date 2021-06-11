@@ -26,7 +26,7 @@ let
       };
       supportedSystems = {
         type = "nix";
-        value = ''[ "x86_64-linux" ]'';
+        value = ''[ "x86_64-linux" "aarch64-linux" ]'';
         emailresponsible = false;
       };
     };
