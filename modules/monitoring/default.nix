@@ -158,6 +158,7 @@ in {
     ./blackbox-exporter.nix
     ./snmp-exporter.nix
     ./smartmon-textfile.nix
+    ./alerting.nix
   ];
   options = {
     # extends base nginx.virtualHosts
@@ -379,12 +380,6 @@ in {
         systemd.services.prometheus.serviceConfig.LimitNOFILE = 1024000;
         services.prometheus = {
           enable = true;
-          ruleFiles = singleton (pkgs.writeText "prometheus-rules.yml" (builtins.toJSON {
-            groups = singleton {
-              name = "mf-alerting-rules";
-              rules = import ./alert-rules.nix { inherit lib; };
-            };
-          }));
           scrapeConfigs = (mkScrapeConfigs ({
             prometheus = {
               hostNames = prometheusHostNamesSameDC;
