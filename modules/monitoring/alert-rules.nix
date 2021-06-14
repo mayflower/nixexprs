@@ -192,4 +192,8 @@
     summary = "alertmanager: number of active silences has changed: {{$value}}";
     description = "alertmanager: number of active silences has changed: {{$value}}";
   };
+  smart_critical_attributes = {
+    condition = ''smartmon_attr_raw_value{name=~".*_retry_count|reallocated_.*|current_pending_sector"} != 0'';
+    summary = "{{$labels.alias}}: {{$labels.disk}} is experiencing sector errors";
+  };
 }
