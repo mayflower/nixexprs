@@ -10,6 +10,7 @@
   modules/monitoring/default.nix
   modules/prometheus-federation.nix
   modules/openldap-ha.nix
+  modules/secrets.nix
   modules/service-overview.nix
   modules/simplesamlphp.nix
   modules/wireguard-tunnel.nix
