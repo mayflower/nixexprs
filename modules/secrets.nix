@@ -191,8 +191,5 @@ in
       (genContainerKeysConfig cfg.containerSecrets)
     ];
     containers = genBindMounts cfg.containerSecrets;
-
-    # services need to access /var/secrets, which has permissions 0750 for root:keys
-    systemd.services.nginx.serviceConfig.SupplementaryGroups = ["keys"];
   }) else {};
 }
