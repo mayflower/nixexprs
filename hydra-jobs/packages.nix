@@ -84,7 +84,7 @@ in
   coturn = all;
   cowsay = all;
   cpio = all;
-  cpufrequtils = all;
+  cpufrequtils = ["x86_64-linux"];
   cpulimit = all;
   cron = all;
   cryptsetup = all;
