@@ -138,7 +138,7 @@ let
           (containerName + "-" + secretName)
           {
             inherit (secretConfig) permissions destDir;
-            keyFile = ../secrets + (concatStrings [
+            keyFile = cfg.basePath + (concatStrings [
               "/" secretConfig.relKeyPath "/" containerName "/" secretName
             ]);
             user = if useAssociatedService then associatedService.serviceConfig.User else secretConfig.user;
