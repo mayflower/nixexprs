@@ -39,12 +39,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.extraUsers.automx = {
-      group = "automx";
-    };
-
-    users.extraGroups.automx = { };
-
     services.memcached.enable = mkDefault true;
 
     environment.etc."automx.conf".source = cfg.configFile;
@@ -65,6 +59,7 @@ in {
         StandardError = "syslog";
         NotifyAccess = "all";
         ExecStart = "${uwsgi}/bin/uwsgi --json ${automxUwsgi}";
+        DynamicUser = true;
       };
     };
 
