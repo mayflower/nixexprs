@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, nodejs, yarn2nix-moretea }:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, nodejs, yarn2nix-moretea }:
 
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "matrix-alertmanager";
@@ -42,7 +42,7 @@ yarn2nix-moretea.mkYarnPackage rec {
     runHook postDist
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (src.meta) homepage;
     description = "A bot to receive Alertmanager webhook events and forward them to chosen rooms";
     license = licenses.mit;

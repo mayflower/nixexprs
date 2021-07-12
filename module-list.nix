@@ -1,6 +1,7 @@
 [
   modules/automx.nix
   modules/cachet.nix
+  modules/copy-nixpkgs.nix
   modules/base.nix
   modules/demockrazy.nix
   modules/docker-runner.nix
@@ -10,6 +11,7 @@
   modules/monitoring/default.nix
   modules/prometheus-federation.nix
   modules/openldap-ha.nix
+  modules/secrets.nix
   modules/service-overview.nix
   modules/simplesamlphp.nix
   modules/wireguard-tunnel.nix

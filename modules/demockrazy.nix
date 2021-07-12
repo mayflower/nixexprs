@@ -240,7 +240,10 @@ in {
       "d /run/demockrazy 0755 demockrazy demockrazy -"
     ];
 
-    users.users.demockrazy.group = "demockrazy";
+    users.users.demockrazy = {
+      group = "demockrazy";
+      isSystemUser = true;
+    };
     users.groups.demockrazy = {};
   };
 }

@@ -1,23 +1,13 @@
 self: super: {
-  atpublic = super.callPackage ./python/atpublic { };
-  automx = super.callPackage ./python/automx { };
-  colorhash = super.callPackage ./python/colorhash { };
-  coloredlogs = super.callPackage ./python/coloredlogs { };
-  django-allauth = super.callPackage ./python/django-allauth { };
-  django-gravatar2 = super.callPackage ./python/django-gravatar2 { };
-  duckling = super.callPackage ./python/duckling { };
-  fakeredis = super.callPackage ./python/fakeredis { };
-  fbmessenger = super.callPackage ./python/fbmessenger { };
-  humanfriendly = super.callPackage ./python/humanfriendly { };
-  mattermostwrapper = super.callPackage ./python/mattermostwrapper { };
-  pykwalify = super.callPackage ./python/pykwalify { };
-  python3-openid = super.callPackage ./python/python3-openid { };
-  python-crfsuite = super.callPackage ./python/python-crfsuite { };
-  rasa-core = super.callPackage ./python/rasa-core { };
-  rasa-nlu = super.callPackage ./python/rasa-nlu { };
-  robot-detection = super.callPackage ./python/robot-detection { };
-  sklearn-crfsuite = super.callPackage ./python/sklearn-crfsuite { };
-  verboselogs = super.callPackage ./python/verboselogs { };
+  automx = self.callPackage ./python/automx { };
+  colorhash = self.callPackage ./python/colorhash { };
+  duckling = self.callPackage ./python/duckling { };
+  fbmessenger = self.callPackage ./python/fbmessenger { };
+  mattermostwrapper = self.callPackage ./python/mattermostwrapper { };
+  python-crfsuite = self.callPackage ./python/python-crfsuite { };
+  rasa-core = self.callPackage ./python/rasa-core { };
+  rasa-nlu = self.callPackage ./python/rasa-nlu { };
+  sklearn-crfsuite = self.callPackage ./python/sklearn-crfsuite { };
 
   privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
     disabledTests = disabledTests ++ [ "test_03_check_subscription" ];

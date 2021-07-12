@@ -8,7 +8,6 @@ let
     hidden = false;
     description = "";
     nixexprinput = "nixexprs";
-    nixexprpath = "hydra-jobs/default.nix";
     keepnr = 1;
     schedulingshares = 42;
     checkinterval = 300;
@@ -26,7 +25,7 @@ let
       };
       supportedSystems = {
         type = "nix";
-        value = ''[ "x86_64-linux" ]'';
+        value = ''[ "x86_64-linux" "aarch64-linux" ]'';
         emailresponsible = false;
       };
     };
@@ -41,6 +40,7 @@ let
       nixexprpath = "pkgs/stdenv/linux/make-bootstrap-tools.nix";
     };
     hydra-jobs = {
+      nixexprpath = "hydra-jobs/default.nix";
       keepnr = 3;
       schedulingshares = 420;
     };

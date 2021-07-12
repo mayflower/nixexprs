@@ -1,8 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchurl, runCommand, writeText, services ? {} }:
+{ stdenv, lib, fetchFromGitHub, fetchurl, runCommand, writeText, services ? {} }:
 
 let
-  lib = stdenv.lib;
-
   header = import templates/header.nix { inherit lib; };
   footer = import templates/footer.nix { inherit lib; };
 

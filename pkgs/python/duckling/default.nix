@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage
+{ stdenv, lib, fetchFromGitHub, buildPythonPackage
 , pytestrunner, dateutil, JPype1, pytestcov, pytest
 , autoPatchelfHook
 }:
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   checkInputs = [ pytestcov pytest ];
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python wrapper for wit.ai's Duckling Clojure library";
     license = licenses.asl20;
     maintainers = with maintainers; [ globin ];

@@ -84,7 +84,7 @@ in
   coturn = all;
   cowsay = all;
   cpio = all;
-  cpufrequtils = all;
+  cpufrequtils = ["x86_64-linux"];
   cpulimit = all;
   cron = all;
   cryptsetup = all;
@@ -216,7 +216,7 @@ in
   imagemagick = all;
   inetutils = all;
   inotify-tools = all;
-  intel-gpu-tools = all;
+  intel-gpu-tools = ["x86_64-linux"];
   iotop = all;
   iperf = all;
   iperf2 = all;
@@ -262,7 +262,7 @@ in
   lolcat = all;
   lout = all;
   lsof = all;
-  ltrace = all;
+  ltrace = ["x86_64-linux"];
   lua = all;
   lua52Packages.lua = all;
   lua52Packages.luarocks = all;
@@ -278,7 +278,7 @@ in
   mc = all;
   mcabber = all;
   mdadm = all;
-  memtest86plus = all;
+  memtest86plus = ["x86_64-linux"];
   menu-cache = all;
   mercurial = all;
   mesa_drivers = all;
@@ -291,7 +291,7 @@ in
   mosh = all;
   mpd = all;
   mpg321 = all;
-  mplayer = all;
+  mplayer = ["x86_64-linux"];
   mpv = all;
   msf = all;
   mtr = all;
@@ -368,7 +368,6 @@ in
   ponysay = all;
   postfix = all;
   postgresql = all;
-  postgresql_9_5 = all;
   postgresql_9_6 = all;
   postgresql_10 = all;
   postgresql_11 = all;
@@ -394,11 +393,6 @@ in
   python3 = all;
   python36 = all;
   pythonFull = all;
-  pythonPackages = {
-    binwalk = all;
-    privacyidea-ldap-proxy = all;
-    urllib3 = all;
-  };
   python3Packages = {
     binwalk = all;
     django = all;
@@ -411,6 +405,7 @@ in
     plotly = linux;
     pyramid = linux;
     privacyidea = all;
+    privacyidea-ldap-proxy = all;
     scipy = all;
     scikitlearn = all;
     slackclient = linux;
@@ -475,7 +470,7 @@ in
   su = all;
   subversion = all;
   sudo = all;
-  sysdig = all;
+  sysdig = ["x86_64-linux"];
   sysklogd = all;
   syslinux = ["i686-linux"];
   sysstat = all;
@@ -486,9 +481,9 @@ in
     scheme-small = all;
     scheme-full = all;
   };
-  thermald = all;
+  thermald = ["x86_64-linux"];
   time = all;
-  tinycc = all;
+  tinycc = ["x86_64-linux"];
   tlp = all;
   tmux = all;
   toilet = all;
@@ -499,14 +494,14 @@ in
   unbound = all;
   unbound-with-systemd = all;
   unclutter-xfixes = all;
-  unetbootin = all;
+  unetbootin = ["x86_64-linux"];
   units = all;
   unzip = all;
   uqmi = all;
   usbutils = all;
   utillinux = all;
   uwsgi = all;
-  vaapiIntel = all;
+  vaapiIntel = ["x86_64-linux"];
   vim = all;
   vimHugeX = all;
   virtmanager = all;
@@ -553,7 +548,7 @@ in
   znapzend = all;
   zsh = all;
 
-  linuxPackages = kernelPackages // { wireguard = all; };
+  linuxPackages = kernelPackages;
   linuxPackages_latest = kernelPackages;
 
   nodePackages = {
@@ -568,7 +563,7 @@ in
     xev = all;
     xf86inputlibinput = all;
     xf86videofbdev = all;
-    xf86videointel = all;
+    xf86videointel = ["x86_64-linux"];
     xf86videonouveau = all;
     xkill = all;
     xlsclients = all;

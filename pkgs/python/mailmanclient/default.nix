@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitLab, httplib2, six }:
+{ stdenv, lib, buildPythonPackage, fetchFromGitLab, httplib2, six }:
 
 buildPythonPackage rec {
   name = "mailmanclient-${version}";
@@ -16,11 +16,11 @@ buildPythonPackage rec {
   # needs access to mailman REST API
   doCheck = false;
 
-  meta = {
+  meta = with lib; {
     homepage = "http://www.gnu.org/software/mailman/";
     description = "REST client for driving Mailman 3";
-    license = stdenv.lib.licenses.lgpl3;
-    platforms = stdenv.lib.platforms.linux;
-    maintainers = [ stdenv.lib.maintainers.globin ];
+    license = licenses.lgpl3;
+    platforms = platforms.linux;
+    maintainers = [ maintainers.globin ];
   };
 }

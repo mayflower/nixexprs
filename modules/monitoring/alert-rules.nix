@@ -1,18 +1,4 @@
-{ lib }:
-with lib;
-
-let
-  deviceFilter = ''fstype!="ramfs",device!="rpc_pipefs",device!="lxcfs",device!="nsfs",device!="borgfs"'';
-in mapAttrsToList (name: opts: {
-  alert = name;
-  expr = opts.condition;
-  for = opts.time or "2m";
-  labels = if (opts.page or true) then { severity = "page"; } else {};
-  annotations = {
-    summary = opts.summary;
-    description = opts.description;
-  };
-}) {
+{ filesystemFilter }: {
   node_deployed = {
     condition = "node_deployed < time()-86400*14";
     page = false;
@@ -35,35 +21,35 @@ in mapAttrsToList (name: opts: {
     description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}.";
   };
   node_filesystem_full_80percent = {
-    condition = ''sort(node_filesystem_free_bytes{${deviceFilter}} < node_filesystem_size_bytes{${deviceFilter}} * 0.2) / 1024^3'';
+    condition = ''sort(node_filesystem_free_bytes{${filesystemFilter}} < node_filesystem_size_bytes{${filesystemFilter}} * 0.2) / 1024^3'';
     time = "10m";
     summary = "{{$labels.alias}}: Filesystem is running out of space soon.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 20% space left on its filesystem.";
   };
   node_filesystem_full_in_7d = {
-    condition = ''node_filesystem_free_bytes{${deviceFilter}} ''
-      + ''and predict_linear(node_filesystem_free_bytes{${deviceFilter}}[2d], 7*24*3600) <= 0'';
+    condition = ''node_filesystem_free_bytes{${filesystemFilter}} ''
+      + ''and predict_linear(node_filesystem_free_bytes{${filesystemFilter}}[2d], 7*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 7 days";
   };
   node_filesystem_full_in_30d = {
-    condition = ''node_filesystem_free_bytes{${deviceFilter}} ''
-      + ''and predict_linear(node_filesystem_free_bytes{${deviceFilter}}[30d], 30*24*3600) <= 0'';
+    condition = ''node_filesystem_free_bytes{${filesystemFilter}} ''
+      + ''and predict_linear(node_filesystem_free_bytes{${filesystemFilter}}[30d], 30*24*3600) <= 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of space in 30 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 30 days";
   };
   node_inodes_full_in_7d = {
-    condition = ''node_filesystem_files_free{${deviceFilter}} ''
-      + ''and predict_linear(node_filesystem_files_free{${deviceFilter}}[2d], 7*24*3600) < 0'';
+    condition = ''node_filesystem_files_free{${filesystemFilter}} ''
+      + ''and predict_linear(node_filesystem_files_free{${filesystemFilter}}[2d], 7*24*3600) < 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of inodes in 7 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of inodes in approx. 7 days";
   };
   node_inodes_full_in_30d = {
-    condition = ''node_filesystem_files_free{${deviceFilter}} ''
-      + ''and predict_linear(node_filesystem_files_free{${deviceFilter}}[30d], 30*24*3600) < 0'';
+    condition = ''node_filesystem_files_free{${filesystemFilter}} ''
+      + ''and predict_linear(node_filesystem_files_free{${filesystemFilter}}[30d], 30*24*3600) < 0'';
     time = "1h";
     summary = "{{$labels.alias}}: Filesystem is running out of inodes in 30 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of inodes in approx. 30 days";
@@ -205,5 +191,9 @@ in mapAttrsToList (name: opts: {
     condition = ''abs(delta(alertmanager_silences{state="active"}[1h])) >= 1'';
     summary = "alertmanager: number of active silences has changed: {{$value}}";
     description = "alertmanager: number of active silences has changed: {{$value}}";
+  };
+  smart_critical_attributes = {
+    condition = ''smartmon_attr_raw_value{name=~".*_retry_count|reallocated_.*|current_pending_sector"} != 0'';
+    summary = "{{$labels.alias}}: {{$labels.disk}} is experiencing sector errors";
   };
 }
