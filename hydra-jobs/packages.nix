@@ -372,6 +372,7 @@ in
   postgresql_10 = all;
   postgresql_11 = all;
   powertop = all;
+  privacyidea = all;
   privoxy = all;
   procps = all;
   prometheus = all;
@@ -404,7 +405,6 @@ in
     pandas = linux;
     plotly = linux;
     pyramid = linux;
-    privacyidea = all;
     privacyidea-ldap-proxy = all;
     scipy = all;
     scikitlearn = all;
