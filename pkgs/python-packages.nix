@@ -9,14 +9,6 @@ self: super: {
   rasa-nlu = self.callPackage ./python/rasa-nlu { };
   sklearn-crfsuite = self.callPackage ./python/sklearn-crfsuite { };
 
-  privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
-    disabledTests = disabledTests ++ [ "test_03_check_subscription" ];
-    patches = patches ++ [
-      ./privacyidea/0001-remove-subscription-check.patch
-      ./privacyidea/add-description.patch
-    ];
-  });
-
   graphviz = super.graphviz.overrideAttrs (oldAttrs: rec {
     pname = "graphviz";
     version = "0.8.3";

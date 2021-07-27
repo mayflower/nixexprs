@@ -56,4 +56,13 @@ self: super:
       }}/rest_auth_provider.py $out/lib/${super.python3.libPrefix}/site-packages
     '';
   });
+
+
+  privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
+    disabledTests = disabledTests ++ [ "test_03_check_subscription" ];
+    patches = patches ++ [
+      ./pkgs/privacyidea/0001-remove-subscription-check.patch
+      ./pkgs/privacyidea/add-description.patch
+    ];
+  });
 }
