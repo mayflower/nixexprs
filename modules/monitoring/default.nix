@@ -409,13 +409,9 @@ in {
               hostNames = openvpnExporterHostNames;
               port = 9176;
             };
-            unifi = {
-              hostNames = unifiExporterHostNames;
-              port = 9130;
-            };
             unifi-poller = {
               hostNames = unifiPollerExporterHostNames;
-              port = 9131;
+              port = 9130;
             };
             postfix = {
               hostNames = postfixExporterHostNames;

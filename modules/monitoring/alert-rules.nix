@@ -163,9 +163,24 @@
     description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes.";
   };
   unifi_devices_adopted_changed = {
-    condition = "abs(delta(unifi_devices_adopted[1h])) >= 1";
+    condition = ''sum(abs(delta(unifipoller_site_adopted{status="ok"}[1h]))) >= 1'';
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
     description = "Unifi: number of adopted devices has changed: {{$value}}";
+  };
+  unifi_device_excessive_memory_usage = {
+    condition = ''unifipoller_device_memory_utilization_ratio >= 0.9'';
+    summary = "Unifi: memory utilisation exceeds 90% on device {{$labels.name}}";
+    description = "Unifi: memory utilisation exceeds 90% on device {{$labels.name}}";
+  };
+  unifi_device_reboot = {
+    condition = "unifipoller_device_uptime_seconds < 300";
+    summary = "Unifi: device {{$labels.name}} reboot";
+    description = "Unifi: device {{$labels.name}} just rebooted";
+  };
+  unifi_device_down = {
+    condition = ''unifipoller_site_adopted{status="error",site_name!~"down.+"} >= 1'';
+    summary = "Unifi: {{$value}} device(s) down in {{$labels.site_name}}";
+    description = "Unifi: {{$value}} device(s) down in {{$labels.site_name}}";
   };
   mail_down = {
     condition = ''up{job="mail"} == 0'';
