@@ -137,7 +137,7 @@
     description = "{{$labels.instance}}: {{$labels.job}} probe from {{$labels.source}} has failed!";
   };
   blackbox_probe_high_latency = {
-    condition = "probe_duration_seconds > 5";
+    condition = "probe_duration_seconds > 2 and probe_success == 1";
     summary = "{{$labels.instance}}: {{$labels.job}} probe from {{$labels.source}} takes too long!";
     description = "{{$labels.instance}}: {{$labels.job}} probe from {{$labels.source}} is encountering high latency!";
   };
