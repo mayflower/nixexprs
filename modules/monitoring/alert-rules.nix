@@ -202,6 +202,11 @@
     summary = "{{$labels.alias}}: Mail send failed";
     description = "{{$labels.alias}}: Mail send failed";
   };
+  postfix_queue_deferred_messages = {
+    condition = ''postfix_showq_message_size_bytes_count{queue="deferred"} > 1'';
+    summary = "{{$labels.alias}}: postfix has deferred messages in queue";
+    description = "{{$labels.alias}}: postfix has deferred messages in queue";
+  };
   alerts_silences_changed = {
     condition = ''abs(delta(alertmanager_silences{state="active"}[1h])) >= 1'';
     summary = "alertmanager: number of active silences has changed: {{$value}}";
