@@ -169,7 +169,7 @@
     summary = "Unifi: memory utilisation exceeds 90% on device {{$labels.name}}";
   };
   unifi_device_reboot = {
-    condition = ''unifipoller_device_uptime_seconds{site_name!~"down.+"} < 300'';
+    condition = ''unifipoller_device_uptime_seconds{site_name!~"down.+"} > 0 and unifipoller_device_uptime_seconds{site_name!~"down.+"} < 300'';
     summary = "Unifi: device {{$labels.name}} reboot";
     description = "Unifi: device {{$labels.name}} just rebooted";
   };
