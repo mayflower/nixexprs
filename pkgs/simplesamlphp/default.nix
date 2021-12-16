@@ -3,11 +3,11 @@ with lib;
 
 stdenv.mkDerivation rec {
   name = "simplesamlphp-${version}";
-  version = "1.19.1";
+  version = "1.19.4";
 
   src = fetchurl {
     url = "https://github.com/simplesamlphp/simplesamlphp/releases/download/v${version}/simplesamlphp-${version}.tar.gz";
-    sha256 = "sha256-GeOGDv9j8jZ1ebnuXCt7YJ19F9qsrNPgSCPd9ZkSR0c=";
+    sha256 = "sha256-NMjneBUU9xu1iFnbijaQFHomknm26IuYPiOysKrEo58=";
   };
 
   buildPhase = ''
