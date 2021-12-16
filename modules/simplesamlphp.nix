@@ -455,7 +455,7 @@ in
     services.phpfpm.pools.simplesamlphp = {
         user = "simplesamlphp";
         group = "nginx";
-        phpPackage = pkgs.php74;
+        phpPackage = pkgs.php80;
         settings = {
           "listen.owner" = "nginx";
           "listen.group" = "nginx";
