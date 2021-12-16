@@ -165,17 +165,17 @@ in
     services.phpfpm.pools.cachet = {
       user = "nginx";
       group = "nginx";
-      extraConfig = ''
-        listen.owner = nginx
-        listen.group = nginx
-        listen.mode = 0600
-        pm = dynamic
-        pm.max_children = 4
-        pm.start_servers = 1
-        pm.min_spare_servers = 1
-        pm.max_spare_servers = 2
-        pm.max_requests = 0
-      '';
+      settings = {
+        "listen.owner" = "nginx";
+        "listen.group" = "nginx";
+        "listen.mode" = "0600";
+        "pm" = "dynamic";
+        "pm.max_children" = 4;
+        "pm.start_servers" = 1;
+        "pm.min_spare_servers" = 1;
+        "pm.max_spare_servers" = 2;
+        "pm.max_requests" = 0;
+      };
     };
   };
 }

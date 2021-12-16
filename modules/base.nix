@@ -26,7 +26,6 @@ with lib;
       "kernel.panic" = "1"; # instantly reboot on panics
       "net.core.default_qdisc" = "fq_codel";
       "net.ipv6.conf.all.use_tempaddr" = 0;
-      "net.ipv6.conf.default.use_tempaddr" = 0;
       "net.ipv4.tcp_slow_start_after_idle" = 0;
       "net.ipv6.conf.all.autoconf" = 0;
       "net.ipv6.conf.default.autoconf" = 0;
@@ -149,7 +148,7 @@ with lib;
       flags = [ "--all" "--volumes" ];
     };
 
-    virtualisation.libvirtd.qemuVerbatimConfig = ''
+    virtualisation.libvirtd.qemu.verbatimConfig = ''
       namespaces = []
       set_process_name = 1
       seccomp_sandbox = 1
