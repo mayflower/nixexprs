@@ -64,7 +64,6 @@ with lib;
         pbzip2
         pciutils
         pv
-        rxvt_unicode.terminfo
         strace
         tcpdump
         tmux
