@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.mayflower.monitoring.server;
-  alertRuleModule = types.submodule {
+  alertRuleModule = types.submodule ({ config, ... }: {
     options = {
       enable = mkEnableOption "this alerting rule" // { default = true; };
       page = mkEnableOption "paging for this alert" // { default = true; };
@@ -25,7 +25,8 @@ let
         default = "2m";
       };
     };
-  };
+    config.description = lib.mkDefault config.summary;
+  });
 
   enabledRules = mapAttrs (n: v: removeAttrs v ["enable"]) (filterAttrs (n: v: v.enable) cfg.alertRules);
 in {

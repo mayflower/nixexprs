@@ -128,13 +128,11 @@
     condition = ''min(up{job=~"blackbox.+"}) by (source, job, instance) == 0'';
     time = "3m";
     summary = "{{$labels.instance}}: {{$labels.job}} blackbox exporter from {{$labels.source}} is down.";
-    description = "{{$labels.instance}}: {{$labels.job}} blackbox exporter from {{$labels.source}} is down.";
   };
   blackbox_probe = {
     condition = "probe_success == 0";
     page = false;
     summary = "{{$labels.instance}}: {{$labels.job}} probe from {{$labels.source}} has failed!";
-    description = "{{$labels.instance}}: {{$labels.job}} probe from {{$labels.source}} has failed!";
   };
   blackbox_probe_high_latency = {
     condition = "probe_duration_seconds > 2 and probe_success == 1";
@@ -165,22 +163,19 @@
   unifi_devices_adopted_changed = {
     condition = ''sum(abs(delta(unifipoller_site_adopted{status="ok"}[1h]))) >= 1'';
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
-    description = "Unifi: number of adopted devices has changed: {{$value}}";
   };
   unifi_device_excessive_memory_usage = {
     condition = ''unifipoller_device_memory_utilization_ratio >= 0.9'';
     summary = "Unifi: memory utilisation exceeds 90% on device {{$labels.name}}";
-    description = "Unifi: memory utilisation exceeds 90% on device {{$labels.name}}";
   };
   unifi_device_reboot = {
-    condition = ''unifipoller_device_uptime_seconds{site_name!~"down.+"} < 300'';
+    condition = ''unifipoller_device_uptime_seconds{site_name!~"down.+"} > 0 and unifipoller_device_uptime_seconds{site_name!~"down.+"} < 300'';
     summary = "Unifi: device {{$labels.name}} reboot";
     description = "Unifi: device {{$labels.name}} just rebooted";
   };
   unifi_device_down = {
     condition = ''unifipoller_site_adopted{status="error",site_name!~"down.+"} >= 1'';
     summary = "Unifi: {{$value}} device(s) down in {{$labels.site_name}}";
-    description = "Unifi: {{$value}} device(s) down in {{$labels.site_name}}";
   };
   mail_down = {
     condition = ''up{job="mail"} == 0'';
@@ -190,27 +185,22 @@
   mail_delivery_unsuccessful = {
     condition = "mail_deliver_success == 0";
     summary = "{{$labels.alias}}: Mail delivery unsuccessful";
-    description = "{{$labels.alias}}: Mail delivery unsuccessful";
   };
   mail_delivery_late = {
     condition = "increase(mail_late_mails_total[1h]) >= 1";
     summary = "{{$labels.alias}}: Mail delivery late";
-    description = "{{$labels.alias}}: Mail delivery late";
   };
   mail_send_fails = {
     condition = "increase(mail_send_fails_total[1h]) >= 1";
     summary = "{{$labels.alias}}: Mail send failed";
-    description = "{{$labels.alias}}: Mail send failed";
   };
   postfix_queue_deferred_messages = {
     condition = ''postfix_showq_message_size_bytes_count{queue="deferred"} > 1'';
     summary = "{{$labels.alias}}: postfix has deferred messages in queue";
-    description = "{{$labels.alias}}: postfix has deferred messages in queue";
   };
   alerts_silences_changed = {
     condition = ''abs(delta(alertmanager_silences{state="active"}[1h])) >= 1'';
     summary = "alertmanager: number of active silences has changed: {{$value}}";
-    description = "alertmanager: number of active silences has changed: {{$value}}";
   };
   smart_critical_attributes = {
     condition = ''smartmon_attr_raw_value{name=~".*_retry_count|reallocated_.*|current_pending_sector"} != 0'';
