@@ -51,9 +51,6 @@ let
   fritzboxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.fritzbox.enable
   ));
-  openvpnExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus.exporters.openvpn.enable
-  ));
   nginxSSLVhosts = flatten (flip mapAttrsToList allHosts (_: m:
     optionals m.services.nginx.enable (
       attrNames (flip filterAttrs m.services.nginx.virtualHosts (_: vh:
@@ -121,7 +118,7 @@ let
         source_labels = [ "__address__" ];
         regex = "(.*)(:80)?";
         target_label = "__param_target";
-        replacement = "\$\${1}";
+        replacement = "\${1}";
       }
       {
         source_labels = [ "__param_target" ];
@@ -404,10 +401,6 @@ in {
             fritz = {
               hostNames = fritzboxExporterHostNames;
               port = 9133;
-            };
-            openvpn = {
-              hostNames = openvpnExporterHostNames;
-              port = 9176;
             };
             unifi-poller = {
               hostNames = unifiPollerExporterHostNames;

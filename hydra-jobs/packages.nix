@@ -382,7 +382,6 @@ in
   prometheus-mysqld-exporter = all;
   prometheus-nginx-exporter = all;
   prometheus-node-exporter = all;
-  prometheus-openvpn-exporter = all;
   prometheus-snmp-exporter = all;
   prometheus-unbound-exporter = all;
   prometheus-unifi-exporter = all;

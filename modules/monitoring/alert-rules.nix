@@ -144,22 +144,6 @@
     summary = "{{$labels.instance}}: TLS certificate from {{$labels.source}} is about to expire.";
     description = "{{$labels.instance}}: The TLS certificate from {{$labels.source}} will expire in less than 7 days: {{$value}}s";
   };
-  openvpn_down = {
-    condition = ''up{job="openvpn"} == 0'';
-    summary = "{{$labels.alias}}: OpenVPN exporter is down.";
-    description = "OpenVPN exporter on {{$labels.alias}} hasn't been responding more than 2 minutes.";
-  };
-  openvpn_instance_down = {
-    condition = "openvpn_up == 0";
-    summary = "{{$labels.alias}}: OpenVPN instance {{$labels.status_path}} is down.";
-    description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has been down more than 2 minutes.";
-  };
-  openvpn_instance_noupdate = {
-    condition = "time() - openvpn_status_update_time_seconds > 120";
-    time = "3m";
-    summary = "{{$labels.alias}}: OpenVPN instance {{$labels.status_path}} is not updating its status.";
-    description = "OpenVPN instance {{$labels.status_path}} on {{$labels.alias}} has not updated its status more than 2 minutes.";
-  };
   unifi_devices_adopted_changed = {
     condition = ''sum(abs(delta(unifipoller_site_adopted{status="ok"}[1h]))) >= 1'';
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
