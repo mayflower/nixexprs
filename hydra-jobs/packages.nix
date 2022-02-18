@@ -78,6 +78,7 @@ in
   cmake = all;
   codimd = all;
   collectd = all;
+  colmena = all;
   colordiff = all;
   conntrack-tools = all;
   coreutils = all;
