@@ -1,13 +1,14 @@
 {pkgs ? import <nixpkgs> {
     inherit system;
-  }, system ? builtins.currentSystem, noDev ? false}:
+  }, system ? builtins.currentSystem, noDev ? true}:
 
 let
   composerEnv = import ./composer-env.nix {
-    inherit (pkgs) stdenv lib writeTextFile fetchurl php unzip phpPackages;
+    inherit (pkgs) php phpPackages;
+    inherit (pkgs) stdenv lib writeTextFile fetchurl unzip;
   };
 in
 import ./php-packages.nix {
   inherit composerEnv noDev;
-  inherit (pkgs) fetchurl fetchgit fetchhg fetchsvn;
+  inherit (pkgs) fetchFromGitHub fetchurl fetchgit fetchhg fetchsvn;
 }

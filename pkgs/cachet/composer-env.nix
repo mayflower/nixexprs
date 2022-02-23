@@ -141,6 +141,8 @@ let
 
       inherit unpackPhase buildPhase;
 
+      passthru.php = php;
+
       installPhase = ''
         ${if executable then ''
           mkdir -p $out/share/php
