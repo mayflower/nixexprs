@@ -126,10 +126,10 @@ in
 
         # upgrade steps
         cd ${cfg.dataDir}/cachet-home/
-        ${pkgs.php}/bin/php artisan down
-        ${pkgs.php}/bin/php artisan app:update
-        ${pkgs.php}/bin/php artisan up
-        ${pkgs.php}/bin/php artisan config:cache
+        ${pkgs.cachet.php}/bin/php artisan down
+        ${pkgs.cachet.php}/bin/php artisan app:update
+        ${pkgs.cachet.php}/bin/php artisan up
+        ${pkgs.cachet.php}/bin/php artisan config:cache
       '';
     };
 
@@ -165,6 +165,7 @@ in
     services.phpfpm.pools.cachet = {
       user = "nginx";
       group = "nginx";
+      phpPackage = pkgs.cachet.php;
       settings = {
         "listen.owner" = "nginx";
         "listen.group" = "nginx";
