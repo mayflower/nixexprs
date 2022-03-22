@@ -56,12 +56,11 @@ with lib;
         htop
         iftop
         iotop
-        iperf2
         iperf3
         jnettop
+        jq
         lsof
         ncdu
-        pbzip2
         pciutils
         pv
         strace
