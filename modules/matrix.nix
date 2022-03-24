@@ -280,7 +280,7 @@ in
           tls = false;
           x_forwarded = true;
           resources = [
-            { names = ["client" "webclient"]; compress = false; }
+            { names = ["client"]; compress = false; }
           ];
         } {
           port = 9092;
