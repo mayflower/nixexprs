@@ -86,6 +86,10 @@
     summary = "{{$labels.alias}}: Using more than 30% of its swap.";
     description = "{{$labels.alias}} is using 30% of its swap space for at least 30 minutes.";
   };
+  node_oom = {
+    condition = "rate(node_vmstat_oom_kill[1h]) > 0";
+    summary = "{{$labels.alias}}: OOM killer fired";
+  };
   node_visible_confluence_space = {
     condition = "node_visible_confluence_space != 0";
     summary = "crowd prometheus cann see the {{$labels.space_name}} confluence space!";
