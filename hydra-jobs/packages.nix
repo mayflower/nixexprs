@@ -31,6 +31,7 @@ in
   alsaLib = all;
   alsaTools = all;
   alsaUtils = all;
+  anki = all;
   apparmor-utils = all;
   arandr = all;
   arp-scan = all;
@@ -75,6 +76,7 @@ in
   cifs_utils = all;
   cipherscan = all;
   clamav = all;
+  claws-mail-gtk3 = all;
   cmake = all;
   codimd = all;
   collectd = all;
