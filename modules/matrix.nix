@@ -304,6 +304,10 @@ in
           dns.overwrite.homeserver.client = [
             { name = cfg.fqdn; value = "http://127.0.0.1:8008"; }
           ];
+          session.policy.unbind = {
+            enabled = true;
+            notifications = false;
+          };
           session.policy.validation = {
             enabled = true;
             forLocal = {
