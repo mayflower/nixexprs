@@ -271,9 +271,6 @@ in {
           socketPath = "/var/run/dovecot2/old-stats";
           scopes = [ "user" "global" ];
         };
-        rspamd = {
-          enable = config.services.rspamd.enable;
-        };
         node = {
           enable = true;
           openFirewall = true;
@@ -424,7 +421,9 @@ in {
             };
             rspamd = {
               hostNames = rspamdHostNames;
-              port = 7980;
+              port = 80;
+              # Assumes that `localhost:11334` is exposed via `https://hostname/rspamd`.
+              metrics_path = "/rspamd/metrics";
             };
             mail = {
               hostNames = mailExporterHostNames;
