@@ -182,6 +182,7 @@ in
   go-mtpfs = all;
   gparted = all;
   gperftools = all;
+  gqrx = all;
   grafana = all;
   graphicsmagick = all;
   graphviz = all;
