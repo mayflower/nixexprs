@@ -193,5 +193,6 @@
   smart_critical_attributes = {
     condition = ''smartmon_attr_raw_value{name=~".*_retry_count|reallocated_.*|current_pending_sector"} != 0'';
     summary = "{{$labels.alias}}: {{$labels.disk}} is experiencing sector errors";
+    description = "{{$labels.alias}}: {{$labels.name}} on {{$labels.disk}} is {{$value}}";
   };
 }
