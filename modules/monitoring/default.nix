@@ -312,7 +312,7 @@ in {
           ] ++ (
             optionals (config.services.nfs.server.enable) [ "nfsd" ]
           ) ++ (
-            optionals ("" != config.boot.initrd.mdadmConf) [ "mdadm" ]
+            optionals ("" != config.boot.initrd.services.swraid.mdadmConf) [ "mdadm" ]
           ) ++ (
             optionals ({} != config.networking.bonds) [ "bonding" ]
           ) ++ (

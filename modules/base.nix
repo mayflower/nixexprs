@@ -108,7 +108,7 @@ with lib;
       };
 
       nginx = {
-        package = pkgs.nginxUnstable;
+        package = pkgs.nginxMainline;
         appendConfig = ''
           worker_processes auto;
           worker_cpu_affinity auto;
@@ -129,7 +129,7 @@ with lib;
         recommendedProxySettings = true;
       };
 
-      udisks2.enable = false;
+      udisks2.enable = mkDefault false;
       ntp.enable = false;
       timesyncd.enable = false;
 
