@@ -45,6 +45,17 @@ with lib;
       bash.enableCompletion = true;
       ssh.startAgent = false;
       mtr.enable = true;
+      msmtp = {
+        enable = mkDefault true;
+        accounts.default = {
+          host = "mail.mayflower.de";
+          domain = "mayflower.de";
+          tls = "on";
+          aliases = pkgs.writeText "msmtp-aliases" ''
+            root: devnull@mayflower.de
+          '';
+        };
+      };
     };
 
     environment = {
@@ -129,14 +140,6 @@ with lib;
 
       zfs.autoScrub.enable = config.fileSystems ? "/" &&
         config.fileSystems."/".fsType == "zfs";
-
-      ssmtp = {
-        enable = mkDefault true;
-        hostName = mkDefault "mail.mayflower.de";
-        domain = mkDefault "mayflower.de";
-        useTLS = true;
-        root = mkDefault "devnull@mayflower.de";
-      };
     };
 
     fonts.fontconfig.enable = lib.mkDefault config.services.xserver.enable;
