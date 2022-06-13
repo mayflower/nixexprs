@@ -1,4 +1,4 @@
-From 9bf40b35b097faadd4af56d2be8c6ea4a7c0f912 Mon Sep 17 00:00:00 2001
+From 594a1e20aa53d6afb4dca541ee761113a7bdd682 Mon Sep 17 00:00:00 2001
 From: Robin Gloster <mail@glob.in>
 Date: Sat, 1 Feb 2020 01:52:56 +0100
 Subject: [PATCH] remove subscription check
@@ -8,23 +8,23 @@ Subject: [PATCH] remove subscription check
  1 file changed, 43 deletions(-)
 
 diff --git a/privacyidea/lib/subscriptions.py b/privacyidea/lib/subscriptions.py
-index 7daf990e..f67804ef 100644
+index cda1527b..56a1d31a 100644
 --- a/privacyidea/lib/subscriptions.py
 +++ b/privacyidea/lib/subscriptions.py
-@@ -99,20 +99,6 @@ def subscription_status():
+@@ -104,20 +104,6 @@ def subscription_status(component="privacyidea", tokentype=None):
  
      :return: subscription state
      """
--    token_count = get_tokens(assigned=True, active=True, count=True)
--    if token_count <= APPLICATIONS.get("privacyidea", 50):
+-    token_count = get_tokens(assigned=True, active=True, count=True, tokentype=tokentype)
+-    if token_count <= APPLICATIONS.get(component, 50):
 -        return 0
 -
--    subscriptions = get_subscription("privacyidea")
+-    subscriptions = get_subscription(component)
 -    if len(subscriptions) == 0:
 -        return 1
 -
 -    try:
--        check_subscription("privacyidea")
+-        check_subscription(component)
 -    except SubscriptionError as exx:
 -        log.warning(u"{0}".format(exx))
 -        return 2
@@ -32,7 +32,7 @@ index 7daf990e..f67804ef 100644
      return 3
  
  
-@@ -234,35 +220,6 @@ def check_subscription(application, max_free_subscriptions=None):
+@@ -239,35 +225,6 @@ def check_subscription(application, max_free_subscriptions=None):
          without a subscription file. If not given, the default is used.
      :return: bool
      """
@@ -63,11 +63,11 @@ index 7daf990e..f67804ef 100644
 -                    raise SubscriptionError(description="Too many users "
 -                                                        "with assigned tokens. "
 -                                                        "Subscription exceeded.",
--                                            application="privacyIDEA")
+-                                            application=application)
 -
      return True
  
  
 -- 
-2.24.0
+2.33.1
 
