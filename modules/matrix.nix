@@ -285,7 +285,7 @@ in
             ];
           } {
             port = 9092;
-            bind_addresses = [ "0.0.0.0" "::" ];
+            bind_addresses = [ "0.0.0.0" ];
             type = "metrics";
             tls = false;
             resources = [];
