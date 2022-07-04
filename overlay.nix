@@ -7,6 +7,14 @@ self: super:
   python2 = super.python2.override { packageOverrides = import ./pkgs/python-packages.nix; };
   python = super.python.override { packageOverrides = import ./pkgs/python-packages.nix; };
 
+  mailmanPackages = super.mailmanPackages.extend (_: mailmanSuper: {
+    postorius = mailmanSuper.postorius.overrideAttrs ({ patches ? [], ... }: {
+      patches = patches ++ [
+        ./pkgs/postorius_users_can_create_lists.patch
+      ];
+    });
+  });
+
   cachet = super.callPackage pkgs/cachet {};
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   serviceOverview = super.callPackage pkgs/service-overview { };
