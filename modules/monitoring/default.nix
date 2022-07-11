@@ -158,16 +158,17 @@ in {
   ];
   options = {
     # extends base nginx.virtualHosts
-    services.nginx.virtualHosts = mkOption {
-      type = with types; attrsOf (submodule {
-        expectedStatusCode = mkOption {
-          type = types.int;
-          description = ''
-            HTTP Status Code expected at / on the virtual Host.
-          '';
-        };
-      });
-    };
+    # FIXME broken with 22.05
+    # services.nginx.virtualHosts = mkOption {
+    #   type = with types; attrsOf (submodule {
+    #     expectedStatusCode = mkOption {
+    #       type = types.int;
+    #       description = ''
+    #         HTTP Status Code expected at / on the virtual Host.
+    #       '';
+    #     };
+    #   });
+    # };
 
     mayflower.monitoring = {
       containerDomains = mkOption {
