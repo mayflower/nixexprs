@@ -4,8 +4,7 @@ with lib;
 
 let
   cfg = config.mayflower.monitoring;
-  hostName = name: machine:
-    machine.deployment.targetHost or
+  hostName = name: machine: machine.deployment.targetHost or
       "${machine.networking.hostName}.${machine.containerDomains.${machine.hostBridge}}";
   hostNames = hosts: mapAttrsToList hostName hosts;
 

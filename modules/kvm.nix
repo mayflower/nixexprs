@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 with lib;
 {
   options = {
@@ -20,6 +20,6 @@ with lib;
         fsType = lib.mkDefault "ext4";
       };
     }
-    ((import <nixpkgs/nixos/modules/profiles/qemu-guest.nix>) { inherit config pkgs lib; })
+    ((import "${modulesPath}/profiles/qemu-guest.nix") { inherit config pkgs lib; })
   ]);
 }
