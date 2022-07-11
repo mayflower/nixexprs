@@ -159,14 +159,14 @@ in {
   options = {
     # extends base nginx.virtualHosts
     services.nginx.virtualHosts = mkOption {
-      options = {
+      type = with types; attrsOf (submodule {
         expectedStatusCode = mkOption {
           type = types.int;
           description = ''
             HTTP Status Code expected at / on the virtual Host.
           '';
         };
-      };
+      });
     };
 
     mayflower.monitoring = {
