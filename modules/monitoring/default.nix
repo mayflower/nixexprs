@@ -4,8 +4,7 @@ with lib;
 
 let
   cfg = config.mayflower.monitoring;
-  hostName = name: machine:
-    machine.deployment.targetHost or
+  hostName = name: machine: machine.deployment.targetHost or
       "${machine.networking.hostName}.${machine.containerDomains.${machine.hostBridge}}";
   hostNames = hosts: mapAttrsToList hostName hosts;
 
@@ -160,14 +159,14 @@ in {
   options = {
     # extends base nginx.virtualHosts
     services.nginx.virtualHosts = mkOption {
-      options = {
-        expectedStatusCode = mkOption {
+      type = with types; attrsOf (submodule {
+        options.expectedStatusCode = mkOption {
           type = types.int;
           description = ''
             HTTP Status Code expected at / on the virtual Host.
           '';
         };
-      };
+      });
     };
 
     mayflower.monitoring = {
@@ -312,7 +311,7 @@ in {
           ] ++ (
             optionals (config.services.nfs.server.enable) [ "nfsd" ]
           ) ++ (
-            optionals ("" != config.boot.initrd.mdadmConf) [ "mdadm" ]
+            optionals ("" != config.boot.initrd.services.swraid.mdadmConf) [ "mdadm" ]
           ) ++ (
             optionals ({} != config.networking.bonds) [ "bonding" ]
           ) ++ (

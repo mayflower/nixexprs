@@ -249,52 +249,54 @@ in
 
       matrix-synapse = {
         enable = true;
-        server_name = cfg.fqdn;
-        enable_registration = false;
-        enable_metrics = true;
-        database_type = "psycopg2";
-        # turn configuration with coturn
-        turn_uris = optionals cfg.turn.enable [
-          "turn:${cfg.fqdn}:3478?transport=udp"
-          "turn:${cfg.fqdn}:3478?transport=tcp"
-        ];
-        turn_shared_secret = mkIf cfg.turn.enable cfg.turn.authSecret;
-        turn_user_lifetime = "86400000";
-        tls_certificate_path = "/var/lib/acme/${cfg.fqdn}/fullchain.pem";
-        tls_private_key_path = "/var/lib/acme/${cfg.fqdn}/key.pem";
-        # For simplicity do not reverse-proxy the federation port
-        # See https://github.com/matrix-org/synapse#reverse-proxying-the-federation-port
-        listeners = [{
-          port = 8448;
-          bind_address = "";
-          type = "http";
-          tls = true;
-          x_forwarded = false;
-          resources = [
-            { names = ["federation"]; compress = false; }
+        settings = {
+          server_name = cfg.fqdn;
+          tls_certificate_path = "/var/lib/acme/${cfg.fqdn}/fullchain.pem";
+          tls_private_key_path = "/var/lib/acme/${cfg.fqdn}/key.pem";
+          enable_registration = false;
+          enable_metrics = true;
+          database.name = "psycopg2";
+          # turn configuration with coturn
+          turn_uris = optionals cfg.turn.enable [
+            "turn:${cfg.fqdn}:3478?transport=udp"
+            "turn:${cfg.fqdn}:3478?transport=tcp"
           ];
-        } {
-          port = 8008;
-          bind_address = "127.0.0.1";
-          type = "http";
-          tls = false;
-          x_forwarded = true;
-          resources = [
-            { names = ["client"]; compress = false; }
-          ];
-        } {
-          port = 9092;
-          bind_address = "0.0.0.0";
-          type = "metrics";
-          tls = false;
-          resources = [];
-        }];
-        extraConfig = ''
-          password_providers:
-            - module: "rest_auth_provider.RestAuthProvider"
-              config:
-                endpoint: "http://localhost:8090"
-        '';
+          turn_shared_secret = mkIf cfg.turn.enable cfg.turn.authSecret;
+          turn_user_lifetime = "86400000";
+          # For simplicity do not reverse-proxy the federation port
+          # See https://github.com/matrix-org/synapse#reverse-proxying-the-federation-port
+          listeners = [{
+            port = 8448;
+            bind_addresses = [ "" ];
+            type = "http";
+            tls = true;
+            x_forwarded = false;
+            resources = [
+              { names = ["federation"]; compress = false; }
+            ];
+          } {
+            port = 8008;
+            bind_addresses = [ "127.0.0.1" "::1" ];
+            type = "http";
+            tls = false;
+            x_forwarded = true;
+            resources = [
+              { names = ["client"]; compress = false; }
+            ];
+          } {
+            port = 9092;
+            bind_addresses = [ "0.0.0.0" ];
+            type = "metrics";
+            tls = false;
+            resources = [];
+          }];
+          password_providers = [ {
+            module = "rest_auth_provider.RestAuthProvider";
+            config = {
+              endpoint = "http://localhost:8090";
+            };
+          } ];
+        };
       };
 
       mxisd = {
