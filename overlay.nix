@@ -25,6 +25,10 @@ self: super:
   postfix = super.postfix.override { withPgSQL = true; };
   freeradius = super.freeradius.override { withJson = true; withRest = true; };
 
+  nixops = super.nixops.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or []) ++ [ pkgs/nixops/0001-eval-machine-info-fix-deprecation-warning.patch ];
+  });
+
   bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
     postPatch = (oldAttrs.postPatch or "") + ''
       substituteInPlace src/api/admin.rs --replace \
