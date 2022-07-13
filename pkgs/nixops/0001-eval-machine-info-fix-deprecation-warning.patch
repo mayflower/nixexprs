@@ -1,0 +1,28 @@
+From 4e74a8697050249781f7220a665ec2eebdb0a6b4 Mon Sep 17 00:00:00 2001
+From: Robin Gloster <mail@glob.in>
+Date: Mon, 11 Jul 2022 18:33:32 +0200
+Subject: [PATCH] eval-machine-info: fix deprecation warning
+
+---
+ nix/eval-machine-info.nix | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/nix/eval-machine-info.nix b/nix/eval-machine-info.nix
+index e2e1def5..f2bc621f 100644
+--- a/nix/eval-machine-info.nix
++++ b/nix/eval-machine-info.nix
+@@ -57,9 +57,10 @@ rec {
+                 networking.hostName = mkOverride 900 machineName;
+                 deployment.targetHost = mkOverride 900 machineName;
+                 environment.checkConfigurationOptions = mkOverride 900 checkConfigurationOptions;
++
++                _module.args = { inherit nodes resources uuid deploymentName; name = machineName; };
+               }
+             ];
+-          extraArgs = { inherit nodes resources uuid deploymentName; name = machineName; };
+         };
+       }
+     ) (attrNames (removeAttrs network [ "network" "defaults" "resources" "require" "_file" ])));
+-- 
+2.36.0
+
