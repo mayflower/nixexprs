@@ -23,10 +23,23 @@ in
     turn = {
       enable = mkEnableOption "coturn as turn server";
 
-      authSecret = mkOption {
+      authSecretFile = mkOption {
         type = types.str;
         description = ''
-          Matrix synapse will use this secret to authenticate against the coturn service.
+          Path to the file containing the shared secret for coturn.
+        '';
+      };
+
+      # Note(@Ma27): I considered to somehow implement an abstraction
+      # which allows to do this with a single option, but since this is a special use-case
+      # I didn't consider it worth the effort (including future maintenance effort).
+      synapseAuthSecretFile = mkOption {
+        type = types.str;
+        description = ''
+          Path to the file containing the same secret as
+          <xref linkend="opt-mayflower.matrix.turn.authSecretFile" />,
+          but prefixed with <literal>turn_shared_secret</literal> since
+          it will be passed to synasep as config file.
         '';
       };
 
@@ -249,6 +262,9 @@ in
 
       matrix-synapse = {
         enable = true;
+        extraConfigFiles = mkIf cfg.turn.enable [
+          cfg.turn.synapseAuthSecretFile
+        ];
         settings = {
           server_name = cfg.fqdn;
           tls_certificate_path = "/var/lib/acme/${cfg.fqdn}/fullchain.pem";
@@ -261,7 +277,6 @@ in
             "turn:${cfg.fqdn}:3478?transport=udp"
             "turn:${cfg.fqdn}:3478?transport=tcp"
           ];
-          turn_shared_secret = mkIf cfg.turn.enable cfg.turn.authSecret;
           turn_user_lifetime = "86400000";
           # For simplicity do not reverse-proxy the federation port
           # See https://github.com/matrix-org/synapse#reverse-proxying-the-federation-port
@@ -331,7 +346,7 @@ in
         listening-ips = cfg.turn.listenIPs;
         lt-cred-mech = true;
         use-auth-secret = true;
-        static-auth-secret = cfg.turn.authSecret;
+        static-auth-secret-file = cfg.turn.authSecretFile;
         realm = cfg.fqdn;
         cert = "/var/lib/acme/${cfg.fqdn}/fullchain.pem";
         pkey = "/var/lib/acme/${cfg.fqdn}/key.pem";
