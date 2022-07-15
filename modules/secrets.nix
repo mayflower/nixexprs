@@ -5,6 +5,7 @@ let
 
   inherit (lib)
     concatStrings
+    const
     flatten
     flip
     forEach
@@ -96,6 +97,9 @@ let
         mountPoint = "/var/secrets/${secretName}";
       };
     });
+    config = {
+      mayflower.secrets.hostSecrets = flip mapAttrs secretConfigs (const (const {}));
+    };
   });
 
   /*
