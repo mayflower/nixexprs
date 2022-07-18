@@ -99,6 +99,11 @@ in
         description = "";
       };
     };
+
+    environmentFile = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -107,6 +112,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "postgresql.service" ];
       serviceConfig.Type = "oneshot";
+      serviceConfig.EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
       script = ''
         mkdir -p ${cfg.dataDir}/cachet-home
 
@@ -120,7 +126,7 @@ in
         fi
 
         ${pkgs.rsync}/bin/rsync -aI ${pkgs.cachet}/ ${cfg.dataDir}/cachet-home
-        ${pkgs.rsync}/bin/rsync -aI ${envfile} ${cfg.dataDir}/cachet-home/.env
+        ${pkgs.envsubst}/bin/envsubst -i ${envfile} -o ${cfg.dataDir}/cachet-home/.env
         chown -R nginx:nginx ${cfg.dataDir}/cachet-home
         chmod -R u+w ${cfg.dataDir}/cachet-home
 
