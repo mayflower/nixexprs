@@ -5,6 +5,7 @@ let
 
   inherit (lib)
     concatStrings
+    const
     flatten
     flip
     forEach
@@ -70,6 +71,10 @@ let
 
   /*
    * Given mayflower.secrets.containerSecrets, generate the containers' bind mount sets.
+   * It also generates options for `mayflower.secrets.hostSecrets` for the containers' NixOS
+   * configuration to be able to reference a secret called `service-token` with
+   * `config.mayflower.secrets.hostSecrets.service-token.path` inside the container.
+   * The path is set by the definition of `options.mayflower.secrets.hostSecrets`.
    *
    * Example:
    * genBindMounts { container-a = { service-token = {}; secret2 = {}; }; container-b = {}; }
@@ -85,6 +90,12 @@ let
    *       mountPoint = "/var/secrets/secret2";
    *     };
    *   };
+   *   container-a.config = {
+   *     mayflower.secrets.hostSecrets = {
+   *       service-token = {};
+   *       secret2 = {};
+   *     };
+   *   };
    *   container-b.bindMounts = {};
    * }
    */
@@ -96,6 +107,9 @@ let
         mountPoint = "/var/secrets/${secretName}";
       };
     });
+    config = {
+      mayflower.secrets.hostSecrets = mapAttrs (const (const {})) secretConfigs;
+    };
   });
 
   /*
