@@ -47,6 +47,7 @@ let
     nixos-small = {
       nixexprinput = "nixpkgs";
       nixexprpath = "nixos/release-small.nix";
+      inputs.supportedSystems.value = ''[ "x86_64-linux" ]'';
     };
     docs = {
       nixexprpath = "hydra-jobs/docs.nix";
