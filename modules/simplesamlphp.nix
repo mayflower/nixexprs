@@ -327,10 +327,12 @@ in
         default = "";
         example = ''
           'privacyidea' => [
-            'privacyidea:privacyidea',
-            'privacyideaserver' => 'https://privacyidea.example.org/',
-            'sslverifyhost' => True,
-            'sslverifypeer' => True,
+            'privacyidea:PrivacyideaAuthSource',
+            'privacyideaServerURL' => 'https://privacyidea.example.org/',
+            // sends the password/pin on the first step, so you don't have to re-enter
+            // it when doing any kind of challenge (e.g. U2F) as second factor.
+            'doSendPassword' => 'true',
+            'sslVerifyPeer' => true,
             'realm' => "",
             'attributemap' => [
               'username' => 'samlLoginName',
@@ -448,7 +450,7 @@ in
     services.phpfpm.pools.simplesamlphp = {
         user = "simplesamlphp";
         group = "nginx";
-        phpPackage = pkgs.php74;
+        phpPackage = pkgs.php80;
         settings = {
           "listen.owner" = "nginx";
           "listen.group" = "nginx";

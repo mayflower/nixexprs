@@ -1,13 +1,21 @@
-{ stdenv, lib, pkgs, fetchurl, addPrivacyIdeaModule ? true, addMayflowerModule ? true }:
+{ stdenv, lib, pkgs, fetchurl, addPrivacyIdeaModule ? true, fetchFromGitHub, writeText }:
 with lib;
 
+let
+  phpclient = fetchFromGitHub {
+    owner = "privacyidea";
+    repo = "php-client";
+    rev = "v0.9.7";
+    sha256 = "sha256-l5+1dzpVCwTdjfyUBJ06K5KUNLDIO3RlgveRtzqKUhQ=";
+  };
+in
 stdenv.mkDerivation rec {
   name = "simplesamlphp-${version}";
-  version = "1.19.1";
+  version = "1.19.6";
 
   src = fetchurl {
     url = "https://github.com/simplesamlphp/simplesamlphp/releases/download/v${version}/simplesamlphp-${version}.tar.gz";
-    sha256 = "sha256-GeOGDv9j8jZ1ebnuXCt7YJ19F9qsrNPgSCPd9ZkSR0c=";
+    sha256 = "sha256-g0u0qJ1j10mOd8zrSeAbkZ0cCmo9OKmS+QWBDa1CS3w=";
   };
 
   buildPhase = ''
@@ -15,16 +23,17 @@ stdenv.mkDerivation rec {
     ln -sf /run/simplesamlphp/metadata .
     ln -sf /run/simplesamlphp/config/authsources.php config/
     ln -sf /run/simplesamlphp/config/config.php config/
-  '' +
-  (optionalString addMayflowerModule ''
-    ln -sf /run/simplesamlphp/modules/mayflower modules/
-  '');
+  '';
 
   installPhase = ''
     cp -va . $out
   '' +
   (optionalString addPrivacyIdeaModule ''cp -rva \
     ${pkgs.simplesamlphp-module-privacyidea}/ $out/modules/privacyidea
+    mkdir -p $out/external
+    cp -r ${phpclient} $out/external/php-client
+    cat >>$out/lib/_autoload_modules.php <<-EOF
+    require "$out/external/php-client/src/Client-Autoloader.php";
   '');
 
   meta = {
