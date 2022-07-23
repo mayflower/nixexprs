@@ -131,7 +131,6 @@ let
         'language.cookie.lifetime' => (60 * 60 * 24 * 900),
         'language.i18n.backend' => 'SimpleSAMLphp',
         'attributes.extradictionary' => null,
-        'theme.use' => 'mayflower:mfminimal',
         'template.auto_reload' => true,
         'idpdisco.enableremember' => true,
         'idpdisco.rememberchecked' => true,
@@ -349,11 +348,6 @@ in
         '';
       };
 
-      mayflowerModule = mkOption {
-        type = types.path;
-        description = "Path to Mayflower module";
-      };
-
       saml20.sp.remote = mkOption {
         type = types.str;
         default = "";
@@ -427,7 +421,6 @@ in
       ln -sf ${authsourcesFile} /run/simplesamlphp/config/authsources.php
       ln -sf ${configFile} /run/simplesamlphp/config/config.php
       rm /run/simplesamlphp/modules/mayflower
-      ln -sf ${cfg.mayflowerModule}/ /run/simplesamlphp/modules/mayflower
     '';
 
     services.nginx.enable = true;
