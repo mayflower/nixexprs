@@ -131,7 +131,6 @@ let
         'language.cookie.lifetime' => (60 * 60 * 24 * 900),
         'language.i18n.backend' => 'SimpleSAMLphp',
         'attributes.extradictionary' => null,
-        'theme.use' => 'mayflower:mfminimal',
         'template.auto_reload' => true,
         'idpdisco.enableremember' => true,
         'idpdisco.rememberchecked' => true,
@@ -328,10 +327,12 @@ in
         default = "";
         example = ''
           'privacyidea' => [
-            'privacyidea:privacyidea',
-            'privacyideaserver' => 'https://privacyidea.example.org/',
-            'sslverifyhost' => True,
-            'sslverifypeer' => True,
+            'privacyidea:PrivacyideaAuthSource',
+            'privacyideaServerURL' => 'https://privacyidea.example.org/',
+            // sends the password/pin on the first step, so you don't have to re-enter
+            // it when doing any kind of challenge (e.g. U2F) as second factor.
+            'doSendPassword' => 'true',
+            'sslVerifyPeer' => true,
             'realm' => "",
             'attributemap' => [
               'username' => 'samlLoginName',
@@ -347,11 +348,6 @@ in
           <literal>pkgs.simplesamlphp/config-templates/authsources.php</literal>
           for a list of examples and documentation.
         '';
-      };
-
-      mayflowerModule = mkOption {
-        type = types.path;
-        description = "Path to Mayflower module";
       };
 
       saml20.sp.remote = mkOption {
@@ -427,7 +423,6 @@ in
       ln -sf ${authsourcesFile} /run/simplesamlphp/config/authsources.php
       ln -sf ${configFile} /run/simplesamlphp/config/config.php
       rm /run/simplesamlphp/modules/mayflower
-      ln -sf ${cfg.mayflowerModule}/ /run/simplesamlphp/modules/mayflower
     '';
 
     services.nginx.enable = true;
@@ -455,7 +450,7 @@ in
     services.phpfpm.pools.simplesamlphp = {
         user = "simplesamlphp";
         group = "nginx";
-        phpPackage = pkgs.php74;
+        phpPackage = pkgs.php80;
         settings = {
           "listen.owner" = "nginx";
           "listen.group" = "nginx";
