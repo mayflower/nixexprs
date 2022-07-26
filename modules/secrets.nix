@@ -13,8 +13,18 @@ let
     mapAttrs'
     mkMerge
     mkOption
+    mkOptionType
     nameValuePair
-    types;
+    types
+    unique
+    mapAttrsToList;
+
+  secretPermissions = mkOptionType {
+    name = "secret permissions";
+    description = "permissions for secret which only user and group may access";
+    check = value: types.str.check value && builtins.match "0[0-7]{2}0" value == [];
+    inherit (types.str) merge;
+  };
 
   commonSecretOptions = {
     user = mkOption {
@@ -26,7 +36,7 @@ let
       default = "root";
     };
     permissions = mkOption {
-      type = types.str;
+      type = secretPermissions;
       default = "0440";
     };
     destDir = mkOption {
@@ -95,6 +105,9 @@ let
    *       service-token = {};
    *       secret2 = {};
    *     };
+   *     systemd.tmpfiles.rules = [
+   *       "z /var/secrets 0751 root keys - -"
+   *     ];
    *   };
    *   container-b.bindMounts = {};
    * }
@@ -109,6 +122,9 @@ let
     });
     config = {
       mayflower.secrets.hostSecrets = mapAttrs (const (const {})) secretConfigs;
+      systemd.tmpfiles.rules = [
+        "z /var/secrets 0751 root keys - -"
+      ];
     };
   });
 
@@ -205,5 +221,8 @@ in
       (genContainerKeysConfig cfg.containerSecrets)
     ];
     containers = genBindMounts cfg.containerSecrets;
+    systemd.tmpfiles.rules = let
+      targetDirs = unique (mapAttrsToList (const ({ destDir, ... }: destDir)) config.deployment.keys);
+    in map (dir: "z ${dir} 0751 root keys - -") targetDirs;
   }) else {};
 }
