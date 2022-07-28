@@ -6,12 +6,12 @@ let
   cfg = config.mayflower.demockrazy;
   pkg = pkgs.stdenv.mkDerivation rec {
     pname = "demockrazy";
-    version = "2021-01-29";
+    version = "2022-07-28";
     src = pkgs.fetchFromGitHub {
       owner = "mayflower";
       repo = "demockrazy";
-      rev = "7c0608b15e68c3bb013201de0b5ee0671ca533f7";
-      sha256 = "1fm6sw4jbh2l07z77sb2ah9vrl7h2hzafizs772liy0ail1s8ppx";
+      rev = "2ba48964d9add4fdbee49afabd134849e5939184";
+      sha256 = "sha256-rqC7IpbrhqFfNl6vWm6dkjRpZN6kv+IemjQcqKC0zFk=";
     };
 
     installPhase = ''
@@ -55,12 +55,16 @@ let
       with open('${cfg.secretKeyFile}') as secret_file:
         SECRET_KEY = secret_file.read().strip()
 
+      ${optionalString (cfg.mail.passwordFile != null) ''
+        with open('${cfg.mail.passwordFile}') as pw_file:
+          EMAIL_HOST_PASSWORD = pw_file.read().strip()
+      ''}
+
       ${optionalString (cfg.mail.host != null) "EMAIL_HOST = \"${cfg.mail.host}\""}
       EMAIL_PORT = ${toString cfg.mail.port}
       EMAIL_USE_TLS = ${if cfg.mail.useTLS then "True" else "False"}
       EMAIL_USE_SSL = ${if cfg.mail.useSSL then "True" else "False"}
       ${optionalString (cfg.mail.user != null) "EMAIL_HOST_USER = \"${cfg.mail.user}\""}
-      ${optionalString (cfg.mail.password != null) "EMAIL_HOST_PASSWORD = \"${cfg.mail.password}\""}
       VOTE_MAIL_FROM = "${cfg.mail.from}"
       VOTE_SEND_MAILS = ${if cfg.mail.sendMails then "True" else "False"}
       VOTE_BASE_URL = '${cfg.baseUrl}'
@@ -147,11 +151,11 @@ in {
               Mail relay user name
             '';
           };
-          password = mkOption {
+          passwordFile = mkOption {
             type = types.nullOr types.str;
             default = null;
             description = ''
-              Mail relay user password
+              Path to the file containing the mail relay user password
             '';
           };
           port = mkOption {
