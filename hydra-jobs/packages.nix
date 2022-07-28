@@ -288,6 +288,7 @@ in
   minikube = all;
   mkpasswd = all;
   mktemp = all;
+  mongodb-4_2 = ["x86_64-linux"];
   mosh = all;
   mpd = all;
   mpg321 = all;
