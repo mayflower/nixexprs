@@ -422,7 +422,6 @@ in
       ln -sf ${saml20-idp-hosted} /run/simplesamlphp/metadata/saml20-idp-hosted.php
       ln -sf ${authsourcesFile} /run/simplesamlphp/config/authsources.php
       ln -sf ${configFile} /run/simplesamlphp/config/config.php
-      rm /run/simplesamlphp/modules/mayflower
     '';
 
     services.nginx.enable = true;
