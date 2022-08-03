@@ -22,7 +22,12 @@ import ./packages.nix {
             license = meta.license or {};
           in
           ((builtins.isAttrs license) && (license.redistributable or false));
+
         inHydra = true;
+
+        permittedInsecurePackages = [
+          "python2.7-pyjwt-1.7.1" # nixops-1.7
+        ];
       };
       overlays = [ (import "${nixexprs}/overlay.nix") ];
     };
