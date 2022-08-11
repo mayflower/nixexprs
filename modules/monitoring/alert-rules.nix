@@ -74,11 +74,11 @@
     summary = "{{$labels.alias}}: Running on high load: {{$value}}";
     description = "{{$labels.alias}} is running with load15 > 1 for at least 5 minutes: {{$value}}";
   };
-  node_ram_using_90percent = {
-    condition =  "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
-    time = "1h";
+  node_ram_80percent_unreclaimable = {
+    condition =  "node_memory_SUnreclaim_bytes > node_memory_MemTotal_bytes * .8";
+    time = "30m";
     summary = "{{$labels.alias}}: Using lots of RAM.";
-    description = "{{$labels.alias}} is using at least 90% of its RAM for at least 1 hour.";
+    description = "{{$labels.alias}} more than 80% of RAM is unreclaimable for at least 30 minutes.";
   };
   node_swap_using_30percent = {
     condition = "node_memory_SwapTotal_bytes - (node_memory_SwapFree_bytes + node_memory_SwapCached_bytes) > node_memory_SwapTotal_bytes * 0.3";
