@@ -74,8 +74,14 @@
     summary = "{{$labels.alias}}: Running on high load: {{$value}}";
     description = "{{$labels.alias}} is running with load15 > 1 for at least 5 minutes: {{$value}}";
   };
-  node_ram_using_90percent = {
-    condition =  "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
+  node_ram_using_90percent_non_zfs_nodes = {
+    condition =  "node_memory_MemAvailable_bytes < node_memory_MemTotal_bytes * 0.1 unless node_zfs_arc_size";
+    time = "1h";
+    summary = "{{$labels.alias}}: Using lots of RAM.";
+    description = "{{$labels.alias}} is using at least 90% of its RAM for at least 1 hour.";
+  };
+  node_ram_using_90percent_zfs_nodes = {
+    condition =  "node_memory_MemAvailable_bytes + node_zfs_arc_size - node_zfs_arc_c_min < node_memory_MemTotal_bytes * 0.1";
     time = "1h";
     summary = "{{$labels.alias}}: Using lots of RAM.";
     description = "{{$labels.alias}} is using at least 90% of its RAM for at least 1 hour.";
