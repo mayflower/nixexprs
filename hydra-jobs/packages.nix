@@ -33,7 +33,6 @@ in
   alsaUtils = all;
   anki = all;
   apparmor-utils = all;
-  arandr = all;
   arp-scan = all;
   aspell = all;
   at = all;
@@ -70,7 +69,7 @@ in
   cfssl = all;
   checksec = all;
   checkstyle = all;
-  chromium = all;
+  chromium = ["x86_64-linux"];
   chrony = all;
   cifs-utils = all;
   clamav = all;
@@ -116,7 +115,6 @@ in
   e2fsprogs = all;
   efibootmgr = all;
   efivar = all;
-  EmptyEpsilon = all;
   enscript = all;
   etcd = all;
   ethtool = all;
@@ -140,8 +138,6 @@ in
   fping = all;
   gawk = all;
   gcc = all;
-  gcc6 = all;
-  gcc7 = all;
   gettext = all;
   ghc = all;
   gimp = all;
@@ -174,7 +170,6 @@ in
   gnutar = all;
   gnutls = all;
   go = all;
-  go2nix = all;
   gocode = all;
   gox = all;
   go-mtpfs = all;
@@ -197,7 +192,6 @@ in
   haveged = all;
   hddtemp = all;
   hdparm = all;
-  hello = all;
   hexedit = all;
   host = all;
   hostapd = all;
@@ -206,10 +200,6 @@ in
   htop = all;
   hugo = all;
   hydra-unstable = all;
-  i3 = all;
-  i3-gaps = all;
-  i3lock = all;
-  i3status = all;
   iana-etc = all;
   icecast = all;
   icedtea_web = all;
@@ -316,10 +306,8 @@ in
   nix-generate-from-cpan = all;
   nixUnstable = all;
   nixops = all;
-  nixopsUnstable = all;
   nmap = all;
   nodejs = all;
-  nox = all;
   nss_ldap = all;
   nssmdns = all;
   ntfs3g = all;
@@ -369,7 +357,6 @@ in
   php81Extensions.apcu = all;
   php81Extensions.imagick = all;
   php81Extensions.xdebug = all;
-  physlock = all;
   picocom = all;
   pinentry = all;
   pipework = all;
@@ -418,14 +405,10 @@ in
     slackclient = linux;
     tempora = linux;
     tkinter = all;
-    youtube-dl = all;
     zope_schema = linux;
   };
   SDL2 = all;
   haskellPackages.hoogle = all;
-  haskellPackages.xmobar = all;
-  haskellPackages.xmonad-contrib = all;
-  haskellPackages.xmonad-extras = all;
   pv = all;
   qemu = all;
   qemu_kvm = all;
@@ -436,7 +419,6 @@ in
   readline = all;
   redir = all;
   redis = all;
-  redshift = all;
   remmina = all;
   ripgrep = all;
   rlwrap = all;
@@ -452,14 +434,12 @@ in
   screen = all;
   screenfetch = all;
   screen-message = all;
-  scrot = all;
   sdparm = all;
   shairport-sync = all;
   sharutils = all;
   simp_le = all;
   sipcalc = all;
   sks = all;
-  sl = all;
   sloccount = all;
   smartmontools = all;
   smokeping = all;
@@ -475,7 +455,6 @@ in
   strongswan = all;
   stunnel = all;
   su = all;
-  subversion = all;
   sudo = all;
   sysdig = ["x86_64-linux"];
   sysklogd = all;
@@ -484,10 +463,6 @@ in
   systemd = all;
   tcl = all;
   tcpdump = all;
-  texlive.combined = {
-    scheme-small = all;
-    scheme-full = all;
-  };
   thermald = ["x86_64-linux"];
   time = all;
   tinycc = ["x86_64-linux"];
@@ -528,24 +503,15 @@ in
   wireshark-cli = all;
   wpa_supplicant = linux;
   wpa_supplicant_gui = linux;
-  xautolock = all;
-  xcalib = all;
-  xclip = all;
   xdg-user-dirs = all;
   xdg_utils = all;
   xdotool = all;
-  xfontsel = all;
   xfsprogs = linux;
   xkeyboard_config = linux;
   xmlsec = all;
   xmonad-with-packages = all;
-  xorg_sys_opengl = all;
-  xscreensaver = all;
-  xss-lock = all;
-  xtrlock-pam = all;
   xz = all;
   ympd = all;
-  youtube-dl = all;
   zathura = all;
   zfs = all;
   zfstools = all;
@@ -556,12 +522,6 @@ in
   zsh = all;
 
   linuxPackages = kernelPackages;
-  linuxPackages_latest = kernelPackages;
-
-  nodePackages = {
-    bower = all;
-    grunt-cli = all;
-  };
 
   xorg = {
     sessreg = all;
