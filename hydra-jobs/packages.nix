@@ -154,6 +154,7 @@ in
   gitlab-runner = all;
   gitlab-shell = all;
   gitlab-workhorse = all;
+  gitlab-workhorse-git-2-35-4 = all; # See ../overlay.nix
   glibc = all;
   glibcLocales = all;
   gmp = all;
