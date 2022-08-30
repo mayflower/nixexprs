@@ -8,4 +8,8 @@ self: super: {
   rasa-nlu = self.callPackage ./python/rasa-nlu { };
   sklearn-crfsuite = self.callPackage ./python/sklearn-crfsuite { };
   # geopy FIXME
+  pytest-xdist = super.pytest-xdist.overridePythonAttrs(old: {
+    # binfmt? cpu_exec: assertion failed: (cpu == current_cpu)
+    doCheck = super.pytest-xdist.system != "aarch64-linux";
+  });
 }
