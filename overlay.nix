@@ -98,4 +98,13 @@ self: super:
       sha256 = "sha256-mv13OdNkXggeKQkJ+47QcJ6lYmcw6Qjri1ZJ2ETCTOk=";
     };
   });
+
+  libseccomp = super.libseccomp.overrideAttrs(old: {
+    # 52-basic-load
+    doCheck = super.libseccomp.system != "aarch64-linux";
+  });
+  llvm = super.llvm.overrideAttrs(old: {
+    # two_module_global_variables_case
+    doCheck = super.llvm.system != "aarch64-linux";
+  });
 }

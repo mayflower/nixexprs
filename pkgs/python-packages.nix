@@ -39,4 +39,8 @@ self: super: {
     # test_server_finishes_when_no_connections
     doCheck = super.requests.system != "aarch64-linux";
   });
+  curio = super.curio.overridePythonAttrs(old: {
+    # test_timeout
+    doCheck = super.curio.system != "aarch64-linux";
+  });
 }
