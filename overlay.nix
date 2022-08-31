@@ -98,4 +98,62 @@ self: super:
       sha256 = "sha256-mv13OdNkXggeKQkJ+47QcJ6lYmcw6Qjri1ZJ2ETCTOk=";
     };
   });
+
+  ell = super.ell.overrideAttrs(old: {
+    # qemu: uncaught target signal 6 (Aborted) - core dumped
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  gjs = super.gjs.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  go_1_17 = super.go_1_17.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  json-glib = super.json-glib.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  libseccomp = super.libseccomp.overrideAttrs(old: {
+    # 52-basic-load
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  libsecret = super.libsecret.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  llvmPackages_13 = super.lib.recursiveUpdate super.llvmPackages_13 {
+    libllvm = super.llvmPackages_13.libllvm.overrideAttrs(old: {
+      # two_module_global_variables_case
+      doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+    });
+  };
+  llvmPackages_14 = super.lib.recursiveUpdate super.llvmPackages_14 {
+    llvm = super.llvmPackages_14.llvm.overrideAttrs(old: {
+      # two_module_global_variables_case
+      doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+    });
+    libllvm = super.llvmPackages_14.libllvm.overrideAttrs(old: {
+      # two_module_global_variables_case
+      doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+    });
+  };
+  mdbook = super.mdbook.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  nix = super.nix.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+    doInstallCheck = (old.doInstallCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  nlohmann_json = super.nlohmann_json.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
+  nss = super.nss.overrideAttrs(old: {
+    preBuild = (old.preBuild or "")
+    + (super.lib.optionalString super.hostPlatform.isAarch64 ''
+      substituteInPlace ./build.sh --replace \
+        'gyp_params=(--depth="$cwd" --generator-output=".")' \
+        'gyp_params=(--depth="$cwd" --generator-output="." -Ddisable_tests=1)'
+      '');
+  });
+  tracker = super.tracker.overrideAttrs(old: {
+    doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
+  });
 }
