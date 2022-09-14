@@ -6,9 +6,12 @@ let
   nixosManual = (import (nixpkgs + "/nixos/lib/eval-config.nix") {
     inherit system;
     modules = [({ lib, ... }: {
-      documentation.nixos.enable = lib.mkForce true;
+      config.documentation.nixos.includeAllModules = true;
+      config.documentation.nixos.enable = lib.mkForce true;
+      config.documentation.nixos.options.warningsAreErrors = false;
     })];
-    baseModules = import (nixpkgs + "/nixos/modules/module-list.nix") ++ import (nixexprs + "/module-list.nix");
+    baseModules = import (nixpkgs + "/nixos/modules/module-list.nix");
+    extraModules = import (nixexprs + "/module-list.nix");
   }).config.system.build.manual;
 in {
   inherit (nixosManual) manual manualEpub manualHTML optionsDocBook optionsJSON manpages;
