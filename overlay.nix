@@ -100,7 +100,6 @@ self: super:
   });
 
   ell = super.ell.overrideAttrs(old: {
-    # qemu: uncaught target signal 6 (Aborted) - core dumped
     doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
   });
   gjs = super.gjs.overrideAttrs(old: {
@@ -113,7 +112,6 @@ self: super:
     doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
   });
   libseccomp = super.libseccomp.overrideAttrs(old: {
-    # 52-basic-load
     doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
   });
   libsecret = super.libsecret.overrideAttrs(old: {
@@ -121,17 +119,14 @@ self: super:
   });
   llvmPackages_13 = super.lib.recursiveUpdate super.llvmPackages_13 {
     libllvm = super.llvmPackages_13.libllvm.overrideAttrs(old: {
-      # two_module_global_variables_case
       doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
     });
   };
   llvmPackages_14 = super.lib.recursiveUpdate super.llvmPackages_14 {
     llvm = super.llvmPackages_14.llvm.overrideAttrs(old: {
-      # two_module_global_variables_case
       doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
     });
     libllvm = super.llvmPackages_14.libllvm.overrideAttrs(old: {
-      # two_module_global_variables_case
       doCheck = (old.doCheck or false) && ! super.hostPlatform.isAarch64;
     });
   };
