@@ -9,7 +9,15 @@ self: super: {
   sklearn-crfsuite = self.callPackage ./python/sklearn-crfsuite { };
   # geopy FIXME
   pytest-xdist = super.pytest-xdist.overridePythonAttrs(old: {
-    # binfmt? cpu_exec: assertion failed: (cpu == current_cpu)
     doCheck = super.pytest-xdist.system != "aarch64-linux";
+  });
+  hypothesis = super.hypothesis.overridePythonAttrs(old: {
+    doCheck = super.hypothesis.system != "aarch64-linux";
+  });
+  requests = super.requests.overridePythonAttrs(old: {
+    doCheck = super.requests.system != "aarch64-linux";
+  });
+  curio = super.curio.overridePythonAttrs(old: {
+    doCheck = super.curio.system != "aarch64-linux";
   });
 }
