@@ -11,7 +11,9 @@
     description = "{{$labels.alias}} has been down for more than 2 minutes.";
   };
   node_collector_failed = {
-    condition = ''node_scrape_collector_success{job="node"} == 0'';
+    # FIXME remove `collector!="conntrack"` as soon as
+    # https://github.com/prometheus/node_exporter/issues/2491 is resolved.
+    condition = ''node_scrape_collector_success{job="node",collector!="conntrack"} == 0'';
     summary = "{{$labels.alias}}: Node collector {{$labels.collector}} failed.";
     description = "{{$labels.alias}}: The collector {{$labels.collector}} of node exporter instance {{$labels.instance}} failed.";
   };

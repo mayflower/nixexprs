@@ -401,7 +401,7 @@ let
     minio-client = ["x86_64-linux"];
     minio = ["x86_64-linux"];
     mkpasswd = ["x86_64-linux"];
-    #mongodb-4_2 = ["x86_64-linux"]; # unfree
+    mongodb-4_2 = ["x86_64-linux"];
     moreutils = ["x86_64-linux"];
     msmtp = ["x86_64-linux"];
     ms-sys = ["x86_64-linux"];
