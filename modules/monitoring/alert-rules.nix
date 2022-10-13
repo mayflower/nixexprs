@@ -197,7 +197,7 @@ in {
     summary = "{{$labels.alias}}: postfix has deferred messages in queue";
   };
   alerts_silences_changed = {
-    condition = excl: ''abs(delta(alertmanager_silences{state="active"${ensureComma excl}}[1h])) >= 1'';
+    condition = excl: ''round(delta(alertmanager_silences{state="active"${ensureComma excl}}[1h])) != 0'';
     summary = "alertmanager: number of active silences has changed: {{$value}}";
   };
   smart_critical_attributes = {
