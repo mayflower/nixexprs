@@ -1149,6 +1149,7 @@ let
     libmediainfo = ["x86_64-linux"];
     libnotify = ["x86_64-linux"];
     libotr = ["x86_64-linux"];
+    libreoffice = ["x86_64-linux"];
     libseccomp = ["x86_64-linux"];
     libtool_2 = ["x86_64-linux"];
     libyaml = ["x86_64-linux"];
@@ -1211,6 +1212,7 @@ let
     pass = ["x86_64-linux"];
     pavucontrol = ["x86_64-linux"];
     pbzip2 = ["x86_64-linux"];
+    pdftk = ["x86_64-linux"];
     perf-tools = ["x86_64-linux"];
     perlPackages = {
       CGI = ["x86_64-linux"];
