@@ -260,6 +260,7 @@ let
     desktop-file-utils = ["x86_64-linux"];
     dhcpcd = ["x86_64-linux"];
     diffutils = ["x86_64-linux"];
+    discourse = ["x86_64-linux"];
     dkimpy = ["x86_64-linux"];
     dmidecode = ["x86_64-linux"];
     dnsmasq = ["x86_64-linux"];
