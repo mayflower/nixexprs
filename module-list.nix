@@ -9,7 +9,6 @@
   modules/machines.nix
   modules/matrix.nix
   modules/monitoring/default.nix
-  modules/openldap-ha.nix
   modules/opsdroid.nix
   modules/secrets.nix
   modules/service-overview.nix
