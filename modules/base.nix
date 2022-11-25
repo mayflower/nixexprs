@@ -160,14 +160,16 @@ with lib;
         automatic = !config.boot.isContainer;
         options = "--delete-older-than 7d";
       };
-      binaryCaches = lib.mkForce [
-        "https://hydra.mayflower.de/"
-        "https://cache.nixos.org/"
-      ];
-      binaryCachePublicKeys = [
-        "hydra.mayflower.de:9knPU2SJ2xyI0KTJjtUKOGUVdR2/3cOB4VNDQThcfaY="
-      ];
-      buildCores = 0;
+      settings = {
+        substituters = lib.mkForce [
+          "https://hydra.mayflower.de/"
+          "https://cache.nixos.org/"
+        ];
+        trusted-public-keys = [
+          "hydra.mayflower.de:9knPU2SJ2xyI0KTJjtUKOGUVdR2/3cOB4VNDQThcfaY="
+        ];
+        cores = 0;
+      };
     };
 
     documentation.nixos.enable = false;
