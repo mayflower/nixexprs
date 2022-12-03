@@ -840,10 +840,7 @@ let
     rubyPackages.erubi = ["x86_64-linux"];
     rubyPackages.ethon = ["x86_64-linux"];
     rubyPackages.execjs = ["x86_64-linux"];
-    rubyPackages.faraday-excon = ["x86_64-linux"];
     rubyPackages.faraday-net_http = ["x86_64-linux"];
-    rubyPackages.faraday-patron = ["x86_64-linux"];
-    rubyPackages.faraday-retry = ["x86_64-linux"];
     rubyPackages.faraday = ["x86_64-linux"];
     rubyPackages.ffi-compiler = ["x86_64-linux"];
     rubyPackages.ffi = ["x86_64-linux"];
@@ -854,12 +851,10 @@ let
     rubyPackages.httpclient = ["x86_64-linux"];
     rubyPackages.jaro_winkler = ["x86_64-linux"];
     rubyPackages.jmespath = ["x86_64-linux"];
-    rubyPackages.mail = ["x86_64-linux"];
     rubyPackages.method_source = ["x86_64-linux"];
     rubyPackages.mime-types-data = ["x86_64-linux"];
     rubyPackages.mime-types = ["x86_64-linux"];
     rubyPackages.mini_portile2 = ["x86_64-linux"];
-    rubyPackages.multipart-post = ["x86_64-linux"];
     rubyPackages.mustermann = ["x86_64-linux"];
     rubyPackages.nap = ["x86_64-linux"];
     rubyPackages.netrc = ["x86_64-linux"];
@@ -898,7 +893,6 @@ let
     rubyPackages.tilt = ["x86_64-linux"];
     rubyPackages.unf = ["x86_64-linux"];
     rubyPackages.unicode-display_width = ["x86_64-linux"];
-    rubyPackages.websocket-extensions = ["x86_64-linux"];
     ruby = ["x86_64-linux"];
     samba = ["x86_64-linux"];
     screen = ["x86_64-linux"];
@@ -1170,9 +1164,6 @@ let
       NetLDAP = ["x86_64-linux"];
       NetSNMP = ["x86_64-linux"];
     };
-    php74Extensions.apcu = ["x86_64-linux"];
-    php74Extensions.imagick = ["x86_64-linux"];
-    php74Extensions.xdebug = ["x86_64-linux"];
     php80Extensions.xdebug = ["x86_64-linux"];
     php81 = ["x86_64-linux"];
     php81Packages.composer = ["x86_64-linux"];
