@@ -4,7 +4,8 @@
 
 let
   composerEnv = import ./composer-env.nix {
-    inherit (pkgs) php phpPackages;
+    php = pkgs.php80;
+    phpPackages = pkgs.php80Packages;
     inherit (pkgs) stdenv lib writeTextFile fetchurl unzip;
   };
 in
