@@ -27,6 +27,7 @@ import ./packages.nix {
 
         permittedInsecurePackages = [
           "python2.7-pyjwt-1.7.1" # nixops-1.7
+          "python2.7-certifi-2021.10.8" # nixops-1.7
         ];
       };
       overlays = [ (import "${nixexprs}/overlay.nix") ];
