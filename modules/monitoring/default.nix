@@ -78,6 +78,9 @@ let
   nextcloudExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.nextcloud.enable
   ));
+  zfsExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
+    machineSupportsFileSystemZfs m
+  ));
 
   extraScrapeConfigsSameDC = foldAttrs (esc: acc: acc//esc) {} (flip mapAttrsToList allHostsSameDC (
     _: m: m.mayflower.monitoring.extraScrapeConfigs
@@ -147,7 +150,11 @@ let
     ];
   };
 
+
   mountsFileSystemType = fsType: {} != filterAttrs (n: v: v.fsType == fsType) config.fileSystems;
+
+  machineSupportsFileSystemZfs = config: elem "zfs" config.boot.supportedFilesystems;
+  supportsFileSystemZfs = machineSupportsFileSystemZfs config;
 
 in {
   imports = [
@@ -319,13 +326,17 @@ in {
           ) ++ (
             optionals (mountsFileSystemType "xfs") [ "xfs" ]
           ) ++ (
-            optionals (mountsFileSystemType "zfs" || elem "zfs" config.boot.supportedFilesystems) [ "zfs" ]
+            optionals (supportsFileSystemZfs) [ "zfs" ]
           );
         };
         nextcloud = {
           enable = config.services.nextcloud.enable;
           openFirewall = config.services.nextcloud.enable;
           url = "https://${config.services.nextcloud.hostName}";
+        };
+        zfs = {
+          enable = supportsFileSystemZfs;
+          openFirewall = supportsFileSystemZfs;
         };
       };
     }
@@ -435,6 +446,10 @@ in {
             nextcloud = {
               hostNames = nextcloudExporterHostNames;
               port = 9205;
+            };
+            zfs = {
+              hostNames = zfsExporterHostNames;
+              port = 9134;
             };
           } // extraScrapeConfigsSameDC)) ++
           (flip concatMap cfg.server.blackboxExporterHosts (hostname:
