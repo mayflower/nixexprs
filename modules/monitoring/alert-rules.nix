@@ -44,6 +44,16 @@ in {
     summary = "{{$labels.alias}}: Filesystem is running out of space in 30 days.";
     description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space in approx. 30 days";
   };
+  node_filesystem_zfs_unhealthy = {
+    condition = excl: ''zfs_pool_health{${excl}} != 0'';
+    summary = "{{$labels.alias}}: zpool is unhealthy.";
+    description = "{{$labels.alias}} zpool {{$labels.pool}} is unhealthy in status {{$value}} [0: ONLINE, 1: DEGRADED, 2: FAULTED, 3: OFFLINE, 4: UNAVAIL, 5: REMOVED, 6: SUSPENDED]";
+  };
+  node_filesystem_zfs_leaked_bytes = {
+    condition = excl: ''zfs_pool_leaked_bytes{${excl}} > 0'';
+    summary = "{{$labels.alias}}: zpool leaked bytes.";
+    description = "{{$labels.alias}} zpool {{$labels.pool}} leaked {{$value}} bytes";
+  };
   node_inodes_full_in_7d = {
     condition = excl: ''node_filesystem_files_free{${filesystemFilter}${ensureComma excl}} ''
       + ''and predict_linear(node_filesystem_files_free{${filesystemFilter}${ensureComma excl}}[2d], 7*24*3600) < 0'';
