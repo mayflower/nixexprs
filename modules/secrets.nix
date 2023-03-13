@@ -134,11 +134,10 @@ let
   genHostKeysConfig = mapAttrs (secretName: secretConfig: let
     associatedService = config.systemd.services.${secretConfig.associatedService};
     useAssociatedService = secretConfig.associatedService != null && !(associatedService.serviceConfig.DynamicUser or false);
+    secretPath = concatStrings [ cfg.basePath "/" secretConfig.relKeyPath "/" secretName ".gpg" ];
   in {
     inherit (secretConfig) permissions destDir;
-    keyFile = cfg.basePath + concatStrings [
-      "/" secretConfig.relKeyPath "/" secretName
-    ];
+    keyCommand = [ "gpg" "--decrypt" "--quiet" secretPath ];
     user = if useAssociatedService then associatedService.serviceConfig.User else secretConfig.user;
     group = if useAssociatedService then associatedService.serviceConfig.Group else secretConfig.group;
   });
@@ -151,7 +150,7 @@ let
    *     container-a-service-token = {
    *       destDir = "/var/secrets";
    *       permissions = "0440";
-   *       keyFile = ../secrets/server-a/container-a/service-token;
+   *       keyCommand = [ "gpg" "--decrypt" "--quiet" "${../secrets/server-a/container-a/service-token}.gpg" ];
    *     };
    *   };
    *
@@ -163,14 +162,13 @@ let
           secretConfig = containerConfigs.${containerName}.${secretName};
           associatedService = config.containers.${containerName}.config.systemd.services.${secretConfig.associatedService};
           useAssociatedService = secretConfig.associatedService != null && !(associatedService.serviceConfig.DynamicUser or false);
+          secretPath = concatStrings [ cfg.basePath "/" secretConfig.relKeyPath "/" containerName "/" secretName ".gpg" ];
         in
         nameValuePair
           (containerName + "-" + secretName)
           {
             inherit (secretConfig) permissions destDir;
-            keyFile = cfg.basePath + (concatStrings [
-              "/" secretConfig.relKeyPath "/" containerName "/" secretName
-            ]);
+            keyCommand = [ "gpg" "--decrypt" "--quiet" secretPath ];
             user = if useAssociatedService then associatedService.serviceConfig.User else secretConfig.user;
             group = if useAssociatedService then associatedService.serviceConfig.Group else secretConfig.group;
           }
