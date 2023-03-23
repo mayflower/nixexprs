@@ -1,21 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch }:
+{ stdenv, lib, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   name = "simplesamlphp-module-privacyidea-${version}";
-  version = "2.1.3";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "privacyidea";
     repo = "simplesamlphp-module-privacyidea";
     rev = "v${version}";
-    sha256 = "sha256-1kg1R7BOKDZWu/Cbf3QunzHwpby+nwdbm8aV7ihv2jI=";
+    sha256 = "sha256-5KHM0k7gVGaeMy15mw1oDnowGTdqKPcyNaiDDiDbpmg=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/privacyidea/simplesamlphp-module-privacyidea/commit/f54e3e2bbd7dcb4d0edf91c0576b11e40c569e94.patch";
-      sha256 = "sha256-t6kvcF53aQcbxmqymAIwd73vaObm5LOJCe8O8FZ3n6s=";
-    })
-  ];
 
   installPhase = ''
     cp -va . $out

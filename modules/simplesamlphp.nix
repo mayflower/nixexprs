@@ -331,7 +331,7 @@ in
             'privacyideaServerURL' => 'https://privacyidea.example.org/',
             // sends the password/pin on the first step, so you don't have to re-enter
             // it when doing any kind of challenge (e.g. U2F) as second factor.
-            'doSendPassword' => 'true',
+            'authenticationFlow' => 'sendPassword',
             'sslVerifyPeer' => true,
             'realm' => "",
             'attributemap' => [

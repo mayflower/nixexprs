@@ -11,11 +11,11 @@ let
 in
 stdenv.mkDerivation rec {
   name = "simplesamlphp-${version}";
-  version = "1.19.6";
+  version = "1.19.8";
 
   src = fetchurl {
     url = "https://github.com/simplesamlphp/simplesamlphp/releases/download/v${version}/simplesamlphp-${version}.tar.gz";
-    sha256 = "sha256-g0u0qJ1j10mOd8zrSeAbkZ0cCmo9OKmS+QWBDa1CS3w=";
+    sha256 = "sha256-qQQV+ECDB1pmWXeG2fR1d+reR25tNk7DNIXsXNyMYRo=";
   };
 
   buildPhase = ''
