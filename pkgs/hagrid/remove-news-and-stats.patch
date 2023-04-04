@@ -1,0 +1,1093 @@
+diff --git a/dist/templates/about/about.html.hbs b/dist/templates/about/about.html.hbs
+index dbd5dcc..820ac2b 100644
+--- a/dist/templates/about/about.html.hbs
++++ b/dist/templates/about/about.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about">
+-    <center><h2>About | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2>About | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <p>
+         The <span class="brand">keys.openpgp.org</span> server is a public service for the
+diff --git a/dist/templates/about/api.html.hbs b/dist/templates/about/api.html.hbs
+index 6e66d0b..46c5115 100644
+--- a/dist/templates/about/api.html.hbs
++++ b/dist/templates/about/api.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+   <p>
+     Hagrid implements both the legacy HKP interface, as well as our
+diff --git a/dist/templates/about/faq.html.hbs b/dist/templates/about/faq.html.hbs
+index 411fd8b..642695f 100644
+--- a/dist/templates/about/faq.html.hbs
++++ b/dist/templates/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | FAQ | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | FAQ | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <p>
+         <strong>For instructions, see our <a href="/about/usage">usage guide</a>.</strong>
+diff --git a/dist/templates/about/news.html.hbs b/dist/templates/about/news.html.hbs
+index 0283926..8208cc2 100644
+--- a/dist/templates/about/news.html.hbs
++++ b/dist/templates/about/news.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | News | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | News | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-11-12 📅</div>
+@@ -61,7 +61,7 @@
+ 
+     <p>
+         It has been three months now
+-        <a href="/about/news#2019-06-12-launch">since we launched</a>
++        XXX
+         <span class="brand">keys.openpgp.org</span>.
+         We are happy to report:
+         It has been a resounding success!
+@@ -216,7 +216,7 @@
+     <p>
+         Regarding the "<tt>no user ID</tt>" issue with GnuPG
+         (mentioned in our
+-        <a href="/about/news#2019-06-12-launch-challenges">last news post</a>
++        XXX
+         and our
+         <a href="/about/faq#older-gnupg" target="_blank">FAQ</a>),
+         a patch that fixes this problem is now carried by Debian,
+@@ -232,7 +232,7 @@
+ 
+     <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-06-12 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">Launching a new keyserver! 🚀</a>
++      XXX
+     </h2>
+ 
+     <p>
+diff --git a/dist/templates/about/privacy.html.hbs b/dist/templates/about/privacy.html.hbs
+index ae525ea..ebf8c5d 100644
+--- a/dist/templates/about/privacy.html.hbs
++++ b/dist/templates/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | Privacy</h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | Privacy</h2></center>
+ 
+     <p style="text-align: left;">
+         The public keyserver running on keys.openpgp.org processes, stores and
+diff --git a/dist/templates/about/stats.html.hbs b/dist/templates/about/stats.html.hbs
+index df3c728..3a12d27 100644
+--- a/dist/templates/about/stats.html.hbs
++++ b/dist/templates/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | Stats | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | Stats | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <h3>Verified email addresses</h3>
+ 
+diff --git a/dist/templates/about/usage.html.hbs b/dist/templates/about/usage.html.hbs
+index 2c395f1..9011f24 100644
+--- a/dist/templates/about/usage.html.hbs
++++ b/dist/templates/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ {{#> layout }}
+ <div class="about usage">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | Usage | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | Usage | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <p>
+         On this page, we collect information on how to use
+diff --git a/dist/templates/index.html.hbs b/dist/templates/index.html.hbs
+index 65af7c2..868d592 100644
+--- a/dist/templates/index.html.hbs
++++ b/dist/templates/index.html.hbs
+@@ -22,10 +22,5 @@
+     {{ text "Find out more <a href=\"/about\">about this service</a>." }}
+   </p>
+ 
+-  <hr />
+-
+-  <p>
+-    <strong>{{ text "News:" }}</strong> {{ text "<a href=\"/about/news#2019-11-12-celebrating-100k\">Celebrating 100.000 verified addresses! 📈</a> (2019-11-12)" }}
+-  </p>
+   {{/with}}
+ {{/layout}}
+diff --git a/templates-translated/ar/about/about.html.hbs b/templates-translated/ar/about/about.html.hbs
+index 899b9a8..1cbdf64 100644
+--- a/templates-translated/ar/about/about.html.hbs
++++ b/templates-translated/ar/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>‫حول | <a href="/about/news">اﻷخبار</a> | <a href="/about/usage">الاستخدام</a> | <a href="/about/faq">اﻷسئلة الشائعة</a> | <a href="/about/stats">اﻹحصاءات</a> | <a href="/about/privacy">حماية البيانات‬</a>
++    <center><h2>‫حول | <a href="/about/usage">الاستخدام</a> | <a href="/about/faq">اﻷسئلة الشائعة</a> | <a href="/about/privacy">حماية البيانات‬</a>
+ </h2></center>
+ 
+     <p>‫إن الخادم <span class="brand">keys.openpgp.org</span> هو خدمة عمومية لتوزيع المفاتيح المتوافقة مع معيار OpenPGP، وكذا العثور عليها. و يُصطلَح عليه بـ « خادم المفاتيح ».‬</p>
+diff --git a/templates-translated/ar/about/faq.html.hbs b/templates-translated/ar/about/faq.html.hbs
+index 5f83cce..c108030 100644
+--- a/templates-translated/ar/about/faq.html.hbs
++++ b/templates-translated/ar/about/faq.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>‫<a href="/about">حول</a> | <a href="/about/news">اﻷخبار</a> | <a href="/about/usage">الاستخدام</a> | اﻷسئلة الشائعة | <a href="/about/stats">اﻹحصاءات</a> | <a href="/about/privacy">حماية البيانات‬</a>
++    <center><h2>‫<a href="/about">حول</a> | <a href="/about/usage">الاستخدام</a> | اﻷسئلة الشائعة | <a href="/about/privacy">حماية البيانات‬</a>
+ </h2></center>
+ 
+     <p><strong>يمكنك الاطلاع على تعليمات الاستخدام موجودة في <a href="/about/usage">دليلنا</a>.‏</strong></p>
+diff --git a/templates-translated/ar/about/news.html.hbs b/templates-translated/ar/about/news.html.hbs
+index 7ee6150..e72ceb4 100644
+--- a/templates-translated/ar/about/news.html.hbs
++++ b/templates-translated/ar/about/news.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>‫<a href="/about">حول</a> | اﻷخبار | <a href="/about/usage">الاستخدام</a> | اﻷسئلة الشائعة | <a href="/about/stats">اﻹحصاءات</a> | حماية البيانات<a href="/about/privacy">‬</a>
++    <center><h2>‫<a href="/about">حول</a> | اﻷخبار | <a href="/about/usage">الاستخدام</a> | اﻷسئلة الشائعة | حماية البيانات<a href="/about/privacy">‬</a>
+ </h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+@@ -27,7 +27,7 @@
+       <a style="color: black;" href="/about/news#2019-09-12-three-months-later">‫بعد ثلاثة أشهر من الخدمة ✨</a>
+     </h2>
+ 
+-    <p>‫لقد مضت ثلاثة أشهر الآن منذ <a href="/about/news#2019-06-12-launch">تشغيل</a> موقع <span class="brand">keys.openpgp.org</span>. لذلك، فنحن سعداء بإخبارك أن خدمتنا لاقت نجاحا واسعا ! 🥳</p>
++    <p>‫لقد مضت ثلاثة أشهر الآن منذ XXX موقع <span class="brand">keys.openpgp.org</span>. لذلك، فنحن سعداء بإخبارك أن خدمتنا لاقت نجاحا واسعا ! 🥳</p>
+ <h4>تبنِّيه في البرامج العميلة</h4>
+ 
+     <p>‫‫لقد لاقى خادم مفاتيح <span class="brand">keys.openpgp.org</span> إقبالا واسعا من طرف المستخدمين، لذلك تبنَّته عدة برامج عميلة بسرعة. وهو يُستخدَم حاليا بشكل افتراضي في عملاء، مثل <a href="https://gpgtools.org/" target="_blank">GPGTools</a> و<a href="https://enigmail.net/" target="_blank">Enigmail</a> و<a href="https://www.openkeychain.org/" target="_blank">OpenKeychain</a> و<a href="https://github.com/firstlookmedia/gpgsync" target="_blank">GPGSync</a> وأنظمة Debian وNixOS وغيرها.</p>
+@@ -55,12 +55,12 @@
+ <p>‫أولاها هي <strong>التوطين</strong>. إذ أن غالبية الناس لا يتحدثون اﻹنجليزية، لكنها هي اللغة الوحيدة المدعومة حاليا. ولكي نجعل هذه الخدمة متاحة على نطاق واسع، فنحن نتعاون مع <a href="https://www.opentech.fund/labs/localization-lab/" target="_blank">مختبرات التوطين</a> لمنظمة OTF لجعل كل من الموقع والرسائل المُرسلَة متاحة بالعديد من اللغات اﻷخرى.</p>
+ <p>‫ثانيها هي إحضار <strong>توقيعات اﻷطراف اﻷخرى</strong>. كما هو <a href="/about/faq#third-party-signatures">مُشار إليه في صفحة اﻷسئلة الشائعة</a>، لكننا لا ندعمها حاليا بسبب الرسائل المزعجة وتفاديا لأي استغلال سيء. الفكرة هي الإجبار على <a href="https://gitlab.com/openpgp-wg/rfc4880bis/merge_requests/20/diffs" target="_blank">التوقيعات المتقاطعة</a>، والتي تسمح لكل مفتاح، الاختيار لذاته توقيعات اﻷشخاص التي يريد توزيعها. على الرغم من هذه المرحلة اﻹضافية، إلا أن هذه العملية متوافقة مع البرامج الموجودة حاليا. كما أنها تتفادى المستخدمين الذين لا يبالون بالتوقيعات.</p>
+ <p>على الرغم من التقدم في العمل على هاتين الميزتين، إلا أنه لم يُبرمَج تاريخ نشرهما في الوقت الحالي.‏</p>
+-<p>‫أما ما يتعلق بمشكلة « <tt>no user ID</tt> » (المذكورة في <a href="/about/news#2019-06-12-launch-challenges">منشور آخر الأخبار</a> وصفحتنا <a href="/about/faq#older-gnupg" target="_blank">للأسئلة الشائعة</a>)، فإن Debian تولت توفير تصحيح للمشكل، وأيضا فريق GPGTools لنظام تشغيل مَاكْ. لكن إلى حد الساعة لم يقم فريق GnuPG بدمج ذلك التصحيح في برنامجهم.</p>
++<p>‫أما ما يتعلق بمشكلة « <tt>no user ID</tt> » (المذكورة في XXX وصفحتنا <a href="/about/faq#older-gnupg" target="_blank">للأسئلة الشائعة</a>)، فإن Debian تولت توفير تصحيح للمشكل، وأيضا فريق GPGTools لنظام تشغيل مَاكْ. لكن إلى حد الساعة لم يقم فريق GnuPG بدمج ذلك التصحيح في برنامجهم.</p>
+ <p>‫هذا كل شيء ! نشكرك على حسن اهتمامك. <span style="font-size: x-large;">👋</span></p>
+ <hr style="margin-top: 2em; margin-bottom: 2em;">
+ <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-06-12 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">لقد شغَّلنا خادما جديدا للمفاتيح ! 🚀‏</a>
++      XXX
+     </h2>
+ 
+     <p>‫بفضل مجهودات فريق عمل كل من <a href="https://enigmail.net" target="_blank">Enigmail</a> و<a href="https://openkeychain.org" target="_blank">OpenKeychain</a> و<a href="https://sequoia-pgp.org">Sequoia PGP</a>، فنحن مسرورون باﻹعلان عن تشغيل خادم OpenPGP جديد للمفاتيح العمومية <span class="brand">keys.openpgp.org</span> ! مرحى ! 🎉</p>
+diff --git a/templates-translated/ar/about/privacy.html.hbs b/templates-translated/ar/about/privacy.html.hbs
+index 7cd46a1..4e2e875 100644
+--- a/templates-translated/ar/about/privacy.html.hbs
++++ b/templates-translated/ar/about/privacy.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>‫<a href="/about">حول</a> | <a href="/about/news">اﻷخبار</a> | <a href="/about/usage">الاستخدام</a> | <a href="/about/faq">اﻷسئلة الشائعة</a> | <a href="/about/stats">اﻹحصاءات</a> | حماية البيانات‬</h2></center>
++    <center><h2>‫<a href="/about">حول</a> | <a href="/about/usage">الاستخدام</a> | <a href="/about/faq">اﻷسئلة الشائعة</a> | حماية البيانات‬</h2></center>
+ 
+     <p style="text-align: left;">‫يقوم خادم المفاتيح الذي يشتغل خلف keys.openpgp.org بمعالجة وتخزين وتوزيع البيانات المتعلقة بمفاتيح OpenPGP. تُعالَج البيانات بطريقة ملائمة لنوعيتها كما يلي :‬</p>
+ <ul>
+diff --git a/templates-translated/ar/about/stats.html.hbs b/templates-translated/ar/about/stats.html.hbs
+index 31ecd8d..8a94c1d 100644
+--- a/templates-translated/ar/about/stats.html.hbs
++++ b/templates-translated/ar/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">‫حول</a> | <a href="/about/news">اﻷخبار</a> | <a href="/about/usage">الاستخدام</a> | <a href="/about/faq">اﻷسئلة الشائعة</a> | اﻹحصاءات | <a href="/about/privacy">حماية البيانات‬</a>
++<a href="/about">‫حول</a> | <a href="/about/usage">الاستخدام</a> | <a href="/about/faq">اﻷسئلة الشائعة</a> | اﻹحصاءات | <a href="/about/privacy">حماية البيانات‬</a>
+ </h2></center>
+ 
+     <h3>عناوين البريد الإلكتروني المُتحقَّق منها</h3>
+diff --git a/templates-translated/ar/about/usage.html.hbs b/templates-translated/ar/about/usage.html.hbs
+index 856f6c6..cbfd79d 100644
+--- a/templates-translated/ar/about/usage.html.hbs
++++ b/templates-translated/ar/about/usage.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about usage">
+-    <center><h2>‫<a href="/about">حول</a> | <a href="/about/news">اﻷخبار</a> | الاستخدام | <a href="/about/faq">اﻷسئلة الشائعة</a> | <a href="/about/stats">اﻹحصاءات</a> | <a href="/about/privacy">حماية البيانات‬</a>
++    <center><h2>‫<a href="/about">حول</a> | الاستخدام | <a href="/about/faq">اﻷسئلة الشائعة</a> | <a href="/about/privacy">حماية البيانات‬</a>
+ </h2></center>
+ 
+     <p>‫نقوم في هذه الصفحة، بجمع المعلومات المتعلقة بكيفية استخدام <span class="brand">keys.openpgp.org</span> مع مختلف المنتجات البرمجية التي تعتمد على OpenPGP.<br> مازلنا في صدد إضافة المزيد. إذا لاحظت أشياء ناقصة، يُرجى مراسلتنا حول ذلك، وسنحاول جاهدين، إضافة ما ينقص.‬</p>
+diff --git a/templates-translated/ca/about/about.html.hbs b/templates-translated/ca/about/about.html.hbs
+index e24f2b0..28b856d 100644
+--- a/templates-translated/ca/about/about.html.hbs
++++ b/templates-translated/ca/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Sobre | <a href="/about/news">Novetats</a> | <a href="/about/usage">Ús</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Estadístiques</a> | <a href="/about/privacy">Privacitat</a>
++    <center><h2>Sobre | <a href="/about/usage">Ús</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacitat</a>
+ </h2></center>
+ 
+     <p>El servidor <tt>keys.openpgp.org</tt> és un servei públic per a la distribució i descobriment de claus compatibles amb OpenPGP, normalment conegut com a servidor de claus o "keyserver".</p>
+diff --git a/templates-translated/ca/about/faq.html.hbs b/templates-translated/ca/about/faq.html.hbs
+index 949d3f4..f73c712 100644
+--- a/templates-translated/ca/about/faq.html.hbs
++++ b/templates-translated/ca/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Sobre</a> | <a href="/about/news">Novetats</a> | <a href="/about/usage">Ús</a> | FAQ | <a href="/about/stats">Estadístiques</a> | <a href="/about/privacy">Privacitat</a>
++<a href="/about">Sobre</a> | <a href="/about/usage">Ús</a> | FAQ | <a href="/about/privacy">Privacitat</a>
+ </h2></center>
+ 
+     <h3 id="sks-pool"><a href="#sks-pool">Aquest servidor forma part del pool "SKS" ?</a></h3>
+diff --git a/templates-translated/cs_CZ/about/about.html.hbs b/templates-translated/cs_CZ/about/about.html.hbs
+index b3568e6..8c62c99 100644
+--- a/templates-translated/cs_CZ/about/about.html.hbs
++++ b/templates-translated/cs_CZ/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Info | <a href="/about/news">Novinky</a> | Použití  | <a href="/about/faq">Časté dotazy</a> | <a href="/about/stats">Statistiky</a> | <a href="/about/privacy">Soukromí</a>
++    <center><h2>Info | Použití  | <a href="/about/faq">Časté dotazy</a> | <a href="/about/privacy">Soukromí</a>
+ </h2></center>
+ 
+     <p>Server <span class="brand">keys.openpgp.org</span> je veřejnou službou pro
+diff --git a/templates-translated/cs_CZ/about/privacy.html.hbs b/templates-translated/cs_CZ/about/privacy.html.hbs
+index 93c45a5..222c233 100644
+--- a/templates-translated/cs_CZ/about/privacy.html.hbs
++++ b/templates-translated/cs_CZ/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Info</a> | <a href="/about/news">Novinky</a> | <a href="/about/usage">Použití</a>  | <a href="/about/faq">Časté dotazy</a> | <a href="/about/stats">Statistiky</a> | Soukromí</h2></center>
++<a href="/about">Info</a> | <a href="/about/usage">Použití</a>  | <a href="/about/faq">Časté dotazy</a> | Soukromí</h2></center>
+ 
+     <p style="text-align: left;">Veřejný server klíčů, který běží na adrese keys.openpgp.org, zpracovává, ukládá , uchovává a
+ distribuuje data klíčů OpenPGP. Konkrétní způsob, jakým jsou data zpracovávána
+diff --git a/templates-translated/cs_CZ/about/stats.html.hbs b/templates-translated/cs_CZ/about/stats.html.hbs
+index 5c09e40..e60a812 100644
+--- a/templates-translated/cs_CZ/about/stats.html.hbs
++++ b/templates-translated/cs_CZ/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Info</a> | <a href="/about/news">Novinky</a> | <a href="/about/usage">Použití</a>  | <a href="/about/faq">Časté dotazy</a> | Statistiky | <a href="/about/privacy">Soukromí</a>
++<a href="/about">Info</a> | <a href="/about/usage">Použití</a>  | <a href="/about/faq">Časté dotazy</a> | Statistiky | <a href="/about/privacy">Soukromí</a>
+ </h2></center>
+ 
+     <h3>Ověřené emailové adresy</h3>
+diff --git a/templates-translated/cs_CZ/about/usage.html.hbs b/templates-translated/cs_CZ/about/usage.html.hbs
+index 0cc5e74..9b6f56f 100644
+--- a/templates-translated/cs_CZ/about/usage.html.hbs
++++ b/templates-translated/cs_CZ/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">Info</a> | <a href="/about/news">Novinky</a> | Použití  | <a href="/about/faq">Časté dotazy</a> | <a href="/about/stats">Statistiky</a> | <a href="/about/privacy">Soukromí</a>
++<a href="/about">Info</a> | Použití  | <a href="/about/faq">Časté dotazy</a> | <a href="/about/privacy">Soukromí</a>
+ </h2></center>
+ 
+     <p>Na této stránce shromažďujeme informace o tom, jak používat
+diff --git a/templates-translated/de/about/about.html.hbs b/templates-translated/de/about/about.html.hbs
+index 286b4be..f888f9f 100644
+--- a/templates-translated/de/about/about.html.hbs
++++ b/templates-translated/de/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Übersicht | <a href="/about/news">News</a> | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | <a href="/about/privacy">Privacy Policy</a>
++    <center><h2>Übersicht | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy Policy</a>
+ </h2></center>
+ 
+     <p>Der <span class="brand">keys.openpgp.org</span> Server ist ein öffentlicher Service für die Verteilung von OpenPGP-Schlüsseln, üblicherweise als "Keyserver" bezeichnet.</p>
+diff --git a/templates-translated/de/about/faq.html.hbs b/templates-translated/de/about/faq.html.hbs
+index 83eb0b7..4953d75 100644
+--- a/templates-translated/de/about/faq.html.hbs
++++ b/templates-translated/de/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Übersicht</a> | <a href="/about/news">News</a> | <a href="/about/usage">Nutzung</a> | FAQ | <a href="/about/stats">Statistik</a> | <a href="/about/privacy">Privacy Policy</a>
++<a href="/about">Übersicht</a> | <a href="/about/usage">Nutzung</a> | FAQ | <a href="/about/privacy">Privacy Policy</a>
+ </h2></center>
+ 
+     <p><strong>Für Details zur Nutzung, siehe <a href="/about/usage">Nutzungshinweise</a>.</strong></p>
+diff --git a/templates-translated/de/about/news.html.hbs b/templates-translated/de/about/news.html.hbs
+index 025a49e..3fb6021 100644
+--- a/templates-translated/de/about/news.html.hbs
++++ b/templates-translated/de/about/news.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2><a href="/about">Übersicht</a> | News | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | <a href="/about/privacy">Privacy Policy</a>
++    <center><h2><a href="/about">Übersicht</a> | News | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy Policy</a>
+ </h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+@@ -33,7 +33,7 @@ Wir suchen besonders nach Hilfe für <strong>Russich</strong>, <strong>Italienis
+     </h2>
+ 
+     <p>Es sind jetzt drei Monate
+-<a href="/about/news#2019-06-12-launch">seit dem Start von</a>
++XXX
+ <span class="brand">keys.openpgp.org</span>.
+ Wir freuen uns sagen zu können:
+ Es ist ein überwältigender Erfolg!
+@@ -153,7 +153,7 @@ angenehm unauffällig.</p>
+ gibt es für beide noch kein geplantes Veröffentlichungsdatum.</p>
+ <p>Hinsichtlich des „<tt>keine Benutzer ID</tt>“ Fehlers mit GnuPG
+ (in unserem
+-<a href="/about/news#2019-06-12-launch-challenges">letzten Nachrichtenbeitrag erwähnt</a>
++XXX
+ und unseren
+ <a href="/about/faq#older-gnupg" target="_blank">FAQ</a>),
+ stellen Debian und GPGTools für macOS
+@@ -165,7 +165,7 @@ Vielen Dank für Euer Interesse!
+ <hr style="margin-top: 2em; margin-bottom: 2em;">
+ <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">06.12.2019 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">Wir starten einen neuen Schlüsselserver!🚀</a>
++      XXX
+     </h2>
+ 
+     <p>Nach gemeinsamenAnstrengungen von
+diff --git a/templates-translated/de/about/privacy.html.hbs b/templates-translated/de/about/privacy.html.hbs
+index 71a9bc0..8361c19 100644
+--- a/templates-translated/de/about/privacy.html.hbs
++++ b/templates-translated/de/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Über</a> | <a href="/about/news">News</a> | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | Privacy Policy</h2></center>
++<a href="/about">Über</a> | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | Privacy Policy</h2></center>
+ 
+     <p style="text-align: left;">Der öffentliche Schlüsselserver, der auf keys.openpgp.org läuft, verarbeitet, speichert und
+ verteilt OpenPGP-Schlüssel-Daten. Die konkrete Art der Verarbeitung
+diff --git a/templates-translated/de/about/stats.html.hbs b/templates-translated/de/about/stats.html.hbs
+index eb3e5ae..2cb6189 100644
+--- a/templates-translated/de/about/stats.html.hbs
++++ b/templates-translated/de/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Übersicht</a> | <a href="/about/news">News</a> | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | Statistik | <a href="/about/privacy">Privacy Policy</a>
++<a href="/about">Übersicht</a> | <a href="/about/usage">Nutzung</a> | <a href="/about/faq">FAQ</a> | Statistik | <a href="/about/privacy">Privacy Policy</a>
+ </h2></center>
+ 
+     <h3>Bestätigte Email-Adressen</h3>
+diff --git a/templates-translated/de/about/usage.html.hbs b/templates-translated/de/about/usage.html.hbs
+index 198f61d..32206ce 100644
+--- a/templates-translated/de/about/usage.html.hbs
++++ b/templates-translated/de/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">Übersicht</a> | <a href="/about/news">News</a> | Nutzung | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | <a href="/about/privacy">Privacy Policy</a>
++<a href="/about">Übersicht</a> | Nutzung | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy Policy</a>
+ </h2></center>
+ 
+     <p>Auf dieser Seite sammeln wir Anleitungen zur Nutzung von <span class="brand">keys.openpgp.org</span> mit unterschiedlichen OpenPGP-Anwendungen. Wir sind noch dabei, weitere Anleitungen hinzuzufügen - falls du eine bestimmte vermisst, lass es uns einfach wissen.</p>
+diff --git a/templates-translated/es/about/about.html.hbs b/templates-translated/es/about/about.html.hbs
+index 5176f4b..55594cd 100644
+--- a/templates-translated/es/about/about.html.hbs
++++ b/templates-translated/es/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Acerca de | <a href="/about/news">Noticias</a> | <a href="/about/usage">Uso</a> | <a href="/about/faq">Preguntas más frecuentes</a> | <a href="/about/stats">Estadísticas</a> | <a href="/about/privacy">Privacidad</a>
++    <center><h2>Acerca de | <a href="/about/usage">Uso</a> | <a href="/about/faq">Preguntas más frecuentes</a> | <a href="/about/privacy">Privacidad</a>
+ </h2></center>
+ 
+     <p>El servidor <span class="brand">keys.openpgp.org</span> es un servicio público para la 
+diff --git a/templates-translated/es/about/privacy.html.hbs b/templates-translated/es/about/privacy.html.hbs
+index 4d5aedc..c5c900e 100644
+--- a/templates-translated/es/about/privacy.html.hbs
++++ b/templates-translated/es/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Acerca</a> | <a href="/about/news">Noticias</a> | <a href="/about/usage">Cómo usar</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Estadísticas</a> | Privacidad</h2></center>
++<a href="/about">Acerca</a> | <a href="/about/usage">Cómo usar</a> | <a href="/about/faq">FAQ</a> | Privacidad</h2></center>
+ 
+     <p style="text-align: left;">El servidor público que funciona en keys.openpgp.org procesa, almacena y distribuye datos de claves OpenPGP. La manera específica en que se procesan los datos difiere por tipo, de esta manera:</p>
+ <ul>
+diff --git a/templates-translated/es/about/stats.html.hbs b/templates-translated/es/about/stats.html.hbs
+index 4962ce9..6f327e9 100644
+--- a/templates-translated/es/about/stats.html.hbs
++++ b/templates-translated/es/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Acerca</a> | <a href="/about/news">Noticias</a> | <a href="/about/usage">Cómo usar</a> | <a href="/about/faq">FAQ</a> | Estadísticas | <a href="/about/privacy">Privacidad</a>
++<a href="/about">Acerca</a> | <a href="/about/usage">Cómo usar</a> | <a href="/about/faq">FAQ</a> | Estadísticas | <a href="/about/privacy">Privacidad</a>
+ </h2></center>
+ 
+     <h3>Correos electrónicos verificados</h3>
+diff --git a/templates-translated/es/about/usage.html.hbs b/templates-translated/es/about/usage.html.hbs
+index bc51719..54a2a28 100644
+--- a/templates-translated/es/about/usage.html.hbs
++++ b/templates-translated/es/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">Acerca de</a> | <a href="/about/news">Noticias</a> | Uso | <a href="/about/faq">Preguntas más frecuentes</a> | <a href="/about/stats">Estadísticas</a> | <a href="/about/privacy">Privacidad</a>
++<a href="/about">Acerca de</a> | Uso | <a href="/about/faq">Preguntas más frecuentes</a> | <a href="/about/privacy">Privacidad</a>
+ </h2></center>
+ 
+     <p>En esta página, recolectamos información de cómo usar
+diff --git a/templates-translated/fr/about/about.html.hbs b/templates-translated/fr/about/about.html.hbs
+index 844fd18..84ff0a1 100644
+--- a/templates-translated/fr/about/about.html.hbs
++++ b/templates-translated/fr/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>À propos | <a href="/about/news">Nouvelles</a> | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiques</a> | <a href="/about/privacy">Protection des données</a>
++    <center><h2>À propos | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Protection des données</a>
+ </h2></center>
+ 
+     <p>Le serveur <span class="brand">keys.openpgp.org</span> est un service public pour la distribution et la recherche de clés compatibles OpenPGP, communément appelé « serveur de clés ».</p>
+diff --git a/templates-translated/fr/about/faq.html.hbs b/templates-translated/fr/about/faq.html.hbs
+index 039819e..8413500 100644
+--- a/templates-translated/fr/about/faq.html.hbs
++++ b/templates-translated/fr/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">À propos</a> | <a href="/about/news">Nouvelles</a> | <a href="/about/usage">Utilisation</a> | FAQ | <a href="/about/stats">Statistiques</a> | <a href="/about/privacy">Protection des données</a>
++<a href="/about">À propos</a> | <a href="/about/usage">Utilisation</a> | FAQ | <a href="/about/privacy">Protection des données</a>
+ </h2></center>
+ 
+     <p><strong>Des instructions se trouvent dans notre <a href="/about/usage">guide d’utilisation</a>.</strong></p>
+diff --git a/templates-translated/fr/about/news.html.hbs b/templates-translated/fr/about/news.html.hbs
+index c0df5b7..cb145b5 100644
+--- a/templates-translated/fr/about/news.html.hbs
++++ b/templates-translated/fr/about/news.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">À propos</a> | Nouvelles | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiques</a> | <a href="/about/privacy">Protection des données</a>
++<a href="/about">À propos</a> | Nouvelles | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Protection des données</a>
+ </h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+@@ -28,7 +28,7 @@
+       <a style="color: black;" href="/about/news#2019-09-12-three-months-later">Trois mois après le lancement ✨ </a>
+     </h2>
+ 
+-    <p><a href="/about/news#2019-06-12-launch">Nous avons lancé</a> <span class="brand">keys.openpgp.org</span> il y a maintenant trois mois. Nous sommes heureux d’annoncer que ce fut un succès retentissant. 🥳</p>
++    <p>XXX <span class="brand">keys.openpgp.org</span> il y a maintenant trois mois. Nous sommes heureux d’annoncer que ce fut un succès retentissant. 🥳</p>
+ <h4>Adoption dans les clients</h4>
+ 
+     <p>Le serveur de clés <span class="brand">keys.openpgp.org</span> a très bien été reçu par les utilisateurs, et les clients l’adoptent rapidement. Il est maintenant utilisé par défaut par <a href="https://gpgtools.org/" target="_blank">GPGTools</a>, <a href="https://enigmail.net/" target="_blank">Enigmail</a>, <a href="https://www.openkeychain.org/" target="_blank">OpenKeychain</a>, <a href="https://github.com/firstlookmedia/gpgsync" target="_blank">GPGSync</a>, Debian, NixOS et d’autres. De nombreux tutoriels ont aussi été mis à jour pour diriger les utilisateurs vers nous.</p>
+@@ -56,12 +56,12 @@
+ <p>La première est la <strong>localisation</strong>. La plupart des gens ne parlent pas anglais, mais c’est actuellement la seule langue que nous prenons en charge. Nous collaborons avec le <a href="https://www.opentech.fund/labs/localization-lab/" target="_blank">Labo de localisation</a> afin de traduire le site Web et les courriels sortants en d’autres langues.</p>
+ <p>La seconde est de ramener les <strong>signatures par des tiers</strong>. Comme <a href="/about/faq#third-party-signatures">mentionné dans notre FAQ</a>, nous ne les prenons actuellement pas en charge en raison de contenus indésirables et de possibilités d’abus. L’idée est d’exiger des <a href="https://gitlab.com/openpgp-wg/rfc4880bis/merge_requests/20/diffs" target="_blank">signatures croisées</a>, qui permettent à chaque clé de faire son choix quant aux signatures d’autres personnes qu’elle veut distribuer. Malgré cette étape supplémentaire, le processus est assez compatible avec les logiciels existants. De plus, il n’importune pas les utilisateurs qui ne se préoccupent pas des signatures.</p>
+ <p>Bien que nous travaillions à les mettre en place, une date de disponibilité n’est prévue ni pour l’une ni pour l’autre.</p>
+-<p>Au sujet du problème « <tt>pas d’identité</tt> » avec GnuPG (mentionné dans notre <a href="/about/news#2019-06-12-launch-challenges">dernier article de nouvelles</a> et dans notre <a href="/about/faq#older-gnupg" target="_blank">FAQ</a>), un correctif qui règle ce problème est maintenant en place sur Debian, ainsi que sur GPGTools pour macOS. GnuPG n’a pas encore fusionné ce correctif en amont.</p>
++<p>Au sujet du problème « <tt>pas d’identité</tt> » avec GnuPG (mentionné dans notre XXX et dans notre <a href="/about/faq#older-gnupg" target="_blank">FAQ</a>), un correctif qui règle ce problème est maintenant en place sur Debian, ainsi que sur GPGTools pour macOS. GnuPG n’a pas encore fusionné ce correctif en amont.</p>
+ <p>C’est tout ! Nous vous remercions de votre intérêt. <span style="font-size: x-large;">👋</span> </p>
+ <hr style="margin-top: 2em; margin-bottom: 2em;">
+ <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">12-06-2019 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">Lancement d’un nouveau serveur de clés ! 🚀</a>
++      XXX
+     </h2>
+ 
+     <p>Résultat d’une initiative communautaire par <a href="https://enigmail.net" target="_blank">Enigmail</a>, <a href="https://openkeychain.org" target="_blank">OpenKeychain</a> et <a href="https://sequoia-pgp.org">Sequoia PGP</a>, nous sommes heureux d’annoncer le lancement d’un nouveau serveur de clés OpenPGP public <span class="brand">keys.openpgp.org</span>. Hourra ! 🎉</p>
+diff --git a/templates-translated/fr/about/privacy.html.hbs b/templates-translated/fr/about/privacy.html.hbs
+index 01d8a30..cdc8ca2 100644
+--- a/templates-translated/fr/about/privacy.html.hbs
++++ b/templates-translated/fr/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">À propos</a> | <a href="/about/news">Nouvelles</a> | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiques</a> | Protection des données</h2></center>
++<a href="/about">À propos</a> | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | Protection des données</h2></center>
+ 
+     <p style="text-align: left;">Le serveur de clés public derrière keys.openpgp.org traite, stocke et distribue les données des clés OpenPGP. La façon particulière dont les données sont traitées diffère selon le type, comme suit :</p>
+ <ul>
+diff --git a/templates-translated/fr/about/stats.html.hbs b/templates-translated/fr/about/stats.html.hbs
+index 8be86f0..0eaeedc 100644
+--- a/templates-translated/fr/about/stats.html.hbs
++++ b/templates-translated/fr/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">À propos</a> | <a href="/about/news">Nouvelles</a> | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | Statistiques | <a href="/about/privacy">Protection des données</a>
++<a href="/about">À propos</a> | <a href="/about/usage">Utilisation</a> | <a href="/about/faq">FAQ</a> | Statistiques | <a href="/about/privacy">Protection des données</a>
+ </h2></center>
+ 
+     <h3>Adresses courriel confirmées</h3>
+diff --git a/templates-translated/fr/about/usage.html.hbs b/templates-translated/fr/about/usage.html.hbs
+index 754c512..29a9cb5 100644
+--- a/templates-translated/fr/about/usage.html.hbs
++++ b/templates-translated/fr/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">À propos</a> | <a href="/about/news">Nouvelles</a> | Utilisation | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiques</a> | <a href="/about/privacy">Protection des données</a>
++<a href="/about">À propos</a> | Utilisation | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Protection des données</a>
+ </h2></center>
+ 
+     <p>Sur cette page, nous regroupons des renseignements sur la façon d’utiliser <span class="brand">keys.openpgp.org</span> avec différents logiciels OpenPGP.<br> Nous continuons à en ajouter de nouveaux. Si certains manquent, veuillez nous écrire et nous nous efforcerons de les ajouter.</p>
+diff --git a/templates-translated/it/about/about.html.hbs b/templates-translated/it/about/about.html.hbs
+index c6d1a1f..311f142 100644
+--- a/templates-translated/it/about/about.html.hbs
++++ b/templates-translated/it/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>About | <a href="/about/news">Novità</a> | <a href="/about/usage">Guida all'uso</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiche</a> | <a href="/about/privacy">Privacy</a>
++    <center><h2>About | <a href="/about/usage">Guida all'uso</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <p>Il server <tt>keys.openpgp.org</tt> è un servizio pubblico per la distribuzione e ricerca di chiavi OpenPGP-compatibili, chiamato comunemente "keyserver".</p>
+diff --git a/templates-translated/it/about/faq.html.hbs b/templates-translated/it/about/faq.html.hbs
+index a86db54..3f183f5 100644
+--- a/templates-translated/it/about/faq.html.hbs
++++ b/templates-translated/it/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">About</a> | <a href="/about/news">Novità</a> | <a href="/about/usage">Guida all'uso</a> | FAQ | <a href="/about/stats">Statistiche</a> | <a href="/about/privacy">Privacy</a>
++<a href="/about">About</a> | <a href="/about/usage">Guida all'uso</a> | FAQ | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <h3 id="sks-pool"><a href="#sks-pool">Questo server è parte del pool "SKS"?</a></h3>
+diff --git a/templates-translated/it/about/privacy.html.hbs b/templates-translated/it/about/privacy.html.hbs
+index 35f1aee..2495955 100644
+--- a/templates-translated/it/about/privacy.html.hbs
++++ b/templates-translated/it/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">About</a> | <a href="/about/news">Novità</a> | <a href="/about/usage">Guida all'uso</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiche</a> | Privacy</h2></center>
++<a href="/about">About</a> | <a href="/about/usage">Guida all'uso</a> | <a href="/about/faq">FAQ</a> | Privacy</h2></center>
+ 
+     <p style="text-align: left;">Il keyserver pubblico su keys.openpgp.org elabora, immagazzina e
+ distribuisce dati delle chiavi OpenPGP. Il modo specifico in cui i dati vengono elaborati
+diff --git a/templates-translated/it/about/stats.html.hbs b/templates-translated/it/about/stats.html.hbs
+index 113a39b..d65428e 100644
+--- a/templates-translated/it/about/stats.html.hbs
++++ b/templates-translated/it/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">About</a> | <a href="/about/news">Novità</a> | <a href="/about/usage">Guida all'uso</a> | <a href="/about/faq">FAQ</a> | Statistiche | <a href="/about/privacy">Privacy</a>
++<a href="/about">About</a> | <a href="/about/usage">Guida all'uso</a> | <a href="/about/faq">FAQ</a> | Statistiche | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <h3>Indirizzi email verificati</h3>
+diff --git a/templates-translated/it/about/usage.html.hbs b/templates-translated/it/about/usage.html.hbs
+index 35cf66b..98b3437 100644
+--- a/templates-translated/it/about/usage.html.hbs
++++ b/templates-translated/it/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">About</a> | <a href="/about/news">Novità</a> | Guida all'uso | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistiche</a> | <a href="/about/privacy">Privacy</a>
++<a href="/about">About</a> | Guida all'uso | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <p>In questa pagina abbiamo raccolto le informazioni su come usare
+diff --git a/templates-translated/ja/about/privacy.html.hbs b/templates-translated/ja/about/privacy.html.hbs
+index e5a06d1..4cfbcc1 100644
+--- a/templates-translated/ja/about/privacy.html.hbs
++++ b/templates-translated/ja/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">このサイトについて</a> | <a href="/about/news">ニュース</a> | <a href="/about/usage">使い方</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">統計</a> | プライバシ</h2></center>
++<a href="/about">このサイトについて</a> | <a href="/about/usage">使い方</a> | <a href="/about/faq">FAQ</a> | プライバシ</h2></center>
+ 
+     <p style="text-align: left;">keys.openpgp.org 上の公開鍵サーバは OpenPGP 鍵のデータを処理、保存、配信します。
+ データを処理する具体的な方式は次のタイプによって異なります。</p>
+diff --git a/templates-translated/ko/about/about.html.hbs b/templates-translated/ko/about/about.html.hbs
+index 0421af5..3d9cbeb 100644
+--- a/templates-translated/ko/about/about.html.hbs
++++ b/templates-translated/ko/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>서비스 소개 | <a href="/about/news">새 소식</a> | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/stats">통계</a> | <a href="/about/privacy">개인 정보 보호</a>
++    <center><h2>서비스 소개 | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/privacy">개인 정보 보호</a>
+ </h2></center>
+ 
+     <p><span class="brand">keys.openpgp.org</span> 서비스는 OpenPGP 호환 키의 배포와 발견을 위한 공공 키서버입니다.</p>
+diff --git a/templates-translated/ko/about/faq.html.hbs b/templates-translated/ko/about/faq.html.hbs
+index b12efb5..9dde5e5 100644
+--- a/templates-translated/ko/about/faq.html.hbs
++++ b/templates-translated/ko/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">서비스 소개</a> | <a href="/about/news">새 소식</a> | <a href="/about/usage">사용 안내</a> | 자주 묻는 질문 | <a href="/about/stats">통계</a> | <a href="/about/privacy">개인 정보 보호</a>
++<a href="/about">서비스 소개</a> | <a href="/about/usage">사용 안내</a> | 자주 묻는 질문 | <a href="/about/privacy">개인 정보 보호</a>
+ </h2></center>
+ 
+     <p><strong>사용 방법에 대해선 <a href="/about/usage">사용 안내서</a>를 읽어보세요.</strong></p>
+diff --git a/templates-translated/ko/about/news.html.hbs b/templates-translated/ko/about/news.html.hbs
+index 956ba88..036dc2c 100644
+--- a/templates-translated/ko/about/news.html.hbs
++++ b/templates-translated/ko/about/news.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">서비스 소개</a> | 새 소식 | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/stats">통계</a> | <a href="/about/privacy">개인 정보 보호</a>
++<a href="/about">서비스 소개</a> | 새 소식 | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/privacy">개인 정보 보호</a>
+ </h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+@@ -29,7 +29,7 @@
+       <a style="color: black;" href="/about/news#2019-09-12-three-months-later">서비스 개시 후 3개월이 지났습니다 ✨</a>
+     </h2>
+ 
+-    <p>우리가 <span class="brand">keys.openpgp.org</span> <a href="/about/news#2019-06-12-launch">서비스를 개시</a>한 지 벌써 3개월이 지났습니다. 이에 다음 사실을 기쁘게 알려드립니다: 그야말로 대성공이에요! 🥳</p>
++    <p>우리가 <span class="brand">keys.openpgp.org</span> XXX한 지 벌써 3개월이 지났습니다. 이에 다음 사실을 기쁘게 알려드립니다: 그야말로 대성공이에요! 🥳</p>
+ <h4>각종 클라이언트의 서비스 도입</h4>
+ 
+     <p><span class="brand">keys.openpgp.org</span> 키서버가 사용자 사이에서 호평을 받으면서 각종 클라이언트가 우리 서비스를 도입하는 사례가 매우 빠르게 늘고 있습니다. 이제 <a href="https://gpgtools.org/" target="_blank">GPGTools</a>, <a href="https://enigmail.net/" target="_blank">Enigmail</a>, <a href="https://www.openkeychain.org/" target="_blank">OpenKeychain</a>, <a href="https://github.com/firstlookmedia/gpgsync" target="_blank">GPGSync</a>, Debian, NixOS 등이 우리 서비스를 기본 키서버로 사용합니다. 많은 튜토리얼 문서가 사용자로 하여금 우리 서비스를 사용하도록 수정되기도 했고요.</p>
+@@ -57,12 +57,12 @@
+ <p>일단 첫째로 <strong>지역화</strong>가 있습니다. 우리는 지금까지 오로지 영어만 지원해왔는데, 대다수의 사람들은 영어를 못 하거든요. 접근성 측면에서 이걸 해결하고자 우리는 OTF의 <a href="https://www.opentech.fund/labs/localization-lab/" target="_blank">Localization Lab</a>과 협업하여 이 웹 사이트와 전자 메일 발송을 여러 언어로 가능하게끔 노력하고 있습니다.</p>
+ <p>둘째로는 <strong>제삼자 서명</strong>을 다시 부활시키는 겁니다. <a href="/about/faq#third-party-signatures">자주 묻는 질문에서 언급했듯</a>, 우리는 현재 스팸이나 악용 가능성의 문제 때문에 제삼자 서명을 지원하지 않고 있어요. 지금까지 대안으로 제시된 건 키 주인이 어떤 사람에게서 받은 제삼자 서명을 공개할지 직접 선택할 수 있도록 <a href="https://gitlab.com/openpgp-wg/rfc4880bis/merge_requests/20/diffs" target="_blank">상호 서명</a>을 요구하는 방안이 있겠네요. 키 주인 입장에서는 뭔가 더 귀찮겠지만, 이 방식은 현존하는 소프트웨어와도 꽤나 호환 가능하다는 것과, 서명이고 뭐고 신경 안 쓰는 사람들에게는 전혀 방해가 안 된다는 장점이 있습니다.</p>
+ <p>이 두 가지 기능은 이미 상당한 작업이 진행되긴 했지만 언제 공개할지는 미정입니다.</p>
+-<p>(<a href="/about/news#2019-06-12-launch-challenges">지난 번 소식</a>이랑 <a href="/about/faq#older-gnupg" target="_blank">자주 묻는 질문</a>에서 언급했던) GnuPG의 "<tt>no user ID</tt>" 문제 관련해서는, 이걸 해결하는 패치가 Debian과 macOS용 GPGTools에는 적용됐지만 아직 GnuPG 그 자체에는 적용이 안 됐다는 걸 알려드립니다.</p>
++<p>(XXX이랑 <a href="/about/faq#older-gnupg" target="_blank">자주 묻는 질문</a>에서 언급했던) GnuPG의 "<tt>no user ID</tt>" 문제 관련해서는, 이걸 해결하는 패치가 Debian과 macOS용 GPGTools에는 적용됐지만 아직 GnuPG 그 자체에는 적용이 안 됐다는 걸 알려드립니다.</p>
+ <p>이상입니다! 관심 가지고 지켜봐줘서 고마워요! <span style="font-size: x-large;">👋</span></p>
+ <hr style="margin-top: 2em; margin-bottom: 2em;">
+ <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-06-12 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">새로운 키서버를 발족합니다! 🚀</a>
++      XXX
+     </h2>
+ 
+     <p>오늘 우리는 <a href="https://enigmail.net" target="_blank">Enigmail</a> 팀, <a href="https://openkeychain.org" target="_blank">OpenKeychain</a> 팀, 그리고 <a href="https://sequoia-pgp.org">Sequoia PGP</a> 팀이 공동으로 준비해온 새로운 공개 OpenPGP 키서버인 <span class="brand">keys.openpgp.org</span> 서비스의 개시를 발표합니다! 만세! 🎉</p>
+diff --git a/templates-translated/ko/about/privacy.html.hbs b/templates-translated/ko/about/privacy.html.hbs
+index f05ac9e..4cbd8eb 100644
+--- a/templates-translated/ko/about/privacy.html.hbs
++++ b/templates-translated/ko/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">서비스 소개</a> | <a href="/about/news">새 소식</a> | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/stats">통계</a> | 개인 정보 보호</h2></center>
++<a href="/about">서비스 소개</a> | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | 개인 정보 보호</h2></center>
+ 
+     <p style="text-align: left;">keys.openpgp.org 도메인에서 동작하는 공공 키서버는 OpenPGP 키 데이터를 처리, 저장, 배포합니다.  어떤 데이터가 어떻게 처리되는지는 해당 데이터 종류에 따라 달라집니다.</p>
+ <ul>
+diff --git a/templates-translated/ko/about/stats.html.hbs b/templates-translated/ko/about/stats.html.hbs
+index cdf726a..bd98173 100644
+--- a/templates-translated/ko/about/stats.html.hbs
++++ b/templates-translated/ko/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">서비스 소개</a> | <a href="/about/news">새 소식</a> | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | 통계 | <a href="/about/privacy">개인 정보 보호</a>
++<a href="/about">서비스 소개</a> | <a href="/about/usage">사용 안내</a> | <a href="/about/faq">자주 묻는 질문</a> | 통계 | <a href="/about/privacy">개인 정보 보호</a>
+ </h2></center>
+ 
+     <h3>전자 메일 주소 인증</h3>
+diff --git a/templates-translated/ko/about/usage.html.hbs b/templates-translated/ko/about/usage.html.hbs
+index e699ee5..5b31566 100644
+--- a/templates-translated/ko/about/usage.html.hbs
++++ b/templates-translated/ko/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">서비스 소개</a> | <a href="/about/news">새 소식</a> | 사용 안내 | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/stats">통계</a> | <a href="/about/privacy">개인 정보 보호</a>
++<a href="/about">서비스 소개</a> | 사용 안내 | <a href="/about/faq">자주 묻는 질문</a> | <a href="/about/privacy">개인 정보 보호</a>
+ </h2></center>
+ 
+     <p>이 페이지에는 다양한 OpenPGP 소프트웨어에서 <span class="brand">keys.openpgp.org</span> 서비스를 사용하는 방법을 다룹니다.<br>이 페이지의 내용은 끊임없이 보충될 예정입니다. 뭔가 부족하다 싶은 게 있으면 알려주세요! 추가하도록 노력하겠습니다.</p>
+diff --git a/templates-translated/nb/about/about.html.hbs b/templates-translated/nb/about/about.html.hbs
+index d8790aa..f3e80d2 100644
+--- a/templates-translated/nb/about/about.html.hbs
++++ b/templates-translated/nb/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Om | <a href="/about/news">Nyheter</a> | <a href="/about/usage">Bruk</a> | <a href="/about/faq">Ofte stilte spørsmål</a> | <a href="/about/stats">Statistikk</a> | <a href="/about/privacy">Personvern</a>
++    <center><h2>Om | <a href="/about/usage">Bruk</a> | <a href="/about/faq">Ofte stilte spørsmål</a> | <a href="/about/privacy">Personvern</a>
+ </h2></center>
+ 
+     <p>Tjeneren <tt>keys.openpgp.org</tt> er en offentlig tjeneste
+diff --git a/templates-translated/nb/about/stats.html.hbs b/templates-translated/nb/about/stats.html.hbs
+index bbee87d..a3b09da 100644
+--- a/templates-translated/nb/about/stats.html.hbs
++++ b/templates-translated/nb/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Om</a> | <a href="/about/news">Nyheter</a> | <a href="/about/usage">Bruk</a> | <a href="/about/faq">Ofte stilte spørsmål</a> | Statistikk | <a href="/about/privacy">Personvern</a>
++<a href="/about">Om</a> | <a href="/about/usage">Bruk</a> | <a href="/about/faq">Ofte stilte spørsmål</a> | Statistikk | <a href="/about/privacy">Personvern</a>
+ </h2></center>
+ 
+     <h3>Bekreftede e-postadresser</h3>
+diff --git a/templates-translated/nl/about/about.html.hbs b/templates-translated/nl/about/about.html.hbs
+index 8a6244a..559eb92 100644
+--- a/templates-translated/nl/about/about.html.hbs
++++ b/templates-translated/nl/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Over | <a href="/about/news">Nieuws</a> | <a href="/about/usage">Gebruik</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistieken</a> | <a href="/about/privacy">Privacy</a>
++    <center><h2>Over | <a href="/about/usage">Gebruik</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <p>De <tt>keys.openpgp.org</tt> server is een openbare dienst voor de
+diff --git a/templates-translated/nl/about/faq.html.hbs b/templates-translated/nl/about/faq.html.hbs
+index 8e20459..9f624bd 100644
+--- a/templates-translated/nl/about/faq.html.hbs
++++ b/templates-translated/nl/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Over</a> | <a href="/about/news">Nieuws</a> | <a href="/about/usage">Gebruik</a> | FAQ | <a href="/about/stats">Statistieken</a> | <a href="/about/privacy">Privacy</a>
++<a href="/about">Over</a> | <a href="/about/usage">Gebruik</a> | FAQ | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <h3 id="sks-pool"><a href="#sks-pool">Maakt deze server deel uit van de "SKS" pool?</a></h3>
+diff --git a/templates-translated/nl/about/privacy.html.hbs b/templates-translated/nl/about/privacy.html.hbs
+index c5e456b..108c088 100644
+--- a/templates-translated/nl/about/privacy.html.hbs
++++ b/templates-translated/nl/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Over</a> | <a href="/about/news">Nieuws</a> | <a href="/about/usage">Gebruik</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistieken</a> | Privacy</h2></center>
++<a href="/about">Over</a> | <a href="/about/usage">Gebruik</a> | <a href="/about/faq">FAQ</a> | Privacy</h2></center>
+ 
+     <p style="text-align: left;">De openbare sleutelserver die draait op keys.openpgp.org verwerkt, bewaard en
+ verspreidt OpenPGP-sleutelgegevens. De specifieke manier waarop gegevens worden verwerkt
+diff --git a/templates-translated/nl/about/stats.html.hbs b/templates-translated/nl/about/stats.html.hbs
+index a50d0fe..a19943b 100644
+--- a/templates-translated/nl/about/stats.html.hbs
++++ b/templates-translated/nl/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Over</a> | <a href="/about/news">Nieuws</a> | <a href="/about/usage">Gebruik</a> | <a href="/about/faq">FAQ</a> | Statistieken | <a href="/about/privacy">Privacy</a>
++<a href="/about">Over</a> | <a href="/about/usage">Gebruik</a> | <a href="/about/faq">FAQ</a> | Statistieken | <a href="/about/privacy">Privacy</a>
+ </h2></center>
+ 
+     <h3>Geverifieerde e-mailadressen</h3>
+diff --git a/templates-translated/ro/about/about.html.hbs b/templates-translated/ro/about/about.html.hbs
+index dfb303e..eeaefcb 100644
+--- a/templates-translated/ro/about/about.html.hbs
++++ b/templates-translated/ro/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Despre | <a href="/about/news">Noutăți</a> | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistici</a> | <a href="/about/privacy">Confidențialitate</a>
++    <center><h2>Despre | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Confidențialitate</a>
+ </h2></center>
+ 
+     <p>Serverul <span class="brand">keys.openpgp.org</span> este un serviciu public pentru
+diff --git a/templates-translated/ro/about/faq.html.hbs b/templates-translated/ro/about/faq.html.hbs
+index e72a04d..2d34385 100644
+--- a/templates-translated/ro/about/faq.html.hbs
++++ b/templates-translated/ro/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Despre</a> | <a href="/about/news">Noutăți</a> | <a href="/about/usage">Utilizare</a> | FAQ | <a href="/about/stats">Statistici</a> | <a href="/about/privacy">Confidențialitate</a>
++<a href="/about">Despre</a> | <a href="/about/usage">Utilizare</a> | FAQ | <a href="/about/privacy">Confidențialitate</a>
+ </h2></center>
+ 
+     <p><strong>Pentru instrucțiuni, consultați <a href="/about/usage">ghidul nostru de utilizare</a>.</strong></p>
+diff --git a/templates-translated/ro/about/news.html.hbs b/templates-translated/ro/about/news.html.hbs
+index 4097bb8..c71d920 100644
+--- a/templates-translated/ro/about/news.html.hbs
++++ b/templates-translated/ro/about/news.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Despre</a> | Noutăți | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistici</a> | <a href="/about/privacy">Confidențialitate</a>
++<a href="/about">Despre</a> | Noutăți | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Confidențialitate</a>
+ </h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+@@ -40,7 +40,7 @@
+     </h2>
+ 
+     <p>Au trecut deja trei luni
+-        <a href="/about/news#2019-06-12-launch">de când am lansat</a>
++        XXX
+         <span class="brand">keys.openpgp.org</span>.
+        Suntem bucuroși să semnalăm următorul raport:
+         A fost un succes răsunător!
+@@ -162,7 +162,7 @@
+         niciuna dintre ele nu are încă o dată planificată de lansare.</p>
+ <p>În ceea ce privește problema "<tt>nici un ID de utilizator</tt>" cu GnuPG
+         (menționată în pagina noastră
+-        <a href="/about/news#2019-06-12-launch-challenges">ultima postare de știri</a>
++        XXX
+         și în pagina noastră
+         <a href="/about/faq#older-gnupg" target="_blank">FAQ</a>),
+          un patch care rezolvă această problemă este acum distribuit de Debian,
+@@ -174,7 +174,7 @@
+ <hr style="margin-top: 2em; margin-bottom: 2em;">
+ <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-06-12 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">Lansarea unui nou server de chei! 🚀</a>
++      XXX
+     </h2>
+ 
+     <p>Dintr-un efort comunitar al
+diff --git a/templates-translated/ro/about/privacy.html.hbs b/templates-translated/ro/about/privacy.html.hbs
+index 9e07f47..c573ef9 100644
+--- a/templates-translated/ro/about/privacy.html.hbs
++++ b/templates-translated/ro/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Despre</a> | <a href="/about/news">Știri</a> | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistici</a> | Confidențialitate</h2></center>
++<a href="/about">Despre</a> | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | Confidențialitate</h2></center>
+ 
+     <p style="text-align: left;">Serverul de chei publice care rulează pe keys.openpgp.org procesează, stochează și
+         distribuie datele de chei OpenPGP. Modul specific în care sunt procesate datele
+diff --git a/templates-translated/ro/about/stats.html.hbs b/templates-translated/ro/about/stats.html.hbs
+index 33a99e7..7f1b610 100644
+--- a/templates-translated/ro/about/stats.html.hbs
++++ b/templates-translated/ro/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Despre</a> | <a href="/about/news">Noutăți</a> | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | Statistici | <a href="/about/privacy">Confidențialitate</a>
++<a href="/about">Despre</a> | <a href="/about/usage">Utilizare</a> | <a href="/about/faq">FAQ</a> | Statistici | <a href="/about/privacy">Confidențialitate</a>
+ </h2></center>
+ 
+     <h3>Adrese de e-mail verificate</h3>
+diff --git a/templates-translated/ro/about/usage.html.hbs b/templates-translated/ro/about/usage.html.hbs
+index 53db8b0..5a59aab 100644
+--- a/templates-translated/ro/about/usage.html.hbs
++++ b/templates-translated/ro/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">Despre</a> | <a href="/about/news">Noutăți</a> | Utilizare | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistici</a> | <a href="/about/privacy">Confidențialitate</a>
++<a href="/about">Despre</a> | Utilizare | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Confidențialitate</a>
+ </h2></center>
+ 
+     <p>Pe această pagină, colectăm informații despre cum să folosim
+diff --git a/templates-translated/ru/about/about.html.hbs b/templates-translated/ru/about/about.html.hbs
+index ae72660..4f13fc4 100644
+--- a/templates-translated/ru/about/about.html.hbs
++++ b/templates-translated/ru/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>О сервисе| <a href="/about/news">Новости</a> | <a href="/about/usage">Использование</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Статистика</a> | <a href="/about/privacy">Конфиденциальность</a>
++    <center><h2>О сервисе| <a href="/about/usage">Использование</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Конфиденциальность</a>
+ </h2></center>
+ 
+     <p>Сервер<tt>keys.openpgp.org</tt> является общедоступной службой для распространения и поиска OpenPGP-совместимых ключей, обычно называемый "keyserver".</p>
+diff --git a/templates-translated/sv/about/about.html.hbs b/templates-translated/sv/about/about.html.hbs
+index ce8e781..dd46e60 100644
+--- a/templates-translated/sv/about/about.html.hbs
++++ b/templates-translated/sv/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Om | <a href="/about/news">Nyheter</a> | <a href="/about/usage">Använda</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | <a href="/about/privacy">Integritet</a>
++    <center><h2>Om | <a href="/about/usage">Använda</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Integritet</a>
+ </h2></center>
+ 
+     <p>Servern <span class="brand">keys.openpgp.org</span> är publik tjänst för att
+diff --git a/templates-translated/sv/about/privacy.html.hbs b/templates-translated/sv/about/privacy.html.hbs
+index 47673ba..5eb8335 100644
+--- a/templates-translated/sv/about/privacy.html.hbs
++++ b/templates-translated/sv/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Om</a> | <a href="/about/news">Nyheter</a> | <a href="/about/usage">Använda</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | Integritet</h2></center>
++<a href="/about">Om</a> | <a href="/about/usage">Använda</a> | <a href="/about/faq">FAQ</a> | Integritet</h2></center>
+ 
+     <p style="text-align: left;">Den publika nyckelserver som körs på keys.openpgp.org bearbetar, lagrar och
+         distribuerar OpenPGP-nyckeldata. Det specifika sättet informationen bearbetas på
+diff --git a/templates-translated/sv/about/usage.html.hbs b/templates-translated/sv/about/usage.html.hbs
+index cbcb978..b7abf5d 100644
+--- a/templates-translated/sv/about/usage.html.hbs
++++ b/templates-translated/sv/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">Om</a> | <a href="/about/news">Nyheter</a> | Använda | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Statistik</a> | <a href="/about/privacy">Integritet</a>
++<a href="/about">Om</a> | Använda | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Integritet</a>
+ </h2></center>
+ 
+     <p>På den här sidan samlar vi information om hur att använda
+diff --git a/templates-translated/tr/about/about.html.hbs b/templates-translated/tr/about/about.html.hbs
+index 42feb06..9299705 100644
+--- a/templates-translated/tr/about/about.html.hbs
++++ b/templates-translated/tr/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>Hakkında | <a href="/about/news">Haberler</a> | <a href="/about/usage">Kullanım</a> | <a href="/about/faq">SSS</a> | <a href="/about/stats">İstatistikler</a> | <a href="/about/privacy">Mahremiyet</a>
++    <center><h2>Hakkında | <a href="/about/usage">Kullanım</a> | <a href="/about/faq">SSS</a> | <a href="/about/privacy">Mahremiyet</a>
+ </h2></center>
+ 
+     <p><span class="brand">keys.openpgp.org</span> sunucusu OpenPGP uyumlu
+diff --git a/templates-translated/tr/about/faq.html.hbs b/templates-translated/tr/about/faq.html.hbs
+index 73aeb89..5207c23 100644
+--- a/templates-translated/tr/about/faq.html.hbs
++++ b/templates-translated/tr/about/faq.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Hakkında</a> | <a href="/about/news">Haberler</a> | <a href="/about/usage">Kullanım</a> | SSS | <a href="/about/stats">İstatistikler</a> | <a href="/about/privacy">Mahremiyet</a>
++<a href="/about">Hakkında</a> | <a href="/about/usage">Kullanım</a> | SSS | <a href="/about/privacy">Mahremiyet</a>
+ </h2></center>
+ 
+     <p><strong>Yönergeler için, <a href="/about/usage">kullanma kılavuzumuza</a> bakabilirsiniz.</strong></p>
+diff --git a/templates-translated/tr/about/privacy.html.hbs b/templates-translated/tr/about/privacy.html.hbs
+index f580fb3..5e308b0 100644
+--- a/templates-translated/tr/about/privacy.html.hbs
++++ b/templates-translated/tr/about/privacy.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Hakkında</a> | <a href="/about/news">Haberler</a> | <a href="/about/usage">Kullanım</a> | <a href="/about/faq">SSS</a> | <a href="/about/stats">İstatistikler</a> | Mahremiyet</h2></center>
++<a href="/about">Hakkında</a> | <a href="/about/usage">Kullanım</a> | <a href="/about/faq">SSS</a> | Mahremiyet</h2></center>
+ 
+     <p style="text-align: left;">keys.openpgp.org adresinde sunulan herkese açık anahtar sunucusu OpenPGP anahtar verisini işler, saklar ve dağıtır. Verinin nasıl işlendiği verinin türüne göre aşağıdaki şekilde değişmektedir:</p>
+ <ul>
+diff --git a/templates-translated/tr/about/stats.html.hbs b/templates-translated/tr/about/stats.html.hbs
+index 578707c..803c0ad 100644
+--- a/templates-translated/tr/about/stats.html.hbs
++++ b/templates-translated/tr/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">Hakkında</a> | <a href="/about/news">Haberler</a> | <a href="/about/usage">Kullanım</a> | <a href="/about/faq">SSS</a> | İstatistikler | <a href="/about/privacy">Mahremiyet</a>
++<a href="/about">Hakkında</a> | <a href="/about/usage">Kullanım</a> | <a href="/about/faq">SSS</a> | İstatistikler | <a href="/about/privacy">Mahremiyet</a>
+ </h2></center>
+ 
+     <h3>Doğrulanmış e-posta adresleri</h3>
+diff --git a/templates-translated/tr/about/usage.html.hbs b/templates-translated/tr/about/usage.html.hbs
+index 6e493de..7db6ba9 100644
+--- a/templates-translated/tr/about/usage.html.hbs
++++ b/templates-translated/tr/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">Hakkında</a> | <a href="/about/news">Haberler</a> | Kullanım | <a href="/about/faq">SSS</a> | <a href="/about/stats">İstatistikler</a> | <a href="/about/privacy">Mahremiyet</a>
++<a href="/about">Hakkında</a> | Kullanım | <a href="/about/faq">SSS</a> | <a href="/about/privacy">Mahremiyet</a>
+ </h2></center>
+ 
+     <p>Bu sayfada, <span class="brand">keys.openpgp.org</span> hizmetinin farklı OpenPGP yazılım ürünleriyle birlikte nasıl kullanıldığına ilişkin bilgiyi topluyoruz.<br>
+diff --git a/templates-translated/zh_Hans/about/about.html.hbs b/templates-translated/zh_Hans/about/about.html.hbs
+index 67b79f2..3f76f2f 100644
+--- a/templates-translated/zh_Hans/about/about.html.hbs
++++ b/templates-translated/zh_Hans/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>关于 | <a href="/about/news">新闻</a> | <a href="/about/usage">使用</a> | <a href="/about/faq">常见问题</a> | <a href="/about/stats">统计资料</a> | <a href="/about/privacy">隐私</a>
++    <center><h2>关于 | <a href="/about/usage">使用</a> | <a href="/about/faq">常见问题</a> | <a href="/about/privacy">隐私</a>
+ </h2></center>
+ 
+     <p><tt>keys.openpgp.org</tt>服务是一个公共服务，
+diff --git a/templates-translated/zh_Hans/about/stats.html.hbs b/templates-translated/zh_Hans/about/stats.html.hbs
+index 6cbb4ba..48f8d9c 100644
+--- a/templates-translated/zh_Hans/about/stats.html.hbs
++++ b/templates-translated/zh_Hans/about/stats.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about">
+     <center><h2>
+-<a href="/about">关于</a> | <a href="/about/news">新闻</a> | <a href="/about/usage">使用</a> | <a href="/about/faq">常见问题</a> | 统计资料 | <a href="/about/privacy">隐私</a>
++<a href="/about">关于</a> | <a href="/about/usage">使用</a> | <a href="/about/faq">常见问题</a> | 统计资料 | <a href="/about/privacy">隐私</a>
+ </h2></center>
+ 
+     <h3>已验证邮箱地址</h3>
+diff --git a/templates-translated/zh_Hans/about/usage.html.hbs b/templates-translated/zh_Hans/about/usage.html.hbs
+index 411d850..e9a9e23 100644
+--- a/templates-translated/zh_Hans/about/usage.html.hbs
++++ b/templates-translated/zh_Hans/about/usage.html.hbs
+@@ -1,6 +1,6 @@
+ <div class="about usage">
+     <center><h2>
+-<a href="/about">关于</a> | <a href="/about/news">新闻 </a>| 使用 | <a href="/about/faq">常见问题</a> | <a href="/about/stats">统计资料</a> | <a href="/about/privacy">隐私</a>
++<a href="/about">关于</a> | XXX| 使用 | <a href="/about/faq">常见问题</a> | <a href="/about/privacy">隐私</a>
+ </h2></center>
+ 
+     <p>在此页面，我们收集不同OpenPGP软件上使用
+diff --git a/templates-untranslated/about/about.html.hbs b/templates-untranslated/about/about.html.hbs
+index 3a0ff8d..4f6e277 100644
+--- a/templates-untranslated/about/about.html.hbs
++++ b/templates-untranslated/about/about.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2>About | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2>About | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <p>
+         The <span class="brand">keys.openpgp.org</span> server is a public service for the
+diff --git a/templates-untranslated/about/faq.html.hbs b/templates-untranslated/about/faq.html.hbs
+index 76e99f9..b1f2294 100644
+--- a/templates-untranslated/about/faq.html.hbs
++++ b/templates-untranslated/about/faq.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | FAQ | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | FAQ | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <p>
+         <strong>For instructions, see our <a href="/about/usage">usage guide</a>.</strong>
+diff --git a/templates-untranslated/about/news.html.hbs b/templates-untranslated/about/news.html.hbs
+index 161d228..21eb5e5 100644
+--- a/templates-untranslated/about/news.html.hbs
++++ b/templates-untranslated/about/news.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | News | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | News | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <h2 id="2019-11-12-celebrating-100k">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-11-12 📅</div>
+@@ -60,7 +60,7 @@
+ 
+     <p>
+         It has been three months now
+-        <a href="/about/news#2019-06-12-launch">since we launched</a>
++        XXX
+         <span class="brand">keys.openpgp.org</span>.
+         We are happy to report:
+         It has been a resounding success!
+@@ -215,7 +215,7 @@
+     <p>
+         Regarding the "<tt>no user ID</tt>" issue with GnuPG
+         (mentioned in our
+-        <a href="/about/news#2019-06-12-launch-challenges">last news post</a>
++        XXX
+         and our
+         <a href="/about/faq#older-gnupg" target="_blank">FAQ</a>),
+         a patch that fixes this problem is now carried by Debian,
+@@ -231,7 +231,7 @@
+ 
+     <h2 id="2019-06-12-launch">
+       <div style="float: right; font-size: small; line-height: 2em;">2019-06-12 📅</div>
+-      <a href="/about/news#2019-06-12-launch" style="color: black;">Launching a new keyserver! 🚀</a>
++      XXX
+     </h2>
+ 
+     <p>
+diff --git a/templates-untranslated/about/privacy.html.hbs b/templates-untranslated/about/privacy.html.hbs
+index 3cf5ff3..502bdef 100644
+--- a/templates-untranslated/about/privacy.html.hbs
++++ b/templates-untranslated/about/privacy.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | Privacy</h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | Privacy</h2></center>
+ 
+     <p style="text-align: left;">
+         The public keyserver running on keys.openpgp.org processes, stores and
+diff --git a/templates-untranslated/about/stats.html.hbs b/templates-untranslated/about/stats.html.hbs
+index 89bd873..c71d3ed 100644
+--- a/templates-untranslated/about/stats.html.hbs
++++ b/templates-untranslated/about/stats.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | Stats | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | <a href="/about/usage">Usage</a> | <a href="/about/faq">FAQ</a> | Stats | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <h3>Verified email addresses</h3>
+ 
+diff --git a/templates-untranslated/about/usage.html.hbs b/templates-untranslated/about/usage.html.hbs
+index 8225180..337d5c4 100644
+--- a/templates-untranslated/about/usage.html.hbs
++++ b/templates-untranslated/about/usage.html.hbs
+@@ -1,5 +1,5 @@
+ <div class="about usage">
+-    <center><h2><a href="/about">About</a> | <a href="/about/news">News</a> | Usage | <a href="/about/faq">FAQ</a> | <a href="/about/stats">Stats</a> | <a href="/about/privacy">Privacy</a></h2></center>
++    <center><h2><a href="/about">About</a> | Usage | <a href="/about/faq">FAQ</a> | <a href="/about/privacy">Privacy</a></h2></center>
+ 
+     <p>
+         On this page, we collect information on how to use

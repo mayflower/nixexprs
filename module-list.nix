@@ -14,4 +14,5 @@
   modules/service-overview.nix
   modules/simplesamlphp.nix
   modules/wireguard-tunnel.nix
+  modules/hagrid.nix
 ]
