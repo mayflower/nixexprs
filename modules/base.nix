@@ -45,17 +45,6 @@ with lib;
       bash.enableCompletion = true;
       ssh.startAgent = false;
       mtr.enable = true;
-      msmtp = {
-        enable = mkDefault true;
-        accounts.default = {
-          host = "mail.mayflower.de";
-          domain = "mayflower.de";
-          tls = "on";
-          aliases = pkgs.writeText "msmtp-aliases" ''
-            root: devnull@mayflower.de
-          '';
-        };
-      };
     };
 
     environment = {
