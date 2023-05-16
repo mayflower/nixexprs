@@ -314,6 +314,7 @@ let
     graphviz = ["x86_64-linux"];
     grub2 = ["x86_64-linux"];
     gzip = ["x86_64-linux"];
+    hagrid = ["x86_64-linux"];
     haveged = ["x86_64-linux"];
     hdparm = ["x86_64-linux"];
     hicolor-icon-theme = ["x86_64-linux"];
@@ -474,7 +475,6 @@ let
     perlPackages.XMLSAX = ["x86_64-linux"];
     perlPackages.XMLTwig = ["x86_64-linux"];
     perl = ["x86_64-linux"];
-    pgpkeyserver-lite = ["x86_64-linux"];
     php80Extensions.apcu = ["x86_64-linux"];
     php80Extensions.bcmath = ["x86_64-linux"];
     php80Extensions.calendar = ["x86_64-linux"];
@@ -902,7 +902,6 @@ let
     shared-mime-info = ["x86_64-linux"];
     simplesamlphp = ["x86_64-linux"];
     #sinc-0.1.0 = ["x86_64-linux"];
-    sks = ["x86_64-linux"];
     smartmontools = ["x86_64-linux"];
     socat = ["x86_64-linux"];
     sof-firmware = ["x86_64-linux"];
