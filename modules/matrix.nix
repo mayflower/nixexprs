@@ -282,7 +282,7 @@ in
           # See https://github.com/matrix-org/synapse#reverse-proxying-the-federation-port
           listeners = [{
             port = 8448;
-            bind_addresses = [ "" ];
+            bind_addresses = [ "::" ];
             type = "http";
             tls = true;
             x_forwarded = false;
