@@ -422,7 +422,6 @@ let
     python310Packages.ldap3 = ["x86_64-linux"];
     python310Packages.ldaptor = ["x86_64-linux"];
     python310Packages.ldap = ["x86_64-linux"];
-    python310Packages.Logbook = ["x86_64-linux"];
     python310Packages.lxml = ["x86_64-linux"];
     python310Packages.mailmanclient = ["x86_64-linux"];
     python310Packages.Mako = ["x86_64-linux"];
