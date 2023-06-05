@@ -68,12 +68,6 @@ self: super:
     patches = patches ++ [
       ./pkgs/privacyidea/0001-remove-subscription-check.patch
       ./pkgs/privacyidea/add-description.patch
-
-      # Fix webauthn with Apple's TouchID
-      (self.fetchpatch {
-        url = "https://github.com/privacyidea/privacyidea/commit/055ec0707424c6b3c0ea2caa0510d79027412c1f.patch";
-        sha256 = "sha256-qQHBcHf+BxVyhpFaJiNfQ1B4oo5XZBJMCQ4ldByvDaY=";
-      })
     ];
   });
 

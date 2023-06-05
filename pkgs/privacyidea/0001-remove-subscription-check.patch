@@ -1,17 +1,17 @@
-From 594a1e20aa53d6afb4dca541ee761113a7bdd682 Mon Sep 17 00:00:00 2001
-From: Robin Gloster <mail@glob.in>
-Date: Sat, 1 Feb 2020 01:52:56 +0100
+From a000ec22ebce1e49949375ed446a9169fd5f6a7e Mon Sep 17 00:00:00 2001
+From: Maximilian Bosch <maximilian@mbosch.me>
+Date: Mon, 5 Jun 2023 19:26:09 +0200
 Subject: [PATCH] remove subscription check
 
 ---
- privacyidea/lib/subscriptions.py | 43 --------------------------------
- 1 file changed, 43 deletions(-)
+ privacyidea/lib/subscriptions.py | 42 --------------------------------
+ 1 file changed, 42 deletions(-)
 
 diff --git a/privacyidea/lib/subscriptions.py b/privacyidea/lib/subscriptions.py
-index cda1527b..56a1d31a 100644
+index 0003ea68..ceb8309c 100644
 --- a/privacyidea/lib/subscriptions.py
 +++ b/privacyidea/lib/subscriptions.py
-@@ -104,20 +104,6 @@ def subscription_status(component="privacyidea", tokentype=None):
+@@ -104,19 +104,6 @@ def subscription_status(component="privacyidea", tokentype=None):
  
      :return: subscription state
      """
@@ -28,11 +28,10 @@ index cda1527b..56a1d31a 100644
 -    except SubscriptionError as exx:
 -        log.warning(u"{0}".format(exx))
 -        return 2
--
+ 
      return 3
  
- 
-@@ -239,35 +225,6 @@ def check_subscription(application, max_free_subscriptions=None):
+@@ -259,35 +246,6 @@ def check_subscription(application, max_free_subscriptions=None):
          without a subscription file. If not given, the default is used.
      :return: bool
      """
@@ -43,7 +42,7 @@ index cda1527b..56a1d31a 100644
 -        token_users = get_users_with_active_tokens()
 -        free_subscriptions = max_free_subscriptions or APPLICATIONS.get(application.lower())
 -        if len(subscriptions) == 0:
--            if token_users > free_subscriptions:
+-            if subscription_exceeded_probability(token_users, free_subscriptions):
 -                raise SubscriptionError(description="No subscription for your client.",
 -                                        application=application)
 -        else:
@@ -58,16 +57,16 @@ index cda1527b..56a1d31a 100644
 -            else:
 -                # subscription is still valid, so check the signature.
 -                check_signature(subscription)
--                if token_users > subscription.get("num_tokens"):
+-                allowed_tokennums = subscription.get("num_tokens")
+-                if subscription_exceeded_probability(token_users, allowed_tokennums):
 -                    # subscription is exceeded
 -                    raise SubscriptionError(description="Too many users "
 -                                                        "with assigned tokens. "
 -                                                        "Subscription exceeded.",
 -                                            application=application)
--
+ 
      return True
  
- 
 -- 
-2.33.1
+2.40.1
 
