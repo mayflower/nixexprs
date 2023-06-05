@@ -26,8 +26,7 @@ import ./packages.nix {
         inHydra = true;
 
         permittedInsecurePackages = [
-          "python2.7-pyjwt-1.7.1" # nixops-1.7
-          "python2.7-certifi-2021.10.8" # nixops-1.7
+          "nodejs-16.20.0" # build-time dependency of discourse
         ];
       };
       overlays = [ (import "${nixexprs}/overlay.nix") ];
