@@ -45,7 +45,7 @@ let
     m.services.prometheus.exporters.unifi.enable
   ));
   unifiPollerExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.services.prometheus.exporters.unifi-poller.enable
+    m.services.prometheus.exporters.unpoller.enable
   ));
   fritzboxExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.fritzbox.enable
@@ -409,7 +409,7 @@ in {
               hostNames = fritzboxExporterHostNames;
               port = 9133;
             };
-            unifi-poller = {
+            unpoller = {
               hostNames = unifiPollerExporterHostNames;
               port = 9130;
             };

@@ -682,7 +682,7 @@ let
     tmux = ["x86_64-linux"];
     tzdata = ["x86_64-linux"];
     unbound = ["x86_64-linux"];
-    unifi-poller = ["x86_64-linux"];
+    unpoller = ["x86_64-linux"];
     #unifi = ["x86_64-linux"]; # unfree
     unzip = ["x86_64-linux"];
     uqmi = ["x86_64-linux"];
