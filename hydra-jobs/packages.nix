@@ -223,7 +223,7 @@ let
     ncurses = ["x86_64-linux"];
     ndppd = ["x86_64-linux"];
     nettools = ["x86_64-linux"];
-    nextcloud24 = ["x86_64-linux"];
+    nextcloud26 = ["x86_64-linux"];
     nfs-utils = ["x86_64-linux"];
     nginxMainline = ["x86_64-linux"];
     nginx = ["x86_64-linux"];
