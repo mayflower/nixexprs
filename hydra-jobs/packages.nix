@@ -565,8 +565,6 @@ let
     python310Packages.zope_testing = ["x86_64-linux"];
     python3Minimal = ["x86_64-linux"];
     python3 = ["x86_64-linux"];
-    python3Packages.flask = ["x86_64-linux"];  # error: pytest-asyncio-0.18.3 not supported for interpreter python2.7
-    pythonPackages.jinja2 = ["x86_64-linux"];
     qemu_kvm = ["x86_64-linux"];
     qemu = ["x86_64-linux"];
     redis = ["x86_64-linux"];
@@ -579,7 +577,6 @@ let
     rtl8192su-firmware = ["x86_64-linux"];
     rtl8723bs-firmware = ["x86_64-linux"];
     rtw88-firmware = ["x86_64-linux"];
-    rtw89-firmware = ["x86_64-linux"];
     rubocop = ["x86_64-linux"];
     rubyPackages.ast = ["x86_64-linux"];
     rubyPackages.awesome_print = ["x86_64-linux"];
@@ -941,8 +938,6 @@ let
     pulseaudioFull = ["x86_64-linux"];
     pulseaudio = ["x86_64-linux"];
     pwgen = ["x86_64-linux"];
-    python = ["x86_64-linux"];
-    pythonFull = ["x86_64-linux"];
     python3Packages = {
       binwalk = ["x86_64-linux"];
       imageio = ["x86_64-linux"];

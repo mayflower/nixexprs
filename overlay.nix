@@ -1,12 +1,7 @@
 self: super:
 
 {
-  python3 = super.python3.override { packageOverrides = import ./pkgs/python-packages.nix; };
-  python35 = super.python35.override { packageOverrides = import ./pkgs/python-packages.nix; };
-  python36 = super.python36.override { packageOverrides = import ./pkgs/python-packages.nix; };
-  python39 = super.python39.override { packageOverrides = import ./pkgs/python-packages.nix; };
-  python2 = super.python2.override { packageOverrides = import ./pkgs/python-packages.nix; };
-  python = super.python.override { packageOverrides = import ./pkgs/python-packages.nix; };
+  python310 = super.python310.override { packageOverrides = import ./pkgs/python-packages.nix; };
 
   mailmanPackages = super.mailmanPackages.extend (_: mailmanSuper: {
     postorius = mailmanSuper.postorius.overrideAttrs ({ patches ? [], ... }: {
@@ -26,10 +21,6 @@ self: super:
   dovecot = super.dovecot.override { withPgSQL = true; };
   postfix = super.postfix.override { withPgSQL = true; };
   freeradius = super.freeradius.override { withJson = true; withRest = true; };
-
-  nixops = super.nixops.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or []) ++ [ pkgs/nixops/0001-eval-machine-info-fix-deprecation-warning.patch ];
-  });
 
   bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
     postPatch = (oldAttrs.postPatch or "") + ''
