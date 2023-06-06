@@ -169,20 +169,20 @@ in {
     description = "{{$labels.instance}}: The TLS certificate from {{$labels.source}} will expire in less than 7 days: {{$value}}s";
   };
   unifi_devices_adopted_changed = {
-    condition = excl: ''sum(abs(delta(unifipoller_site_adopted{status="ok"${ensureComma excl}}[1h]))) >= 1'';
+    condition = excl: ''sum(abs(delta(unpoller_site_adopted{status="ok"${ensureComma excl}}[1h]))) >= 1'';
     summary = "Unifi: number of adopted devices has changed: {{$value}}";
   };
   unifi_device_excessive_memory_usage = {
-    condition = excl: ''unifipoller_device_memory_utilization_ratio{${excl}} >= 0.9'';
+    condition = excl: ''unpoller_device_memory_utilization_ratio{${excl}} >= 0.9'';
     summary = "Unifi: memory utilisation exceeds 90% on device {{$labels.name}}";
   };
   unifi_device_reboot = {
-    condition = excl: ''unifipoller_device_uptime_seconds{site_name!~"down.+"${ensureComma excl}} > 0 and unifipoller_device_uptime_seconds{site_name!~"down.+"} < 300'';
+    condition = excl: ''unpoller_device_uptime_seconds{site_name!~"down.+"${ensureComma excl}} > 0 and unpoller_device_uptime_seconds{site_name!~"down.+"} < 300'';
     summary = "Unifi: device {{$labels.name}} reboot";
     description = "Unifi: device {{$labels.name}} just rebooted";
   };
   unifi_device_down = {
-    condition = excl: ''unifipoller_site_adopted{status="error",site_name!~"down.+"${ensureComma excl}} >= 1'';
+    condition = excl: ''unpoller_site_adopted{status="error",site_name!~"down.+"${ensureComma excl}} >= 1'';
     summary = "Unifi: {{$value}} device(s) down in {{$labels.site_name}}";
   };
   mail_down = {
