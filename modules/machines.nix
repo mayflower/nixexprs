@@ -7,7 +7,7 @@ with lib;
     mayflower.machines = mkOption {
       type = types.attrs;
       default = {};
-      description = "Machines in the deployment";
+      description = mdDoc "Machines in the deployment";
     };
   };
 }

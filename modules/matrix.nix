@@ -8,12 +8,12 @@ let
 in
 {
   options.mayflower.matrix = {
-    enable = mkEnableOption "The Matrix";
+    enable = mkEnableOption (mdDoc "The Matrix");
 
     fqdn = mkOption {
       type = types.str;
       example = "matrix.example.com";
-      description = ''
+      description = mdDoc ''
         The fully qualified domain name of the matrix server.
         This domain name will also be used to open a minimal nginx reverse proxy
         for the matrix-synapse service.
@@ -21,11 +21,11 @@ in
     };
 
     turn = {
-      enable = mkEnableOption "coturn as turn server";
+      enable = mkEnableOption (mdDoc "coturn as turn server");
 
       authSecretFile = mkOption {
         type = types.str;
-        description = ''
+        description = mdDoc ''
           Path to the file containing the shared secret for coturn.
         '';
       };
@@ -35,10 +35,10 @@ in
       # I didn't consider it worth the effort (including future maintenance effort).
       synapseAuthSecretFile = mkOption {
         type = types.str;
-        description = ''
+        description = mdDoc ''
           Path to the file containing the same secret as
-          <xref linkend="opt-mayflower.matrix.turn.authSecretFile" />,
-          but prefixed with <literal>turn_shared_secret</literal> since
+          [](#opt-mayflower.matrix.turn.authSecretFile),
+          but prefixed with `turn_shared_secret` since
           it will be passed to synasep as config file.
         '';
       };
@@ -51,12 +51,12 @@ in
     };
 
     element = {
-      enable = mkEnableOption "Element web client";
+      enable = mkEnableOption (mdDoc "Element web client");
 
       fqdn = mkOption {
         type = types.str;
         example = "chat.example.com";
-        description = ''
+        description = mdDoc ''
           The fully qualified domain name of where the Element web frontend will be deployed.
         '';
       };
@@ -64,7 +64,7 @@ in
       defaultHomeServerUrl = mkOption {
         type = types.str;
         example = "https://matrix.org/";
-        description = ''
+        description = mdDoc ''
           The default home server URL Element should use.
         '';
       };
@@ -73,7 +73,7 @@ in
         type = types.str;
         example = "https://vector.im/";
         default = "";
-        description = ''
+        description = mdDoc ''
           The default identity server URL Element should use.
         '';
       };
@@ -81,7 +81,7 @@ in
       disableCustomUrls = mkOption {
         type = types.bool;
         default = true;
-        description = ''
+        description = mdDoc ''
           Whether or not to allow custom URLs in Element.
         '';
       };
@@ -89,7 +89,7 @@ in
       disableGuests = mkOption {
         type = types.bool;
         default = true;
-        description = ''
+        description = mdDoc ''
           Whether or not to allow guest logins through Element.
           Guests must be enabled on the server too.
         '';
@@ -98,7 +98,7 @@ in
       disableLoginLanguageSelector = mkOption {
         type = types.bool;
         default = false;
-        description = ''
+        description = mdDoc ''
           Whether or not to allow users to change the language for Element.
         '';
       };
@@ -106,7 +106,7 @@ in
       disable3pidLogin = mkOption {
         type = types.bool;
         default = false;
-        description = ''
+        description = mdDoc ''
           Whether or not to allow third party ID logins.
           This can be an E-Mail address or phone number using an identity server.
         '';
@@ -120,13 +120,13 @@ in
       crossOriginRendererDomain = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "";
+        description = mdDoc "";
       };
 
       extraConfig = mkOption {
         type = types.attrs;
         default = {};
-        description = "Overrides to the Element config";
+        description = mdDoc "Overrides to the Element config";
       };
     };
   };

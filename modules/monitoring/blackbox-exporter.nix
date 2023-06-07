@@ -7,31 +7,31 @@ let
 in {
   options = {
     mayflower.monitoring.blackboxExporter = {
-      enable = mkEnableOption "Mayflower Monitoring Blackbox Exporter";
+      enable = mkEnableOption (mdDoc "Mayflower Monitoring Blackbox Exporter");
       staticBlackboxHttpTargets = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "";
+        description = mdDoc "";
       };
       staticBlackboxHttpsTargets = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "";
+        description = mdDoc "";
       };
       staticBlackboxIcmpTargets = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "";
+        description = mdDoc "";
       };
       staticBlackboxTcpTargets = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "";
+        description = mdDoc "";
       };
       checkIP6 = mkOption {
         type = types.bool;
         default = true;
-        description = "";
+        description = mdDoc "";
       };
     };
   };

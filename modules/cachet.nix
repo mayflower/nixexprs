@@ -49,54 +49,54 @@ let
 in
 {
   options.services.cachet = {
-    enable = mkEnableOption "Cachet, the open source status page system";
+    enable = mkEnableOption (mdDoc "Cachet, the open source status page system");
 
-    debug = mkEnableOption "debug mode";
+    debug = mkEnableOption (mdDoc "debug mode");
 
     hostName = mkOption {
       type = types.str;
-      description = "";
+      description = mdDoc "";
     };
 
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/cachet";
-      description = "";
+      description = mdDoc "";
     };
 
     appKey = mkOption {
       type = types.str;
-      description = "Laravel appKey: must be a random, 32-character string";
+      description = mdDoc "Laravel appKey: must be a random, 32-character string";
     };
 
     database = {
       driver = mkOption {
         type = types.str;
         default = "pgsql";
-        description = "";
+        description = mdDoc "";
       };
 
       host = mkOption {
         type = types.str;
         default = "localhost";
-        description = "";
+        description = mdDoc "";
       };
 
       user = mkOption {
         type = types.str;
         default = "cachet";
-        description = "";
+        description = mdDoc "";
       };
 
       password = mkOption {
         type = types.str;
-        description = "";
+        description = mdDoc "";
       };
 
       dbname = mkOption {
         type = types.str;
         default = "cachet";
-        description = "";
+        description = mdDoc "";
       };
     };
 

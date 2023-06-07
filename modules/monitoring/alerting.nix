@@ -4,31 +4,31 @@ let
   cfg = config.mayflower.monitoring.server;
   alertRuleModule = types.submodule ({ name, config, ... }: {
     options = {
-      enable = mkEnableOption "this alerting rule" // { default = true; };
-      page = mkEnableOption "paging for this alert" // { default = true; };
+      enable = mkEnableOption (mdDoc "this alerting rule") // { default = true; };
+      page = mkEnableOption (mdDoc "paging for this alert") // { default = true; };
       condition = mkOption {
         type = types.functionTo types.str;
-        description = "Alert condition";
+        description = mdDoc "Alert condition";
       };
       summary = mkOption {
         type = types.str;
-        description = "Short summary description of the alert";
+        description = mdDoc "Short summary description of the alert";
       };
       description = mkOption {
         type = types.nullOr types.str;
-        description = "Longer description of the alert";
+        description = mdDoc "Longer description of the alert";
         default = null;
       };
       time = mkOption {
         type = types.str;
-        description = "Duration for which the condition must hold for the alert to fire";
+        description = mdDoc "Duration for which the condition must hold for the alert to fire";
         default = "2m";
       };
       renderedCondition = mkOption {
         internal = true;
         readOnly = true;
         type = types.str;
-        description = "condition, but with all exclusions added";
+        description = mdDoc "condition, but with all exclusions added";
       };
     };
     config = {
@@ -141,7 +141,7 @@ in {
   options.mayflower.monitoring.disabledAlertRules = mkOption {
     type = types.listOf types.str;
     default = [];
-    description = ''
+    description = mdDoc ''
       Can be set on any node in the deployment. Ensures that
       each alert rule inside this list doesn't fire for that node.
     '';

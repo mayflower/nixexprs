@@ -169,7 +169,7 @@ in {
       type = with types; attrsOf (submodule {
         options.expectedStatusCode = mkOption {
           type = types.int;
-          description = ''
+          description = mdDoc ''
             HTTP Status Code expected at / on the virtual Host.
           '';
         };
@@ -179,7 +179,7 @@ in {
     mayflower.monitoring = {
       containerDomains = mkOption {
         type = types.attrsOf types.str;
-        description = ''
+        description = mdDoc ''
           Map of bridge names - assigned to containers -
           to domains appended to the container name to monitor them.
         '';
@@ -188,7 +188,7 @@ in {
       datacenter = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = ''
+        description = mdDoc ''
           Domain in which this node is located.
         '';
       };
@@ -208,18 +208,18 @@ in {
             };
           }
         '';
-        description = ''
+        description = mdDoc ''
           Custom scrape configs added to the prometheus instances in the same datacenter.
         '';
       };
 
       server = {
-        enable = mkEnableOption "Mayflower-oriented monitoring server with prometheus";
+        enable = mkEnableOption (mdDoc "Mayflower-oriented monitoring server with prometheus");
 
         configurePrometheusAlertmanagers = mkOption {
           type = types.bool;
           default = true;
-          description = ''
+          description = mdDoc ''
             Automatically add all alertmanagers handled by this module to prometheus.
           '';
         };
@@ -227,31 +227,31 @@ in {
         enableAlertmanagerMeshing = mkOption {
           type = types.bool;
           default = true;
-          description = "Add this host to the cluster peers of every other host";
+          description = mdDoc "Add this host to the cluster peers of every other host";
         };
 
         alertmanagerExtraPeers = mkOption {
           type = types.listOf types.str;
           default = [];
-          description = "List of additional cluster peers";
+          description = mdDoc "List of additional cluster peers";
         };
 
         alertmanagerPageReceiver = mkOption {
           type = types.attrs;
           default = {};
-          description = "Receiver settings for alerts with severity page";
+          description = mdDoc "Receiver settings for alerts with severity page";
         };
 
         alertmanagerReceiver = mkOption {
           type = types.attrs;
           default = {};
-          description = "Receiver settings for all alerts";
+          description = mdDoc "Receiver settings for all alerts";
         };
 
         blackboxExporterHosts = mkOption {
           type = types.listOf types.str;
           default = [];
-          description = "Hostnames of blackboxExporter instances";
+          description = mdDoc "Hostnames of blackboxExporter instances";
         };
       };
     };
