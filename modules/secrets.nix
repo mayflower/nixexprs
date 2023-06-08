@@ -22,7 +22,7 @@ let
 
   secretPermissions = mkOptionType {
     name = "secret permissions";
-    description = mdDoc "permissions for secret which only user and group may access";
+    description = "permissions for secret which only user and group may access";
     check = value: types.str.check value && builtins.match "0[0-7]{2}0" value == [];
     inherit (types.str) merge;
   };
