@@ -215,4 +215,9 @@ in {
     summary = "{{$labels.alias}}: {{$labels.disk}} is experiencing sector errors";
     description = "{{$labels.alias}}: {{$labels.name}} on {{$labels.disk}} is {{$value}}";
   };
+  nextcloud_down = {
+    condition = excl: ''nextcloud_up{${excl}} < 1'';
+    summary = "{{$labels.alias}}: nextcloud down";
+    time = "15m";
+  };
 }
