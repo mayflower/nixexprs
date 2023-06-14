@@ -14,4 +14,5 @@
   modules/service-overview.nix
   modules/simplesamlphp.nix
   modules/hagrid.nix
+  modules/sops-extension.nix
 ]
