@@ -78,45 +78,45 @@ let
   };
 in {
   options.mayflower.demockrazy = {
-    enable = mkEnableOption "demockrazy";
+    enable = mkEnableOption (mdDoc "demockrazy");
     djangoSettings = mkOption {
       type = types.lines;
       default = "";
-      description = ''
+      description = mdDoc ''
         Verbatim django settings.
       '';
     };
     logLevel = mkOption {
       type = types.str;
       default = "INFO";
-      description = ''
+      description = mdDoc ''
         Django log level
       '';
     };
     secretKeyFile = mkOption {
       type = types.path;
-      description = ''
+      description = mdDoc ''
         File containing the Django secret key
       '';
     };
     baseUrl = mkOption {
       type = types.str;
       example = "https://demockrazy.example.com";
-      description = ''
+      description = mdDoc ''
         Base URL of demockrazy
       '';
     };
     allowedHosts = mkOption {
       type = types.listOf types.str;
       example = literalExample ''[ "demockrazy.example.com" ]'';
-      description = ''
+      description = mdDoc ''
         Hostnames/IPs allowed to access demockrazy
       '';
     };
     secureCookies = mkOption {
       type = types.bool;
       default = true;
-      description = ''
+      description = mdDoc ''
         Allows cookies to be only served via HTTPS
       '';
     };
@@ -126,63 +126,63 @@ in {
           sendMails = mkOption {
             type = types.bool;
             default = true;
-            description = ''
+            description = mdDoc ''
               Wheter to enable demockrazy sending mails.
             '';
           };
           from = mkOption {
             type = types.str;
             example = "demockrazy@example.com";
-            description = ''
+            description = mdDoc ''
               Address to send mails from.
             '';
           };
           host = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = ''
+            description = mdDoc ''
               Mail relay host name
             '';
           };
           user = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = ''
+            description = mdDoc ''
               Mail relay user name
             '';
           };
           passwordFile = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = ''
+            description = mdDoc ''
               Path to the file containing the mail relay user password
             '';
           };
           port = mkOption {
             type = types.nullOr types.int;
             default = 25;
-            description = ''
+            description = mdDoc ''
               Mail relay port
             '';
           };
           useTLS = mkOption {
             type = types.bool;
             default = true;
-            description = ''
+            description = mdDoc ''
               Whether to use STARTTLS when connecting to the mail relay host.
             '';
           };
           useSSL = mkOption {
             type = types.bool;
             default = false;
-            description = ''
+            description = mdDoc ''
               Whether to use SSL when connecting to the mail relay host.
             '';
           };
         };
       };
       default = {};
-      description = ''
+      description = mdDoc ''
         Options for mail handling of demockrazy
       '';
     };

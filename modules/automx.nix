@@ -25,16 +25,16 @@ let
   pythonPath = "${pythonEnv}/${pythonEnv.python.sitePackages}";
 in {
   options.services.automx = {
-    enable = mkEnableOption "automx service";
-    nginx.enable = mkEnableOption "nginx vhosts for automx";
+    enable = mkEnableOption (mdDoc "automx service");
+    nginx.enable = mkEnableOption (mdDoc "nginx vhosts for automx");
     domain = mkOption {
       type = types.str;
       example = "example.com";
-      description = "Mail domain to use for configuration of nginx.";
+      description = mdDoc "Mail domain to use for configuration of nginx.";
     };
     configFile = mkOption {
       type = types.path;
-      description = "";
+      description = mdDoc "Config file for the automx service.";
     };
   };
 

@@ -178,24 +178,24 @@ in
 
     services.simplesamlphp = {
 
-      enable = mkEnableOption "simpleSAMLphp.";
+      enable = mkEnableOption (mdDoc "simpleSAMLphp.");
 
       hostname = mkOption {
         type = types.str;
-        description = "Which vhost hostname simplesamlphp should run on.";
+        description = mdDoc "Which vhost hostname simplesamlphp should run on.";
       };
 
       samlLocation = mkOption {
         type = types.str;
         default = "/simplesamlphp";
-        description = ''
+        description = mdDoc ''
           Which directory on the vhost simplesamlphp should live in.
         '';
       };
 
       baseUrlPath = mkOption {
         type = types.str;
-        description = ''
+        description = mdDoc ''
           The base URL (e.g. https://sso.example.org/saml/). Secure (https) by
           default, but can be overriden with this option for local test cases.
         '';
@@ -204,19 +204,19 @@ in
       technicalContactEmail = mkOption {
         type = types.str;
         default = "";
-        description = "The email that's shown if something goes wrong.";
+        description = mdDoc "The email that's shown if something goes wrong.";
       };
 
       adminPasswordFile = mkOption {
         type = types.path;
-        description = ''
+        description = mdDoc ''
           Password file for the default admin user.
         '';
       };
 
       secretSaltFile = mkOption {
         type = types.path;
-        description = ''
+        description = mdDoc ''
           File with salt for hash generation.
         '';
       };
@@ -224,16 +224,16 @@ in
       trustedUrlRegex = mkOption {
         type = types.bool;
         default = false;
-        description = ''
+        description = mdDoc ''
           Whether to allow wildcards or regular expression matching in
-          <literal>trustedUrlDomains</literal>.
+          `trustedUrlDomains`.
         '';
       };
 
       trustedUrlDomains = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = ''
+        description = mdDoc ''
           List of domains that are allowed when generating links or redirects
           to URLs.
         '';
@@ -242,7 +242,7 @@ in
       checkForUpdates = mkOption {
         type = types.bool;
         default = false;
-        description = ''
+        description = mdDoc ''
           Whether to check for a new stable release when opening the
           configuration admin page.
         '';
@@ -251,14 +251,14 @@ in
       cookieName = mkOption {
         type = types.str;
         default = "SimpleSAMLSessionID";
-        description = "Name of session cookie.";
+        description = mdDoc "Name of session cookie.";
       };
 
       cookieDomain = mkOption {
         type = types.str;
         default = "";
         example = ".example.org";
-        description = ''
+        description = mdDoc ''
           Can be used to make the session cookie available to several domains.
         '';
       };
@@ -266,41 +266,40 @@ in
       cookieSecure = mkOption {
         type = types.bool;
         default = true;
-        description = "Whether simpleSAMLphp is only accessible through https.";
+        description = mdDoc "Whether simpleSAMLphp is only accessible through https.";
       };
 
       phpSessionCookieName = mkOption {
         type = types.str;
-        description = "Name of php session cookie.";
+        description = mdDoc "Name of php session cookie.";
       };
 
       authTokenCookieName = mkOption {
         type = types.str;
-        description = "Name of auth token cookie.";
+        description = mdDoc "Name of auth token cookie.";
       };
 
       loglevel = mkOption {
         default = "info";
         type = types.enum [ "emerg" "alert" "crit" "err" "warning" "notice" "info" "debug" ];
         apply = x: "SimpleSAML\\Logger::${toUpper x}";
-        description = ''
+        description = mdDoc ''
           Define the minimum log level to log. Available levels:
-          <itemizedlist>
-          <listitem><para><literal>emerg</literal></para></listitem>
-          <listitem><para><literal>alert</literal></para></listitem>
-          <listitem><para><literal>err</literal>     No statistics, only errors</para></listitem>
-          <listitem><para><literal>warning</literal> No statistics, only warnings/errors</para></listitem>
-          <listitem><para><literal>notice</literal>  Statistics and errors</para></listitem>
-          <listitem><para><literal>info</literal>    Verbose logs</para></listitem>
-          <listitem><para><literal>debug</literal>   Full debug logs - not recommended for production</para></listitem>
-          </itemizedlist>
+
+          * `emerg`
+          * `alert`
+          * `err` (No statistics, only errors)
+          * `warning` (No statistics, only warnings/errors)
+          * `notice` (Statistics and errors)
+          * `info` (Verbose logs)
+          * `debug` (Full debug logs - not recommended for production)
         '';
       };
 
       logFacility = mkOption {
         default = "syslog";
         type = types.enum [ "syslog" "file" "errorlog" "stderr" ];
-        description = ''
+        description = mdDoc ''
           Where to write logs.
         '';
       };
@@ -312,7 +311,7 @@ in
           'theme.use' => 'mayflower:mfminimal',
           'template.auto_reload' => true,
         '';
-        description = ''
+        description = mdDoc ''
           Further configuration options as PHP array entries. These options
           overwrite other options if the same option is set in
           <literal>extraConfig</literal> as well as declaratively. Can also be
@@ -343,7 +342,7 @@ in
             ],
           ],
         '';
-        description = ''
+        description = mdDoc ''
           Authsources to authenticate against. Consult
           <literal>pkgs.simplesamlphp/config-templates/authsources.php</literal>
           for a list of examples and documentation.
@@ -353,7 +352,7 @@ in
       saml20.sp.remote = mkOption {
         type = types.str;
         default = "";
-        description = "SAML 2.0 service providers as PHP arrays";
+        description = mdDoc "SAML 2.0 service providers as PHP arrays";
         example = ''
           $metadata['https://saml2sp0.example.org/saml/metadata'] = [
             'AssertionConsumerService' => 'https://saml2sp0.example.org/saml/acs',
@@ -367,25 +366,25 @@ in
       };
 
       saml20.idp.hosted = {
-        enable = mkEnableOption "a hosted SAML 2.0 identity provider";
+        enable = mkEnableOption (mdDoc "a hosted SAML 2.0 identity provider");
 
         certificateFile = mkOption {
           type = types.nullOr types.path;
-          description = ''
+          description = mdDoc ''
             Certificate file which should be used by this IdP, in PEM format.
           '';
         };
 
         privKeyFile = mkOption {
           type = types.nullOr types.path;
-          description = ''
+          description = mdDoc ''
             Name of private key file for this IdP, in PEM format.
           '';
         };
 
         auth = mkOption {
           type = types.str;
-          description = ''
+          description = mdDoc ''
             Which authentication module should be used to authenticate users
             on this IdP.
           '';
@@ -397,7 +396,7 @@ in
           example = ''
             'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
           '';
-          description = ''
+          description = mdDoc ''
             Further configuration options as PHP array entries.
           '';
         };
@@ -405,7 +404,7 @@ in
         moreProviders = mkOption {
           type = types.str;
           default = "";
-          description = ''
+          description = mdDoc ''
             Further providers as PHP arrays.
           '';
         };
@@ -449,7 +448,7 @@ in
     services.phpfpm.pools.simplesamlphp = {
         user = "simplesamlphp";
         group = "nginx";
-        phpPackage = pkgs.php80;
+        phpPackage = pkgs.php81;
         settings = {
           "listen.owner" = "nginx";
           "listen.group" = "nginx";

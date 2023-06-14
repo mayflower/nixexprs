@@ -14,14 +14,14 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = ''
+        description = mdDoc ''
           Generate the service overview and serve it on this host.
         '';
       };
       host = mkOption {
         type = types.str;
         example = "services.example.com";
-        description = ''
+        description = mdDoc ''
           Name of the nginx vhost.
         '';
       };
@@ -31,14 +31,14 @@ in
             address = mkOption {
               type = types.str;
               example = "https://example.service";
-              description = ''
+              description = mdDoc ''
                 Address of the provided service.
               '';
             };
             description = mkOption {
               type = types.str;
               example = "Very helpful service";
-              description = ''
+              description = mdDoc ''
                 A short description of the provided service.
               '';
             };
@@ -46,13 +46,13 @@ in
               type = types.enum [
                 "alpha" "beta" "production" "deprecated" "obsolete"
               ];
-              description = ''
+              description = mdDoc ''
                 Specify the support status for the provided service.
               '';
             };
           };
         });
-        description = "Set of services provided by this host.";
+        description = mdDoc "Set of services provided by this host.";
         example = literalExample ''{
           exampleService = {
             address = "https://example.service";

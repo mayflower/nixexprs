@@ -11,14 +11,13 @@ with lib;
   };
 
   config = mkIf config.mayflower.base.enable {
-    boot.tmpOnTmpfs = true;
+    boot.tmp.useTmpfs = true;
     boot.kernelParams = [
       "boot.shell_on_fail"
       "panic=10" # wait a bit before rebooting on panics pre-stage2
     ];
 
     boot.loader.grub.splashImage = null;
-    boot.loader.grub.version = 2;
     boot.loader.grub.copyKernels = true;
     boot.loader.timeout = 2;
 
@@ -78,7 +77,7 @@ with lib;
     services = {
       openssh = {
         enable = true;
-        passwordAuthentication = false;
+        settings.PasswordAuthentication = false;
       };
 
       fail2ban = {

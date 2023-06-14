@@ -12,7 +12,7 @@ let
   format = pkgs.formats.json { };
 in {
   options.services.opsdroid = {
-    enable = mkEnableOption "opsdroid chatbot";
+    enable = mkEnableOption (mdDoc "opsdroid chatbot");
 
     settings = mkOption {
       type = types.submodule {
@@ -21,20 +21,20 @@ in {
           web.host = mkOption {
             type = types.str;
             default = "::1";
-            description = ''
+            description = mdDoc ''
               Host opsdroid should listen to.
             '';
           };
           web.port = mkOption {
             type = types.port;
             default = 8080;
-            description = ''
+            description = mdDoc ''
               Port opsdroid should listen to.
             '';
           };
         };
       };
-      description = "configuration.yaml as json";
+      description = mdDoc "configuration.yaml as json";
       example = literalExample
         ''
           {
@@ -54,7 +54,7 @@ in {
     skills = mkOption {
       default = (ps: []);
       type = types.functionTo (types.listOf types.package);
-      description = ''
+      description = mdDoc ''
         Python packages to be used for opsdroid.
       '';
       example = literalExample
@@ -81,8 +81,8 @@ in {
     environmentFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description = ''
-        File containing secrets to be substitued via <package>envsubst</package>.
+      description = mdDoc ''
+        File containing secrets to be substitued via `envsubst`.
       '';
     };
   };

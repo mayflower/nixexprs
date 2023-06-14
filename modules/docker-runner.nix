@@ -11,27 +11,27 @@ in
 {
   options = {
     mayflower.docker-runner = {
-      enable = mkEnableOption "docker runner";
+      enable = mkEnableOption (mdDoc "docker runner");
 
       name = mkOption {
         type = types.str;
-        description = "Name of the runner";
+        description = mdDoc "Name of the runner";
       };
 
       token = mkOption {
         type = types.str;
-        description = "Token of the runner";
+        description = mdDoc "Token of the runner";
       };
 
       concurrent = mkOption {
         type = types.int;
-        description = "Number of parallel jobs to run";
+        description = mdDoc "Number of parallel jobs to run";
       };
 
       url = mkOption {
         type = types.str;
         default = "https://git.mayflower.de/";
-        description = "URL to Gitlab instance";
+        description = mdDoc "URL to Gitlab instance";
       };
     };
   };

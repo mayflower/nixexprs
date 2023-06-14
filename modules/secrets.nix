@@ -4,6 +4,7 @@ let
   cfg = config.mayflower.secrets;
 
   inherit (lib)
+    mdDoc
     concatStrings
     const
     flatten
@@ -42,7 +43,7 @@ let
     destDir = mkOption {
       type = types.path;
       default = "/var/secrets";
-      description = ''
+      description = mdDoc ''
         Destination directory for the secrets (equivalent to the Nixops option).
         Host secrets will be placed under the specified directory with their name,
         container secrets have the respective container name as a prefix.
@@ -52,7 +53,7 @@ let
       type = types.str;
       defaultText = "config.networking.hostName";
       default = config.networking.hostName;
-      description = ''
+      description = mdDoc ''
         Path to the directory containg the secret file, relative to "secrets/"
         in the deployment directory.
         By default a secret with name "example" for host "server" will
@@ -65,14 +66,14 @@ let
       type = types.nullOr types.str;
       default = null;
       example = "grafana";
-      description = ''
+      description = mdDoc ''
         Specify the name of the systemd unit from which to inherit User and Group
         for file permission.
       '';
     };
     path = mkOption {
       type = types.path;
-      description = ''
+      description = mdDoc ''
         The path in which the secret ends up.
       '';
       readOnly = true;
