@@ -11,6 +11,7 @@
   modules/monitoring/default.nix
   modules/opsdroid.nix
   modules/secrets.nix
+  modules/prometheus-federation.nix
   modules/service-overview.nix
   modules/simplesamlphp.nix
   modules/hagrid.nix
