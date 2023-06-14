@@ -15,4 +15,5 @@
   modules/simplesamlphp.nix
   modules/hagrid.nix
   modules/sops-extension.nix
+  modules/wireguard.nix
 ]
