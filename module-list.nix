@@ -6,6 +6,7 @@
   modules/demockrazy.nix
   modules/docker-runner.nix
   modules/kvm.nix
+  modules/log-aggregation.nix
   modules/machines.nix
   modules/matrix.nix
   modules/monitoring/default.nix
