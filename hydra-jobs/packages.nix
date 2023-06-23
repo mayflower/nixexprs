@@ -1065,6 +1065,8 @@ let
     ubuntu_font_family = ["x86_64-linux"];
     unifont = ["x86_64-linux"];
     wqy_microhei = ["x86_64-linux"];
+
+    nixosTests.wireguard-star = [ "x86_64-linux" ];
   };
 
   mergePkgs = list: let
