@@ -63,12 +63,6 @@ nix-build --argstr nixpkgs /home/robin/dev/nixpkgs-upstream -A postfix
 Automx service to provide mail client auto configuration. To be upstreamed soon,
 but not clean enough, yet.
 
-### services.mailman
-
-Mailman3 plus Hyperkitty and Postorius service. To be upstreamed after clean-up
-and stabilisation. (And rather a lot of code, maybe too opinionated in parts
-even)
-
 ### mayflower.base
 
 Enabled by default. Sets a number of default options including some opinionated
@@ -76,6 +70,14 @@ defaults as well as very Mayflower-specific things like setting our mailserver
 for delivery. Thus, you will want to turn this off and steal the parts you want
 to have yourself. Or feel free to open a PR to split this up into opinionated
 options and company-specific options if we don't beat you to it.
+
+### mayflower.cachet
+
+Packaging + VHost for [cachet](https://cachethq.io/), an open source status page.
+
+### mayflower.copy-nixpkgs
+
+Copies the `nixpkgs` used during deployment to the target system to a stable location.
 
 ### mayflower.demockrazy
 
@@ -89,14 +91,28 @@ is open source and mostly needs some polishing up prior to upstreaming this as
 A litte abstraction for docker gitlab runners. Not too interesting probably if
 you don't actually want our defaults and not worth upstreaming.
 
+### mayflower.hagrid
+
+Minimal module to self-host Hagrid, an open-source PGP keyserver.
+
 ### mayflower.kvm
 
 Some defaults for kvm guests.
+
+### mayflower.log-aggregation
+
+Generates a VPN network for a deployment to push logs via promtail to a central
+loki instance.
 
 ### mayflower.machines
 
 An option to pass NixOps `resources.machines` to, which is not accessible from
 the module system otherwise.
+
+### mayflower.matrix
+
+Module which aims to simplify the setup of a full-blown Matrix setup including
+Element, TURN integration and mxisd as directory service.
 
 ### mayflower.monitoring
 
@@ -109,23 +125,40 @@ used with NixOps as it includes federation support and meshed alertmanager and a
 number of exporters that get enabled by default if the relevant service is
 running. As always YMMV.
 
-### mayflower.openldap-ha
+### services.opsdroid
 
-HA openldap, highly experimental and not used in production, no guarantees for
-anything. (well, actually neither for the other modules)
+Minimal module to deploy opsdroid, a python-based ops bot (used for e.g.
+JIRA and GitLab notifications).
+
+### mayflower.prometheusFederation
+
+Generates a VPN network used to create a mesh of several Prometheus instances
+syncing metrics with each other. Used to have a single Prometheus for each site,
+but centralized metrics and alerting.
 
 ### mayflower.serviceOverview
 
 Generates a list of services and their support status from options over all
 `mayflower.machines`.
 
-### mayflower.wireguard-tunnel
-wireguard abstraction, not used in production and probably deleted due to the
-upcoming networking clean-up, which will improve support for things like this.
+### services.simplesamlphp
+
+Sets up [simplesamlphp](https://simplesamlphp.org/) to allow our users to authenticate
+with their PrivacyIDEA credentials against internal services using SAML.
+
+### sops-extension
+
+Extends the [`sops-nix`](https://github.com/Mic92/sops-nix/)-module to support
+a structure like `secrets/<name of machine>/secrets.sops.yaml` to support
+per-machine secrets in a large deployment.
+
+### mayflower.wireguard
+
+Allows to generate a VPN network in a star topology using WireGuard over machines
+defined in a deployment.
 
 ## Hydra Jobs
 
 This repository also contains our complete hydra declarative project and jobset
 specification. This won't be of much use outside of our environment but there
-probably are a few things to take inspiration from. This includes a more
-elaborate example for declarative jobsets and aarch64 cross-building on hydra.
+probably are a few things to take inspiration from.

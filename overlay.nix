@@ -100,4 +100,8 @@ self: super:
       sha256 = "sha256-mv13OdNkXggeKQkJ+47QcJ6lYmcw6Qjri1ZJ2ETCTOk=";
     };
   });
+
+  nixosTests = super.nixosTests // {
+    wireguard-star = self.callPackage ./tests/wireguard-star.nix { };
+  };
 }

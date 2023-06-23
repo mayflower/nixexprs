@@ -1,17 +1,20 @@
 [
   modules/automx.nix
+  modules/base.nix
   modules/cachet.nix
   modules/copy-nixpkgs.nix
-  modules/base.nix
   modules/demockrazy.nix
   modules/docker-runner.nix
+  modules/hagrid.nix
   modules/kvm.nix
+  modules/log-aggregation.nix
   modules/machines.nix
   modules/matrix.nix
   modules/monitoring/default.nix
   modules/opsdroid.nix
-  modules/secrets.nix
+  modules/prometheus-federation.nix
   modules/service-overview.nix
   modules/simplesamlphp.nix
-  modules/hagrid.nix
+  modules/sops-extension.nix
+  modules/wireguard.nix
 ]
