@@ -67,15 +67,16 @@ self: super:
     ln -vs ${super.ma1sd}/bin/ma1sd $out/bin/mxisd
   '';
 
-  matrix-synapse = super.matrix-synapse.overrideAttrs (oldAttrs: {
-    postInstall = (oldAttrs.postInstall or "") + ''
-      cp ${super.fetchFromGitHub {
-        owner = "ma1uta";
-        repo = "matrix-synapse-rest-password-provider";
-        rev = "ed377fb70513c2e51b42055eb364195af1ccaf33";
-        sha256 = "130mc2i8v9p9ngcysg95jbp5fqxlz9p2byca2nsnb2ki96k8k3g7";
-      }}/rest_auth_provider.py $out/lib/${super.python3.libPrefix}/site-packages
-    '';
+  matrix-synapse = super.matrix-synapse.overrideAttrs ({ patches ? [], ... }: {
+    patches = patches ++ [
+      # https://github.com/matrix-org/synapse/pull/16030
+      # allow specifying `client_secret_file` in the `oidc_providers` section
+      # rather than having to specify the verbatim secret in the homeserver config.
+      (super.fetchpatch {
+        url = "https://github.com/matrix-org/synapse/commit/3cbce56fbf91c7420ee89350cc926af4a3c1738e.patch";
+        hash = "sha256-VkBMEkdmktyg01c+C40R1GnJyCHsBKGKH+/Ur0qUTYo=";
+      })
+    ];
   });
 
 
