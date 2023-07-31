@@ -167,6 +167,13 @@ in
                     add_header X-Content-Type-Options "nosniff" always;
                   '';
                 };
+                "/_synapse/client" = {
+                  proxyPass = "http://127.0.0.1:8008";
+                  priority = 30;
+                  extraConfig = ''
+                    add_header X-Content-Type-Options "nosniff" always;
+                  '';
+                };
                 "/_matrix/identity" = {
                   proxyPass = "http://127.0.0.1:8090/_matrix/identity";
                   extraConfig = ''
@@ -305,12 +312,6 @@ in
             tls = false;
             resources = [];
           }];
-          password_providers = [ {
-            module = "rest_auth_provider.RestAuthProvider";
-            config = {
-              endpoint = "http://localhost:8090";
-            };
-          } ];
         };
       };
 
