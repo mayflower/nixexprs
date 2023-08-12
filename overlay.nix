@@ -88,20 +88,6 @@ self: super:
     ];
   });
 
-  # https://github.com/NixOS/nixpkgs/blob/mf-next/nixos/modules/services/misc/gitlab.nix#L16
-  # Remove when changes from git 2.37.2 land in our nixpkgs
-  # - https://lore.kernel.org/git/xmqqedxmfyhe.fsf@gitster.g/
-  # - (commit-graph: introduce `repo_find_commit_pos_in_graph()`)
-  gitlab-workhorse-git-2-35-4 = let
-    version = "2.35.4";
-  in super.git.overrideAttrs (oldAttrs: rec {
-    inherit version;
-    src = super.fetchurl {
-      url = "https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz";
-      sha256 = "sha256-mv13OdNkXggeKQkJ+47QcJ6lYmcw6Qjri1ZJ2ETCTOk=";
-    };
-  });
-
   nixosTests = super.nixosTests // {
     wireguard-star = self.callPackage ./tests/wireguard-star.nix { };
   };
