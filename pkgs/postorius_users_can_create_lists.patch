@@ -1,14 +1,14 @@
 diff --git a/src/postorius/templates/postorius/index.html b/src/postorius/templates/postorius/index.html
-index c26460d5..d645fa15 100644
+index 0326b49..1d19194 100644
 --- a/src/postorius/templates/postorius/index.html
 +++ b/src/postorius/templates/postorius/index.html
-@@ -33,10 +33,10 @@
-           {% endif %}
-         </div>
+@@ -58,10 +58,10 @@
+             </ul>
+           </div>
      {% endif %}
 -    {% if user.is_superuser %}
 +    {% if user.is_authenticated %}
-       <div class="col-md-4">
+       <div class="col">
          <p class="text-right">
 -            {% if domain_count < 1 %}
 +            {% if domain_count < 1 and user.is_superuser %}
@@ -16,10 +16,10 @@ index c26460d5..d645fa15 100644
              {% else %}
                  <a class="btn btn-success" href="{% url 'list_new' %}">{% trans 'Create New List' %}</a>
 diff --git a/src/postorius/tests/mailman_api_tests/test_list_new.py b/src/postorius/tests/mailman_api_tests/test_list_new.py
-index 91d8ae78..6b0a6768 100644
+index 4581412..be39a4b 100644
 --- a/src/postorius/tests/mailman_api_tests/test_list_new.py
 +++ b/src/postorius/tests/mailman_api_tests/test_list_new.py
-@@ -38,7 +38,6 @@ class ListCreationTest(ViewTestCase):
+@@ -40,7 +40,6 @@ class ListCreationTest(ViewTestCase):
          self.domain = self.mm_client.create_domain('example.com')
  
      def test_permission_denied(self):
@@ -28,19 +28,18 @@ index 91d8ae78..6b0a6768 100644
          self.assertEqual(response.status_code, 403)
  
 diff --git a/src/postorius/views/list.py b/src/postorius/views/list.py
-index 6aa06cb1..ced5cdc3 100644
+index 85e0d78..4c43d12 100644
 --- a/src/postorius/views/list.py
 +++ b/src/postorius/views/list.py
-@@ -44,7 +44,7 @@ from django_mailman3.signals import (
-     mailinglist_created, mailinglist_deleted, mailinglist_modified)
- 
+@@ -54,7 +54,6 @@ from django_mailman3.signals import (
  from postorius.auth.decorators import (
--    list_moderator_required, list_owner_required, superuser_required)
-+    list_moderator_required, list_owner_required)
+     list_moderator_required,
+     list_owner_required,
+-    superuser_required,
+ )
  from postorius.auth.mixins import ListOwnerMixin
  from postorius.forms import (
-     AlterMessagesForm, ArchiveSettingsForm, DigestSettingsForm,
-@@ -613,7 +613,6 @@ def _get_default_style():
+@@ -960,7 +959,6 @@ def _get_default_style():
  
  
  @login_required
