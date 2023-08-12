@@ -70,11 +70,11 @@ self: super:
   matrix-synapse = super.matrix-synapse.overrideAttrs ({ patches ? [], ... }: {
     patches = patches ++ [
       # https://github.com/matrix-org/synapse/pull/16030
-      # allow specifying `client_secret_file` in the `oidc_providers` section
+      # allow specifying `client_secret_path` in the `oidc_providers` section
       # rather than having to specify the verbatim secret in the homeserver config.
       (super.fetchpatch {
-        url = "https://github.com/matrix-org/synapse/commit/3cbce56fbf91c7420ee89350cc926af4a3c1738e.patch";
-        hash = "sha256-VkBMEkdmktyg01c+C40R1GnJyCHsBKGKH+/Ur0qUTYo=";
+        url = "https://github.com/matrix-org/synapse/commit/b1197c0303cf84632ce8cff9e6d77352a2513eba.patch";
+        hash = "sha256-sYz+DXSOZQUOQyeGkLf4+/ZI6fxs5EC9Wd6+OhpuwSs=";
       })
     ];
   });
