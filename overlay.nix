@@ -18,6 +18,7 @@ self: super:
           patches = patches ++ [
             ./pkgs/python/django-allauth/0001-Automatically-link-social-login-users-against-existi.patch
             ./pkgs/python/django-allauth/0002-Implement-superuser-to-oidc-mapping-similar-to-the-a.patch
+            ./pkgs/python/django-allauth/0003-Prohibit-authentication-against-local-users.patch
           ];
         });
       };
