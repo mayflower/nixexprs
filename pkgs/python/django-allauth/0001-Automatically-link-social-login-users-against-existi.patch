@@ -1,0 +1,121 @@
+From 323caf1e53bb5d029a02289ba4081ed7600196ad Mon Sep 17 00:00:00 2001
+From: Maximilian Bosch <maximilian.bosch@mayflower.de>
+Date: Fri, 11 Aug 2023 17:23:12 +0000
+Subject: [PATCH 1/2] Automatically link social login users against existing
+ users by email
+
+This patch is tailored for how authentication works against mailman in
+our case. Specifically we have two kinds of users that should be allowed
+to authenticate:
+
+* new users that only ever authenticated with OIDC
+* existing users that authenticated in the past via LDAP
+
+The first case is trivial: auto-signup kicks in and the user is set up
+correctly.
+
+The second isn't: by default, a signup form would be opened, but
+this one can't be completed because the username isn't unique. To work
+around this, this case is caught early on (by checking if the user
+already exists in the database) and then linking the social account
+to the existing user and also doing a login rather than processing
+with the signup.
+
+In our case this is OK because the logic will only be used in with
+our OIDC provider where email addresses are guaranteed to be unique
+company-wide.
+
+Both signup and auto-signup immediately return True because that's
+the desired behavior and at least the signup check would otherwise
+always return false because our mailman has arbitrary signups
+disabled.
+
+While it's OK to use emails as identifiers here from a security
+perspective because we also control the source, it should be noted
+that when a user request to change their name (e.g. after marriage),
+the entries in the DB must be fixed up manually (though it's worth
+noting that mailman's DB had to be touched in this case already).
+---
+ allauth/socialaccount/adapter.py |  3 ++-
+ allauth/socialaccount/helpers.py | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+), 1 deletion(-)
+
+diff --git a/allauth/socialaccount/adapter.py b/allauth/socialaccount/adapter.py
+index 67ee677f..30a93a8c 100644
+--- a/allauth/socialaccount/adapter.py
++++ b/allauth/socialaccount/adapter.py
+@@ -138,6 +138,7 @@ class DefaultSocialAccountAdapter(object):
+                     )
+ 
+     def is_auto_signup_allowed(self, request, sociallogin):
++        return True
+         # If email is specified, check for duplicate and if so, no auto signup.
+         auto_signup = app_settings.AUTO_SIGNUP
+         if auto_signup:
+@@ -172,7 +173,7 @@ class DefaultSocialAccountAdapter(object):
+         Next to simply returning True/False you can also intervene the
+         regular flow by raising an ImmediateHttpResponse
+         """
+-        return get_account_adapter(request).is_open_for_signup(request)
++        return True
+ 
+     def get_signup_form_initial_data(self, sociallogin):
+         user = sociallogin.user
+diff --git a/allauth/socialaccount/helpers.py b/allauth/socialaccount/helpers.py
+index c22b71ca..cc5327b0 100644
+--- a/allauth/socialaccount/helpers.py
++++ b/allauth/socialaccount/helpers.py
+@@ -11,15 +11,30 @@ from allauth.account.utils import (
+     perform_login,
+     user_display,
+     user_username,
++    user_email,
+ )
+ from allauth.exceptions import ImmediateHttpResponse
+ 
++from django.contrib.auth import get_user_model
++
+ from . import app_settings, signals
+ from .adapter import get_adapter
+ from .models import SocialLogin
+ from .providers.base import AuthError, AuthProcess
+ 
+ 
++def _find_existing_user_by_email(email):
++    """
++    Searches for an existing user by the email, but in contrast to `..utils.email_address_exists`
++    this actually returns the user model.
++    """
++    email_field = account_settings.USER_MODEL_EMAIL_FIELD
++    assert email_field
++    users = get_user_model().objects.filter(**{email_field + "__iexact": email})
++    assert len(users) < 2
++    return users.first()
++
++
+ def _process_signup(request, sociallogin):
+     auto_signup = get_adapter(request).is_auto_signup_allowed(request, sociallogin)
+     if not auto_signup:
+@@ -27,6 +42,19 @@ def _process_signup(request, sociallogin):
+         url = reverse("socialaccount_signup")
+         ret = HttpResponseRedirect(url)
+     else:
++        # Does the user already exist in the database (i.e. was created via LDAP in the past?)
++        email = user_email(sociallogin.user)
++        if (existing_user := _find_existing_user_by_email(email)) is not None:
++            # when a user (givenname.surname@mayflower.de) exists in the database, it
++            # means that the user was authenticated via LDAP in the past. That means we link
++            # the existing account with this one.
++            sociallogin.connect(request, existing_user)
++            signals.social_account_added.send(
++                sender=SocialLogin, request=request, sociallogin=sociallogin
++            )
++
++            return complete_social_signup(request, sociallogin)
++
+         # Ok, auto signup it is, at least the e-mail address is ok.
+         # We still need to check the username though...
+         if account_settings.USER_MODEL_USERNAME_FIELD:
+-- 
+2.40.1
+

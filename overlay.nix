@@ -9,6 +9,20 @@ self: super:
         ./pkgs/postorius_users_can_create_lists.patch
       ];
     });
+
+    python3 = mailmanSuper.python3.override {
+      overlay = pythonSelf: pythonSuper: {
+        django-allauth = pythonSuper.django-allauth.overridePythonAttrs ({ patches ? [], ... }: {
+          # patch is minimally-invasive on purpose, so tests aren't touched in there.
+          doCheck = false;
+          patches = patches ++ [
+            ./pkgs/python/django-allauth/0001-Automatically-link-social-login-users-against-existi.patch
+            ./pkgs/python/django-allauth/0002-Implement-superuser-to-oidc-mapping-similar-to-the-a.patch
+            ./pkgs/python/django-allauth/0003-Prohibit-authentication-against-local-users.patch
+          ];
+        });
+      };
+    };
   });
 
   cachet = super.callPackage pkgs/cachet {};

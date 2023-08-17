@@ -1,0 +1,34 @@
+From cc2f03583a3feb42467ad0fea92bd731d7efde17 Mon Sep 17 00:00:00 2001
+From: Maximilian Bosch <maximilian@mbosch.me>
+Date: Sat, 12 Aug 2023 14:56:59 +0200
+Subject: [PATCH 3/3] Prohibit authentication against local users
+
+To avoid confusion: users are only supposed to authenticate themselves
+via OIDC.
+---
+ allauth/account/forms.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/allauth/account/forms.py b/allauth/account/forms.py
+index 89f89a2b..840ebfe6 100644
+--- a/allauth/account/forms.py
++++ b/allauth/account/forms.py
+@@ -171,6 +171,7 @@ class LoginForm(forms.Form):
+         return ret
+ 
+     def clean(self):
++        raise exceptions.PermissionDenied()
+         super(LoginForm, self).clean()
+         if self._errors:
+             return
+@@ -192,6 +193,7 @@ class LoginForm(forms.Form):
+         return self.cleaned_data
+ 
+     def login(self, request, redirect_url=None):
++        raise exceptions.PermissionDenied()
+         email = self.user_credentials().get("email")
+         ret = perform_login(
+             request,
+-- 
+2.40.1
+
