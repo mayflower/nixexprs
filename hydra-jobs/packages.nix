@@ -101,7 +101,6 @@ let
     gitaly = ["x86_64-linux"];
     gitlab-runner = ["x86_64-linux"];
     gitlab-shell = ["x86_64-linux"];
-    gitlab-workhorse-git-2-35-4 = ["x86_64-linux"];
     gitlab-workhorse = ["x86_64-linux"];
     git = ["x86_64-linux"];
     gixy = ["x86_64-linux"];
@@ -795,7 +794,6 @@ let
     gitAndTools.tig = ["x86_64-linux"];
     gitMinimal = ["x86_64-linux"];
     gitlab = ["x86_64-linux"];
-    gitlab-workhorse-git-2-35-4 = ["x86_64-linux"]; # See ../overlay.nix
     gnome3.gedit = ["x86_64-linux"];
     gnome3.gnome-settings-daemon = ["x86_64-linux"];
     gnufdisk = ["x86_64-linux"];
