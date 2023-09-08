@@ -33,7 +33,7 @@ let
     emailoverride = "devnull+hydra@mayflower.de";
   };
 
-  jobsets = lib.mapAttrs (name: settings: lib.recursiveUpdate defaultSettings settings) (rec {
+  jobsets = lib.mapAttrs (name: settings: lib.recursiveUpdate defaultSettings settings) ({
     bootstrap-tools = {
       keepnr = 2;
       nixexprinput = "nixpkgs";
@@ -65,6 +65,13 @@ let
       inputs.nixexprs.value = "https://github.com/mayflower/nixexprs mf-next";
     };
   }) jobsets;
+
+  jobsets-structured-attrs = lib.mapAttrs' (name: value: {
+    name = "structured-attrs-${name}";
+    value = lib.recursiveUpdate value {
+      inputs.nixpkgs.value = "https://github.com/mayflower/nixpkgs structured-attrs-v2";
+    };
+  }) jobsets;
 in {
-  jobsets = pkgs.writeText "spec.json" (builtins.toJSON (jobsets // jobsets-next));
+  jobsets = pkgs.writeText "spec.json" (builtins.toJSON (jobsets // jobsets-next // jobsets-structured-attrs));
 }
