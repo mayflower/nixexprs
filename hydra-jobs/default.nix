@@ -1,6 +1,7 @@
 { nixpkgs ? <nixpkgs>
 , nixexprs ? <nixexprs>
 , supportedSystems ? [ "x86_64-linux" ]
+, config ? { }
 }:
 
 import ./packages.nix {
@@ -8,7 +9,7 @@ import ./packages.nix {
   releaseLib = import "${nixpkgs}/pkgs/top-level/release-lib.nix" {
     inherit supportedSystems;
     nixpkgsArgs = {
-      config = {
+      config = config // {
         allowUnfree = false;
 
         # As soon as something is redistributable, it's legally OK to - well - redistribute
