@@ -24,46 +24,50 @@ let
 
   lokiServiceConfig = {
     enable = true;
-    configFile = pkgs.writeText "loki-write-config.yml" ''
-      server:
-        http_listen_port: 3100
-      schema_config:
-        configs:
-          - from: 2021-08-01
-            store: boltdb-shipper
-            object_store: s3
-            schema: v11
-            index:
-              prefix: index_
-              period: 24h
-      common:
-        path_prefix: /var/lib/loki
-        replication_factor: 1
-        storage:
-          s3:
-            bucketnames: loki-data
-            endpoint: localhost:9000
-            region: us-east-1
-            access_key_id: ''${MINIO_ACCESS_KEY}
-            secret_access_key: ''${MINIO_SECRET_KEY}
-            insecure: true
-            sse_encryption: false
-            s3forcepathstyle: true
-        ring:
-          kvstore:
-            store: inmemory
-      ruler:
-        storage:
-          s3:
-            bucketnames: loki-ruler
-      query_scheduler:
-        max_outstanding_requests_per_tenant: 8192
-      limits_config:
-        retention_period: 90d
-        max_query_length: 90d
-        max_query_series: 5000
-        split_queries_by_interval: 2h
-    '';
+    configuration = {
+      server.http_listen_port = 3100;
+      schema_config = {
+        configs = [
+          {
+            from = "2021-08-01";
+            store = "boltdb-shipper";
+            object_store = "minio";
+            schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
+      };
+      storage_config.named_stores.aws = {
+        minio = {
+          bucketnames = "loki-data";
+          endpoint = "localhost:9000";
+          region = "us-east-1";
+          access_key_id = "\${MINIO_ACCESS_KEY}";
+          secret_access_key = "\${MINIO_SECRET_KEY}";
+          insecure = true;
+          sse_encryption = false;
+          s3forcepathstyle = true;
+          signature_version = "v4";
+          storage_class = "STANDARD";
+        };
+      };
+      common = {
+        path_prefix = "/var/lib/loki";
+        replication_factor = 1;
+        ring.kvstore.store = "inmemory";
+      };
+      ruler.storage.s3.bucketnames = "loki-ruler";
+      query_scheduler.max_outstanding_requests_per_tenant = 8192;
+      limits_config = {
+        retention_period = "90d";
+        max_query_length = "90d";
+        max_query_series = 5000;
+        split_queries_by_interval = "2h";
+      };
+    };
     extraFlags = [
       "-log-config-reverse-order"
       "-config.expand-env=true"
