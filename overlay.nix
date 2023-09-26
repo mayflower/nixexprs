@@ -50,7 +50,6 @@ self: super:
     withPgSQL = true;
   };
   postfix = super.postfix.override { withPgSQL = true; };
-  freeradius = super.freeradius.override { withJson = true; withRest = true; };
 
   bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
     postPatch = (oldAttrs.postPatch or "") + ''
