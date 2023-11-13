@@ -134,9 +134,19 @@ let
     ];
   };
 
-  mkSNMPConfig = { hostname, module, targets, interval ? "60s" }: {
+  mkSNMPConfig = { hostname, module, targets, timeout, interval ? "25s" }: let
+    to_int_seconds = string: (list: (
+      number: unit: {"s" = 1; "m" = 60; "h" = 3600;}.${unit} * (lib.toInt number))
+      (builtins.elemAt list 0) (builtins.elemAt list 1)
+    ) (builtins.match "([0-9]+)(.)" string);
+    interval_int = to_int_seconds interval;
+    interval_sec = "${toString interval_int}s";
+    timeout_int = to_int_seconds timeout;
+    timeout_sec = "${toString timeout_int}s";
+  in {
     job_name = "snmp_${module}";
-    scrape_interval = interval;
+    scrape_interval = if interval_int < timeout_int then timeout_sec else interval_sec;
+    scrape_timeout = timeout_sec;
     metrics_path = "/snmp";
     params.module = [module];
     static_configs = [{
@@ -488,7 +498,7 @@ in {
           (forEach (attrNames cfg.snmpExporter.modules) (module: mkSNMPConfig {
               hostname = "localhost";
               inherit module;
-              inherit (cfg.snmpExporter.modules.${module}) targets;
+              inherit (cfg.snmpExporter.modules.${module}) targets timeout;
             })
           );
         };
