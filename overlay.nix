@@ -59,7 +59,24 @@ self: super:
     '';
   });
 
-  prometheus-snmp-exporter-generator = super.callPackage ./pkgs/prometheus-snmp-exporter-generator.nix {};
+  prometheus-snmp-exporter = let
+    version = "0.24.1";
+    src = super.fetchFromGitHub {
+      owner = "prometheus";
+      repo = "snmp_exporter";
+      rev = "v${version}";
+      sha256 = "sha256-DFphnztS3JX5xmoKB3VVzAP26d9PeCFWyDHHs2Yi+gA=";
+    };
+  in (super.prometheus-snmp-exporter.override {
+    buildGoModule = args: super.buildGoModule.override {} (args // {
+      inherit src version;
+      vendorSha256 = "sha256-tf+FIc39a5J05LHCEHs17rkwPdc0SujNm8OV7hsfK3U=";
+    });
+  });
+
+  prometheus-snmp-exporter-generator = super.callPackage ./pkgs/prometheus-snmp-exporter-generator.nix {
+    prometheus-snmp-exporter = self.prometheus-snmp-exporter;
+  };
 
   defaultGemConfig = super.defaultGemConfig // {
     oxidized = (attrs: rec {

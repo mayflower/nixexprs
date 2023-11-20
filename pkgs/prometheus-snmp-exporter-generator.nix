@@ -17,8 +17,8 @@ let
   librenms_source = fetchFromGitHub {
     owner = "librenms";
     repo = "librenms";
-    rev = "2a515d308a4e7cb2226f76f6b4a662bca1cbd575";
-    sha256 = "04wal6kcp8w26nfy9353c8sivpjrj2xl1j46k2kbx076kdvmlqdp";
+    rev = "23.10.0";
+    sha256 = "sha256-IssTPxDv1AsIDtxiNGcC2AvTsq8pDHlYNR2c+fCgXlI=";
   };
 in stdenvNoCC.mkDerivation {
   name = "snmp.yml";
