@@ -71,7 +71,7 @@ self: super:
   in (super.prometheus-snmp-exporter.override {
     buildGoModule = args: super.buildGoModule.override {} (args // {
       inherit src version;
-      vendorSha256 = "sha256-tf+FIc39a5J05LHCEHs17rkwPdc0SujNm8OV7hsfK3U=";
+      vendorHash = "sha256-tf+FIc39a5J05LHCEHs17rkwPdc0SujNm8OV7hsfK3U=";
     });
   });
 
