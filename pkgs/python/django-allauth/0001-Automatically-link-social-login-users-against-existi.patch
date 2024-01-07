@@ -62,16 +62,12 @@ index 67ee677f..30a93a8c 100644
      def get_signup_form_initial_data(self, sociallogin):
          user = sociallogin.user
 diff --git a/allauth/socialaccount/helpers.py b/allauth/socialaccount/helpers.py
-index c22b71ca..cc5327b0 100644
+index eff1ca52..4ca28af5 100644
 --- a/allauth/socialaccount/helpers.py
 +++ b/allauth/socialaccount/helpers.py
-@@ -11,15 +11,30 @@ from allauth.account.utils import (
-     perform_login,
-     user_display,
-     user_username,
-+    user_email,
+@@ -16,12 +16,26 @@ from allauth.account.utils import (
  )
- from allauth.exceptions import ImmediateHttpResponse
+ from allauth.core.exceptions import ImmediateHttpResponse
  
 +from django.contrib.auth import get_user_model
 +
@@ -93,29 +89,25 @@ index c22b71ca..cc5327b0 100644
 +    return users.first()
 +
 +
- def _process_signup(request, sociallogin):
-     auto_signup = get_adapter(request).is_auto_signup_allowed(request, sociallogin)
+ def _process_auto_signup(request, sociallogin):
+     auto_signup = get_adapter().is_auto_signup_allowed(request, sociallogin)
      if not auto_signup:
-@@ -27,6 +42,19 @@ def _process_signup(request, sociallogin):
-         url = reverse("socialaccount_signup")
-         ret = HttpResponseRedirect(url)
-     else:
-+        # Does the user already exist in the database (i.e. was created via LDAP in the past?)
-+        email = user_email(sociallogin.user)
+@@ -29,6 +43,18 @@ def _process_auto_signup(request, sociallogin):
+     email = user_email(sociallogin.user)
+     # Let's check if auto_signup is really possible...
+     if email:
++        # Does the user already exist in database (i.e. was created via LDAP in the past?)
 +        if (existing_user := _find_existing_user_by_email(email)) is not None:
 +            # when a user (givenname.surname@mayflower.de) exists in the database, it
-+            # means that the user was authenticated via LDAP in the past. That means we link
-+            # the existing account with this one.
++            # means that the user was authenticated via LDAP in the past.
++            # That means we link the existing account with this one.
 +            sociallogin.connect(request, existing_user)
 +            signals.social_account_added.send(
 +                sender=SocialLogin, request=request, sociallogin=sociallogin
 +            )
++            resp = complete_social_signup(request, sociallogin)
++            return True, resp
 +
-+            return complete_social_signup(request, sociallogin)
-+
-         # Ok, auto signup it is, at least the e-mail address is ok.
-         # We still need to check the username though...
-         if account_settings.USER_MODEL_USERNAME_FIELD:
--- 
-2.40.1
-
+         assessment = assess_unique_email(email)
+         if assessment is True:
+             # Auto signup is fine.

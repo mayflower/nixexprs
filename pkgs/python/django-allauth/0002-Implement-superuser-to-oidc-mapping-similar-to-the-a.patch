@@ -18,63 +18,31 @@ replicates this behavior with OIDC authentication:
  1 file changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/allauth/socialaccount/helpers.py b/allauth/socialaccount/helpers.py
-index cc5327b0..609f4332 100644
+index eff1ca52..be2c9aa9 100644
 --- a/allauth/socialaccount/helpers.py
 +++ b/allauth/socialaccount/helpers.py
-@@ -40,7 +40,7 @@ def _process_signup(request, sociallogin):
-     if not auto_signup:
-         request.session["socialaccount_sociallogin"] = sociallogin.serialize()
-         url = reverse("socialaccount_signup")
--        ret = HttpResponseRedirect(url)
-+        ret = None, HttpResponseRedirect(url)
-     else:
-         # Does the user already exist in the database (i.e. was created via LDAP in the past?)
-         email = user_email(sociallogin.user)
-@@ -53,7 +53,7 @@ def _process_signup(request, sociallogin):
-                 sender=SocialLogin, request=request, sociallogin=sociallogin
-             )
- 
--            return complete_social_signup(request, sociallogin)
-+            return existing_user, complete_social_signup(request, sociallogin)
- 
-         # Ok, auto signup it is, at least the e-mail address is ok.
-         # We still need to check the username though...
-@@ -73,7 +73,7 @@ def _process_signup(request, sociallogin):
-                 "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
-             )
-         get_adapter(request).save_user(request, sociallogin, form=None)
--        ret = complete_social_signup(request, sociallogin)
-+        ret = None, complete_social_signup(request, sociallogin)
-     return ret
- 
- 
-@@ -195,7 +195,14 @@ def _social_login_redirect(request, sociallogin):
+@@ -203,15 +229,24 @@ def _social_login_redirect(request, sociallogin):
      return HttpResponseRedirect(next_url)
  
  
-+def _update_superuser_status(sociallogin, user):
++def _update_superuser_status(sociallogin):
++    user = _find_existing_user_by_email(user_email(sociallogin.user))
 +    is_superuser = 'admin' in sociallogin.account.extra_data.get('groups', [])
 +    user.is_superuser = is_superuser
 +    user.save()
 +
 +
  def _complete_social_login(request, sociallogin):
-+    existing_user = None
      if request.user.is_authenticated:
          get_account_adapter(request).logout(request)
      if sociallogin.is_existing:
-@@ -206,7 +213,10 @@ def _complete_social_login(request, sociallogin):
-         )
+         # Login existing user
+         ret = _login_social_account(request, sociallogin)
++        _update_superuser_status(sociallogin)
      else:
          # New social user
--        ret = _process_signup(request, sociallogin)
-+        existing_user, ret =_process_signup(request, sociallogin)
-+    if existing_user is None:
-+        existing_user = _find_existing_user_by_email(user_email(sociallogin.user))
-+    _update_superuser_status(sociallogin, existing_user)
+         ret = _process_signup(request, sociallogin)
++        _update_superuser_status(sociallogin)
      return ret
  
  
--- 
-2.40.1
-
