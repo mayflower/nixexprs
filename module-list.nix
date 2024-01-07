@@ -12,6 +12,7 @@
   modules/matrix.nix
   modules/monitoring/default.nix
   modules/opsdroid.nix
+  modules/privacyidea.nix
   modules/prometheus-federation.nix
   modules/service-overview.nix
   modules/simplesamlphp.nix

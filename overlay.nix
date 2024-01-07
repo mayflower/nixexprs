@@ -28,6 +28,7 @@ self: super:
   cachet = super.callPackage pkgs/cachet {};
   hagrid = super.callPackage pkgs/hagrid {};
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
+  privacyidea = super.callPackage pkgs/privacyidea {};
   serviceOverview = super.callPackage pkgs/service-overview { };
   simplesamlphp = super.callPackage pkgs/simplesamlphp { };
   simplesamlphp-module-privacyidea = super.callPackage pkgs/simplesamlphp/module-privacyidea.nix { };
@@ -96,14 +97,6 @@ self: super:
     mkdir -p $out/bin
     ln -vs ${super.ma1sd}/bin/ma1sd $out/bin/mxisd
   '';
-
-  privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
-    disabledTests = disabledTests ++ [ "test_03_check_subscription" ];
-    patches = patches ++ [
-      ./pkgs/privacyidea/0001-remove-subscription-check.patch
-      ./pkgs/privacyidea/add-description.patch
-    ];
-  });
 
   nixosTests = super.nixosTests // {
     wireguard-star = self.callPackage ./tests/wireguard-star.nix { };
