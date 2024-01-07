@@ -12,7 +12,7 @@ let
       socket = "/run/automx/web.socket";
       chown-socket = "automx:nginx";
       chmod-socket = 770;
-      chdir = "${uwsgi.python3.pkgs.automx}/share/automx";
+      chdir = "${uwsgi.python3.pkgs.automx2}/share/automx";
       wsgi-file = "automx_wsgi.py";
       master = true;
       processes = 4;
@@ -21,7 +21,7 @@ let
       logger = "syslog";
     };
   });
-  pythonEnv = uwsgi.python3.withPackages (ps: [ ps.automx ]);
+  pythonEnv = uwsgi.python3.withPackages (ps: [ ps.automx2 ]);
   pythonPath = "${pythonEnv}/${pythonEnv.python.sitePackages}";
 in {
   options.services.automx = {
@@ -69,7 +69,7 @@ in {
         forceSSL = true;
         enableACME = true;
         serverAliases = [ "autodiscover.${cfg.domain}" ];
-        root = "${uwsgi.python3.pkgs.automx}/share/automx/html";
+        root = "${uwsgi.python3.pkgs.automx2}/share/automx/html";
         locations."/" = {
           extraConfig = ''
             try_files $uri $uri/ index.html;

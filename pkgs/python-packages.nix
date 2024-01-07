@@ -1,5 +1,4 @@
 self: super: {
-  automx = self.callPackage ./python/automx { };
   colorhash = self.callPackage ./python/colorhash { };
   duckling = self.callPackage ./python/duckling { };
   fbmessenger = self.callPackage ./python/fbmessenger { };
