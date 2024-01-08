@@ -11,16 +11,21 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hagrid";
-  version = "2023-02-11";
+  version = "2023-12-28";
 
   src = fetchFromGitLab {
     owner = "keys.openpgp.org";
     repo = pname;
-    rev = "37d42e96d74928938706c972cf911922b67fcc5f";
-    sha256 = "sha256-LccG2xFJ1g6oBuz721aZLuq+201ZtQrxfS1HO6X8l/4=";
+    rev = "da4665306e501e35f349f9d6c84148b9ff3a0da5";
+    sha256 = "sha256-mZyRNOJuAf5I9ybzEZcZZ0smGBKHZidU57fv+kGgYLc=";
   };
 
-  cargoSha256 = "sha256-gPIx7ijEvbjn3gE3GbpzCV0NABX9qp0r6jqxFT/eU1E=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "rocket_i18n-0.5.0" = "sha256-EbUE8Z3TQBnDnptl9qWK6JvsACCgP7EXTxcA7pouYbc=";
+    };
+  };
 
   cargoBuildFlags = [ "--workspace" ];
 
