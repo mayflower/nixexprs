@@ -3,6 +3,12 @@ self: super:
 {
   python310 = super.python310.override { packageOverrides = import ./pkgs/python-packages.nix; };
 
+  python3 = super.python3.override {
+    packageOverrides = pythonSelf: pythonSuper: {
+      privacyidea-ldap-proxy = pythonSelf.callPackage ./pkgs/python/privacyidea-ldap-proxy.nix { };
+    };
+  };
+
   mailmanPackages = super.mailmanPackages.extend (_: mailmanSuper: {
     postorius = mailmanSuper.postorius.overrideAttrs ({ patches ? [], ... }: {
       patches = patches ++ [
@@ -27,7 +33,7 @@ self: super:
 
   cachet = super.callPackage pkgs/cachet {};
   hagrid = super.callPackage pkgs/hagrid {};
-  matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
+  matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager {};
   privacyidea = super.callPackage pkgs/privacyidea {};
   serviceOverview = super.callPackage pkgs/service-overview { };
   simplesamlphp = super.callPackage pkgs/simplesamlphp { };

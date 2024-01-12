@@ -101,7 +101,7 @@ let
         version = "7.1.2";
         src = old.src.override {
           inherit version;
-          hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
+          hash = "sha256-8YqIKRyw5MegnRwAO7YTCZateEFQFTH2PHpE8gTPTow=";
         };
       });
       # Now requires `lingua` as check input that requires a newer `click`,
@@ -141,9 +141,9 @@ let
         sphinxHook = null;
         sphinx-better-theme = null;
       }).overridePythonAttrs dropDocOutput;
-      hypothesis = super.hypothesis.override {
-        enableDocumentation = false;
-      };
+      #hypothesis = super.hypothesis.override {
+      #  enableDocumentation = false;
+      #};
       pyjwt = (super.pyjwt.override {
         sphinxHook = null;
         sphinx-rtd-theme = null;
