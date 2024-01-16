@@ -22,6 +22,7 @@ let
       alembic = super.alembic.overridePythonAttrs (lib.const {
         doCheck = false;
       });
+
       flask_migrate = super.flask_migrate.overridePythonAttrs (oldAttrs: rec {
         version = "2.7.0";
         src = self.fetchPypi {
@@ -44,16 +45,24 @@ let
         version = "1.0.1";
         src = old.src.override {
           inherit version;
+          pname = "Werkzeug";
           hash = "sha256-bICx5a02ZSkOo5MguR4b4eDV9gZSuWSjBwIW3oPS5Hw=";
         };
+        propagatedBuildInputs = old.propagatedBuildInputs ++ (with self; [setuptools]);
         nativeCheckInputs = old.nativeCheckInputs ++ (with self; [
           requests
         ]);
         doCheck = false;
       });
       # Required by flask-1.1
-      jinja2 = super.jinja2.overridePythonAttrs (old: rec {
+      jinja2 = (super.jinja2.override {
+        sphinxHook = null;
+        pallets-sphinx-themes = null;
+        sphinxcontrib-log-cabinet = null;
+        sphinx-issues = null;
+        } ).overridePythonAttrs (old: rec {
         version = "2.11.3";
+        doCheck = false;
         src = old.src.override {
           inherit version;
           hash = "sha256-ptWEM94K6AA0fKsfowQ867q+i6qdKeZo8cdoy4ejM8Y=";
@@ -91,8 +100,13 @@ let
         version = "1.1.4";
         src = old.src.override {
           inherit version;
+          pname = "Flask";
           hash = "sha256-D762GA04OpGG0NbtlU4AQq2fGODo3giLK0GdUmkn0ZY=";
         };
+        propagatedBuildInputs = old.propagatedBuildInputs ++ (with self; [pip]);
+
+        # Tests fail due to PEP 517 not being implemented in this version
+        doCheck = false;
       });
       sqlsoup = super.sqlsoup.overrideAttrs ({ meta ? {}, ... }: {
         meta = meta // { broken = false; };
@@ -119,10 +133,13 @@ let
       flask-babel = (super.flask-babel.override {
         sphinxHook = null;
         furo = null;
+        flask = self.flask;
+        jinja2 = self.jinja2;
       }).overridePythonAttrs (old: (dropDocOutput old) // rec {
         pname = "Flask-Babel";
         version = "2.0.0";
         format = "setuptools";
+        doCheck = false;
         src = self.fetchPypi {
           inherit pname;
           inherit version;
@@ -200,11 +217,26 @@ python3'.pkgs.buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = with python3'.pkgs; [
-    cryptography pyrad pymysql python-dateutil flask-versioned flask_script
-    defusedxml croniter flask_migrate pyjwt configobj sqlsoup pillow
-    python-gnupg passlib pyopenssl beautifulsoup4 smpplib flask-babel
-    ldap3 huey pyyaml qrcode oauth2client requests lxml cbor2 psycopg2
+    cryptography 
+    pyrad 
+    pymysql 
+    python-dateutil
+    flask-versioned
+    flask_script
+    defusedxml
+    croniter
+    flask_migrate
+    pyjwt
+    configobj
+    sqlsoup
+    pillow
+    ldap3
+    huey
+    pyyaml
+    qrcode
+    oauth2client requests lxml cbor2 psycopg2
     pydash ecdsa google-auth importlib-metadata argon2-cffi bcrypt segno
+    python-gnupg passlib pyopenssl beautifulsoup4 smpplib flask-babel
   ];
 
   #passthru.tests = { inherit (nixosTests) privacyidea; };
