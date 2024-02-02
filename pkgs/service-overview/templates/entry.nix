@@ -16,7 +16,7 @@ let
     ""               = "";
   }.${s};
 
-  toKebabCase = s: lib.toLower (lib.replaceChars [" "] ["-"] s);
+  toKebabCase = s: lib.toLower (lib.replaceStrings [" "] ["-"] s);
 in
 
 ''
