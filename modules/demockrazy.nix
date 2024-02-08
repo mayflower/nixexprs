@@ -6,12 +6,12 @@ let
   cfg = config.mayflower.demockrazy;
   pkg = pkgs.stdenv.mkDerivation rec {
     pname = "demockrazy";
-    version = "2022-07-28";
+    version = "2024-02-08";
     src = pkgs.fetchFromGitHub {
       owner = "mayflower";
       repo = "demockrazy";
-      rev = "2ba48964d9add4fdbee49afabd134849e5939184";
-      sha256 = "sha256-rqC7IpbrhqFfNl6vWm6dkjRpZN6kv+IemjQcqKC0zFk=";
+      rev = "3074dbb79c882ec999028dd2ef1b447cd0638ddc";
+      sha256 = "sha256-4MJkKwFGhOGMJ1jphtgM1H94oOdZo3ta0ucCZe/cOUs=";
     };
 
     installPhase = ''
