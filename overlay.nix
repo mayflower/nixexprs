@@ -1,7 +1,7 @@
 self: super:
 
 {
-  python310 = super.python310.override { packageOverrides = import ./pkgs/python-packages.nix; };
+  python3 = super.python3.override { packageOverrides = import ./pkgs/python-packages.nix; };
 
   mailmanPackages = super.mailmanPackages.extend (_: mailmanSuper: {
     postorius = mailmanSuper.postorius.overrideAttrs ({ patches ? [], ... }: {
