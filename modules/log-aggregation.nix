@@ -26,34 +26,6 @@ let
     enable = true;
     configuration = {
       server.http_listen_port = 3100;
-      schema_config = {
-        configs = [
-          {
-            from = "2021-08-01";
-            store = "boltdb-shipper";
-            object_store = "minio";
-            schema = "v11";
-            index = {
-              prefix = "index_";
-              period = "24h";
-            };
-          }
-        ];
-      };
-      storage_config.named_stores.aws = {
-        minio = {
-          bucketnames = "loki-data";
-          endpoint = "localhost:9000";
-          region = "us-east-1";
-          access_key_id = "\${MINIO_ACCESS_KEY}";
-          secret_access_key = "\${MINIO_SECRET_KEY}";
-          insecure = true;
-          sse_encryption = false;
-          s3forcepathstyle = true;
-          signature_version = "v4";
-          storage_class = "STANDARD";
-        };
-      };
       common = {
         path_prefix = "/var/lib/loki";
         replication_factor = 1;
@@ -173,16 +145,11 @@ in
 
     environment.systemPackages = optionals cfg.isServer [
       pkgs.grafana-loki # for logcli
-      pkgs.minio-client # for mc
     ];
 
     services = mkMerge [
       (mkIf cfg.isServer {
         loki = lokiServiceConfig;
-        minio = {
-          enable = true;
-          package = pkgs.minio_legacy_fs;
-        };
       })
       ({
         promtail = promtailServiceConfig;
@@ -193,25 +160,6 @@ in
       ({
         "wireguard-${cfg.networkName}-privatekey" = {};
       })
-      (mkIf cfg.isServer {
-        minio-env = {};
-      })
     ];
-
-    systemd = mkIf cfg.isServer {
-      services.loki.serviceConfig.EnvironmentFile = [
-        config.sops.secrets.minio-env.path
-      ];
-      services.minio.serviceConfig = {
-        StateDirectory = "minio";
-        EnvironmentFile = lib.mkForce [ # set to null by the module by default :/
-          config.sops.secrets.minio-env.path
-        ];
-      };
-      tmpfiles.rules = [
-        "d /var/lib/minio/data/loki-data 0770 minio minio -"
-        "d /var/lib/minio/data/loki-ruler 0770 minio minio -"
-      ];
-    };
   });
 }
