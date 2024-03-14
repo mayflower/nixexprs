@@ -943,8 +943,6 @@ let
     meson = ["x86_64-linux"];
     microcodeIntel = ["x86_64-linux"];
     minica = ["x86_64-linux"];
-    minio-client = ["x86_64-linux"];
-    minio_legacy_fs = ["x86_64-linux"];
     minizip = ["x86_64-linux"];
     mjpegtools = ["x86_64-linux"];
     mkpasswd = ["x86_64-linux"];
@@ -2563,7 +2561,6 @@ let
     makeInitrdNGTool = ["x86_64-linux"];
     man-db = ["x86_64-linux"];
     microcodeAmd = ["x86_64-linux"];
-    minio = ["x86_64-linux"];
     msmtp = ["x86_64-linux"];
     mypy = ["x86_64-linux"];
     nodejs = ["x86_64-linux"];
