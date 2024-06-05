@@ -126,7 +126,7 @@ in {
     description = "{{$labels.alias}} reports: {{$value}} ZFS IO errors. Drive(s) are failing.";
   };
   node_hwmon_temp = {
-    condition = excl: "node_hwmon_temp_celsius{${excl}} > node_hwmon_temp_crit_celsius{${excl}}-5";
+    condition = excl: "node_hwmon_temp_celsius{${excl}} > (node_hwmon_temp_crit_celsius{${excl}} > 0) - 5";
     time = "5m";
     summary = "{{$labels.alias}}: Sensor {{$labels.sensor}}/{{$labels.chip}} temp is high: {{$value}} ";
     description = "{{$labels.alias}} reports hwmon sensor {{$labels.sensor}}/{{$labels.chip}} temperature value is nearly critical: {{$value}}";
