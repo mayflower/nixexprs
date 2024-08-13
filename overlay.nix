@@ -28,8 +28,6 @@ self: super:
   hagrid = super.callPackage pkgs/hagrid {};
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   serviceOverview = super.callPackage pkgs/service-overview { };
-  simplesamlphp = super.callPackage pkgs/simplesamlphp { };
-  simplesamlphp-module-privacyidea = super.callPackage pkgs/simplesamlphp/module-privacyidea.nix { };
 
   # `libxcrypt` is a dependency pretty high up in the tree. So it's hard to determine
   # from where the version comes that dovecot gets linked against (i.e. if you add `libxcrypt-legacy`

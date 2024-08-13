@@ -13,7 +13,6 @@
   modules/opsdroid.nix
   modules/prometheus-federation.nix
   modules/service-overview.nix
-  modules/simplesamlphp.nix
   modules/sops-extension.nix
   modules/wireguard.nix
 ]
