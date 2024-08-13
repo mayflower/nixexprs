@@ -14,17 +14,17 @@ replicates this behavior with OIDC authentication:
   group. And depending on whether or not, the superuser flag in `auth_user`
   is true or false.
 ---
- allauth/socialaccount/helpers.py | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ allauth/socialaccount/helpers.py | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/allauth/socialaccount/helpers.py b/allauth/socialaccount/helpers.py
-index eff1ca52..be2c9aa9 100644
+index 587ad6a..00f2e18 100644
 --- a/allauth/socialaccount/helpers.py
 +++ b/allauth/socialaccount/helpers.py
-@@ -203,15 +229,24 @@ def _social_login_redirect(request, sociallogin):
+@@ -252,6 +252,13 @@ def _social_login_redirect(request, sociallogin):
      return HttpResponseRedirect(next_url)
- 
- 
+
+
 +def _update_superuser_status(sociallogin):
 +    user = _find_existing_user_by_email(user_email(sociallogin.user))
 +    is_superuser = 'admin' in sociallogin.account.extra_data.get('groups', [])
@@ -35,7 +35,8 @@ index eff1ca52..be2c9aa9 100644
  def _complete_social_login(request, sociallogin):
      if request.user.is_authenticated:
          get_account_adapter(request).logout(request)
-     if sociallogin.is_existing:
+@@ -259,9 +266,11 @@ def _complete_social_login(request, sociallogin):
+         record_authentication(request, sociallogin)
          # Login existing user
          ret = _login_social_account(request, sociallogin)
 +        _update_superuser_status(sociallogin)

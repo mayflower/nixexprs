@@ -10,10 +10,10 @@ via OIDC.
  1 file changed, 2 insertions(+)
 
 diff --git a/allauth/account/forms.py b/allauth/account/forms.py
-index 89f89a2b..840ebfe6 100644
+index 5bfe86b..b9fb343 100644
 --- a/allauth/account/forms.py
 +++ b/allauth/account/forms.py
-@@ -171,6 +171,7 @@ class LoginForm(forms.Form):
+@@ -179,6 +179,7 @@ class LoginForm(forms.Form):
          return ret
  
      def clean(self):
@@ -21,14 +21,15 @@ index 89f89a2b..840ebfe6 100644
          super(LoginForm, self).clean()
          if self._errors:
              return
-@@ -192,6 +193,7 @@ class LoginForm(forms.Form):
+@@ -200,6 +201,7 @@ class LoginForm(forms.Form):
          return self.cleaned_data
  
      def login(self, request, redirect_url=None):
 +        raise exceptions.PermissionDenied()
-         email = self.user_credentials().get("email")
-         ret = perform_login(
-             request,
+         credentials = self.user_credentials()
+         extra_data = {
+             field: credentials.get(field)
+
 -- 
 2.40.1
 
