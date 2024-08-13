@@ -58,7 +58,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Hagrid as in, \"keeper of keys\". Verifying OpenPGP keyserver, written in Rust, running on https://keys.openpgp.org";
     homepage = "https://keys.openpgp.org";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     maintainers = [ ];
   };
 }
