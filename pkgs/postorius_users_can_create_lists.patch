@@ -1,15 +1,19 @@
 diff --git a/src/postorius/templates/postorius/index.html b/src/postorius/templates/postorius/index.html
-index 0326b49..1d19194 100644
+index 8d21c85..6d3ced0 100644
 --- a/src/postorius/templates/postorius/index.html
 +++ b/src/postorius/templates/postorius/index.html
-@@ -58,10 +58,10 @@
+@@ -59,14 +59,14 @@
              </ul>
            </div>
      {% endif %}
 -    {% if user.is_superuser %}
 +    {% if user.is_authenticated %}
-       <div class="col">
-         <p class="text-right">
+       <div class="col d-flex flex-row-reverse">
+           {% comment %}
+            The span below exists only because d-flex will strech the child elements completely. So, we wrap
+            them in span so that the width the span increases but the button remains original height.
+           {% endcomment %}
+           <span>
 -            {% if domain_count < 1 %}
 +            {% if domain_count < 1 and user.is_superuser %}
                  <a class="btn btn-success" href="{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
@@ -28,7 +32,7 @@ index 4581412..be39a4b 100644
          self.assertEqual(response.status_code, 403)
  
 diff --git a/src/postorius/views/list.py b/src/postorius/views/list.py
-index 85e0d78..4c43d12 100644
+index 0fd0ee0..e99a7ae 100644
 --- a/src/postorius/views/list.py
 +++ b/src/postorius/views/list.py
 @@ -54,7 +54,6 @@ from django_mailman3.signals import (
@@ -37,9 +41,9 @@ index 85e0d78..4c43d12 100644
      list_owner_required,
 -    superuser_required,
  )
- from postorius.auth.mixins import ListOwnerMixin
+ from postorius.auth.mixins import UserShowListMembersMixin
  from postorius.forms import (
-@@ -960,7 +959,6 @@ def _get_default_style():
+@@ -973,7 +972,6 @@ def _get_default_style():
  
  
  @login_required
