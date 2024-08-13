@@ -110,14 +110,6 @@ self: super:
     ln -vs ${super.ma1sd}/bin/ma1sd $out/bin/mxisd
   '';
 
-  privacyidea = super.privacyidea.overrideAttrs ({disabledTests ? [], patches ? [], ...}: {
-    disabledTests = disabledTests ++ [ "test_03_check_subscription" ];
-    patches = patches ++ [
-      ./pkgs/privacyidea/0001-remove-subscription-check.patch
-      ./pkgs/privacyidea/add-description.patch
-    ];
-  });
-
   nixosTests = super.nixosTests // {
     wireguard-star = self.callPackage ./tests/wireguard-star.nix { };
   };
