@@ -1,7 +1,6 @@
 [
   modules/automx.nix
   modules/base.nix
-  modules/cachet.nix
   modules/copy-nixpkgs.nix
   modules/demockrazy.nix
   modules/docker-runner.nix

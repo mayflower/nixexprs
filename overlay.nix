@@ -25,7 +25,6 @@ self: super:
     };
   });
 
-  cachet = super.callPackage pkgs/cachet {};
   hagrid = super.callPackage pkgs/hagrid {};
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   serviceOverview = super.callPackage pkgs/service-overview { };
