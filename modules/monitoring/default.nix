@@ -163,7 +163,7 @@ let
 
   mountsFileSystemType = fsType: {} != filterAttrs (n: v: v.fsType == fsType) config.fileSystems;
 
-  machineSupportsFileSystemZfs = config: elem "zfs" config.boot.supportedFilesystems;
+  machineSupportsFileSystemZfs = config: config.boot.supportedFilesystems.zfs or false;
   supportsFileSystemZfs = machineSupportsFileSystemZfs config;
 
 in {
