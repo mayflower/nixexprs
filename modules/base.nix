@@ -41,7 +41,7 @@ with lib;
     };
 
     programs = {
-      bash.enableCompletion = true;
+      bash.completion.enable = true;
       ssh.startAgent = false;
       mtr.enable = true;
     };
