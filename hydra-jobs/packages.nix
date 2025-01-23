@@ -659,7 +659,6 @@ let
     iotop = ["x86_64-linux"];
     iperf = ["x86_64-linux"];
     ipmitool = ["x86_64-linux"];
-    iproute = ["x86_64-linux"];
     iptables = ["x86_64-linux"];
     iputils = ["x86_64-linux"];
     ipxe = ["x86_64-linux"];
