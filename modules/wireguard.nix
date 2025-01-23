@@ -102,15 +102,13 @@ let
     let
       endpointConf = wireguardConf.endpoint;
     in {
-      wireguardPeerConfig = {
-        PersistentKeepalive = wireguardConf.persistentKeepalive;
-        PublicKey = wireguardConf.publicKey;
-        AllowedIPs = [
-          "${wireguardConf.tunnelIPv4Address}/32"
-          "${wireguardConf.tunnelIPv6Address}/128"
-        ];
-        Endpoint = mkIf (endpointConf != null) (endpointStringFromConf endpointConf);
-      };
+      PersistentKeepalive = wireguardConf.persistentKeepalive;
+      PublicKey = wireguardConf.publicKey;
+      AllowedIPs = [
+        "${wireguardConf.tunnelIPv4Address}/32"
+        "${wireguardConf.tunnelIPv6Address}/128"
+      ];
+      Endpoint = mkIf (endpointConf != null) (endpointStringFromConf endpointConf);
     };
 
   topologies = {
@@ -209,15 +207,15 @@ let
            helper function for wireguardConfigs */
         _wireguardAddressConfigForNetwork = networkName: networkConfig: if networkConfig.isServer
           then [
-            { addressConfig = { Address = "${networkConfig.wireguard.tunnelIPv4Address}/32"; }; }
-            { addressConfig = { Address = "${networkConfig.wireguard.tunnelIPv6Address}/128"; }; }
+            { Address = "${networkConfig.wireguard.tunnelIPv4Address}/32"; }
+            { Address = "${networkConfig.wireguard.tunnelIPv6Address}/128"; }
           ]
           else let
             centralHostConfig = centralHostConfigForNetwork networkName;
             centralWGConfig = (extractConfigForNetwork centralHostConfig networkName).wireguard;
           in [
-            { addressConfig = { Address = "${networkConfig.wireguard.tunnelIPv4Address}/32"; Peer = "${centralWGConfig.tunnelIPv4Address}/32"; }; }
-            { addressConfig = { Address = "${networkConfig.wireguard.tunnelIPv6Address}/128"; Peer = "${centralWGConfig.tunnelIPv6Address}/128"; }; }
+            { Address = "${networkConfig.wireguard.tunnelIPv4Address}/32"; Peer = "${centralWGConfig.tunnelIPv4Address}/32"; }
+            { Address = "${networkConfig.wireguard.tunnelIPv6Address}/128"; Peer = "${centralWGConfig.tunnelIPv6Address}/128"; }
           ];
 
         /* generate list of route configs for wireguard interfaces for this host and this network
@@ -227,8 +225,8 @@ let
           let
             peerWGConfig = (extractConfigForNetwork peerHostConfig networkName).wireguard;
           in [
-            { routeConfig = { Destination = peerWGConfig.tunnelIPv4Address; Scope = "link"; }; }
-            { routeConfig = { Destination = peerWGConfig.tunnelIPv6Address; }; }
+            { Destination = peerWGConfig.tunnelIPv4Address; Scope = "link"; }
+            { Destination = peerWGConfig.tunnelIPv6Address; }
           ]
         ) (extractRegularHostConfigsForNetwork networkName));
 
