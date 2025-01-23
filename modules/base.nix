@@ -163,6 +163,5 @@ with lib;
     documentation.nixos.enable = false;
 
     hardware.enableAllFirmware = mkDefault false;
-    sound.enable = mkDefault false;
   };
 }
