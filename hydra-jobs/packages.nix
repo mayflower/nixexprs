@@ -1676,7 +1676,7 @@ let
     postfix = ["x86_64-linux"];
     postfixadmin = ["x86_64-linux"];
     postgresql = ["x86_64-linux"];
-    postgresql_12 = ["x86_64-linux"];
+    postgresql_13 = ["x86_64-linux"];
     postgresql_13 = ["x86_64-linux"];
     postgresql_14 = ["x86_64-linux"];
     potrace = ["x86_64-linux"];
