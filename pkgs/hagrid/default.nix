@@ -3,6 +3,7 @@
 , gettext
 , llvmPackages
 , nettle
+, openssl
 , pkg-config
 , rustPlatform
 , zsh
@@ -11,13 +12,15 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hagrid";
-  version = "2023-12-28";
+  version = "2024-11-17";
 
   src = fetchFromGitLab {
     owner = "keys.openpgp.org";
     repo = pname;
-    rev = "da4665306e501e35f349f9d6c84148b9ff3a0da5";
-    sha256 = "sha256-mZyRNOJuAf5I9ybzEZcZZ0smGBKHZidU57fv+kGgYLc=";
+    #rev = "da4665306e501e35f349f9d6c84148b9ff3a0da5";
+    rev = "44db398a1c237139647008b436ea0a294446f101";
+    #sha256 = "sha256-mZyRNOJuAf5I9ybzEZcZZ0smGBKHZidU57fv+kGgYLc=";
+    sha256 = "sha256-MnKcF/GSru2SVa8ziMa5dvHKdodCDqqx7UG4fqJS8T0=";
   };
 
   cargoLock = {
@@ -31,7 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
-  buildInputs = [ nettle ];
+  buildInputs = [ nettle openssl ];
   nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook gettext zsh ];
 
   patches = [
