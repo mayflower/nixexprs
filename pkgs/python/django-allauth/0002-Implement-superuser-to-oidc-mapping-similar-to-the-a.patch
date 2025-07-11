@@ -1,4 +1,4 @@
-From 1d1b16066fe3f75a178c9aad324b7200f0ceafa2 Mon Sep 17 00:00:00 2001
+OBFrom 1d1b16066fe3f75a178c9aad324b7200f0ceafa2 Mon Sep 17 00:00:00 2001
 From: Maximilian Bosch <maximilian.bosch@mayflower.de>
 Date: Sat, 12 Aug 2023 09:42:55 +0000
 Subject: [PATCH 2/2] Implement superuser-to-oidc mapping similar to the
@@ -14,17 +14,18 @@ replicates this behavior with OIDC authentication:
   group. And depending on whether or not, the superuser flag in `auth_user`
   is true or false.
 ---
- allauth/socialaccount/helpers.py | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ allauth/account/utils.py                      | 7 +++++++
+ allauth/socialaccount/internal/flows/login.py | 4 +++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/allauth/socialaccount/helpers.py b/allauth/socialaccount/helpers.py
-index 587ad6a..00f2e18 100644
---- a/allauth/socialaccount/helpers.py
-+++ b/allauth/socialaccount/helpers.py
-@@ -252,6 +252,13 @@ def _social_login_redirect(request, sociallogin):
-     return HttpResponseRedirect(next_url)
-
-
+diff --git a/allauth/account/utils.py b/allauth/account/utils.py
+index 0d0f6cb8..7afddb05 100644
+--- a/allauth/account/utils.py
++++ b/allauth/account/utils.py
+@@ -297,6 +297,13 @@ def filter_users_by_username(*username):
+     return ret
+ 
+ 
 +def _update_superuser_status(sociallogin):
 +    user = _find_existing_user_by_email(user_email(sociallogin.user))
 +    is_superuser = 'admin' in sociallogin.account.extra_data.get('groups', [])
@@ -32,17 +33,30 @@ index 587ad6a..00f2e18 100644
 +    user.save()
 +
 +
- def _complete_social_login(request, sociallogin):
-     if request.user.is_authenticated:
-         get_account_adapter(request).logout(request)
-@@ -259,9 +266,11 @@ def _complete_social_login(request, sociallogin):
-         record_authentication(request, sociallogin)
+ def _find_existing_user_by_email(email):
+     """Searches for an existing user by the email and returns the user model."""
+     email_field = account_settings.USER_MODEL_EMAIL_FIELD
+diff --git a/allauth/socialaccount/internal/flows/login.py b/allauth/socialaccount/internal/flows/login.py
+index df50ae6d..f85c4e94 100644
+--- a/allauth/socialaccount/internal/flows/login.py
++++ b/allauth/socialaccount/internal/flows/login.py
+@@ -3,7 +3,7 @@ from django.shortcuts import render
+ 
+ from allauth.account import app_settings as account_settings
+ from allauth.account.adapter import get_adapter as get_account_adapter
+-from allauth.account.utils import perform_login
++from allauth.account.utils import perform_login, _update_superuser_status
+ from allauth.core.exceptions import (
+     ImmediateHttpResponse,
+     SignupClosedException,
+@@ -78,9 +78,11 @@ def _authenticate(request, sociallogin):
+     if sociallogin.is_existing:
          # Login existing user
-         ret = _login_social_account(request, sociallogin)
+         ret = _login(request, sociallogin)
 +        _update_superuser_status(sociallogin)
      else:
          # New social user
-         ret = _process_signup(request, sociallogin)
+         ret = process_signup(request, sociallogin)
 +        _update_superuser_status(sociallogin)
      return ret
  

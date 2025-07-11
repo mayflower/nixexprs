@@ -21,6 +21,16 @@ self: super:
             ./pkgs/python/django-allauth/0003-Prohibit-authentication-against-local-users.patch
           ];
         });
+        django-mailman3 = pythonSuper.django-mailman3.overridePythonAttrs (old: {
+          version = "2025-02-11-git";
+          src = super.fetchFromGitLab {
+            owner = "mailman";
+            repo = "django-mailman3";
+            rev = "5d2dbadb62262223b6e3ebd000deb6a65399519a";
+            hash = "sha256-a6No0MRzPqKiOcnSJcpj0RWopo5WTqLCJKZiZQm1QgQ=";
+          };
+          meta.broken = false;
+        });
       };
     };
   });

@@ -36,23 +36,44 @@ that when a user request to change their name (e.g. after marriage),
 the entries in the DB must be fixed up manually (though it's worth
 noting that mailman's DB had to be touched in this case already).
 ---
- allauth/socialaccount/adapter.py |  3 ++-
- allauth/socialaccount/helpers.py | 25 +++++++++++++++++++++++++
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ allauth/account/utils.py                       |  9 +++++++++
+ allauth/socialaccount/adapter.py               |  3 ++-
+ allauth/socialaccount/internal/flows/signup.py | 10 +++++++++-
+ 3 files changed, 20 insertions(+), 2 deletions(-)
 
+diff --git a/allauth/account/utils.py b/allauth/account/utils.py
+index cb458e7e..0d0f6cb8 100644
+--- a/allauth/account/utils.py
++++ b/allauth/account/utils.py
+@@ -297,6 +297,15 @@ def filter_users_by_username(*username):
+     return ret
+ 
+ 
++def _find_existing_user_by_email(email):
++    """Searches for an existing user by the email and returns the user model."""
++    email_field = account_settings.USER_MODEL_EMAIL_FIELD
++    assert email_field
++    users = get_user_model().objects.filter(**{email_field + "__iexact": email})
++    assert len(users) < 2
++    return users.first()
++
++
+ def filter_users_by_email(
+     email: str, is_active: Optional[bool] = None, prefer_verified: bool = False
+ ) -> List:
 diff --git a/allauth/socialaccount/adapter.py b/allauth/socialaccount/adapter.py
-index c6f6dbd..06e1f35 100644
+index ad03076b..5fb8c515 100644
 --- a/allauth/socialaccount/adapter.py
 +++ b/allauth/socialaccount/adapter.py
-@@ -156,6 +156,7 @@ class DefaultSocialAccountAdapter(object):
-                     )
+@@ -153,6 +153,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
+         pass
  
      def is_auto_signup_allowed(self, request, sociallogin):
 +        return True
          # If email is specified, check for duplicate and if so, no auto signup.
          auto_signup = app_settings.AUTO_SIGNUP
          return auto_signup
-@@ -167,7 +168,7 @@ class DefaultSocialAccountAdapter(object):
+@@ -164,7 +165,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
          Next to simply returning True/False you can also intervene the
          regular flow by raising an ImmediateHttpResponse
          """
@@ -61,37 +82,21 @@ index c6f6dbd..06e1f35 100644
  
      def get_signup_form_initial_data(self, sociallogin):
          user = sociallogin.user
-diff --git a/allauth/socialaccount/helpers.py b/allauth/socialaccount/helpers.py
-index a2749b2..587ad6a 100644
---- a/allauth/socialaccount/helpers.py
-+++ b/allauth/socialaccount/helpers.py
-@@ -1,4 +1,5 @@
- from django.contrib import messages
-+from django.contrib.auth import get_user_model
- from django.forms import ValidationError
- from django.http import HttpResponseRedirect
- from django.shortcuts import render
-@@ -22,6 +23,18 @@ from allauth.socialaccount.models import SocialLogin
- from allauth.socialaccount.providers.base import AuthError, AuthProcess
- 
- 
-+def _find_existing_user_by_email(email):
-+    """
-+    Searches for an existing user by the email, but in contrast to `..utils.email_address_exists`
-+    this actually returns the user model.
-+    """
-+    email_field = account_settings.USER_MODEL_EMAIL_FIELD
-+    assert email_field
-+    users = get_user_model().objects.filter(**{email_field + "__iexact": email})
-+    assert len(users) < 2
-+    return users.first()
-+
-+
- def _process_auto_signup(request, sociallogin):
-     auto_signup = get_adapter().is_auto_signup_allowed(request, sociallogin)
-     if not auto_signup:
-@@ -29,6 +42,18 @@ def _process_auto_signup(request, sociallogin):
-     email = user_email(sociallogin.user)
+diff --git a/allauth/socialaccount/internal/flows/signup.py b/allauth/socialaccount/internal/flows/signup.py
+index ea34217c..cf6c47e7 100644
+--- a/allauth/socialaccount/internal/flows/signup.py
++++ b/allauth/socialaccount/internal/flows/signup.py
+@@ -7,7 +7,7 @@ from allauth.account.internal.flows.signup import (
+     complete_signup,
+     prevent_enumeration,
+ )
+-from allauth.account.utils import user_username
++from allauth.account.utils import user_username, _find_existing_user_by_email
+ from allauth.core.exceptions import SignupClosedException
+ from allauth.core.internal.httpkit import headed_redirect_response
+ from allauth.socialaccount import app_settings
+@@ -47,6 +47,14 @@ def process_auto_signup(request, sociallogin):
+         email = sociallogin.email_addresses[0].email
      # Let's check if auto_signup is really possible...
      if email:
 +        # Does the user already exist in database (i.e. was created via LDAP in the past?)
@@ -100,12 +105,8 @@ index a2749b2..587ad6a 100644
 +            # means that the user was authenticated via LDAP in the past.
 +            # That means we link the existing account with this one.
 +            sociallogin.connect(request, existing_user)
-+            signals.social_account_added.send(
-+                sender=SocialLogin, request=request, sociallogin=sociallogin
-+            )
 +            resp = complete_social_signup(request, sociallogin)
 +            return True, resp
-+
          assessment = assess_unique_email(email)
          if assessment is True:
              # Auto signup is fine.
