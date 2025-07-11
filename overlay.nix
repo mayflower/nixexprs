@@ -56,22 +56,6 @@ self: super:
     '';
   });
 
-  # https://github.com/prometheus/node_exporter/issues/2849
-  prometheus-node-exporter = let
-    version = "unstable-20240201";
-    src = super.fetchFromGitHub {
-      rev = "57de74a5f63feb222d4506afd2e8f384247fc51a";
-      owner = "prometheus";
-      repo = "node_exporter";
-      sha256 = "sha256-4Zed9joc2JfMwkQoxk32hWuPa6L6OzQfx8IcyUKh+dE=";
-    };
-  in (super.prometheus-node-exporter.override {
-    buildGoModule = args: super.buildGoModule.override {} (args // {
-      inherit src version;
-      vendorHash = "sha256-HIDfRaDoI2lrY7ru43mSipCTabLCasS77l0P6d5ltko=";
-    });
-  });
-
   prometheus-snmp-exporter = let
     version = "0.24.1";
     src = super.fetchFromGitHub {
