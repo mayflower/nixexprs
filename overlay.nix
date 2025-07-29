@@ -85,18 +85,6 @@ self: super:
     prometheus-snmp-exporter = self.prometheus-snmp-exporter;
   };
 
-  defaultGemConfig = super.defaultGemConfig // {
-    oxidized = (attrs: rec {
-      tplinkPatch = (super.fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/ytti/oxidized/pull/1443.diff";
-        sha256 = "09dyf1hnxgdxfkh9l6y63qmm1ds5wgb2d52vvrwwc0s4gl0b1yad";
-      });
-      postInstall = ''
-        patch -p1 -d $(cat $out/nix-support/gem-meta/install-path) -i ${tplinkPatch}
-      '';
-    });
-  };
-
   mxisd = super.runCommandNoCC "override-mxisd" {
     preferLocalBuild = true;
   } ''
