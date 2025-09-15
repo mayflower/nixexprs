@@ -1,0 +1,42 @@
+diff --git a/smartmon.py b/smartmon.py
+index 82e4231..dde1ffb 100644
+--- a/smartmon.py
++++ b/smartmon.py
+@@ -194,7 +194,8 @@ class Device(collections.namedtuple('DeviceBase', 'path opts')):
+ 
+     @property
+     def base_labels(self):
+-        return {'device': self.path, 'disk': self.type.partition('+')[2] or '0'}
++        disk = self.type.partition('+')[2] or self.type.partition(',')[2] or '0'
++        return {'device': self.path, 'disk': disk}
+ 
+     def smartctl_select(self):
+         return ['--device', self.type, self.path]
+@@ -224,10 +225,14 @@ def find_devices(by_id):
+     parser = argparse.ArgumentParser()
+     parser.add_argument('-d', '--device', dest='type')
+ 
+-    args = ['--scan-open']
+-    if by_id:
+-        args.extend(['-d', 'by-id'])
+-    devices = smart_ctl(*args)
++    try:
++        with open('/etc/smartmon-devices.txt', 'r', encoding='utf-8', errors='replace') as f:
++            devices = f.read()
++    except FileNotFoundError:
++        args = ['--scan-open']
++        if by_id:
++            args.extend(['-d', 'by-id'])
++        devices = smart_ctl(*args)
+ 
+     for device in devices.split('\n'):
+         device = device.strip()
+@@ -439,7 +444,7 @@ def collect_disks_smart_metrics(wakeup_disks, by_id):
+ 
+         collect_device_health_self_assessment(device)
+ 
+-        if device.type.startswith('sat'):
++        if device.type.startswith('sat') or device.type.startswith('3ware'):
+             collect_ata_metrics(device)
+             collect_ata_error_count(device)
+ 
