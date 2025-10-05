@@ -39,23 +39,7 @@ self: super:
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   serviceOverview = super.callPackage pkgs/service-overview { };
 
-  # `libxcrypt` is a dependency pretty high up in the tree. So it's hard to determine
-  # from where the version comes that dovecot gets linked against (i.e. if you add `libxcrypt-legacy`
-  # to `buildInputs` it's not sufficient for instance).
-  # Also, patching out every possible occurrence is pretty error-prone if internal structures
-  # of nixpkgs change. So instead, it's way simpler (implementation-wise, not for our Hydra)
-  # to just instantiate a new nixpkgs with `libxcrypt` supporting weak hashes.
-  #
-  # Rather than investing more energy into a potentially nicer workaround, we should fix
-  # the unterlying problem instead anyways.
-  dovecot = (import self.path {
-    inherit (self.stdenv) system;
-    overlays = [
-      (_: _: { libxcrypt = self.libxcrypt-legacy; })
-    ];
-  }).dovecot.override {
-    withPgSQL = true;
-  };
+  dovecot = super.dovecot.override { withPgSQL = true; };
   postfix = super.postfix.override { withPgSQL = true; };
 
   bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
