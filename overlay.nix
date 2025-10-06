@@ -22,6 +22,7 @@ self: super:
           ];
         });
         django-mailman3 = pythonSuper.django-mailman3.overridePythonAttrs (old: {
+          # Support/require django-allauth>=65.4.
           version = "2025-02-11-git";
           src = super.fetchFromGitLab {
             owner = "mailman";

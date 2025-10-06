@@ -51,7 +51,7 @@ index cb458e7e..0d0f6cb8 100644
  
 +def _find_existing_user_by_email(email):
 +    """Searches for an existing user by the email and returns the user model."""
-+    email_field = account_settings.USER_MODEL_EMAIL_FIELD
++    email_field = app_settings.USER_MODEL_EMAIL_FIELD
 +    assert email_field
 +    users = get_user_model().objects.filter(**{email_field + "__iexact": email})
 +    assert len(users) < 2
