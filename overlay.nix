@@ -21,6 +21,17 @@ self: super:
             ./pkgs/python/django-allauth/0003-Prohibit-authentication-against-local-users.patch
           ];
         });
+        django-mailman3 = pythonSuper.django-mailman3.overridePythonAttrs (old: {
+          # Support/require django-allauth>=65.4.
+          version = "2025-02-11-git";
+          src = super.fetchFromGitLab {
+            owner = "mailman";
+            repo = "django-mailman3";
+            rev = "5d2dbadb62262223b6e3ebd000deb6a65399519a";
+            hash = "sha256-a6No0MRzPqKiOcnSJcpj0RWopo5WTqLCJKZiZQm1QgQ=";
+          };
+          meta.broken = false;
+        });
       };
     };
   });
@@ -29,23 +40,7 @@ self: super:
   matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   serviceOverview = super.callPackage pkgs/service-overview { };
 
-  # `libxcrypt` is a dependency pretty high up in the tree. So it's hard to determine
-  # from where the version comes that dovecot gets linked against (i.e. if you add `libxcrypt-legacy`
-  # to `buildInputs` it's not sufficient for instance).
-  # Also, patching out every possible occurrence is pretty error-prone if internal structures
-  # of nixpkgs change. So instead, it's way simpler (implementation-wise, not for our Hydra)
-  # to just instantiate a new nixpkgs with `libxcrypt` supporting weak hashes.
-  #
-  # Rather than investing more energy into a potentially nicer workaround, we should fix
-  # the unterlying problem instead anyways.
-  dovecot = (import self.path {
-    inherit (self.stdenv) system;
-    overlays = [
-      (_: _: { libxcrypt = self.libxcrypt-legacy; })
-    ];
-  }).dovecot.override {
-    withPgSQL = true;
-  };
+  dovecot = super.dovecot.override { withPgSQL = true; };
   postfix = super.postfix.override { withPgSQL = true; };
 
   bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
@@ -54,22 +49,6 @@ self: super:
         'let org_name = "bitwarden_rs";' \
         'let org_name = "Mayflower GmbH";'
     '';
-  });
-
-  # https://github.com/prometheus/node_exporter/issues/2849
-  prometheus-node-exporter = let
-    version = "unstable-20240201";
-    src = super.fetchFromGitHub {
-      rev = "57de74a5f63feb222d4506afd2e8f384247fc51a";
-      owner = "prometheus";
-      repo = "node_exporter";
-      sha256 = "sha256-4Zed9joc2JfMwkQoxk32hWuPa6L6OzQfx8IcyUKh+dE=";
-    };
-  in (super.prometheus-node-exporter.override {
-    buildGoModule = args: super.buildGoModule.override {} (args // {
-      inherit src version;
-      vendorHash = "sha256-HIDfRaDoI2lrY7ru43mSipCTabLCasS77l0P6d5ltko=";
-    });
   });
 
   prometheus-snmp-exporter = let
@@ -89,18 +68,6 @@ self: super:
 
   prometheus-snmp-exporter-generator = super.callPackage ./pkgs/prometheus-snmp-exporter-generator.nix {
     prometheus-snmp-exporter = self.prometheus-snmp-exporter;
-  };
-
-  defaultGemConfig = super.defaultGemConfig // {
-    oxidized = (attrs: rec {
-      tplinkPatch = (super.fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/ytti/oxidized/pull/1443.diff";
-        sha256 = "09dyf1hnxgdxfkh9l6y63qmm1ds5wgb2d52vvrwwc0s4gl0b1yad";
-      });
-      postInstall = ''
-        patch -p1 -d $(cat $out/nix-support/gem-meta/install-path) -i ${tplinkPatch}
-      '';
-    });
   };
 
   mxisd = super.runCommandNoCC "override-mxisd" {
