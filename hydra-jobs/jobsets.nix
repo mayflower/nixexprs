@@ -66,24 +66,6 @@ let
     };
   }) jobsets;
 
-  jobsets-structured-attrs = lib.mapAttrs' (name: value: {
-    name = "structured-attrs-${name}";
-    value = lib.recursiveUpdate value {
-      inputs.nixpkgs.value = "https://github.com/mayflower/nixpkgs structured-attrs-v2";
-    };
-  }) jobsets;
-
-  jobsets-structured-attrs-compat = lib.mapAttrs' (name: value: {
-    name = "structured-attrs-compat-${name}";
-    value = lib.recursiveUpdate value {
-      inputs.config = {
-        type = "nix";
-        value = lib.generators.toPretty { } {
-          structuredAttrsByDefault = false;
-        };
-      };
-    };
-  }) jobsets-structured-attrs;
 in {
-  jobsets = pkgs.writeText "spec.json" (builtins.toJSON (jobsets // jobsets-next // jobsets-structured-attrs // jobsets-structured-attrs-compat));
+  jobsets = pkgs.writeText "spec.json" (builtins.toJSON (jobsets // jobsets-next));
 }
