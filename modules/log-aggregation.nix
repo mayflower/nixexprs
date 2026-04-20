@@ -151,7 +151,7 @@ in
       (mkIf cfg.isServer {
         loki = lokiServiceConfig;
       })
-      ({
+      (mkIf (lib.versionOlder "26.05" lib.version) {
         promtail = promtailServiceConfig;
       })
     ];
