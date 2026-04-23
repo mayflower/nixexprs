@@ -95,6 +95,61 @@ let
       ];
     };
   };
+  alloyServiceConfigFile = let
+    lokiHostname = config.mayflower.wireguard.star.${cfg.networkName}.centralPeerHostname;
+  in {
+    text = ''
+      discovery.relabel "journal" {
+        targets = []
+      
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label  = "unit"
+        }
+      
+        rule {
+          source_labels = ["__journal__hostname"]
+          target_label  = "hostname"
+        }
+      
+        rule {
+          source_labels = ["__journal_syslog_identifier"]
+          target_label  = "syslog_identifier"
+        }
+      
+        rule {
+          source_labels = ["__journal_priority"]
+          target_label  = "priority"
+        }
+      
+        rule {
+          source_labels = ["__journal__transport"]
+          target_label  = "transport"
+        }
+      }
+      
+      loki.source.journal "journal" {
+        max_age       = "12h0m0s"
+        relabel_rules = discovery.relabel.journal.rules
+        forward_to    = [loki.write.default.receiver]
+        labels        = {
+          job = "systemd-journal",
+          ${lib.concatMapAttrsStringSep "\n" (
+            name: value:
+            ''    ${name} = "${value}",''
+          ) cfg.extraStaticJobLabels}
+        }
+      }
+      
+      loki.write "default" {
+        endpoint {
+          url       = "http://${lokiHostname}:3100/loki/api/v1/push"
+          tenant_id = "mfadm"
+        }
+        external_labels = {}
+      }
+    '';
+  };
 in
 {
   options.mayflower.log-aggregation = {
@@ -154,7 +209,14 @@ in
       (mkIf (lib.versionOlder "26.05" lib.version) {
         promtail = promtailServiceConfig;
       })
+      (mkIf (lib.versionAtLeast "26.05" lib.version) {
+        alloy.enable = true;
+      })
     ];
+
+    environment.etc = lib.optionalAttrs (lib.versionAtLeast "26.05" lib.version) {
+      "alloy/config.alloy" = alloyServiceConfigFile;
+    };
 
     sops.secrets = mkMerge [
       ({
