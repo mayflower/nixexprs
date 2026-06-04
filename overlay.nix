@@ -1,9 +1,15 @@
-self: super:
+final: prev:
 
 {
-  python3 = super.python3.override { packageOverrides = import ./pkgs/python-packages.nix; };
+  python3 = prev.python3.override {
+    packageOverrides = (
+      pyFinal: pyPrev: {
+        automx = pyFinal.callPackage ./pkgs/python/automx { };
+      }
+    );
+  };
 
-  mailmanPackages = super.mailmanPackages.extend (_: mailmanSuper: {
+  mailmanPackages = prev.mailmanPackages.extend (_: mailmanSuper: {
     postorius = mailmanSuper.postorius.overrideAttrs ({ patches ? [], ... }: {
       patches = patches ++ [
         ./pkgs/postorius_users_can_create_lists.patch
@@ -24,7 +30,7 @@ self: super:
         django-mailman3 = pythonSuper.django-mailman3.overridePythonAttrs (old: {
           # Support/require django-allauth>=65.4.
           version = "2025-02-11-git";
-          src = super.fetchFromGitLab {
+          src = prev.fetchFromGitLab {
             owner = "mailman";
             repo = "django-mailman3";
             rev = "5d2dbadb62262223b6e3ebd000deb6a65399519a";
@@ -36,12 +42,12 @@ self: super:
     };
   });
 
-  serviceOverview = super.callPackage pkgs/service-overview { };
+  serviceOverview = prev.callPackage pkgs/service-overview { };
 
-  dovecot = super.dovecot.override { withPgSQL = true; };
-  postfix = super.postfix.override { withPgSQL = true; };
+  dovecot = prev.dovecot.override { withPgSQL = true; };
+  postfix = prev.postfix.override { withPgSQL = true; };
 
-  bitwarden_rs = super.bitwarden_rs.overrideAttrs (oldAttrs: {
+  bitwarden_rs = prev.bitwarden_rs.overrideAttrs (oldAttrs: {
     postPatch = (oldAttrs.postPatch or "") + ''
       substituteInPlace src/api/admin.rs --replace \
         'let org_name = "bitwarden_rs";' \
@@ -49,7 +55,7 @@ self: super:
     '';
   });
 
-  nixosTests = super.nixosTests // {
-    wireguard-star = self.callPackage ./tests/wireguard-star.nix { };
+  nixosTests = prev.nixosTests // {
+    wireguard-star = final.callPackage ./tests/wireguard-star.nix { };
   };
 }

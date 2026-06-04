@@ -2104,7 +2104,6 @@ let
     python312Packages.littleutils = ["x86_64-linux"];
     python312Packages.lxml = ["x86_64-linux"];
     python312Packages.lz4 = ["x86_64-linux"];
-    python312Packages.mailmanclient = ["x86_64-linux"];
     python312Packages.mail-parser = ["x86_64-linux"];
     python312Packages.mailsuite = ["x86_64-linux"];
     python312Packages.Mako = ["x86_64-linux"];
