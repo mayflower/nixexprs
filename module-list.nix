@@ -1,5 +1,4 @@
 [
-  modules/automx.nix
   modules/base.nix
   modules/copy-nixpkgs.nix
   modules/demockrazy.nix

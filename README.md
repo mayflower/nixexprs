@@ -58,11 +58,6 @@ nix-build --argstr nixpkgs /home/robin/dev/nixpkgs-upstream -A postfix
 
 ## Modules
 
-### services.automx
-
-Automx service to provide mail client auto configuration. To be upstreamed soon,
-but not clean enough, yet.
-
 ### mayflower.base
 
 Enabled by default. Sets a number of default options including some opinionated

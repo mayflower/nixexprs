@@ -4,7 +4,6 @@ final: prev:
   python3 = prev.python3.override {
     packageOverrides = (
       pyFinal: pyPrev: {
-        automx = pyFinal.callPackage ./pkgs/python/automx { };
       }
     );
   };
