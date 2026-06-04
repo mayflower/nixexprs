@@ -131,33 +131,6 @@ let
     ];
   };
 
-  mkSNMPConfig = { hostname, module, targets, timeout, interval ? "25s" }: let
-    to_int_seconds = string: (list: (
-      number: unit: {"s" = 1; "m" = 60; "h" = 3600;}.${unit} * (lib.toInt number))
-      (builtins.elemAt list 0) (builtins.elemAt list 1)
-    ) (builtins.match "([0-9]+)(.)" string);
-    interval_int = to_int_seconds interval;
-    interval_sec = "${toString interval_int}s";
-    timeout_int = to_int_seconds timeout;
-    timeout_sec = "${toString timeout_int}s";
-  in {
-    job_name = "snmp_${module}";
-    scrape_interval = if interval_int < timeout_int then timeout_sec else interval_sec;
-    scrape_timeout = timeout_sec;
-    metrics_path = "/snmp";
-    params.module = [module];
-    static_configs = [{
-      inherit targets;
-      labels.source = hostname;
-    }];
-    relabel_configs = [
-      { source_labels = [ "__address__" ]; target_label = "__param_target"; }
-      { source_labels = [ "__param_target" ]; target_label = "instance"; }
-      { target_label = "__address__"; replacement = "${hostname}:9116"; }
-    ];
-  };
-
-
   mountsFileSystemType = fsType: {} != filterAttrs (n: v: v.fsType == fsType) config.fileSystems;
 
   machineSupportsFileSystemZfs = config: config.boot.supportedFilesystems.zfs or false;
@@ -166,7 +139,6 @@ let
 in {
   imports = [
     ./blackbox-exporter.nix
-    ./snmp-exporter.nix
     ./smartmon-textfile.nix
     ./alerting.nix
   ];
@@ -487,13 +459,7 @@ in {
                 interval = "50s";
               }
             )]
-          )) ++
-          (forEach (attrNames cfg.snmpExporter.modules) (module: mkSNMPConfig {
-              hostname = "localhost";
-              inherit module;
-              inherit (cfg.snmpExporter.modules.${module}) targets timeout;
-            })
-          );
+          ));
         };
       }
       (mkIf cfg.server.configurePrometheusAlertmanagers {

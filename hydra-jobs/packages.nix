@@ -1030,7 +1030,6 @@ let
     neon = ["x86_64-linux"];
     netavark = ["x86_64-linux"];
     netcat-gnu = ["x86_64-linux"];
-    net-snmp = ["x86_64-linux"];
     nettle = ["x86_64-linux"];
     nettools = ["x86_64-linux"];
     nextcloud30 = ["x86_64-linux"];
@@ -1828,7 +1827,6 @@ let
     prometheus-nginx-exporter = ["x86_64-linux"];
     prometheus-node-exporter = ["x86_64-linux"];
     prometheus-postfix-exporter = ["x86_64-linux"];
-    prometheus-snmp-exporter = ["x86_64-linux"];
     prometheus-unbound-exporter = ["x86_64-linux"];
     prometheus-zfs-exporter = ["x86_64-linux"];
     promtail = ["x86_64-linux"];
@@ -2994,7 +2992,6 @@ let
     pdftk = ["x86_64-linux"];
     perf-tools = ["x86_64-linux"];
     perlPackages.NetDNS = ["x86_64-linux"];
-    perlPackages.NetSNMP = ["x86_64-linux"];
     php80Extensions.xdebug = ["x86_64-linux"];
     php81Extensions.xdebug = ["x86_64-linux"];
     pinentry = ["x86_64-linux"];
