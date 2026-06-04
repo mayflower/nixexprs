@@ -72,9 +72,6 @@ let
   mailExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.mail.enable
   ));
-  matrixSynapseHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
-    m.mayflower.matrix.enable
-  ));
   nextcloudExporterHostNames = hostNames (flip filterAttrs allHostsSameDC (_: m:
     m.services.prometheus.exporters.nextcloud.enable
   ));
@@ -448,10 +445,6 @@ in {
             mail = {
               hostNames = mailExporterHostNames;
               port = 9225;
-            };
-            synapse = {
-              hostNames = matrixSynapseHostNames;
-              port = 9092;
             };
             nextcloud = {
               hostNames = nextcloudExporterHostNames;

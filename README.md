@@ -105,11 +105,6 @@ loki instance.
 An option to pass NixOps `resources.machines` to, which is not accessible from
 the module system otherwise.
 
-### mayflower.matrix
-
-Module which aims to simplify the setup of a full-blown Matrix setup including
-Element, TURN integration and mxisd as directory service.
-
 ### mayflower.monitoring
 
 Auto-generation of prometheus targets from the config of all your machines in

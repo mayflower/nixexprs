@@ -7,7 +7,6 @@
   modules/kvm.nix
   modules/log-aggregation.nix
   modules/machines.nix
-  modules/matrix.nix
   modules/monitoring/default.nix
   modules/opsdroid.nix
   modules/prometheus-federation.nix

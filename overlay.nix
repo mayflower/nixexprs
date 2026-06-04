@@ -36,7 +36,6 @@ self: super:
     };
   });
 
-  matrix-alertmanager = super.callPackage pkgs/matrix-alertmanager { };
   serviceOverview = super.callPackage pkgs/service-overview { };
 
   dovecot = super.dovecot.override { withPgSQL = true; };
@@ -68,13 +67,6 @@ self: super:
   prometheus-snmp-exporter-generator = super.callPackage ./pkgs/prometheus-snmp-exporter-generator.nix {
     prometheus-snmp-exporter = self.prometheus-snmp-exporter;
   };
-
-  mxisd = super.runCommandNoCC "override-mxisd" {
-    preferLocalBuild = true;
-  } ''
-    mkdir -p $out/bin
-    ln -vs ${super.ma1sd}/bin/ma1sd $out/bin/mxisd
-  '';
 
   nixosTests = super.nixosTests // {
     wireguard-star = self.callPackage ./tests/wireguard-star.nix { };
