@@ -28,13 +28,14 @@ final: prev:
         });
         django-mailman3 = pythonSuper.django-mailman3.overridePythonAttrs (old: {
           # Support/require django-allauth>=65.4.
-          version = "2025-02-11-git";
+          version = "2026-05-23-git";
           src = prev.fetchFromGitLab {
             owner = "mailman";
             repo = "django-mailman3";
-            rev = "5d2dbadb62262223b6e3ebd000deb6a65399519a";
-            hash = "sha256-a6No0MRzPqKiOcnSJcpj0RWopo5WTqLCJKZiZQm1QgQ=";
+            rev = "fc5fa111d2a5dca5bbad12508a81ded5107b4462";
+            hash = "sha256-5Yh0neK/zwESEHVl0CG65XnYPON1qXb9Ytf7h20eOgA=";
           };
+          patches = [];
           meta.broken = false;
         });
       };

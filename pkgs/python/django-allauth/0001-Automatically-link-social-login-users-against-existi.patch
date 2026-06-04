@@ -42,10 +42,10 @@ noting that mailman's DB had to be touched in this case already).
  3 files changed, 20 insertions(+), 2 deletions(-)
 
 diff --git a/allauth/account/utils.py b/allauth/account/utils.py
-index cb458e7e..0d0f6cb8 100644
+index 7c7a244d..0712eb31 100644
 --- a/allauth/account/utils.py
 +++ b/allauth/account/utils.py
-@@ -297,6 +297,15 @@ def filter_users_by_username(*username):
+@@ -262,6 +262,15 @@ def filter_users_by_username(*username) -> models.QuerySet[AbstractBaseUser]:
      return ret
  
  
@@ -59,43 +59,43 @@ index cb458e7e..0d0f6cb8 100644
 +
 +
  def filter_users_by_email(
-     email: str, is_active: Optional[bool] = None, prefer_verified: bool = False
- ) -> List:
+     email: str, is_active: bool | None = None, prefer_verified: bool = False
+ ) -> list:
 diff --git a/allauth/socialaccount/adapter.py b/allauth/socialaccount/adapter.py
-index ad03076b..5fb8c515 100644
+index 7507c127..f5277558 100644
 --- a/allauth/socialaccount/adapter.py
 +++ b/allauth/socialaccount/adapter.py
-@@ -153,6 +153,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
-         pass
- 
-     def is_auto_signup_allowed(self, request, sociallogin):
-+        return True
+@@ -163,6 +163,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
+         self, request: HttpRequest, sociallogin: SocialLogin
+     ) -> bool:
          # If email is specified, check for duplicate and if so, no auto signup.
++        return True
          auto_signup = app_settings.AUTO_SIGNUP
          return auto_signup
-@@ -164,7 +165,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
+ 
+@@ -175,7 +176,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
          Next to simply returning True/False you can also intervene the
          regular flow by raising an ImmediateHttpResponse
          """
 -        return get_account_adapter(request).is_open_for_signup(request)
 +        return True
  
-     def get_signup_form_initial_data(self, sociallogin):
+     def get_signup_form_initial_data(self, sociallogin: SocialLogin) -> dict:
          user = sociallogin.user
 diff --git a/allauth/socialaccount/internal/flows/signup.py b/allauth/socialaccount/internal/flows/signup.py
-index ea34217c..cf6c47e7 100644
+index 107d257d..149146b6 100644
 --- a/allauth/socialaccount/internal/flows/signup.py
 +++ b/allauth/socialaccount/internal/flows/signup.py
-@@ -7,7 +7,7 @@ from allauth.account.internal.flows.signup import (
-     complete_signup,
-     prevent_enumeration,
- )
+@@ -7,7 +7,7 @@ from allauth.account import app_settings as account_settings
+ from allauth.account.adapter import get_adapter as get_account_adapter
+ from allauth.account.internal.flows.manage_email import assess_unique_email
+ from allauth.account.internal.flows.signup import complete_signup, prevent_enumeration
 -from allauth.account.utils import user_username
 +from allauth.account.utils import user_username, _find_existing_user_by_email
  from allauth.core.exceptions import SignupClosedException
  from allauth.core.internal.httpkit import headed_redirect_response
  from allauth.socialaccount import app_settings
-@@ -47,6 +47,14 @@ def process_auto_signup(request, sociallogin):
+@@ -58,6 +58,14 @@ def process_auto_signup_email(request: HttpRequest, sociallogin: SocialLogin):
          email = sociallogin.email_addresses[0].email
      # Let's check if auto_signup is really possible...
      if email:
