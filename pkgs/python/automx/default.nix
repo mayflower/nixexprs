@@ -1,4 +1,4 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, lxml, dateutil }:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, lxml, python-dateutil, setuptools }:
 
 buildPythonPackage rec {
   pname = "automx";
@@ -11,7 +11,10 @@ buildPythonPackage rec {
     sha256 = "1wmmsmfkrfxxxsjknj2bd80abfq5agrgfby8k3mfk4j2d6hizxj9";
   };
 
-  propagatedBuildInputs = [ lxml dateutil ];
+  propagatedBuildInputs = [ lxml python-dateutil ];
+
+  pyproject = true;
+  build-system = [ setuptools ];
 
   # no tests
   doCheck = false;

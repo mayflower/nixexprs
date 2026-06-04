@@ -323,7 +323,6 @@ let
     gupnp-igd = ["x86_64-linux"];
     gvproxy = ["x86_64-linux"];
     gzip = ["x86_64-linux"];
-    hagrid = ["x86_64-linux"];
     happy = ["x86_64-linux"];
     harfbuzz = ["x86_64-linux"];
     haskellPackages.adjunctions = ["x86_64-linux"];

@@ -91,10 +91,6 @@ is open source and mostly needs some polishing up prior to upstreaming this as
 A litte abstraction for docker gitlab runners. Not too interesting probably if
 you don't actually want our defaults and not worth upstreaming.
 
-### mayflower.hagrid
-
-Minimal module to self-host Hagrid, an open-source PGP keyserver.
-
 ### mayflower.kvm
 
 Some defaults for kvm guests.

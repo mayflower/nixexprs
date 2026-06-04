@@ -4,7 +4,6 @@
   modules/copy-nixpkgs.nix
   modules/demockrazy.nix
   modules/docker-runner.nix
-  modules/hagrid.nix
   modules/kvm.nix
   modules/log-aggregation.nix
   modules/machines.nix

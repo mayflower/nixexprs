@@ -3,12 +3,12 @@
 let
   prometheus-community-scripts = pkgs.stdenv.mkDerivation {
     pname = "prometheus-community-scripts";
-    version = "2025-09-28";
+    version = "2026-02-04";
     src = pkgs.fetchFromGitHub {
       owner  = "prometheus-community";
       repo   = "node-exporter-textfile-collector-scripts";
-      rev    = "7ef6216b1acced3e1bd6bca9165586981deeaaff";
-      sha256 = "sha256-UcmQSJf20HHJa87RJ+Kc4OVK88VgjYAFKftV37wu5oQ=";
+      rev    = "76a66171683889a3cb43f1b8fe6cf5d5067ff927";
+      sha256 = "sha256-QpJ642wE17MOhY8rHzU4s5DEInbWk5WlhuHTyIqtb1A=";
     };
     patches = [ ./smartmon-textfile-3ware.patch ];
     installPhase = ''
@@ -20,7 +20,7 @@ let
   smartmon-script = "${prometheus-community-scripts}/smartmon.py";
   metrics-file = "/run/prometheus-node-exporter/prometheus_smartmon.prom";
   prometheus-group = config.systemd.services.prometheus-node-exporter.serviceConfig.Group;
-  python = (pkgs.python3.withPackages(ps: [ps.prometheus_client])).interpreter;
+  python = (pkgs.python3.withPackages(ps: [ps.prometheus-client])).interpreter;
 in
 {
   config = lib.mkIf (!config.boot.isContainer && !config.mayflower.kvm.enable) {
