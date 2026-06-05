@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.mayflower.serviceOverview;
-  services = fold mergeAttrs {} (mapAttrsToList (_: c:
+  services = foldr mergeAttrs {} (mapAttrsToList (_: c:
     c.mayflower.serviceOverview.services
   ) config.mayflower.machines);
 in

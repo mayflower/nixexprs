@@ -16,11 +16,11 @@ let
   # All hosts in the same datacenter as this host
   allMachinesSameDC = optionalAttrs (cfg.datacenter != null) (
     flip filterAttrs config.mayflower.machines (_: v: cfg.datacenter == v.mayflower.monitoring.datacenter));
-  allHostsSameDC = fold mergeAttrs allMachinesSameDC (mapAttrsToList (_: machine: containersOfMachine machine) allMachinesSameDC);
+  allHostsSameDC = foldr mergeAttrs allMachinesSameDC (mapAttrsToList (_: machine: containersOfMachine machine) allMachinesSameDC);
   allHostNamesSameDC = hostNames allHostsSameDC;
 
   allMachines = config.mayflower.machines;
-  allHosts = fold mergeAttrs allMachines (mapAttrsToList (_: machine: containersOfMachine machine) allMachines);
+  allHosts = foldr mergeAttrs allMachines (mapAttrsToList (_: machine: containersOfMachine machine) allMachines);
   allHostNames = hostNames allHosts;
 
   alertmanagerHostNames = hostNames (flip filterAttrs allHosts (_: m:
